@@ -1,0 +1,25 @@
+# $Id: mfDefs.version,v 1.7 2008/07/18 15:26:30 gutleber Exp $
+
+#########################################################################
+# XDAQ Components for Distributed Data Acquisition                      #
+# Copyright (C) 2000-2009, CERN.			                #
+# All rights reserved.                                                  #
+# Authors: J. Gutleber and L. Orsini					#
+#                                                                       #
+# For the licensing terms see LICENSE.		                        #
+# For the list of contributors see CREDITS.   			        #
+#########################################################################
+
+CORETOOLS_VERSION_LIST = 3.9.0
+
+comma:= ,
+empty:=
+space:=$(empty) $(empty)
+extract_last_version=$(word $(words $(subst $(comma),$(space),$(1))),$(subst $(comma),$(space),$(1)))
+VersionNumberDotNotation=$(call extract_last_version,$(CORETOOLS_VERSION_LIST))
+VersionNumberDecimalNotation =$(shell $(XDAQ_ROOT)/config/convertVersionToNumber.sh $(VersionNumberDotNotation))
+UnameRelease = $(shell uname -r)
+OSVersion = $(shell $(XDAQ_ROOT)/config/convertVersionToNumber.sh $(UnameRelease))
+#PackageVersionList = OS_VERSION_CODE=$(OSVersion) CORETOOLS_VERSION_CODE=$(VersionNumberDecimalNotation)
+PackageVersionList = OS_VERSION_CODE=$(OSVersion) 
+

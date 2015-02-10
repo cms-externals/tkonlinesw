@@ -1,0 +1,61 @@
+* FEDv1 Address Table  JAC 12.08.03  (added more address on 16/2/04 M. Pearson)
+*************************************************************************************
+*  key                  AM  width    address       mask    read write   description
+*************************************************************************************
+ARGUMENT                09    4      00000000    ffffffff    1    1     Argument data block
+*
+ARGUMENT_BLT            0B    4      00000000    ffffffff    1    1     Argument data block in block transfer
+*                                                                       SERIAL_BRAM : Serial Command Block RAM start (2 KBytes)
+WRITE                   09    4      00000800    ffffffff    0    1     Write trigger block
+*                                                                       SERIAL_WR_CTRL : Serial Command Write ctrl
+READ                    09    4      00000804    ffffffff    0    1     Read trigger block
+*                                                                       SERIAL_RD_CTRL : Serial Command read ctrl
+STATUS_SERIAL           09    4      0000080C    ffffffff    1    1     ffffffff if free, o if busy.
+*
+FED_BOARD_SPECIFIER     09    4      00000810    ffffffff    1    0     should read 0x00000FED if we have a FED here.
+*
+VLINK_SW_RST            09    4      00000814    ffffffff    0    1     just writing to this register will reset the V-Link block only, including counters.
+SYS_RST_INHIBIT         09    4      00000818    ffffffff    0    1     inhibits the vme from receiving a sys reset from the vme bus, is reset to enable after reset.
+*
+ROUT_BUF_LEN            09    4      00000820    ffffffff    1    0     Event Fragment Length in Readout Buffer (in 32 bit words)
+*                                                                       (only valid when ROUT_BUF_RDY is set)
+ROUT_EVT_CTR            09    4      00000824    ffffffff    1    0     Event Number (1st event = 1)
+ROUT_EVT_LEN            09    4      00000828    ffffffff    1    0     Total Event Length in Readout Buffer (in 32 bit words)
+*                                                                       (only valid when ROUT_BUF_LAST is set)
+ROUT_CSR                09    4      0000082c    00000003    1    1     Readut Control/Status :
+*        bit 0/ buffer rdy = 1 means buffer to read ; clear for next buffer  ;  bit 1 = last fragment
+*
+FIRMWARE_ID             09    4      00000830    ffffffff    1    0     Firmware version in VME FPGA
+CLOCK_SEL               09    4      00000834    00000007    1    1     Clock Select : Bit 0 = On board crystal ; Bit 1 = TTC ; Bit 2 = Backplane
+*                                                                       (NB writing to this has side effect of doing same action as FED_RESET!)
+FED_RESET               09    4      00000838    ffffffff    1    1     Writing anything to register resets FED
+VME_STATUS              09    4      0000083c    ffffffff    1    0     VME status, bits to be defined
+*
+TTC_CLK_CTR             09    4      00000840    00000fff    1    0     12 bit counter on TTC clock
+BP_CLK_CTR              09    4      00000844    00000fff    1    0     12 bit counter on Backplane clock
+TTC_DCM_RESET           09    4      00000848    ffffffff    0    1     Reset for the TTC and the back-plane DCMs
+*
+EXT_READ_LSB            09    4      00000850    ffffffff    0    1     Where the read commands go long LSB
+EXT_READ_MSB            09    4      00000854    ffffffff    0    1     Where the read commands go long LSB
+*
+EPROM_WRITE             09    4      00000860    000fffff    0    1     Data write to EPROM. [0-7] data to EPROM, [8-18] register address, [19] 1=read 0=write
+EPROM_READ              09    4      00000864    000003ff    1    0     Data read from EPROM. [0-7] data from EPROM, [8] I2C busy, [9] I2C Error
+*
+LM82_CONTROL            09    4      00000868    0001ffff    0    1     Data write to the VME LM82. [0-7] data to LM82, [8-15] register address, [16] 1=read 0=write
+LM82_STATUS             09    4      0000086C    000003ff    1    0     Data read from the LM82. [0-7] data from LM82, [8] I2C busy, [9] I2C Error
+*
+V_MON_CONTROL           09    4      00000870    0001ffff    0    1     Data write to the voltage monitor control. [0-7] data to LM82, [8-15] register address, [16] 1=read 0=write.
+V_MON_STATUS            09    4      00000874    000003ff    1    0     Data read from the voltage monitor control. [0-7] data from LM82, [8] I2C busy, [9] I2C Error.
+*
+SYS_ACE_CONTROL         09    4      00000880    ffffffff    1    1     See System ACE documentation for details. 0x880 to 0x8ff. Control/Status Registers.
+SYS_ACE_DATA            09    4      00000900    ffffffff    1    1     See System ACE documentation for details. 0x900 to 0x97f. Data buffer area.
+*
+RAM_SERIAL              09    4      00001000    ffffffff    1    1     RAM containing serial data and results (6K bytes space, 0x1000 to 0x27ff).
+*
+ROUT_BRAM               09    4      00008000    ffffffff    1    1     READOUT_BRAM : Event Readout Buffer Block RAM start (single reads) (32 KBytes). 0x8000 to 0xffff.
+ROUT_BRAM_BLT           0B    4      00008000    ffffffff    1    1     READOUT_BRAM : same for Block Transfer. 0x8000 to 0xffff.
+*
+MAX_ADDRESS             09    4      0000ffff    ffffffff    1    1
+MAX_ADDRESS_BLT         0B    4      0000ffff    ffffffff    1    1
+*************************************************************************************
+

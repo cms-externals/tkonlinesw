@@ -1,0 +1,109 @@
+# $Id: mfAutoconf.rules,v 1.9 2008/07/18 15:26:30 gutleber Exp $
+
+#########################################################################
+# XDAQ Components for Distributed Data Acquisition                      #
+# Copyright (C) 2000-2009, CERN.			                #
+# All rights reserved.                                                  #
+# Authors: J. Gutleber and L. Orsini					#
+#                                                                       #
+# For the licensing terms see LICENSE.		                        #
+# For the list of contributors see CREDITS.   			        #
+#########################################################################
+
+##
+#
+# Xdaq mfAutoconf.rules
+#
+# Tries to guess the variable values when they're not defined
+#
+##
+
+ifndef XDAQ_ROOT
+ifndef XDAQ_BACK_TO_ROOT
+fail: 
+	@echo XDAQ_BACK_TO_ROOT should be defined either in the shell or by the calling makefile
+	@echo build impossible. Please define XDAQ_BACK_TO_ROOT in the main makefile.
+else
+XDAQ_ROOT:=$(shell pwd)/$(XDAQ_BACK_TO_ROOT)
+endif
+else
+endif
+
+ifndef BUILD_HOME
+BUILD_HOME=$(XDAQ_ROOT)
+endif
+
+xdaq_root_message := \$(shell echo In Makefile.fallbacks: guessing/checking values 1>&2 )
+$(shell echo XDAQ_ROOT=\"$(XDAQ_ROOT)\" 1>&2)
+
+# The OS is not set in environment. We assume we are not cross-compiling, and try
+# to guess the OS
+ifndef XDAQ_OS
+ifeq ($(shell uname -s),Linux)
+XDAQ_OS:=linux
+endif
+
+ifeq ($(shell uname -s),Darwin)
+XDAQ_OS:=macosx
+endif
+
+message_xdaq_os := $(shell echo Guessed undefined XDAQ_OS to \"$(XDAQ_OS)\" 1>&2)
+else
+message_xdaq_os := $(shell echo XDAQ_OS already set to \"$(XDAQ_OS)\" 1>&2)
+endif
+
+ifndef XDAQ_OS
+clean build install: fail
+fail: 
+        @echo XDAQ_OS should be defined either in the shell or by the calling Makefile
+        @echo Build impossible. Failed guessing it. Please define XDAQ_OS
+endif 
+
+# The plateform is not set. Let's guess it
+ifndef XDAQ_PLATFORM
+ifneq (,$(findstring $(shell uname -m),i386 i486 i586 i686))
+XDAQ_PLATFORM:=x86
+endif
+
+ifneq (,$(findstring $(shell uname -m),x86_64))
+XDAQ_PLATFORM:=x86_64
+endif
+
+ifneq (,$(findstring $(shell uname -m),Power Macintosh))
+XDAQ_PLATFORM:=ppc
+endif
+
+XDAQ_PLATFORM:=$(XDAQ_PLATFORM)_$(shell $(XDAQ_ROOT)/config/checkos.sh)
+
+else
+
+message_xdaq_platform := \
+	$(shell echo  XDAQ_PLATFORM already set to \"$(XDAQ_PLATFORM)\" 1>&2)
+endif
+
+
+ifndef XDAQ_PLATFORM
+clean build install: fail
+fail: 
+	@echo XDAQ_PLATFORM should be defined either in the shell or by the calling Makefile
+	@echo Build impossible. Failed guessing it. Please define XDAQ_PLATFORM
+else 
+
+message_xdaq_platform := \
+	$(shell echo Guessed undefined XDAQ_PLATFORM to \"$(XDAQ_PLATFORM)\" 1>&2)
+endif 
+
+ifndef BUILD_HOME
+BUILD_HOME:=$(XDAQ_ROOT)
+endif
+
+ifndef INSTALL_PREFIX
+INSTALL_PREFIX          = $(BUILD_HOME)
+endif
+
+
+export XDAQ_ROOT
+export XDAQ_OS
+export XDAQ_PLATFORM
+export BUILD_HOME
+export INSTALL_PREFIX

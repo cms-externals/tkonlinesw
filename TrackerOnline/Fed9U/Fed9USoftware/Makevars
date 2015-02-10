@@ -1,0 +1,229 @@
+#FileName:   Makevars
+#Content:    Common Makefile settings (based on UltimateCorrinFulcherMakefile (TM))
+#Programmer: Emlyn Corrin, Jonathan Fulcher
+#Version:    3.1.0
+#Support:    mail to : jr.fulcher@imperial.ac.uk
+
+
+
+ARCHITECTURE=linux
+BSP=x86
+
+# Compiler/linker programs
+TOOL = g++
+# co-ldewizard
+# insure -Zsl
+# g++
+DEP = g++ -M
+CC  = gcc
+CXX = $(TOOL)
+LD  = $(TOOL)
+SO  = $(TOOL)
+AR  = ar
+
+# Flags/Settings for compilers/linkers
+CUSTOM_INCLUDES = 
+HALINCLUDES = \
+	$(ENV_CMS_TK_FED9U_HAL_GENERIC_INCDIR) \
+	$(ENV_CMS_TK_FED9U_HAL_BUSADAPTOR_INCDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_INCDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_INCDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_INCDIR)
+XDAQINCLUDES = \
+	$(ENV_CMS_TK_FED9U_XERCES_INCDIR) \
+	$(ENV_CMS_TK_FED9U_DEVICE_FACTORY_INCDIR) \
+	$(ENV_CMS_TK_FED9U_DATABASE_INCDIR) \
+	$(ENV_CMS_TK_FED9U_ORACLE_INCDIR) 
+#	-I${ENV_CMS_TK_FED9U_ORACLE_ROOT}/rdbms/public                                
+#	-I${ENV_CMS_TK_FED9U_ORACLE_ROOT}/plsql/pulic                                 \
+#	-I${ENV_CMS_TK_FED9U_ORACLE_ROOT}/include \
+#	-I${ENV_CMS_TK_FED9U_ORACLE_ROOT}/rdbms/demo                                  \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/itools/packages/xdaq-shell/include/	    \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/itools/packages/i2o/include/              \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/itools/packages/i2o/include/i2o/shared/   \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include/                          \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include/$(ARCHITECTURE)/          \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/Auxiliary/xerces${ARCHITECTURE}${BSP}/include \
+#	-I$(ENV_CMS_TK_FED9U_XERCES_ROOT)/src/                                              \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/Auxiliary/i2o/include/i2o/                    \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/xdaq/include/                             \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/xoap/include                              \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/evbim/include/			     \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include/solaris/		     \
+#	-I/project/xdaq/TrackerColumn/include/			     \
+#	-I$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/DeviceDriver/includes/                       \
+#	-I$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/generic/include/                              \
+#	-I$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/FecPciDeviceDriver/include/                              \
+# 	-I$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/FecSupervisor/include/                        \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/log4cplus/linuxx86/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/Tracker/Interface/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/xerces/linux/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/log4cplus/linux/x86/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/xdaq/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include/linux \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/include/solaris \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/xoap/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/i2o/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/i2o/include/i2o \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/i2o/include/i2o/shared \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/itools/packages/xdaq-shell/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/itools/packages/fedkit/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/evbim/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/Tracker/FedPmc/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/log4cplus/linuxx86/include \
+
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/xerces/linuxx86/include \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/xerces/linuxx86/include/xercesc \
+#	-I$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/xerces/${ARCHITECTURE}${BSP}/include \
+
+
+
+CPPFLAGS += $(ENV_CMS_TK_FED9U_ROOT_INCDIR) -I$(INC) $(CUSTOM_INCLUDES)   \
+        $(XDAQINCLUDES) $(HALINCLUDES)     \
+	-I../Fed9UNonStd/include/  -I../Fed9UUtils/include/  -I../Fed9UDeviceFactory/include \
+	$(ENV_CMS_TK_FED9U_ICUTILS_INCDIR)				\
+	-I../Fed9UVmeBase/include/ -I../Fed9UVmeDevice/include/ \
+	-I../Fed9UDevice/include/ -I../Fed9UBuildDefines/include/       \
+	-Dlinux -DLINUX     -DLITTLE_ENDIAN__    -DCPU=x86  -Dx86  -std=c++0x  \
+	-DSOAP__  -DCMS_TK_64BITS  $(ENV_CMS_TK_FED9U_DATABASE_C++FLAGS) -DEVENT_STREAMLINE #-DINLINE  $(ENV_CMS_TK_FED9U_HAL_C++FLAGS) 
+# -Dtoolbox don't know what this did... so removed it... was breaking the compile for the diag
+
+NONSTDFLAGS += -pipe -W -O2 -fPIC
+ifeq ($(ENV_CMS_TK_FED9U_RELEASE),1)
+NONSTDFLAGS += -DNDEBUG
+else
+NONSTDFLAGS += -g -DDEBUGMSGERROR
+endif
+
+CCFLAGS += -ansi -pedantic -fPIC -Wall -Wno-long-long -std=c++0x $(NONSTDFLAGS)
+CXXFLAGS += $(CCFLAGS) $(CPPFLAGS)
+ARFLAGS += cr
+SOFLAGS += -shared
+
+CUSTOM_LIBS += 
+SHARED_LIBS +=
+
+LIBS += $(ENV_CMS_TK_FED9U_HAL_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_XERCES_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_ROOT_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_ICUTILS_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_ORACLE_LIBDIR) \
+	$(ENV_CMS_TK_FED9U_DATABASE_LIBDIR) \
+	-L../Fed9UNonStd/ \
+	-L../Fed9UUtils/ \
+	-L../Fed9UDeviceFactory/ \
+	-L../Fed9UDevice/ \
+	-L../Fed9UVmeBase/ \
+	-L../Fed9UVmeDevice/ \
+	-lm \
+	$(CUSTOM_LIBS)
+#	-L$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/extern/log4cplus/linuxx86/lib/ \
+#	-L$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/lib/linux/x86/               \
+#	-L$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/toolbox/lib/linux/x86 \
+#	-L$(ENV_CMS_TK_FED9U_DAQ_ROOT)/TriDAS/daq/xdaq/lib/linux/x86 \
+#	-L$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/   \
+#	-L$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/instantclient/10.1.0.2/cel3-i386_gcc323/lib/   \
+#	-L$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/rdbms/lib/   \
+#	-L$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/generic/lib/linux/x86 \
+#	-L/usr/local/qt/lib/ \
+#	-L/usr/lib/qt-3.1/lib \
+
+
+BUS_ADAPTOR_ERROR=1
+ifeq ($(LINKTOHAL),1)
+ifeq ($(ENV_CMS_TK_FED9U_HALBUS_DUMMY),1)
+  CPPFLAGS += -DBUILD_DUMMY -DDUMMY_BUS
+  LIBS += -lVMEDummyBusAdapter
+  BUS_ADAPTOR_ERROR=0
+endif
+ifeq ($(ENV_CMS_TK_FED9U_HALBUS_SBS),1)
+  CPPFLAGS += -DBUILD_SBS620 -DSBS_BUS -DBT1003
+  LIBS += -lSBSLinuxX86BusAdapter -lbtp
+  BUS_ADAPTOR_ERROR=0
+endif
+ifeq ($(ENV_CMS_TK_FED9U_HALBUS_VXI),1)
+  CPPFLAGS += -DBUILD_NIVXI -DMXI2_BUS -DVXILINUX
+  LIBS += -lMXI2LinuxX86BusAdapter -lnivxi
+  BUS_ADAPTOR_ERROR=0
+endif
+
+ifeq ($(ENV_CMS_TK_FED9U_HALVER),ver-03-06)
+
+  ifeq ($(ENV_CMS_TK_FED9U_HALBUS_CAEN_PCI),1)
+    CPPFLAGS += -DBUILD_CAEN_PCI -DCAEN_BUS
+    LIBS += -lCAEN2718LinuxPCIBusAdapter -lCAENVME
+    BUS_ADAPTOR_ERROR=0
+  endif
+  ifeq ($(ENV_CMS_TK_FED9U_HALBUS_CAEN_USB),1)
+    CPPFLAGS += -DBUILD_CAEN_USB -DCAEN_BUS
+    LIBS += -lCAEN1718LinuxUSBBusAdapter -lCAENVME
+    BUS_ADAPTOR_ERROR=0
+  endif
+
+else
+
+  ifeq ($(ENV_CMS_TK_FED9U_HALBUS_CAEN_PCI),1)
+    CPPFLAGS += -DBUILD_CAEN_PCI -DCAEN_BUS
+    LIBS += -lCAENLinuxBusAdapter -lCAENVME
+    BUS_ADAPTOR_ERROR=0
+  endif
+  ifeq ($(ENV_CMS_TK_FED9U_HALBUS_CAEN_USB),1)
+    CPPFLAGS += -DBUILD_CAEN_USB -DCAEN_BUS
+    LIBS += -lCAENLinuxBusAdapter -lCAENVME
+    BUS_ADAPTOR_ERROR=0
+  endif
+
+endif
+
+ifeq ($(BUS_ADAPTOR_ERROR),1) 
+  $(error Error: invalid or missing bus adapter: BUS_ADAPTOR_ERROR='$(BUS_ADAPTOR_ERROR)' ENV_CMS_TK_FED9U_HALBUS_DUMMY/SBS/VXI/CAEN, you must define at least one bus adaptor)
+endif
+endif
+
+ifeq ($(DATABASE),1)
+  CPPFLAGS += -DDATABASE
+endif
+
+
+
+ifeq ($(ENV_CMS_TK_FED9U_XERCES_VERSION),2)
+  CPPFLAGS += -DXERCES=2
+  LIBS += -lxerces-c
+
+else
+  CPPFLAGS += -DXERCES=1 -D_XERCES_VERSION=1
+
+  LIBS += -lxerces-c1_6_0
+
+endif
+
+ CPPFLAGS += -DFED9U_XDAQ_VERSION=$(ENV_CMS_TK_XDAQ_VERSION)
+
+
+ifeq ($(ENV_CMS_TK_FED9U_USING_DATABASE),1)
+    CPPFLAGS += -DDATABASE -DCPPFLAG_CMS_TK_FED9U_DATABASE #-DDATABASEDEBUG
+endif
+
+LIBDEPS = $(wildcard ../Fed9U*/lib*.a)
+EXEDEPS = $(wildcard ../Fed9U*/lib*.so)
+
+# Directories for source/header/temporary files
+SRC = src
+INC = include
+OBJ = obj
+#BIN = . # for target files?
+
+COMSOURCES = $(wildcard $(SRC)/*.cc) $(wildcard $(SRC)/*.c)
+EXESOURCES = $(wildcard $(SRC)/*.cxx)
+ALLSOURCES = $(COMSOURCES) $(EXESOURCES)
+COMOBJECTS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(wildcard $(SRC)/*.c)) \
+             $(patsubst $(SRC)/%.cc, $(OBJ)/%.o, $(wildcard $(SRC)/*.cc)) \
+	     $(CUSTOMOBJECTS)
+EXEOBJECTS = $(patsubst $(SRC)/%.cxx, $(OBJ)/%.o, $(EXESOURCES))
+ALLOBJECTS = $(COMOBJECTS) $(EXEOBJECTS)
+EXETARGETS = $(patsubst $(SRC)/%.cxx, %.exe, $(EXESOURCES))
+

@@ -1,0 +1,73 @@
+
+#FileName : 		Makefile
+#Content :		Fed9USoftware Release Makefile
+#Programmer : 		Jonathan Fulcher : Emlyn Corrin
+#Version : 		3.0.0
+#Support : 		mail to : jr.fulcher@imperial.ac.uk
+
+MAKE=gmake
+
+STDOUT_FILE=std_output.log
+
+include Makefile.in
+include Makevars
+
+.PHONY: default all force forceall clearlog clean cleandeps            \
+	Fed9UStandAlone	 Fed9UDeviceFactory 			       \
+	Fed9UDevice Fed9UVMEDevice Fed9UVMEBase Fed9UUtils Fed9UNonStd \
+
+default: clearlog Fed9UStandAlone
+
+all: default
+
+force: clean default
+
+forceall: clean all
+
+clearlog:
+	@rm -fv $(STDOUT_FILE)
+
+clean: clearlog
+	@$(MAKE) -C Fed9UNonStd         clean
+	@$(MAKE) -C Fed9UUtils          clean
+	@$(MAKE) -C Fed9UVMEBase        clean
+	@$(MAKE) -C Fed9UVMEDevice      clean
+	@$(MAKE) -C Fed9UDevice         clean
+	@$(MAKE) -C Fed9UDeviceFactory  clean
+	@$(MAKE) -C Fed9UStandAlone     clean
+
+cleandeps:
+	@rm -vf Fed9U*/obj/*.d
+
+Fed9UStandAlone: Fed9UDevice
+	@if [ -d $@ ] ; then $(MAKE) -C Fed9UStandAlone ; fi
+#          >> $(STDOUT_FILE)
+
+Fed9UDocumentation:
+	@if [ -d $@ ] ; then $(MAKE) -C Fed9UDocumentation ; fi
+#       >> $(STDOUT_FILE)
+
+Fed9UDevice: Fed9UVMEDevice
+	@if [ -d $@ ] ; then $(MAKE) -C Fed9UDevice ; fi
+#              >> $(STDOUT_FILE)
+
+Fed9UVMEDevice: Fed9UVMEBase
+	@if [ -d $@ ] ; then $(MAKE) -C Fed9UVMEDevice ; fi
+#           >> $(STDOUT_FILE)
+
+Fed9UVMEBase: Fed9UDeviceFactory
+	@if [ -d $@ ] ; then $(MAKE) -C Fed9UVMEBase ; fi
+#             >> $(STDOUT_FILE)
+
+Fed9UDeviceFactory: Fed9UUtils
+	@$(MAKE) -C Fed9UDeviceFactory
+#             >> $(STDOUT_FILE)
+
+Fed9UUtils: Fed9UNonStd
+	@$(MAKE) -C Fed9UUtils
+#               >> $(STDOUT_FILE)
+
+Fed9UNonStd:
+	@$(MAKE) -C Fed9UNonStd
+#              >> $(STDOUT_FILE)
+

@@ -1,0 +1,425 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>Fed9UDebug</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>Fed9UDebug</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>888</width>
+            <height>753</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>CMS Tracker FED</string>
+    </property>
+    <widget class="QTabWidget">
+        <property name="name">
+            <cstring>mainTabs</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>30</y>
+                <width>860</width>
+                <height>670</height>
+            </rect>
+        </property>
+        <widget class="QWidget">
+            <property name="name">
+                <cstring>tab</cstring>
+            </property>
+            <attribute name="title">
+                <string>Edit Descriptions and Fed Registers</string>
+            </attribute>
+            <widget class="Fed9UDescriptionInterface">
+                <property name="name">
+                    <cstring>fed9UDescriptionInterface</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>-3</x>
+                        <y>1</y>
+                        <width>850</width>
+                        <height>640</height>
+                    </rect>
+                </property>
+            </widget>
+        </widget>
+        <widget class="QWidget">
+            <property name="name">
+                <cstring>tab</cstring>
+            </property>
+            <attribute name="title">
+                <string>Crate Setup</string>
+            </attribute>
+            <widget class="QTextBrowser">
+                <property name="name">
+                    <cstring>crateDisplay</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>478</x>
+                        <y>11</y>
+                        <width>360</width>
+                        <height>620</height>
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QListBox">
+                <property name="name">
+                    <cstring>availableFeds</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>10</x>
+                        <y>50</y>
+                        <width>101</width>
+                        <height>390</height>
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QListBox">
+                <property name="name">
+                    <cstring>mapToFed</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>170</x>
+                        <y>50</y>
+                        <width>101</width>
+                        <height>391</height>
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel1_2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>180</x>
+                        <y>20</y>
+                        <width>101</width>
+                        <height>21</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Map to FED</string>
+                </property>
+            </widget>
+            <widget class="QPushButton">
+                <property name="name">
+                    <cstring>detectFeds</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>330</x>
+                        <y>20</y>
+                        <width>130</width>
+                        <height>40</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Detect Feds in Crate</string>
+                </property>
+            </widget>
+            <widget class="QPushButton">
+                <property name="name">
+                    <cstring>addFed</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>120</x>
+                        <y>60</y>
+                        <width>41</width>
+                        <height>20</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>&gt;&gt;</string>
+                </property>
+            </widget>
+            <widget class="QPushButton">
+                <property name="name">
+                    <cstring>removeFed</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>120</x>
+                        <y>100</y>
+                        <width>41</width>
+                        <height>20</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>&lt;&lt;</string>
+                </property>
+            </widget>
+        </widget>
+    </widget>
+    <widget class="QComboBox">
+        <property name="name">
+            <cstring>activeFedAbc</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>200</x>
+                <y>0</y>
+                <width>100</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Active Fed Description or Device</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>activeFedAbcLabel</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>-5</y>
+                <width>160</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Active Fed or Description</string>
+        </property>
+    </widget>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>menubar</cstring>
+    </property>
+    <item text="&amp;File" name="fileMenu">
+        <action name="fileNewAction"/>
+        <action name="fileOpenAction"/>
+        <action name="fileSaveAction"/>
+        <action name="fileSaveAsAction"/>
+        <separator/>
+        <separator/>
+        <action name="fileExitAction"/>
+    </item>
+</menubar>
+<toolbars>
+</toolbars>
+<customwidgets>
+    <customwidget>
+        <class>Fed9UDescriptionInterface</class>
+        <header location="local">fed9udescriptioninterface.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>fileNewAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image1</iconset>
+        </property>
+        <property name="text">
+            <string>New</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;New</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+N</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileOpenAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image2</iconset>
+        </property>
+        <property name="text">
+            <string>Open</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Open...</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+O</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileSaveAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image3</iconset>
+        </property>
+        <property name="text">
+            <string>Save</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Save</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+S</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileSaveAsAction</cstring>
+        </property>
+        <property name="text">
+            <string>Save As</string>
+        </property>
+        <property name="menuText">
+            <string>Save &amp;As...</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>filePrintAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image4</iconset>
+        </property>
+        <property name="text">
+            <string>Print</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Print...</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+P</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileExitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Exit</string>
+        </property>
+        <property name="menuText">
+            <string>E&amp;xit</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+</actions>
+<images>
+    <image name="image0">
+        <data format="PNG" length="919">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000035e49444154789cad9431681b5718c77f0a1a3e838727d0700f6cb8336e88a0856a08d40e81c8e04574714b8612baa4782a2da4d99a786adca14b07d378723d18dcc1a0d11d9c584323abd052195a7421153a430cef0d07f70681df207087736c2badddc50f8ee3c177bff7fb3efef70afd577d18024598ba3e75cc15ac7eb75f28b4f65a68a559db583b9ebb3d479cc4e0a1dbeb4291d3432f7abbd4912409ed5fdb23f0a22e6ba6ae4f1d3fdf7e4e1018d4b4c2a41daaf325b2a1418f6b4c6ad0658d140d1435c961be3745831e6adabf25942685ed2d7f0636a901204e6254a8e8f4d6c84820f144dab31b0bd60ad9a187b2502ac2cc4d4fa7074a41db41189d74f1b631001e8ceb20249039a24961774711b71dcd672e2f0040086f08f716155115c2b2c7a6104e8c82afbd31eef6ba9424c3648e480b8d9fe0e93796e6338f8850793fa0fa41401008072f3dcb0f2d8d758f1b08510036bdc05897351909d124ecee089bab16f0d43e0da8df112aef812d7ad450d3583f6273d5b2bd61a9de08915a89a0ecfedbd8a4062d90bc169a5b79ebb50f03ee7d22542a0e3b7088153657333e5b1ce3fe8300107e587108ff636c5c025e885f3a9452d41784a0ecb0455043c5d2d79e78df911978fc5d89f6cf796db3ad882e9ab1490d5a41fc97073c3a142a15b003504eb1f4a523de772825d4ef0ad9f088ca4dc9bf3df0985446c1e78d454097f3826802ac78c42b96bef2c4fbf98122302663b961f104361474f912638ae08b79a4f67ef7285fa2b1c5a9691028ac753c7964d8dd2961e23c827a7a0c73d98c93c38499194f180a07079ec6c611f71f4464c6f3f15d0119e3c923b0078ee5cf13bcf72825546b47e0fc08f85f337603a82f2a0036572d8df584c7df9608aa30339ff1703942050ae71cde7be61602aad35c6e6c48506598ad025f289eae587efcded26e0ab5db821d80f9dbe0ed99dd1f4d47fb85269a10cefecef377452fa60eb4530895677641f041c8f64a9e8678ffcc4629a1be10b2d77438ef5102716f7414a7c6c9eb8476078277f2b007139e7a4df868be4af397045cde6ef5dd083d93509d86e60b4d301e60d398f8cf5170a1b5d7e2d6ecad6380ea1d416b907160008c03c393fd50deba8f3d322eb814e28ec7588fb3e7c8fd577d80e3ab7e4e5371d5eb9a2e6bfadd7ee1cac16f8c5b7bad2b83f7bbfdc23f1a3ab88dfcb947980000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="287">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000000e649444154789ced943daa02411084bf1103d9d053b8a060a77a2623cf61e41d4c3c87a6f302cfb1c10aad81d0268e3fbb3a3beac24b6c688662e8aaa2a619b454b450b45436db0d6de12b082760295d9dabf1d494c06205988cc5008b39eff89d478682df79e89254f92847c642d6cfac3a1f70578602276e9729c4831c190800d3c9d4b45017e6035fa7aa9452f3d99ce3e91875eeb4d407a5ac9f5da27c5ece39cc8cc3fec062b9a0478fd57a85fff368a12e987cba154d8ff7aa6b5b71ff9a4dc431c1c63dfe94f89ee7ed8c63d97f9571aae35fc6bf8cff3be34f3b9a715bb8f61fb785cf00fe15ef3fa10d350000000049454e44ae426082</data>
+    </image>
+    <image name="image2">
+        <data format="PNG" length="326">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000010d49444154789cc555310e0221109cbd5c65e13f4cb4e01f567ec75818e3d3b89642137f6141b19509162c2728879c2191844cf6806176803db065f09dc196a1078d567167ae06e8017335506b85567173a5211e3fd6220017f7dc385bc62c256151a24c3688379ded315ba6f7713d6862cbb4582e1c426be571ce9e249d38ad5f3d8f6c81730ece378fb9c9b95eca4488dd07f937fc961989621141d54804f09d293e483c301eec7f1413117e6dbd8769d2d311501bc05c64f6a31c1ff69eb1f330417a9645378f40390ea47ad02456b453aa074d6aad52c52d9486dbd1058f13a52b51028fa578bb4b49432d09e6be94ae444905be93c6f7b81b491b291d1f0b2aeb42ae176bc5dc3f482d3e017dd20ed03509c0610000000049454e44ae426082</data>
+    </image>
+    <image name="image3">
+        <data format="PNG" length="392">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000014f49444154789cad943d6ac34010853f193536a972863406bb50caf80aa972a320741d57bec26e65bc45046a7206155b4c110c9b425afd448bb5723c20968778b38f6f8741ac20b52056505af1288dd20ac03df2132b205600dce988cb8be687d2ca891527b538b132abdb664e6af17e56a63400982fc8b60090ed324c692005539a590d74dafb83896392ba1fd7e9098a5ac689bb1a24abbe2bd64feb49527dd6bd06f24fc88bdebfca7659137fdff7f54db8c2ebee954b79e9b46f36d421ff2c637dd66c5fb6f38cfff8ef663cd401ff3ce3a8e908f867198798c6304e478cf6cdeb1ede0e2ca9bce8fd9e713abcd1546df3a27908532d385b3f0057a68cfdebdeab3de360e2f78f452400381dfbc4c1391edd7ca3fc8a6cb7e3648e57a1c431359a0e2219c7d4e2395e9278d1ae5892f8d6ae48c40a5c61f3bc71712d6f9758497ac62928ad12b192fcf7f4fd7e01baae40ccd4b9c07f0000000049454e44ae426082</data>
+    </image>
+    <image name="image4">
+        <data format="PNG" length="791">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000002de49444154789c9554416b134114feb6f6a0d042057b08786840c1400a7d410f825e7a2d78f360a007b727291ea47f40108f9ed45b5391423d089ed2f550d94a701bb12623246d3c7521948d07892184a184c0e761334b364d243e183ebe7df3de7eefcdcc836e6be8a6866e6b78071e0c0fea01bd038fec92d424bb64a95ca26e6beaa6a66e6b7a071e837a60782c3e222390241904c148d45a93244f4e4ecc4f62f1e7940ef09832a3dcf061ff70fc58c579271f4b62ca363cefe419d4030eec8bc55bbaad811e8069405515242d400f6c755af04f7dc387fd114f5e4d626e66ce1af64fa9aa8a0519ee9ffa485e4d629cdff072b53cd26fe9b61ea5847d2563951adeafcc1af68feb71acb7ffc27e8fcfe519751b9077f2e12d98c04adf4adccc6d9a838df20df7983bef77d86ab4b0fb6917005056e591e8fb3e00a0785884fbd9c5cabd15e4dee4e87e7139dc636e6d6f6121b180fde23ee48640fd5423d1ffe54352025553b87cf13272db39c8a2606b5b416e02eb8fd6a31e7333b749926c369bd18b22c9a3e3a37358ea9668976d96ba611b644928081700ca9230967452130a41502864977cf6fc19e5a610263184e141fd8769ad69d3a65068d38ebe6f3cd988270eea4158e6c01433658fb3a3e3236a8643c84c3dafe011407f092f24af259f661633287c2d6076661685af055cc22594ab65747e77e0ec39c01962383f3b8f4ab582ceef0e3eec7ec0fcec3c726f73503f14004090c0942c86cf3293cec0d973904967a06a0a892b09a89a822cca4834fedbb76ec32dbac8a43330a6a030a52a0a89b9049c3d0792920855454d84c5c32224d59f197dcbae6643c58d5663acb27198ba9e425115233ea838fb208b695551f8d3fa03d50b839c8f0e300d344e1b58bebb1cf1b3b3b398c241e50022c5af5ebfc2f29d65cb0aea015fbc7c0177df85fa0ed8abfdcdd3007a08154dc8d71eaec15eb52df400cb3bf0206981fbc5e5cebb1dd42a354c62e60600802c09d61faf237b3f6b9991fa178f2e269df1f5394d0000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>fileNewAction</sender>
+        <signal>activated()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>fileNew()</slot>
+    </connection>
+    <connection>
+        <sender>filePrintAction</sender>
+        <signal>activated()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>filePrint()</slot>
+    </connection>
+    <connection>
+        <sender>fileExitAction</sender>
+        <signal>activated()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>fileExit()</slot>
+    </connection>
+    <connection>
+        <sender>activeFedAbc</sender>
+        <signal>activated(int)</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>activeFedAbc_activated(int)</slot>
+    </connection>
+    <connection>
+        <sender>detectFeds</sender>
+        <signal>clicked()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>detectFeds_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>addFed</sender>
+        <signal>clicked()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>addFed_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>removeFed</sender>
+        <signal>clicked()</signal>
+        <receiver>Fed9UDebug</receiver>
+        <slot>removeFed_clicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">qmessagebox.h</include>
+    <include location="local" impldecl="in declaration">Fed9UUtils.hh</include>
+    <include location="local" impldecl="in declaration">fstream</include>
+    <include location="local" impldecl="in declaration">qfiledialog.h</include>
+    <include location="local" impldecl="in declaration">Fed9ULib.hh</include>
+    <include location="local" impldecl="in declaration">ICExDecl.hh</include>
+    <include location="local" impldecl="in declaration">Fed9UDeviceFactory.hh</include>
+    <include location="local" impldecl="in implementation">fed9udebug.ui.h</include>
+</includes>
+<forwards>
+    <forward>using namespace Fed9U;</forward>
+    <forward>using namespace std;</forward>
+</forwards>
+<variables>
+    <variable access="private">Fed9U::Fed9UCrateStatusProbe crateStatus;</variable>
+    <variable access="private">Fed9U::Fed9UGuiAbcMap fedAbcMap;</variable>
+    <variable access="private">QString filename;</variable>
+</variables>
+<slots>
+    <slot>fileNew()</slot>
+    <slot>filePrint()</slot>
+    <slot>fileExit()</slot>
+    <slot>activeFedAbc_activated( int update )</slot>
+    <slot>detectFeds_clicked()</slot>
+    <slot>addFed_clicked()</slot>
+    <slot>removeFed_clicked()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual">destroy()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>fed9udescriptioninterface.h</includehint>
+</includehints>
+</UI>

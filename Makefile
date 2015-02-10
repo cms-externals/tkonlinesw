@@ -1,0 +1,119 @@
+LIB_DEST=/raid/development/trackerDAQ-4.0-tkonline/opt/trackerDAQ/lib
+BIN_DEST=/raid/development/trackerDAQ-4.0-tkonline/opt/trackerDAQ/bin
+INCLUDE_DEST=/raid/development/trackerDAQ-4.0-tkonline/opt/trackerDAQ/include
+CONFIG_DEST=/raid/development/trackerDAQ-4.0-tkonline/opt/trackerDAQ/config
+GWT_DEST=/raid/development/trackerDAQ-4.0-tkonline/opt/trackerDAQ/gwtapplets
+
+all:
+	make -C ./DiagSystem tools
+	make -C ./TrackerOnline/2005/TrackerCommon/ICUtils
+	#cd ./TrackerOnline/2005 && tar xzf hardware.tgz && cd - # Only needed for GenericTSCSupervisor 
+	#make -C ./TrackerOnline/2005/hardware/tracker           # Only needed for GenericTSCSupervisor 
+	#make -C ./TrackerOnline/2005/TrackerCommon/Analysis all
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware Fed9UUtils
+	make -C ./FecSoftwareV3_0 Generic
+	make -C ./FecSoftwareV3_0 LIB_DEST=lib install
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware 
+	make -C ./DiagSystem modules
+	make -C ./DiagSystem LIB_DEST=tools/lib install
+	make -C ./TrackerOnline/APVe all
+	make -C ./FecSoftwareV3_0 tracker
+	make -C ./FecSoftwareV3_0 LIB_DEST=lib install
+	make -C ./FecSoftwareV3_0 install
+	cd ./TrackerOnline/2005/TrackerXdaq && ./buildall && cd -
+#	make -C ./TrackerOnline/LAS
+
+export LIB_DEST BIN_DEST INCLUDE_DEST CONFIG_DEST
+install:
+	# config file only for now
+	make -C ./DiagSystem install 
+	make -C ./FecSoftwareV3_0 install
+	make -C ./FecSoftwareV3_0/ThirdParty/DeviceFactoryTemplate install
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware install
+	make -C ./TrackerOnline/2005/TrackerCommon/ICUtils install
+	make -C ./TrackerOnline/2005/TrackerXdaq install
+	make -C ./TrackerOnline/LAS install
+	make -C ./TrackerOnline/APVe install 
+
+	# libraries and executables
+	#cp ./TrackerOnline/2005/hardware/tracker/lib/libdaq.so $(LIB_DEST)
+	cp ./TrackerOnline/2005/TrackerCommon/Analysis/libTBEvent.so $(LIB_DEST)
+	cp ./FecSoftwareV3_0/$(XDAQ_PLATFORM)/bin/*.exe $(BIN_DEST)
+	cp ./TTCConfig/*txt $(CONFIG_DEST)
+
+	# headers
+	cp -f ./TrackerOnline/2005/TrackerCommon/Interface/include/*.h* $(INCLUDE_DEST)
+
+	# Google Web Toolkit applets:
+	tar -xf DiagSystem/gwtapplets/logReader.tar -C opt/trackerDAQ/gwtapplets
+	tar -xf TrackerOnline/gwtapplets/AppConfig.tar -C opt/trackerDAQ/gwtapplets
+
+cmssw:
+	make -C ./TrackerOnline/2005/TrackerCommon/ICUtils
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware Fed9UUtils
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware Fed9UDeviceFactory
+	make -C ./FecSoftwareV3_0/generic -f Makefile.tkonlinesw  Library=DeviceDescriptions
+
+cmsswinstall:
+	# Selected libraries
+	make -C ./TrackerOnline/2005/TrackerCommon/ICUtils install
+	cp ./TrackerOnline/Fed9U/Fed9USoftware/Fed9UUtils/libFed9UUtils.so $(LIB_DEST)
+	cp ./TrackerOnline/Fed9U/Fed9USoftware/Fed9UDeviceFactory/libFed9UDeviceFactory.so $(LIB_DEST)
+	make -C ./FecSoftwareV3_0 install
+	# ALL Headers
+	cp -f ./TrackerOnline/Fed9U/Fed9USoftware/Fed9UUtils/include/*.h* $(INCLUDE_DEST)
+	cp -f ./TrackerOnline/Fed9U/Fed9USoftware/Fed9UDeviceFactory/include/*h* $(INCLUDE_DEST)
+	cp -f ./TrackerOnline/2005/TrackerCommon/Interface/include/*.h* $(INCLUDE_DEST)
+
+
+clean:
+#	make -C ./DiagSystem clean
+	#make -C ./TrackerOnline/2005/TrackerCommon/ICUtils clean   # does not work
+	#make -C ./TrackerOnline/2005/TrackerCommon/Analysis clean  # does not work
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware clean
+	make -C ./FecSoftwareV3_0 clean
+#	make -C ./TrackerOnline/LAS clean
+#	cd ./TrackerOnline/2005/TrackerXdaq && ./cleanall && cd -
+#	find ./DiagSystem/tools/lib -name "*.so" -exec rm -f {} \;
+	find ./FecSoftwareV3_0/lib -name "*.so" -exec rm -f {} \;
+#	find ./FecSoftwareV3_0/ -name "*.o" -exec rm -f {} \;
+	find ./TrackerOnline/Fed9U/Fed9USoftware -name "*.so" -exec rm -f {} \;	
+#	find ./TrackerOnline/2005/TrackerXdaq -name "*.so" -exec rm -f {} \;	
+#	find ./TrackerOnline/2005/TrackerXdaq -name "*.o" -exec rm -f {} \;	
+#	find ./TrackerOnline/2005/TrackerCommon -name "*.so" -exec rm -f {} \;
+#	find ./TrackerOnline/2005/TrackerCommon -name "*.o" -exec rm -f {} \;
+#	find ./TrackerOnline/2005/hardware -name "*.so" -exec rm -f {} \;
+#	find ./TrackerOnline/2005/hardware -name "*.o" -exec rm -f {} \;
+#	find ./LAS -name "*.so" -exec rm -f {} \;
+#	find ./LAS -name "*.o" -exec rm -f {} \;
+	find ./ -name "*.d" -exec rm -f {} \;
+#	rm -f ./DiagSystem/DiagHeader.linux
+#	rm -f ./FecSoftwareV3_0/FecHeader.linux
+#	rm -f ./TrackerOnline/Fed9U/Fed9USoftware/Makefile.in
+#	rm -f ./TrackerOnline/2005/TrackerXdaq/Makefile
+
+
+optclean:
+	rm -f ./opt/trackerDAQ/lib/*
+	rm -f ./opt/trackerDAQ/bin/*
+	rm -f ./opt/trackerDAQ/include/*
+
+realclean: optclean
+	find ./ -name "*.o" -exec rm -f {} \;
+	find ./ -name "*.d" -exec rm -f {} \;
+	find ./ -name "*.a" -exec rm -f {} \;
+	find ./ -name "*.so" -exec rm -f {} \;
+
+
+netinstall:
+	./opt/trackerDAQ/bin/network_install.sh
+
+
+cleanmake:
+	rm -f FecSoftwareV3_0/FecHeader.linux
+	rm -f DiagSystem/DiagHeader.linux
+	rm -f TrackerOnline/Fed9U/Fed9USoftware/Makefile.in
+	rm -f TrackerOnline/2005/TrackerXdaq/Makefile
+	rm -f TrackerOnline/2005/TrackerCommon/Analysis/makefile
+	rm -f TrackerOnline/APVe/Config/ApveConfig
+	# rm -f LAS/Makefile # do not do this

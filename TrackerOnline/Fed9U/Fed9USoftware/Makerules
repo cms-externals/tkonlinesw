@@ -1,0 +1,69 @@
+.PHONY: default force clean cleano
+
+default: $(TARGET) $(EXETARGETS)
+
+force: cleano cleandeps default
+
+test:
+	@echo $(LIBDEPS)
+
+clean: cleano cleandeps
+	@rm -fv *~
+	@rm -fv #*#
+	@rm -fv */*~
+	@rm -fv */#*#
+
+cleano:
+	@rm -fv $(TARGET) $(EXETARGETS)
+	@rm -fv $(OBJ)/*.o
+
+cleandeps:
+	@rm -fv $(OBJ)/*.d
+
+halbus: $(OBJ) $(OBJ)/HALBUS_$(ENV_CMS_TK_FED9U_HALBUS)
+	@echo "**** Using bus adapter: ENV_CMS_TK_FED9U_HALBUS=$(ENV_CMS_TK_FED9U_HALBUS)"
+
+$(OBJ):
+	mkdir $(OBJ)
+
+$(OBJ)/HALBUS_$(ENV_CMS_TK_FED9U_HALBUS):
+	@echo "**** Detected change in ENV_CMS_TK_FED9U_HALBUS variable, forcing a rebuild"
+	@rm -f $(OBJ)/HALBUS_* $(OBJ)/*.o
+	@touch $@
+
+$(TARGET): $(COMOBJECTS)
+
+lib%.a: $(OBJ)/%.o
+	@echo "**** Linking   $@ from $^"
+	@$(AR) $(ARFLAGS) $@ $(COMOBJECTS)
+
+lib%.so: $(LIBDEPS)
+	@echo "**** Linking   $@ from $^"
+	$(SO) $(SOFLAGS) -o $@ $(COMOBJECTS) $(LIBS)
+
+%.exe:  $(OBJ)/%.o
+	@echo "**** Linking   $@ from $<, $(COMOBJECTS)"
+	$(CXX) -o $@ $< $(COMOBJECTS) $(LDFLAGS) $(LIBS) $(SHARED_LIBS)
+
+$(OBJ)/%.o: $(SRC)/%.c
+	@echo "**** Compiling $@ from $<"
+	$(CC) -o $@ $< -c $(CPPFLAGS) $(CFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cc
+	@echo "**** Compiling $@ from $<"
+	$(CXX) -o $@ $< -c $(CPPFLAGS) $(CXXFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cxx
+	@echo "**** Compiling $@ from $<"
+	$(CXX) -o $@ $< -c $(CPPFLAGS) $(CXXFLAGS)
+
+$(OBJ)/%.d: $(SRC)/%.cc
+	@echo "**** Creating  $@"
+	$(DEP) $< $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' >> $@
+
+$(OBJ)/%.d: $(SRC)/%.cxx
+	@echo "**** Creating  $@"
+	@echo $(patsubst $(OBJ)/%.d, %.exe, $@): $(patsubst %.d, %.o, $@) $(COMOBJECTS) $(LIBDEPS) >> $@
+	$(CXX) $< -M $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' >> $@
+
+-include $(ALLOBJECTS:.o=.d)

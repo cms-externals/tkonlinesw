@@ -1,0 +1,227 @@
+###############################################################################
+#  Fed9USoftware Makefile.in build environment                                #
+#									      #
+#  The following paths need to be changed if you have installed the packages  #
+#  concerned in other locations than those indicated here                     #
+#  Please adjust the path to the installations of the drivers which           #
+#  you need (do not worry about those which you will NOT need)                #
+#                                                                             #
+###############################################################################
+
+# in case you have already defined an environment variable or in case this 
+# makefile is included by another makefile the variable XDAQ_ROOT should 
+# already be set to a correct value.
+# The ?= directive does not work correctly with the $(shell ...) directive 
+# in all gmake versions.
+
+ifndef ENV_CMS_TK_FED9U_ROOT
+ifdef PWD
+  export ENV_CMS_TK_FED9U_ROOT = $(PWD)
+else
+  export ENV_CMS_TK_FED9U_ROOT = $(shell /bin/pwd)
+endif
+endif
+
+# The following set of variables must be set before you can build the FED software
+# Some of the variables are required and others are optional
+
+##############################################################################################
+# VARIABLES
+##############################################################################################
+export ENV_CMS_TK_FED9U_XDAQ_VERSION =
+
+export ENV_CMS_TK_FED9U_GCC_VERSION = 3.2
+
+# You must provide the root directory of the ICUtils library here
+
+export ENV_CMS_TK_FED9U_ICUTILS_ROOT =
+
+# You must provide the root directory of TriDAS here
+
+export ENV_CMS_TK_FED9U_TRIDAS_ROOT =
+
+# You must provide the root directory of the HAL here
+
+export ENV_CMS_TK_FED9U_HAL_ROOT =
+export ENV_CMS_TK_FED9U_HALVER =
+
+# You must provide the root directory of ROOT here if you want to build support for the debug root tools
+# if you leave this blank support will not be built
+
+export ENV_CMS_TK_FED9U_ROOT_ROOT =
+
+
+# If you want to build support for the Tracker Online DATABASE you must set the location of the library
+# for the DbFedAccess here, you must also set the location of the lib for ORACLE
+
+export ENV_CMS_TK_FED9U_DATABASE_ROOT =
+export ENV_CMS_TK_FED9U_ORACLE_ROOT =
+
+# If you are using the Fed Software in conjunction with the CMS Tracker Online DAQ Software then you should
+# set the following to the installation of the DAQ software sometimes this is set in the environment as
+# the DAQBASE variable, this should be the location of folders such as TriDAS Tracker etc...
+
+export ENV_CMS_TK_FED9U_DAQ_ROOT =
+
+# In case the Fed9USoftware is installed in an XDAQ environment the support of XDAQ
+# can be requested by setting the value of this variable to "yes"
+
+export ENV_CMS_TK_FED9U_XDAQ_SUPPORT =
+
+# The following two variables you need to adjust in order to get XML support. The
+# necessary XERCES package you can download from http://xml.apache.org or from
+# the cms XDAQ web pages.
+
+export ENV_CMS_TK_FED9U_XERCES_ROOT =
+export ENV_CMS_TK_FED9U_XERCES_VERSION =
+
+# Paths for the drivers needed by the BusAdapters. If you do NOT use one of 
+# the drivers/BusAdapters below YOU MUST leave the directory paths empty!!!
+
+
+# if you want to test software using a dummy bus adaptor you must set the following to 1
+export ENV_CMS_TK_FED9U_HALBUS_DUMMY =
+
+# If you want to access VME crates via the CAEN USB or PCI - to VME interface (V1718) (V2718)
+# with a Linux PC you must have installed the CAEN software. Give the 
+# installationdirectory here. The installation directory is the directory
+# where you untared the CAEN software. If these remain blank then no support will be built.
+# for the CAEN, you have two options you can run wtih USB or PCI Support or both. you must
+# set the value of ENV_CMS_TK_FED9U_HALBUS_CAEN_USB to 1 if you want USB and 
+# ENV_CMS_TK_FED9U_HALBUS_CAEN_PCI tp 1 if you want PCI
+
+export ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_ROOT = 
+export ENV_CMS_TK_FED9U_HALBUS_CAEN_USB =
+export ENV_CMS_TK_FED9U_HALBUS_CAEN_PCI =
+
+# If you want to access VME crates via the SBS PC - to VME interface 
+# with a Linux PC you must have installed the SBS driver. Give the 
+# installationdirectory here. (Model 620 and similar) again state if you want to build support by 
+# setting HALBUS_SBS to yes
+
+export ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_ROOT =
+export ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_VERSION =
+
+# If you have the MXI2 PC to VME interface from National you need to have 
+# the corresponding driver installed. Give here the directory. and set ENV_CMS_TK_FED9U_HALBUS_VXI
+# to yes if you want to build support
+
+export ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_ROOT =
+
+# If you are building a release version with minimal debugging set this to 1
+
+export ENV_CMS_TK_FED9U_RELEASE = 0
+
+###############################################################################
+#									      #
+# It is unlikely that you have to change something below this point.          #
+#                                                                             #
+###############################################################################
+
+# we always need to build with the device factory since it's our only method for file or DB input / output.
+
+export ENV_CMS_TK_FED9U_DEVICE_FACTORY_ROOT = $(ENV_CMS_TK_FEC_ROOT)
+
+# if we are building with xdaq 3 then we don't need to build the supervisor cause it's included in the DAQ software bundle
+ifeq ($(ENV_CMS_TK_FED9U_XDAQ_VERSION),3) 
+  export ENV_CMS_TK_FED9U_SUPERVISOR =
+else
+  export ENV_CMS_TK_FED9U_SUPERVISOR = Fed9USupervisor
+endif
+
+
+ifdef ENV_CMS_TK_FED9U_XDAQ_VERSION
+  export ENV_CMS_TK_FED9U_XDAQ_BUILD=1
+else
+  export ENV_CMS_TK_FED9U_XDAQ_BUILD=0
+endif
+
+# if we are building with xdaq 3 then we don't need to build the supervisor cause it's included in the DAQ software bundle
+ifeq ($(ENV_CMS_TK_FED9U_XDAQ_VERSION),3) 
+  export ENV_CMS_TK_FED9U_SUPERVISOR =
+else
+  export ENV_CMS_TK_FED9U_SUPERVISOR = Fed9USupervisor
+endif
+
+ifdef ENV_CMS_TK_FED9U_XERCES_ROOT
+  export ENV_CMS_TK_FED9U_XERCES_LIBDIR = -L$(ENV_CMS_TK_FED9U_XERCES_ROOT)/lib
+  export ENV_CMS_TK_FED9U_XERCES_INCDIR = -I$(ENV_CMS_TK_FED9U_XERCES_ROOT)/include -I$(ENV_CMS_TK_FED9U_XERCES_ROOT)/include/xercesc
+  export ENV_CMS_TK_FED9U_XERCES_LIBRARY = -lxerces-c
+endif
+
+ifdef ENV_CMS_TK_FED9U_HALBUS_DUMMY
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_DUMMY_LIBRARY = -lVMEDummyBusAdapter
+endif
+
+ifdef ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_ROOT
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_LIBDIR  = -L$(ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_ROOT)/Linux/lib
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_INCDIR  = -I$(ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_ROOT)/Linux/include
+  ifeq ($(ENV_CMS_TK_FED9U_HALVER),ver-03-06)
+    export ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_LIBRARY = -lCAENVME -lCAEN2718LinuxPCIBusAdapter -lCAEN1718LinuxUSBBusAdapter
+  else    
+    export ENV_CMS_TK_FED9U_BUSADAPTOR_CAEN_LIBRARY = -lCAENVME -lCAENLinuxBusAdapter
+  endif
+endif
+
+ifdef ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_ROOT
+  export ENV_CMS_TK_FED9U_HALBUS_SBS = 1
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_LIBDIR  = -L$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_ROOT)/$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_VERSION)/lib
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_INCDIR  = -I$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_ROOT)/$(ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_VERSION)/include
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_SBS_LIBRARY = -lbtp 
+endif
+
+ifdef ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_ROOT
+  export ENV_CMS_TK_FED9U_HALBUS_VXI = 1
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_LIBDIR  = -L$(ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_ROOT)/lib
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_INCDIR  = -I$(ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_ROOT)/include
+  export ENV_CMS_TK_FED9U_BUSADAPTOR_VXI_LIBRARY = -lnivxi -lcfgeng -lniini32 
+endif
+
+ifdef ENV_CMS_TK_FED9U_ICUTILS_ROOT
+  export ENV_CMS_TK_FED9U_ICUTILS_LIBDIR = -L$(ENV_CMS_TK_FED9U_ICUTILS_ROOT)
+  export ENV_CMS_TK_FED9U_ICUTILS_INCDIR = -I$(ENV_CMS_TK_FED9U_ICUTILS_ROOT)/include
+  export ENV_CMS_TK_FED9U_ICUTILS_LIBRARY = -lICUtils
+endif
+
+#Note that the busadaptor directories are defined within hal here, but the libraries themselves are definied individually for each
+#bus adaptor. Therefore , the link should include the page from hal variables and the lib from the specific bus adaptors
+ifdef ENV_CMS_TK_FED9U_HAL_ROOT
+  ifeq ($(ENV_CMS_TK_FED9U_HALVER),ver-03-06)
+    export ENV_CMS_TK_FED9U_HAL_C++FLAGS=-DHAL_VER0306
+    export ENV_CMS_TK_FED9U_HAL_LIBDIR = -L$(ENV_CMS_TK_FED9U_HAL_ROOT)/lib/linux/x86
+    export ENV_CMS_TK_FED9U_HAL_GENERIC_INCDIR = -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/generic/include -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/generic/include/linux
+    export ENV_CMS_TK_FED9U_HAL_BUSADAPTOR_INCDIR = -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/busAdapter/include
+    export ENV_CMS_TK_FED9U_HAL_LIBRARY = -lGenericHAL 
+  else
+    export ENV_CMS_TK_FED9U_HAL_C++FLAGS =
+    export ENV_CMS_TK_FED9U_HAL_LIBDIR = -L$(ENV_CMS_TK_FED9U_HAL_ROOT)/lib/linux/x86 -L$(ENV_CMS_TK_FED9U_TRIDAS_ROOT)/daq/xcept/lib/linux/x86
+    export ENV_CMS_TK_FED9U_HAL_GENERIC_INCDIR = -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/generic/include -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/generic/include/linux -I$(ENV_CMS_TK_FED9U_TRIDAS_ROOT)/daq/xcept/include
+    export ENV_CMS_TK_FED9U_HAL_BUSADAPTOR_INCDIR = -I$(ENV_CMS_TK_FED9U_HAL_ROOT)/busAdapter/include
+    export ENV_CMS_TK_FED9U_HAL_LIBRARY = -lGenericHAL -lxcept
+  endif
+endif
+
+ifdef ENV_CMS_TK_FED9U_ROOT_ROOT
+  export ENV_CMS_TK_FED9U_ROOT_LIBDIR = -L$(ENV_CMS_TK_FED9U_ROOT_ROOT)/lib
+  export ENV_CMS_TK_FED9U_ROOT_INCDIR = -I$(ENV_CMS_TK_FED9U_ROOT_ROOT)/include
+  export ENV_CMS_TK_FED9U_ROOT_LIBRARY = -lCore -lCint -lGpad -lGraf -lMatrix -lHist
+endif
+
+ifdef ENV_CMS_TK_FED9U_DEVICE_FACTORY_ROOT
+  export ENV_CMS_TK_FED9U_DEVICE_FACTORY_INCDIR =  -I$(ENV_CMS_TK_FED9U_DEVICE_FACTORY_ROOT)/generic/include -I$(ENV_CMS_TK_FED9U_DEVICE_FACTORY_ROOT)/FecPciDeviceDriver/include 
+endif
+
+ifdef ENV_CMS_TK_FED9U_DATABASE_ROOT
+  ifdef ENV_CMS_TK_FED9U_ORACLE_ROOT
+    export ENV_CMS_TK_FED9U_USING_DATABASE = 1
+    export ENV_CMS_TK_FED9U_DATABASE_C++FLAGS = -DFED9U_DATABASE_FAST_UPLOAD
+    export ENV_CMS_TK_FED9U_DATABASE_LIBDIR = -L$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/lib
+    export ENV_CMS_TK_FED9U_DATABASE_INCDIR = -I$(ENV_CMS_TK_FED9U_DATABASE_ROOT)/generic/include
+    export ENV_CMS_TK_FED9U_ORACLE_LIBDIR = -L$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/lib
+    export ENV_CMS_TK_FED9U_ORACLE_INCDIR = -I$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/rdbms/public
+    export ENV_CMS_TK_FED9U_DATABASE_LIBRARY = -lDeviceDescriptions
+    export ENV_CMS_TK_FED9U_ORACLE_LIBRARY = -locci -lclntsh -lnnz10
+  endif
+endif
+
+CONFIG_HAS_RUN =

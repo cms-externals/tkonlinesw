@@ -1,0 +1,19 @@
+// #####################################################################################
+// # Copyright (c) 2004 Imperial College London, Rutherford Appleton Laboratory        #
+// # (Jonathan Fulcher, Emlyn Corrin, Matthew Pearson, Gareth Rogers, Matt Noy)        #
+// #                                                                                   #
+// # Permission is hereby granted, free of charge, to any person obtaining a copy      #
+// # of this software and associated documentation files (the "Software"), to use      #
+// # and modify for personal use only. No rights are given to deal in the Software,    #
+// # publish, distribute, sublicense, and/or sell copies of the Software.              #
+// # Support will be available from the authors to anyone using unmodified versions    #
+// # of the Software. If the user modifies any part of the Software, no liability      #
+// # is accepted on the part of the author and no support will be hitherto available.  #
+// #                                                                                   #
+// # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR        #
+// # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,          #
+// # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE       #
+// # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, #
+// # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN   #
+// # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.        #
+// #####################################################################################

@@ -1,0 +1,11 @@
+#define DAQ_VERSION_2
+#define linux
+#define LITTLE_ENDIAN__
+#define CPU=x86 
+#define SOAP__ 
+#define toolbox
+#define BT1003
+#define VXILINUX
+#define XERCES=2
+#define DATABASE
+#define TBHARDWARE

@@ -1,0 +1,4 @@
+export QTDIR=/home/xdaqdev/qt
+export PATH=$QTDIR/bin:$PATH
+export MANPATH=$QTDIR/doc/man
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH

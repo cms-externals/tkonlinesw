@@ -1,0 +1,566 @@
+<?xml version="1.0"?>
+
+<!--Matthew Pearson, RAL-->
+<!--Date: 10-03-04-->
+<!--XML Schema for the XML FED configuration file.-->
+
+<!--If one wants to write the XML instance document using the fed9U namespace prefix-->
+<!--in front of local elements or attributes, then set both elementFormDefault and-->
+<!--attributeFormDefault to qualified. If they are both unqualified then only the-->
+<!--CMSTrackerFeds global element needs a fed9U prefix.--> 
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:fed9U="http://fed9u.web.cern.ch/fed9u/configuration"
+           targetNamespace="http://fed9u.web.cern.ch/fed9u/configuration"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+<!--******************************************************-->
+<!--******************************************************-->
+<!--Definition of simple types-->
+
+<!--******************************************************-->
+<!--Simple types for fedType-->
+
+<xs:simpleType name="stringType">
+ <xs:restriction base="xs:string">
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="idType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="4095"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fedIdType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="4095"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fedHardIdType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="4294967295"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fedVersionType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="4294967295"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fedHexVersionType">
+ <xs:restriction base="xs:token">
+  <xs:minLength value="8"/>
+  <xs:maxLength value="8"/>
+  <xs:whiteSpace value="collapse"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="nameType">
+ <xs:restriction base="xs:token">
+  <xs:minLength value="1"/>
+  <xs:maxLength value="200"/>
+  <xs:whiteSpace value="collapse"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="crateType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="7"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="crateSlotType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="21"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9UModeType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="VIRGIN_RAW"/>
+  <xs:enumeration value="ZERO_SUPPRESSION"/>
+  <xs:enumeration value="SCOPE"/>
+  <xs:enumeration value="PROCESSED_RAW"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9USuperModeType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="FAKE"/>
+  <xs:enumeration value="ZERO_LITE"/>
+  <xs:enumeration value="FAKE_ZERO_LITE"/>
+  <xs:enumeration value="NORMAL"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="scopeLengthType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/> 
+   <xs:maxInclusive value="1023"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9UClockSourceType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="BACKPLANE"/>
+  <xs:enumeration value="TTC"/>
+  <xs:enumeration value="INTERNAL"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9UTriggerSourceType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="BACKPLANE"/>
+  <xs:enumeration value="TTC"/>
+  <xs:enumeration value="SOFTWARE"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9UReadRouteType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="SLINK64"/>
+  <xs:enumeration value="VME"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fed9UheaderModeType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="FULLDEBUG"/>
+  <xs:enumeration value="APVERROR"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="halBusAdaptorType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="SBS"/>
+  <xs:enumeration value="CAEN_USB"/>
+  <xs:enumeration value="CAEN_PCI"/>
+  <xs:enumeration value="VXI"/>
+  <xs:enumeration value="DUMMY"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="testRegisterType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="3"/>  <!--This may have to change as more bits are added to the BE FPGA test register.-->
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ttcrxFineDelayType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="239"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ttcrxCoarseDelayType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="15"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ttcrxPumpCurrentType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="1"/>
+  <xs:maxInclusive value="7"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ttcrxIacIdType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="16383"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ttcrxI2cIdType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="64"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMon2point5VRangeType">
+ <xs:restriction base="xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="3.320"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMon3point3VRangeType">
+ <xs:restriction base="xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="4.383"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMon5VRangeType">
+ <xs:restriction base="xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="6.640"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMon12VRangeType">
+ <xs:restriction base="xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="15.938"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMonCoreVRangeType">
+ <xs:restriction base="xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="2.988"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMonTempRangeType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="-128"/>
+  <xs:maxInclusive value="127"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="volMonWhichOffsetTempType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="INTERNAL"/>
+  <xs:enumeration value="EXTERNAL"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="epromSerialNumberType">
+ <xs:restriction base="xs:integer">  
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="65535"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<!--******************************************************-->
+<!--Simple types for feFpgaType-->
+
+<xs:simpleType name="feFpgaIdType">
+ <xs:restriction base="xs:integer"> <!--The value 14 is a broadcast to all FE FPGAs. The FE FPGAs themselfs are labled 0-7.-->
+  <xs:pattern value="[0-8]"/> <!--For now we shall not use broadcast.-->
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="maxTempType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="127"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="optoRxResistorType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="1000"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="optoRxInputOffsetType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="15"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="optoRxOutputOffsetType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="3"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="optoRxCapacitorType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="3"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<!--******************************************************-->
+<!--Simple types for channelType-->
+
+<xs:simpleType name="channelIdType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="12"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="coarseDelayType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="15"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="fineDelayType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="31"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="thresholdType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="992"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="trimDacOffsetType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="255"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="adcInputRangeModeType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="1V"/>
+  <xs:enumeration value="2V"/>
+  <xs:enumeration value="DISABLE"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<!--******************************************************-->
+<!--Simple types for apvType-->
+
+<xs:simpleType name="apvIdType">
+ <xs:restriction base="xs:integer"/>
+</xs:simpleType>
+
+<xs:simpleType name="stateType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="ENABLE"/>
+  <xs:enumeration value="DISABLE"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="medianOverrideType">
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="1023"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<!--******************************************************-->
+<!--Simple types for stripType-->
+
+<xs:simpleType name="stripIdType">
+ <xs:restriction base="xs:integer">
+   <xs:minInclusive value="0"/>
+   <xs:maxInclusive value="128"/>  
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="stripsBlobType">
+ <xs:restriction base="xs:token">
+  <xs:minLength value="696"/>
+  <xs:maxLength value="696"/>
+  <xs:whiteSpace value="collapse"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="clusterThresholdType">  <!--Low and High cluster threshold-->
+ <xs:restriction base="xs:float">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="255"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="noiseType">  <!--Low and High cluster threshold-->
+ <xs:restriction base="xs:float">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="255"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="pedType"> <!--Pedestal--> 
+ <xs:restriction base="xs:integer">
+  <xs:minInclusive value="0"/>
+  <xs:maxInclusive value="1023"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<!--******************************************************-->
+<!--******************************************************-->
+<!--Definition of the complex types and any attribute groups-->
+<xs:complexType name="tmpType">
+</xs:complexType>
+
+<!-- Note now that there are two possible constructions for the fed strips -->
+<!-- we can either use attributes for each parameter and have one tag per strip --> 
+<!-- or we can have one tag called <strips> which contains all information for 128 strips in one tag -->
+<xs:complexType name="stripType">
+ <xs:sequence>
+  <xs:element name="tmp" type="fed9U:tmpType" maxOccurs="1" minOccurs="0"/>
+ </xs:sequence>	
+ <xs:attribute name="id" type="fed9U:stripIdType" use="optional"/>	
+ <xs:attribute name="state" type="fed9U:stateType" use="optional"/> <!--Here we are using the stateType defined with the APV simple types.-->
+ <xs:attribute name="low" type="fed9U:clusterThresholdType" use="optional"/>
+ <xs:attribute name="high" type="fed9U:clusterThresholdType" use="optional"/>
+ <xs:attribute name="ped" type="fed9U:pedType" use="optional"/>
+ <xs:attribute name="noise" type="fed9U:noiseType" use="optional"/>
+</xs:complexType>
+
+<xs:complexType name="stripsType">
+ <xs:sequence>
+  <xs:element name="tmp" type="fed9U:tmpType" maxOccurs="1" minOccurs="0"/>
+ </xs:sequence>	
+ <xs:attribute name="data" type="fed9U:stripsBlobType" use="required"/>	
+</xs:complexType>
+
+
+<xs:complexType name="apvType">
+ <xs:sequence>
+  <xs:element name="strip" type="fed9U:stripType" maxOccurs="128" minOccurs="0"/>
+  <xs:element name="strips" type="fed9U:stripsType" maxOccurs="1" minOccurs="0"/>
+ </xs:sequence>
+ <xs:attribute name="id" type="fed9U:apvIdType" use="required"/>
+ <xs:attribute name="state" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="medianOverride" type="fed9U:medianOverrideType" use="optional"/>
+</xs:complexType>
+
+<xs:complexType name="channelType">
+ <xs:sequence>
+  <xs:element name="apv" type="fed9U:apvType" maxOccurs="2" minOccurs="0"/>
+ </xs:sequence>
+ <xs:attribute name="id" type="fed9U:channelIdType" use="required"/>
+ <xs:attribute name="coarseDelay" type="fed9U:coarseDelayType" use="optional"/>
+ <xs:attribute name="fineDelay" type="fed9U:fineDelayType" use="optional"/>
+ <xs:attribute name="threshold" type="fed9U:thresholdType" use="optional"/>
+ <xs:attribute name="trimDacOffset" type="fed9U:trimDacOffsetType" use="optional"/>
+ <xs:attribute name="adcInputRangeMode" type="fed9U:adcInputRangeModeType" use="optional"/>
+ <xs:attribute name="dataComplement" type="fed9U:stateType" use="optional"/> <!--Here we are using the stateType defined with the APV simple types.-->
+</xs:complexType>
+
+<xs:complexType name="feFpgaType">
+ <xs:sequence>
+  <xs:element name="channel" type="fed9U:channelType" maxOccurs="12" minOccurs="0"/>
+ </xs:sequence>
+ <xs:attribute name="id" type="fed9U:feFpgaIdType" use="required"/>
+ <xs:attribute name="state" type="fed9U:stateType" use="optional"/> <!--Here we are using the stateType defined with the APV simple types.-->
+ <xs:attribute name="maxTempLm82" type="fed9U:maxTempType" use="optional"/>
+ <xs:attribute name="maxTempFpga" type="fed9U:maxTempType" use="optional"/>
+ <xs:attribute name="maxTempCritical" type="fed9U:maxTempType" use="optional"/>
+ <xs:attribute name="optoRxInputOffset" type="fed9U:optoRxInputOffsetType" use="optional"/>
+ <xs:attribute name="optoRxOutputOffset" type="fed9U:optoRxOutputOffsetType" use="optional"/>
+ <xs:attribute name="optoRxCapacitor" type="fed9U:optoRxCapacitorType" use="optional"/>
+</xs:complexType>
+
+<xs:complexType name="fedType">
+ <xs:sequence>
+  <xs:element name="feFpga" type="fed9U:feFpgaType" maxOccurs="8" minOccurs="0"/>
+ </xs:sequence>
+ <xs:attribute name="id" type="fed9U:fedIdType" use="required"/>
+ <xs:attribute name="hardwareId" type="fed9U:fedHardIdType" use="required"/>
+ <xs:attribute name="fedVersion" type="fed9U:fedVersionType" use="required"/>
+ <xs:attribute name="optoRxResistor" type="fed9U:optoRxResistorType" use="required"/>
+ <xs:attribute name="epromVersion" type="fed9U:fedVersionType" use="required"/>
+ <xs:attribute name="feFirmwareVersion" type="fed9U:fedHexVersionType" use="required"/>
+ <xs:attribute name="beFirmwareVersion" type="fed9U:fedHexVersionType" use="required"/>
+ <xs:attribute name="vmeFirmwareVersion" type="fed9U:fedHexVersionType" use="required"/>
+ <xs:attribute name="delayFirmwareVersion" type="fed9U:fedHexVersionType" use="required"/>
+ <xs:attribute name="name" type="fed9U:nameType" use="optional"/> 
+ <xs:attribute name="fakeEventFile" type="fed9U:nameType" use="optional"/> 
+ <xs:attribute name="fakeEventTriggerDelay" type="fed9U:scopeLengthType" use="optional"/> 
+ <xs:attribute name="crate" type="fed9U:crateType" use="optional"/>
+ <xs:attribute name="crateSlot" type="fed9U:crateSlotType" use="optional"/>
+ <xs:attribute name="state" type="fed9U:stateType" use="optional"/> <!--Here we are using the stateType defined with the APV simple types.-->
+ <xs:attribute name="mode" type="fed9U:fed9UModeType" use="optional"/>
+ <xs:attribute name="superMode" type="fed9U:fed9USuperModeType" use="optional"/>
+ <xs:attribute name="scopeLength" type="fed9U:scopeLengthType" use="optional"/>
+ <xs:attribute name="clockSource" type="fed9U:fed9UClockSourceType" use="optional"/>
+ <xs:attribute name="triggerSource" type="fed9U:fed9UTriggerSourceType" use="optional"/>
+ <xs:attribute name="halBusAdaptor" type="fed9U:halBusAdaptorType" use="required"/>
+ <xs:attribute name="readRoute" type="fed9U:fed9UReadRouteType" use="required"/>
+ <xs:attribute name="headerType" type="fed9U:fed9UheaderModeType" use="required"/>
+ <xs:attribute name="testRegister" type="fed9U:testRegisterType" use="optional"/>
+ <xs:attribute name="maxTempLm82BeFpga" type="fed9U:maxTempType" use="optional"/> <!--Here we are using the maxTempType defined with the feFpga simple types.-->
+ <xs:attribute name="maxTempFpgaBeFpga" type="fed9U:maxTempType" use="optional"/> <!--Here we are using the maxTempType defined with the feFpga simple types.-->
+ <xs:attribute name="maxTempCriticalBeFpga" type="fed9U:maxTempType" use="optional"/> <!--Here we are using the maxTempType defined with the feFpga simple types.-->
+ <xs:attribute name="ttcrxL1AcceptCoarseDelay" type="fed9U:ttcrxCoarseDelayType" use="optional"/>
+ <xs:attribute name="ttcrxL1AcceptFineDelay" type="fed9U:ttcrxFineDelayType" use="optional"/>
+ <xs:attribute name="ttcrxBrcstStrTwoCoarseDelay" type="fed9U:ttcrxCoarseDelayType" use="optional"/>
+ <xs:attribute name="ttcrxBrcstStrTwoFineDelay" type="fed9U:ttcrxFineDelayType" use="optional"/>
+ <xs:attribute name="ttcrxDLLPumpCurrent" type="fed9U:ttcrxPumpCurrentType" use="optional"/>
+ <xs:attribute name="ttcrxPLLPumpCurrent" type="fed9U:ttcrxPumpCurrentType" use="optional"/>
+ <xs:attribute name="ttcrxIacId" type="fed9U:ttcrxIacIdType" use="optional"/>
+ <xs:attribute name="ttcrxI2cId" type="fed9U:ttcrxI2cIdType" use="optional"/>
+ <xs:attribute name="ttcrxHammingChecking" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxBunchCounter" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxEventCounter" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxClock40DeskwedTwo" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxClock40DeskwedTwoOutput" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxClockL1AcceptOutput" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxParallelOutputBus" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxSerialBOutput" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="ttcrxNonDeskwedClock40Output" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="volMonStandBy" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="volMonStatusRegisterReset" type="fed9U:stateType" use="optional"/>
+ <xs:attribute name="volMonMin2point5V" type="fed9U:volMon2point5VRangeType" use="optional"/>
+ <xs:attribute name="volMonMax2point5V" type="fed9U:volMon2point5VRangeType" use="optional"/>
+ <xs:attribute name="volMonMin3point3V" type="fed9U:volMon3point3VRangeType" use="optional"/>
+ <xs:attribute name="volMonMax3point3V" type="fed9U:volMon3point3VRangeType" use="optional"/>
+ <xs:attribute name="volMonMin5V" type="fed9U:volMon5VRangeType" use="optional"/>
+ <xs:attribute name="volMonMax5V" type="fed9U:volMon5VRangeType" use="optional"/>
+ <xs:attribute name="volMonMin12V" type="fed9U:volMon12VRangeType" use="optional"/>
+ <xs:attribute name="volMonMax12V" type="fed9U:volMon12VRangeType" use="optional"/>
+ <xs:attribute name="volMonMinCoreV" type="fed9U:volMonCoreVRangeType" use="optional"/>
+ <xs:attribute name="volMonMaxCoreV" type="fed9U:volMonCoreVRangeType" use="optional"/>
+ <xs:attribute name="volMonMinSupplyV" type="fed9U:volMon3point3VRangeType" use="optional"/> <!--The supply voltage is 3.3V-->
+ <xs:attribute name="volMonMaxSupplyV" type="fed9U:volMon3point3VRangeType" use="optional"/>
+ <xs:attribute name="volMonMinExternalTemp" type="fed9U:volMonTempRangeType" use="optional"/>
+ <xs:attribute name="volMonMaxExternalTemp" type="fed9U:volMonTempRangeType" use="optional"/>
+ <xs:attribute name="volMonMinInternalTemp" type="fed9U:volMonTempRangeType" use="optional"/>
+ <xs:attribute name="volMonMaxInternalTemp" type="fed9U:volMonTempRangeType" use="optional"/>
+ <xs:attribute name="volMonOffsetTemp" type="fed9U:volMonTempRangeType" use="optional"/>
+ <xs:attribute name="volMonWhichOffsetTemp" type="fed9U:volMonWhichOffsetTempType" use="optional"/>
+ <xs:attribute name="globalClockCoarseShift" type="fed9U:coarseDelayType" use="optional"/>
+ <xs:attribute name="globalClockFineShift" type="fed9U:fineDelayType" use="optional"/>
+ <xs:attribute name="eventType" type="fed9U:coarseDelayType" use="optional"/>
+ <xs:attribute name="fov" type="fed9U:coarseDelayType" use="optional"/>
+ <xs:attribute name="bxOffset" type="fed9U:channelIdType" use="optional"/>
+</xs:complexType>
+
+<xs:complexType name="xdaqInstanceType">
+  <xs:sequence>
+   <xs:element name="fed" type="fed9U:fedType" maxOccurs="500" minOccurs="1"/>
+  </xs:sequence>
+  <xs:attribute name="id" type="fed9U:idType" use="required"/>
+  <xs:attribute name="className" type="fed9U:stringType" use="optional"/>
+</xs:complexType>
+
+<xs:complexType name="supervisorType">
+  <xs:sequence>
+   <xs:element name="xdaqInstance" type="fed9U:xdaqInstanceType" maxOccurs="500" minOccurs="1"/>
+  </xs:sequence>
+  <xs:attribute name="supervisorIp" type="fed9U:stringType" use="required"/>
+</xs:complexType>
+
+<xs:complexType name="CMSTrackerFedsType">
+  <xs:sequence>
+   <xs:element name="fed" type="fed9U:fedType" maxOccurs="500" minOccurs="0"/>
+   <xs:element name="supervisor" type="fed9U:supervisorType" maxOccurs="500" minOccurs="0"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:element name="CMSTrackerFeds" type="fed9U:CMSTrackerFedsType"/>
+
+</xs:schema>

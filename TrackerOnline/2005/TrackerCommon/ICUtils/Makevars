@@ -1,0 +1,127 @@
+#FileName:   Makevars
+#Content:    Common Makefile settings (based on UltimateCorrinFulcherMakefile (TM))
+#Programmer: Emlyn Corrin, Jonathan Fulcher
+#Version:    3.1.0
+
+# Compiler/linker programs
+# KH for distcc
+#TOOL = g++
+TOOL = $(CXX)
+# codewizard
+# insure -Zsl
+# g++
+# KH for distcc
+DEP = $(CC) -M
+DEPP = $(CXX) -M
+#DEP = gcc -M
+#DEPP = g++ -M
+#CC  = gcc
+#CXX = $(TOOL)
+LD  = g++
+SO  = $(TOOL)
+AR  = ar
+
+CPPFLAGS = -I$(INC) -DNDEBUG
+
+CFLAGS = -ansi -pedantic -Wall -W -O2 $(CPPFLAGS)
+CXFLAGS = $(CFLAGS)
+CCFLAGS = -fPIC -ansi -pedantic -Wall -W -O2 $(CPPFLAGS)
+CXXFLAGS = $(CCFLAGS)
+LDFLAGS = -L$(HOME)/lib
+ARFLAGS = rcvs
+SOFLAGS = -shared
+
+# Directories for source/header/temporary files
+SRC = ./src
+INC = ./include
+OBJ = ./obj
+LIB = .
+BIN = .
+
+ALLHEADERS = $(wildcard $(INC)/*.h) $(wildcard $(INC)/*.hh) $(wildcard $(INC)/*.inc)
+COMSOURCES = $(wildcard $(SRC)/*.cc) $(wildcard $(SRC)/*.c)
+EXESOURCES = $(wildcard $(SRC)/*.cxx) $(wildcard $(SRC)/*.cx)
+ALLSOURCES = $(COMSOURCES) $(EXESOURCES)
+COMOBJECTS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(wildcard $(SRC)/*.c)) \
+	     $(patsubst $(SRC)/%.cc, $(OBJ)/%.o, $(wildcard $(SRC)/*.cc))
+EXEOBJECTS = $(patsubst $(SRC)/%.cx, $(OBJ)/%.o, $(wildcard $(SRC)/*.cx)) \
+	     $(patsubst $(SRC)/%.cxx, $(OBJ)/%.o, $(wildcard $(SRC)/*.cxx))
+ALLOBJECTS = $(COMOBJECTS) $(EXEOBJECTS)
+EXETARGETS = $(patsubst $(OBJ)/%.o, $(BIN)/%.exe, $(EXEOBJECTS))
+
+.PHONY: default force clean cleano halbus
+
+default: $(TARGET) $(EXETARGETS)
+	
+	
+force: cleano default
+
+edit:
+	@$(EDITOR) $(ALLHEADERS) $(ALLSOURCES) Makefile &
+#	zsh -o cshnullglob -c "${EDITOR} ./src/*.{c,cc,cxx} ./include/*.{h,hh,inc}" &
+
+test:
+	@echo $(ALLOBJECTS:.o=.d)
+
+clean: cleano
+	@rm -fv *~
+	@rm -fv #*#
+	@rm -fv */*~
+	@rm -fv */#*#
+	@rm -fv $(OBJ)/*.d
+
+cleano:
+	@rm -fv $(TARGET) $(EXETARGETS)
+	@rm -fv $(OBJ)/*.o
+
+$(TARGET): $(COMOBJECTS)
+
+$(LIB)/lib%.a:
+	@echo "**** Linking   $@ from $^"
+	@rm -fv $@
+	$(AR) $(ARFLAGS) $@ $(COMOBJECTS)
+
+$(LIB)/lib%.so:
+	@echo "**** Linking   $@ from $^"
+	$(SO) $(SOFLAGS) -o $@ $(COMOBJECTS) $(LIBS)
+
+$(BIN)/%.exe: $(OBJ)/%.o $(COMOBJECTS)
+	@echo "**** Linking   $@ from $<, $(COMOBJECTS)"
+	@$(LD) -o $@ $< $(COMOBJECTS) $(LDFLAGS) $(LIBS)
+
+$(OBJ)/%.o: $(SRC)/%.c
+	@echo "**** Compiling $@ from $<"
+	$(CC) -o $@ $< -c $(CFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cx
+	@echo "**** Compiling $@ from $<"
+	$(CC) -o $@ $< -c $(CXFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cc
+	@echo "**** Compiling $@ from $<"
+	$(CXX) -o $@ $< -c $(CCFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cxx
+	@echo "**** Compiling $@ from $<"
+	$(CXX) -o $@ $< -c $(CXXFLAGS)
+
+$(OBJ)/%.d: $(SRC)/%.c
+	@echo "**** Creating  $@"
+	@$(DEP) $< $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' > $@
+
+$(OBJ)/%.d: $(SRC)/%.cx
+	@echo "**** Creating  $@"
+	@$(DEP) $< $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' > $@
+
+$(OBJ)/%.d: $(SRC)/%.cc
+	@echo "**** Creating  $@"
+	$(DEPP) $< $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' > $@
+
+$(OBJ)/%.d: $(SRC)/%.cxx
+	@echo "**** Creating  $@"
+	@$(DEPP) $< $(CPPFLAGS) | sed 's,\($*\)\.o[ :]*,$(OBJ)/\1.o $@ : ,g' > $@
+
+$(OBJ):
+	mkdir $(OBJ)
+
+-include $(ALLOBJECTS:.o=.d)

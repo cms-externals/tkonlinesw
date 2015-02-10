@@ -1,0 +1,4 @@
+./configure
+cd DiagSystem
+./configure --enable-use_trackeronline_db --enable-compile_for_tracker  --enable-parse_tracker_xtra_buffer --enable-store_logs_to_trackerdb  --enable-use_gwtapplet_fireitems_viewer
+cd -
