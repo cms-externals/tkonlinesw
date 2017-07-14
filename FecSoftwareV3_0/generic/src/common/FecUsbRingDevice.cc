@@ -62,7 +62,7 @@ const unsigned int FecUsbRingDevice::minUsbFecRing = 0 ;
  * \param ring - ring slot
  * \param init - initialise the FEC (with reset at the starting)
  */
-FecUsbRingDevice::FecUsbRingDevice (std::string serial, tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity  ) throw ( FecExceptionHandler ) :
+FecUsbRingDevice::FecUsbRingDevice (std::string serial, tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity  ) noexcept(false) :
   FecRingDevice ( fecSlot, ringSlot, FECUSB ) {
 
   device_ = fec_usb_open((char*)serial.c_str()) ; /* do not check for serial number */ 
@@ -90,7 +90,7 @@ FecUsbRingDevice::FecUsbRingDevice (std::string serial, tscType8 fecSlot, tscTyp
 
 /** Close the USB device
  */
-FecUsbRingDevice::~FecUsbRingDevice ( ) throw ( FecExceptionHandler ) {
+FecUsbRingDevice::~FecUsbRingDevice ( ) noexcept(false) {
 
 //   if (device_ != -1) { 
 
@@ -121,7 +121,7 @@ FecUsbRingDevice::~FecUsbRingDevice ( ) throw ( FecExceptionHandler ) {
  * \param ctrl0Value - value of the CR0
  * \param force - if force is set then the value is applied blindly. if force is not set then the invert clock polarity is managed following the parameter in the class.
  */
-void FecUsbRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) noexcept(false) {
 
   if (!force) {
     if (invertClockPolarity_) ctrl0Value |= FEC_CR0_POLARITY ;
@@ -149,7 +149,7 @@ void FecUsbRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw 
 /** Reads a value from FEC ctrl0 
  *\return the value read
  */
-tscType16 FecUsbRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
+tscType16 FecUsbRingDevice::getFecRingCR0( ) noexcept(false) {
   tscType16 ctrl0Value = 0 ;
   
   FECUSB_TYPE_ERROR error = fec_usb_get_ctrl0(device_, &ctrl0Value);
@@ -173,7 +173,7 @@ tscType16 FecUsbRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
 /** Write the value given as parameter in FEC control 1 register 
  * \param value to be written
  */
-void FecUsbRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setFecRingCR1( tscType16 ctrl1Value ) noexcept(false) {
   
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << ctrl1Value << " in CR1" << std::endl ;
@@ -194,7 +194,7 @@ void FecUsbRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptio
 
 
 
-tscType16 FecUsbRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecUsbRingDevice::getFecRingCR1( ) noexcept(false) {
 
   tscType16 ctrl1Value = 0;
   
@@ -218,7 +218,7 @@ tscType16 FecUsbRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
 /** Reads a value from FEC SR0
  * \return the value of the FEC SR0
  */
-tscType32 FecUsbRingDevice::getFecRingSR0( ) throw ( FecExceptionHandler ) {
+tscType32 FecUsbRingDevice::getFecRingSR0( ) noexcept(false) {
 
   tscType32 sr0Value = 0 ; 
   FECUSB_TYPE_ERROR error = fec_usb_get_sr0(device_, &sr0Value);
@@ -241,7 +241,7 @@ tscType32 FecUsbRingDevice::getFecRingSR0( ) throw ( FecExceptionHandler ) {
 
 
 
-tscType16 FecUsbRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecUsbRingDevice::getFecRingSR1( ) noexcept(false) {
 
   tscType16 sr1Value = 0 ;
   
@@ -265,7 +265,7 @@ tscType16 FecUsbRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
 /** \brief Get the FEC version register the FEC
  * \return value read
  */
-tscType16 FecUsbRingDevice::getFecFirmwareVersion( )  throw ( FecExceptionHandler ) { 
+tscType16 FecUsbRingDevice::getFecFirmwareVersion( )  noexcept(false) { 
   tscType32 versionValue = 0 ;
   
   FECUSB_TYPE_ERROR error = fec_usb_get_version(device_, &versionValue);
@@ -298,7 +298,7 @@ tscType16 FecUsbRingDevice::getFecFirmwareVersion( )  throw ( FecExceptionHandle
 /** Return a word from the FIFO receive
  * \param return a word from the FIFO receive
  */
-tscType32 FecUsbRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
+tscType32 FecUsbRingDevice::getFifoReceive( ) noexcept(false) {
 
   tscType32 fiforec_value = 0 ;
   
@@ -323,7 +323,7 @@ tscType32 FecUsbRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO receive
  * \param fiforecValue - word to be set
  */
-void FecUsbRingDevice::setFifoReceive( tscType32 fiforecValue ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setFifoReceive( tscType32 fiforecValue ) noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforecValue << " to fifo receive" << std::endl ;
@@ -343,7 +343,7 @@ void FecUsbRingDevice::setFifoReceive( tscType32 fiforecValue ) throw ( FecExcep
 /** Return a word from the FIFO return
  * \param return a word from the FIFO return
  */
-tscType8 FecUsbRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
+tscType8 FecUsbRingDevice::getFifoReturn( ) noexcept(false) {
   
   tscType32 fiforet_value = 0 ;
   
@@ -368,7 +368,7 @@ tscType8 FecUsbRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO return
  * \param fiforet_value - word to be set
  */
-void FecUsbRingDevice::setFifoReturn( tscType8 fiforetValue ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setFifoReturn( tscType8 fiforetValue ) noexcept(false) {
   
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforet_value << " to fifo return" << std::endl ;
@@ -389,7 +389,7 @@ void FecUsbRingDevice::setFifoReturn( tscType8 fiforetValue ) throw ( FecExcepti
 /** Return a word from the FIFO transmit
  * \param return a word from the FIFO transmit
  */
-tscType32 FecUsbRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
+tscType32 FecUsbRingDevice::getFifoTransmit( ) noexcept(false) {
 
   tscType32 fifotra_value = 0 ; 
   
@@ -411,7 +411,7 @@ tscType32 FecUsbRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
 }
 
 
-void FecUsbRingDevice::setFifoTransmit( tscType32 fifotraValue ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setFifoTransmit( tscType32 fifotraValue ) noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforet_value << " to fifo transmit" << std::endl ;
@@ -445,7 +445,7 @@ void FecUsbRingDevice::setFifoTransmit( tscType32 fifotraValue ) throw ( FecExce
  * \exception FecExceptionHandler
  * 
  */
-void FecUsbRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::fecHardReset ( ) noexcept(false) {
 
   std::cout << "FecUsbRingDevice::fecHardReset(), rising up bit 13 in FEC CR0..." << std::endl ; 
   std::cout << "FecUsbRingDevice::fecHardReset(), getting original value..." << std::endl ; 
@@ -466,7 +466,7 @@ void FecUsbRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
 
 /** IRQ address, enable and disable the IRQ, nothing for the USB FEC 
  */
-void FecUsbRingDevice::setIRQ ( bool enable, tscType8 level ) throw ( FecExceptionHandler ) {
+void FecUsbRingDevice::setIRQ ( bool enable, tscType8 level ) noexcept(false) {
 
   /* empty function: do nothing , USB is not interrupt driven, no risc of interrupt overflood */
   
@@ -475,7 +475,7 @@ void FecUsbRingDevice::setIRQ ( bool enable, tscType8 level ) throw ( FecExcepti
 /** Write a block of words to the FIFO receive
  */
 void FecUsbRingDevice::setFifoReceive ( tscType32 *value, int count) 
-  throw (FecExceptionHandler) { 
+  noexcept(false) { 
 
   //int i; 
   //for(i=0;i<count;i++) setFifoReceive(value[i]) ; 
@@ -497,7 +497,7 @@ void FecUsbRingDevice::setFifoReceive ( tscType32 *value, int count)
 /** Get block of words from the FIFO receive
  */
 tscType32* FecUsbRingDevice::getFifoReceive ( tscType32 *value, int count ) 
-  throw (FecExceptionHandler) { 
+  noexcept(false) { 
   //int i; 
   //for(i=0;i<count;i++) value[i]  = getFifoReceive() ;
   //return value ; 
@@ -518,7 +518,7 @@ tscType32* FecUsbRingDevice::getFifoReceive ( tscType32 *value, int count )
 /** set a word into the FIFO return
  */
 void FecUsbRingDevice::setFifoReturn ( tscType8 *value, int count ) 
-  throw (FecExceptionHandler) { 
+  noexcept(false) { 
 
   fecusbType32 valueTemp[count] ;
   for(int i=0;i<count;i++) valueTemp[i] = (fecusbType32)value[i] ;
@@ -539,7 +539,7 @@ void FecUsbRingDevice::setFifoReturn ( tscType8 *value, int count )
 /** get a word from the FIFO return
  */
 tscType8* FecUsbRingDevice::getFifoReturn ( tscType8 *value, int count ) 
-  throw (FecExceptionHandler) { 
+  noexcept(false) { 
   //int i; 
   //for(i=0;i<count;i++) value[i]  = getFifoReturn() ;
   //return value ; 
@@ -563,7 +563,7 @@ tscType8* FecUsbRingDevice::getFifoReturn ( tscType8 *value, int count )
 /** set a word into the FIFO Transmit
  */
 void FecUsbRingDevice::setFifoTransmit ( tscType32 *value, int count ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   //int i; 
   //for(i=0;i<count;i++) setFifoTransmit(value[i]) ;
   FECUSB_TYPE_ERROR error = fec_usb_set_block_fifotra(device_,value,count);
@@ -580,7 +580,7 @@ void FecUsbRingDevice::setFifoTransmit ( tscType32 *value, int count )
 /** get a word from the FIFO transmit
  */
 tscType32* FecUsbRingDevice::getFifoTransmit ( tscType32 *value, int count ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   //int i; 
   //for(i=0;i<count;i++) value[i]  = getFifoTransmit() ;
   //return value ; 

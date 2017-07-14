@@ -25,7 +25,7 @@ namespace Fed9U {
      * \param theBufDesc Pointer to the buffer description that is to be updated.
      * \throw ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    void generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) throw (ICException);
+    void generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
   };
 

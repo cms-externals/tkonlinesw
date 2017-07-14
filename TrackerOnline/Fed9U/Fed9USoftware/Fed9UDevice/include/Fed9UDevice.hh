@@ -84,7 +84,7 @@ namespace Fed9U {
      *
      * Removes any existing events from the buffer but does not return the number purged. This is a fast and hard core purge method!
      */
-    u32 purgeEvents() throw (Fed9UVmeDeviceException);
+    u32 purgeEvents() noexcept(false);
     
     // <NAC date="30/04/2009"> readout of complete spy events packed with header and trailer
     // <NAC date="15/02/2010"> added 1/N mode
@@ -101,7 +101,7 @@ namespace Fed9U {
                                                  const uint32_t runNumber = 0,
                                                  const bool allowMixedEvent = false,
                                                  u32* pEventCountBeforeRead = NULL, u32* pL1ACountBeforeRead = NULL,
-                                                 const bool oneOverNMode = false) throw (Fed9UDeviceException);
+                                                 const bool oneOverNMode = false) noexcept(false);
     // </NAC>
     // </NAC>
     // </NAC>

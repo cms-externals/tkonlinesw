@@ -49,17 +49,17 @@ class XMLFec: public XMLCommonFec {
 
   /** \brief Constructor with xml buffer
    */
-  XMLFec ( const XMLByte* buffer ) throw (FecExceptionHandler);
+  XMLFec ( const XMLByte* buffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor whith database access
    */
-  XMLFec ( DbAccess *dbAccess ) throw (FecExceptionHandler);
+  XMLFec ( DbAccess *dbAccess ) noexcept(false);
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLFec ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLFec ( std::string xmlFileName ) noexcept(false);
 
   /** \brief Deletes the device vector private attribute
    */
@@ -112,19 +112,19 @@ class XMLFec: public XMLCommonFec {
 #ifdef DATABASE
   /** \brief This method sends a request to the database and parse the input source retrieved from database
    */
-  void parseDatabaseResponse ( std::string partitionName ) throw (FecExceptionHandler);
+  void parseDatabaseResponse ( std::string partitionName ) noexcept(false);
 
   /** \brief This method sends a request to the database and parse the input source retrieved from database
    */
-  void parseDatabaseResponse ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor ) throw (FecExceptionHandler) ;
+  void parseDatabaseResponse ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor ) noexcept(false) ;
 
   /** \brief This method sends a request to the database and parse the input source retrieved from database
    */
-  void parseDatabaseResponse ( std::string partitionName,  std::string fecHardId ) throw (FecExceptionHandler);
+  void parseDatabaseResponse ( std::string partitionName,  std::string fecHardId ) noexcept(false);
 
   /** \brief This method sends a request to the database and parse the input source retrieved from database
    */
-  void parseDatabaseResponse ( std::string partitionName,  std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) ;
+  void parseDatabaseResponse ( std::string partitionName,  std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) ;
 #endif
 
   /** \brief prototype for the parser

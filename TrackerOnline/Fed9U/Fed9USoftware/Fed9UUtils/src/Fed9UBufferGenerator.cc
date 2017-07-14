@@ -11,7 +11,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferGenerator::generateFed9UBuffer(const std::vector<unsigned short> &bufferData) throw (ICUtils::ICException) {
+  void Fed9UBufferGenerator::generateFed9UBuffer(const std::vector<unsigned short> &bufferData) noexcept(false) {
     try {
       //First, initialize the buffer index inside the Fed9UBufferDescription
       mFed9UBufferDescription.initBufferIndex();
@@ -31,7 +31,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferGenerator & Fed9UBufferGenerator::setBunchCrossing(const unsigned long bunchCrossing) throw (ICUtils::ICException) {
+  Fed9UBufferGenerator & Fed9UBufferGenerator::setBunchCrossing(const unsigned long bunchCrossing) noexcept(false) {
     try {
       mFed9UBufferDescription.setBunchCrossing(bunchCrossing);
     }
@@ -45,7 +45,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferGenerator & Fed9UBufferGenerator::setHeaderToFullDebug(void) throw (ICUtils::ICException) {
+  Fed9UBufferGenerator & Fed9UBufferGenerator::setHeaderToFullDebug(void) noexcept(false) {
     try {
       mFed9UBufferDescription.setHeaderFormat(mFed9UEventInfo.getTrackerSpecialHeaderFullDebugMode());
     }
@@ -67,7 +67,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferGenerator & Fed9UBufferGenerator::setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICUtils::ICException) {
+  Fed9UBufferGenerator & Fed9UBufferGenerator::setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false) {
     try {
       mFed9UBufferDescription.setCommonModeMedians(cmMedians);
     }
@@ -80,7 +80,7 @@ namespace Fed9U {
     return *this;
   }
 
-  Fed9UBufferGenerator & Fed9UBufferGenerator::setSlink64() throw (ICUtils::ICException) {
+  Fed9UBufferGenerator & Fed9UBufferGenerator::setSlink64() noexcept(false) {
 
     try {
       mFed9UBufferDescription.setSlink64();
@@ -94,7 +94,7 @@ namespace Fed9U {
     return *this;
   }
     
-  void Fed9UBufferGenerator::getBuffer(unsigned int *fedBuffer) const throw (ICUtils::ICException) {
+  void Fed9UBufferGenerator::getBuffer(unsigned int *fedBuffer) const noexcept(false) {
     try {
       if ( (mFed9UBufferDescription.getBufferConst()) && 
 	   (mFed9UBufferDescription.getBufferSize()!=0) ) {
@@ -112,7 +112,7 @@ namespace Fed9U {
   }
 
 
-  std::vector<unsigned char> Fed9UBufferGenerator::getBuffer() throw (ICUtils::ICException) {
+  std::vector<unsigned char> Fed9UBufferGenerator::getBuffer() noexcept(false) {
     std::vector<unsigned char> buffer; // returned object
     try {
       if ( mFed9UBufferDescription.getBufferConst() && 
@@ -132,7 +132,7 @@ namespace Fed9U {
   }
     
 
-  unsigned long Fed9UBufferGenerator::getBufferSize(void) const throw (ICUtils::ICException) {
+  unsigned long Fed9UBufferGenerator::getBufferSize(void) const noexcept(false) {
     try {
       return mFed9UBufferDescription.getBufferSize();
     }
@@ -145,7 +145,7 @@ namespace Fed9U {
   }
 
 
-  unsigned long Fed9UBufferGenerator::getBunchCrossing(void) const throw (ICUtils::ICException) {
+  unsigned long Fed9UBufferGenerator::getBunchCrossing(void) const noexcept(false) {
     try {
       return mFed9UBufferDescription.getBunchCrossing();
     }

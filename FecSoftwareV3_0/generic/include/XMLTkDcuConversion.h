@@ -51,21 +51,21 @@ class XMLTkDcuConversion : public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLTkDcuConversion () throw (FecExceptionHandler);
+  XMLTkDcuConversion () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLTkDcuConversion ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLTkDcuConversion ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor with xml buffer
    */
-  XMLTkDcuConversion ( DbTkDcuConversionAccess *dbAccess ) throw (FecExceptionHandler);
+  XMLTkDcuConversion ( DbTkDcuConversionAccess *dbAccess ) noexcept(false);
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLTkDcuConversion ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLTkDcuConversion ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLTkDcuConversion
    */
@@ -81,7 +81,7 @@ class XMLTkDcuConversion : public XMLCommonFec {
 
   /** \brief Sets the device vector private attribute
    */
-  void setDcuConversionVector (dcuConversionVector) throw (FecExceptionHandler);
+  void setDcuConversionVector (dcuConversionVector) noexcept(false);
 
   /** \brief parse the buffer
    */
@@ -89,44 +89,44 @@ class XMLTkDcuConversion : public XMLCommonFec {
 
   /** \brief Parse the inputSource and gets a pointer on the device vector private attribute
    */
-  dcuConversionVector getDcuConversions ( ) throw (FecExceptionHandler);
+  dcuConversionVector getDcuConversions ( ) noexcept(false);
 
   /** Clear the vector
    */
   void clearVector();
 
 #ifdef DATABASE
-  void parseDatabaseResponse(tscType32 dcuHardId) throw (FecExceptionHandler);
-  void parseDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
+  void parseDatabaseResponse(tscType32 dcuHardId) noexcept(false);
+  void parseDatabaseResponse(std::string partitionName) noexcept(false);
 
-  dcuConversionVector getDcuConversions (tscType32 dcuHardId) throw (FecExceptionHandler);
-  dcuConversionVector getDcuConversions (std::string partitionName) throw (FecExceptionHandler);
+  dcuConversionVector getDcuConversions (tscType32 dcuHardId) noexcept(false);
+  dcuConversionVector getDcuConversions (std::string partitionName) noexcept(false);
 #endif
 
   /** \brief Writes the device vector parameter in a ASCII file
    */
-  void setDcuConversions ( dcuConversionVector dVector, std::string outputFileName ) throw (FecExceptionHandler);
+  void setDcuConversions ( dcuConversionVector dVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the device vector attribute in a ASCII file
    */
-  void setDcuConversions ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setDcuConversions ( std::string outputFileName ) noexcept(false);
 
   /** \brief Displays the contents of the device vector attribute
    */
-  //void display() throw (FecExceptionHandler);
+  //void display() noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDcuConversions ( dcuConversionVector dVector ) throw (FecExceptionHandler);
+  void setDcuConversions ( dcuConversionVector dVector ) noexcept(false);
 
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDcuConversions ( ) throw (FecExceptionHandler);
+  void setDcuConversions ( ) noexcept(false);
  
   /** \brief Configures the database
    */
-  void dbConfigure() throw (FecExceptionHandler);
+  void dbConfigure() noexcept(false);
 #endif
 
 

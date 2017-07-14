@@ -33,7 +33,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9URawData(Fed9UBufferDescription *bufDesc ) throw (ICException);
+    void generateFed9URawData(Fed9UBufferDescription *bufDesc ) noexcept(false);
 
     /**
      * \brief Method which puts channel data in the Fed9U data buffer in a zero suppressed DAQ format.
@@ -42,7 +42,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9UZSData(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateFed9UZSData(Fed9UBufferDescription *bufDesc) noexcept(false);
 
     /**
      * \brief Method which puts channel data in the Fed9U data buffer in a scope mode DAQ format.
@@ -53,7 +53,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9UScopeModeData( Fed9UBufferDescription *bufDesc, unsigned short scope_mode_length ) throw (ICException);
+    void generateFed9UScopeModeData( Fed9UBufferDescription *bufDesc, unsigned short scope_mode_length ) noexcept(false);
 
   private:
     /**
@@ -64,7 +64,7 @@ namespace Fed9U {
      *
      * The ends of the FE data blocks in the FED buffer are padded out with zeros until the start of the next 64-bit words.
      */
-    void paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) throw (ICException);
+    void paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) noexcept(false);
 
     Fed9UEventInfo mFed9UEventInfo; //!< See Fed9UEventInfo for more details on this class.
 

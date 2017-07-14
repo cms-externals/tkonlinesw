@@ -113,7 +113,7 @@ class TkDcuInfoFactory: public DeviceFactoryInterface {
   /** \brief Buid a FEC factory for database
    */
   TkDcuInfoFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Buid a FEC factory for FEC database
    */
@@ -161,12 +161,12 @@ class TkDcuInfoFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -175,83 +175,83 @@ class TkDcuInfoFactory: public DeviceFactoryInterface {
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   void getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Add the DCU infos for the given partition (the data are extracted from the database)
    */
-  void addDetIdPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0, bool cleanCache = true, bool forceDbReload = false ) throw (FecExceptionHandler);
+  void addDetIdPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0, bool cleanCache = true, bool forceDbReload = false ) noexcept(false);
 
   /** \brief Add all the DCU infos that are in the database for the given version
    */
-  void addAllDetId (unsigned int majorVersionId = 0, unsigned int minorVersionId = 0, bool cleanCache = true, bool forceDbReload = false) throw (FecExceptionHandler);
+  void addAllDetId (unsigned int majorVersionId = 0, unsigned int minorVersionId = 0, bool cleanCache = true, bool forceDbReload = false) noexcept(false);
 
   /** \brief Update the channel delays (coarse and fine) according to the fibre length between detector and FED
    */
-  void updateChannelDelays ( std::string partitionName ) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void updateChannelDelays ( std::string partitionName ) noexcept(false);
 
   /** \brief Get all the current states
    *  \return An array of TkState. YOU have to delete all TkState objects + the vector!
    */
-  tkStateVector &getCurrentStates () throw (FecExceptionHandler);
+  tkStateVector &getCurrentStates () noexcept(false);
 
   /** \brief Create a new current state
    *  \param states A list of state
    *  \return The new currentStateId
    */
-  unsigned int setCurrentState(tkStateVector states) throw (FecExceptionHandler);
+  unsigned int setCurrentState(tkStateVector states) noexcept(false);
 
   /** \brief Set the given state as current
    *  \param stateName The name of the chosen state
    *  \return The new current state ID
    */
-  unsigned int setCurrentState(std::string stateName) throw (FecExceptionHandler);
+  unsigned int setCurrentState(std::string stateName) noexcept(false);
 
   /** \brief Create a new state, copy of the current one. Update the partition with its values in the given state
    *  \param stateName The name of the regerence state
    *  \param partitionName The name of the partition to update
    *  \return The new current state ID
    */
-  unsigned int setCurrentState(std::string partitionName, std::string stateName) throw (FecExceptionHandler);
+  unsigned int setCurrentState(std::string partitionName, std::string stateName) noexcept(false);
 
   /** \brief update the current state based on the state coming from a run number
    */
-  unsigned int copyStateForRunNumber(unsigned int runNumber, bool allPartition) throw (FecExceptionHandler) ;
+  unsigned int copyStateForRunNumber(unsigned int runNumber, bool allPartition) noexcept(false) ;
 
   /** \brief Disable the devices linked to the dcuHardId in the given partition. 
    *  The currentState must not be used in a Run or it will generate an exception (protection of the run history). 
    *
    *  \param partitionName The name of the chosen partition
    */  
-  void disableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) throw (FecExceptionHandler);
+  void disableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) noexcept(false);
 
   /** \brief Enable the devices linked to the dcuHardId in the given partition
    *  \param partitionName The name of the chosen partition
    */  
-  void enableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) throw (FecExceptionHandler);
+  void enableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) noexcept(false);
 
   /** \brief Get the last run for the given partition
    *  \param partitionName The partition used for the run
    *  \return A TkRun object containing the last run
    */
-  TkRun* getLastRun (std::string partitionName) throw (FecExceptionHandler);
+  TkRun* getLastRun (std::string partitionName) noexcept(false);
 
   /** \brief Get the given run for the given partition
    *  \param partitionName The partition used for the run
    *  \param runNumber The number of the run
    *  \return A TkRun object containing the run
    */
-  TkRun* getRun (std::string partitionName, int runNumber) throw (FecExceptionHandler);
+  TkRun* getRun (std::string partitionName, int runNumber) noexcept(false);
 
   /** \brief Get all the runs from the DB
    *  \return A tkRunVector object containing the run. You have to delete this vector!
    */
-  tkRunVector getAllRuns () throw (FecExceptionHandler);
+  tkRunVector getAllRuns () noexcept(false);
 
   /** \brief Get the last run used by O2O for the given partition
    *  \param partitionName The partition used for the run
    *  \return A TkRun object containing the last run or NULL if no record was found. You have to delete the object!
    */
-  TkRun* getLastO2ORun (std::string partitionName) throw (FecExceptionHandler);
+  TkRun* getLastO2ORun (std::string partitionName) noexcept(false);
 
   /** \brief Create a new run
    *  \param partitionName The partition used for the run
@@ -259,94 +259,94 @@ class TkDcuInfoFactory: public DeviceFactoryInterface {
    *  \param runMode The mode of the run
    *  \param local 1 if local run, 0 otherwise
    */
-  void setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment = "") throw (FecExceptionHandler);
+  void setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment = "") noexcept(false);
 
    /** \brief Stop the current run on the partition
    *  \param partitionName The partition used for the run
    *  \param comment Modify the comment on the run if filled
    */
-  void stopRun(std::string partitionName, std::string comment = "") throw (FecExceptionHandler);
+  void stopRun(std::string partitionName, std::string comment = "") noexcept(false);
 
 #ifdef DATABASE
    /** \brief Create a new version for the dcu infos
    */
-  void createNewDcuInfoVersion() throw (FecExceptionHandler);
+  void createNewDcuInfoVersion() noexcept(false);
 #endif
 
   /** \brief Tag a run as transfered by O2O
    *  \param partitionName The partition used for the run
    *  \param runNumber The number of the run
    */
-  void setO2ORun(std::string partitionName, unsigned int runNumber) throw (FecExceptionHandler);
+  void setO2ORun(std::string partitionName, unsigned int runNumber) noexcept(false);
 
   /** \brief return the database version
    */
-  double getDbVersion ( ) throw (FecExceptionHandler) ;
+  double getDbVersion ( ) noexcept(false) ;
 
   /** \brief return the database size
    */
-  double getDbSize ( ) throw (FecExceptionHandler) ;
+  double getDbSize ( ) noexcept(false) ;
 
   /** \brief Update the comment of the run
    *  \param partitionName The partition used for the run
    *  \param runNumber The number of the run
    *  \param newComment The new comment
    */
-  void updateRunComment(std::string partitionName, unsigned int runNumber, std::string newComment) throw (FecExceptionHandler);
+  void updateRunComment(std::string partitionName, unsigned int runNumber, std::string newComment) noexcept(false);
 
   /** \brief Retrieve the partition names
    *  \return A list with all the partition names.
    */
-  std::list<std::string> getAllPartitionNames() throw (FecExceptionHandler);
+  std::list<std::string> getAllPartitionNames() noexcept(false);
 
   /** \brief Retrieve the partition names for a given run
    *  \return A list with all the partition names.
    */
-  std::list<std::string> getAllPartitionNames( unsigned int runNumber ) throw (FecExceptionHandler) ;
+  std::list<std::string> getAllPartitionNames( unsigned int runNumber ) noexcept(false) ;
 
   /** \brief Retrieve the partition names from the current state
    *  \return A list with all the partition names.
    */
-  std::list<std::string> getAllPartitionNamesFromCurrentState() throw (FecExceptionHandler);
+  std::list<std::string> getAllPartitionNamesFromCurrentState() noexcept(false);
 
   /** \brief Retrieve the state names
    *  \return A list with all the state names. YOU have to delete that list!
    */
-  std::list<std::string> getAllStateHistoryNames() throw (FecExceptionHandler);
+  std::list<std::string> getAllStateHistoryNames() noexcept(false);
 
   /** \brief Get all the Fec versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllFecVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllFecVersions (std::string partitionName) noexcept(false);
 
   /** \brief Get all the Fed versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllFedVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllFedVersions (std::string partitionName) noexcept(false);
 
   /** \brief Get all the Dcu Info versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllDcuInfoVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllDcuInfoVersions (std::string partitionName) noexcept(false);
 
   /** \brief Get all the Connection versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllConnectionVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllConnectionVersions (std::string partitionName) noexcept(false);
 
   /** \brief Get all the DcuPsuMap versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllDcuPsuMapVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllDcuPsuMapVersions (std::string partitionName) noexcept(false);
 
   /** \brief Get all the mask versions
    *  \return An array of TkVersion. 
    */
-  tkVersionVector &getAllMaskVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector &getAllMaskVersions (std::string partitionName) noexcept(false);
 
   /** \brief get the state history for the current state
    */
-  unsigned int getCurrentStateHistoryId() throw (FecExceptionHandler) ;
+  unsigned int getCurrentStateHistoryId() noexcept(false) ;
 
 #endif
 
@@ -358,22 +358,22 @@ class TkDcuInfoFactory: public DeviceFactoryInterface {
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
-  TkDcuInfo *getTkDcuInfo ( unsigned long dcuHardId ) throw ( FecExceptionHandler ) ;
+  TkDcuInfo *getTkDcuInfo ( unsigned long dcuHardId ) noexcept(false) ;
 
   /** \brief Upload the description in the output
    */
   void setTkDcuInfo ( tkDcuInfoVector vInfo ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief upload an hash_map in the output
    */
   void setTkDcuInfo ( Sgi::hash_map<unsigned long, TkDcuInfo *> vInfo ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief upload the hash_map (attribut of the class) in the output
    */
   void setTkDcuInfo ( ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** Delete the components of a vector
    */

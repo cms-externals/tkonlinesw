@@ -44,24 +44,24 @@ class DbTkDcuConversionAccess : public DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbTkDcuConversionAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkDcuConversionAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbTkDcuConversionAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkDcuConversionAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbTkDcuConversionAccess ( ) throw (oracle::occi::SQLException);
+  ~DbTkDcuConversionAccess ( ) noexcept(false);
 
   /** \brief Download a Clob from database
    */
-  oracle::occi::Clob *getXMLClob(tscType32 dcuHardId ) throw (oracle::occi::SQLException);
-  oracle::occi::Clob *getXMLClob(std::string partitionName) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob(tscType32 dcuHardId ) noexcept(false);
+  oracle::occi::Clob *getXMLClob(std::string partitionName) noexcept(false);
 
   /** \brief Upload a Clob to the database for configuration
    */
-  void setXMLClob (std::string buffer) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob (std::string buffer) noexcept(false);
 };
 
 #endif

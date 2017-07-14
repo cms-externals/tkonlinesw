@@ -34,7 +34,7 @@
  * @exception oracle::occi::SQLException thrown by <I>DbAccess::DbConnect</I>
  * @see <I>DbAccess::getDbConfiguration</I>, <I>DbAccess::DbConnect</I>
  */
-DbAccess::DbAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {
+DbAccess::DbAccess ( bool threaded ) noexcept(false) : DbCommonAccess (threaded) {
 }
 
 /**Create a database access. <BR>
@@ -49,7 +49,7 @@ DbAccess::DbAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbComm
  * @exception oracle::occi::SQLException thrown by DbAccess::DbConnect
  * @see DbAccess::DbConnect
  */
-DbAccess::DbAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbCommonAccess (user, passwd, dbPath, threaded) {
+DbAccess::DbAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Delete the database access. <BR>
@@ -58,7 +58,7 @@ DbAccess::DbAccess (std::string user, std::string passwd, std::string dbPath, bo
  * Closes the environnement.<BR>
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in closing the environnement or the connection
  * */
-DbAccess::~DbAccess () throw (oracle::occi::SQLException) { }
+DbAccess::~DbAccess () noexcept(false) { }
 
 /**Get the partition name from partition identifier. <BR>
  * A query is defined to get the partition name from the partition identifier. <BR>
@@ -68,7 +68,7 @@ DbAccess::~DbAccess () throw (oracle::occi::SQLException) { }
  * @return the corresponding partition name
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::string DbAccess::getPartitionName (unsigned int partitionId)  throw (oracle::occi::SQLException) {
+std::string DbAccess::getPartitionName (unsigned int partitionId)  noexcept(false) {
 
   std::string partitionName;
   static std::string queryString = "BEGIN :a := PkgPartition.getPartitionName(:b);END;";
@@ -99,7 +99,7 @@ std::string DbAccess::getPartitionName (unsigned int partitionId)  throw (oracle
  * @return the corresponding partition name
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-unsigned int DbAccess::getPartitionId (std::string partitionName)  throw (oracle::occi::SQLException){
+unsigned int DbAccess::getPartitionId (std::string partitionName)  noexcept(false){
 
   unsigned int partitionId;
   static std::string queryString = "BEGIN :a := PkgPartition.getPartitionId(:b);END;";
@@ -130,7 +130,7 @@ unsigned int DbAccess::getPartitionId (std::string partitionName)  throw (oracle
  * @return a version number
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement.
  */
-unsigned int DbAccess::getVersion(std::string sqlQuery) throw (oracle::occi::SQLException) {
+unsigned int DbAccess::getVersion(std::string sqlQuery) noexcept(false) {
 
   int versionNumber = -1;
   oracle::occi::Statement *stmt = NULL ;
@@ -162,7 +162,7 @@ unsigned int DbAccess::getVersion(std::string sqlQuery) throw (oracle::occi::SQL
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -199,7 +199,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::s
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -242,7 +242,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::s
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQueryWithoutMask(std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQueryWithoutMask(std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -280,7 +280,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQueryWithoutMask(std::string readStr
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string id) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string id) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -318,7 +318,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::s
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -356,7 +356,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::s
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -390,7 +390,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString) throw 
  * @return a pointer on a Clob containing the data from the database.
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string fecHardId, unsigned int ringSlot) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::string partitionName, std::string fecHardId, unsigned int ringSlot) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": readString " << readString << std::endl;
@@ -431,7 +431,7 @@ oracle::occi::Clob *DbAccess::getXMLClobFromQuery(std::string readString, std::s
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the buffer is empty
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-void DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": writeString : " << writeString << std::endl;
@@ -502,7 +502,7 @@ std::cerr << __PRETTY_FUNCTION__ << ": write into xmlClob_" << std::endl;
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the buffer is empty
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-void DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName, int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName, int versionUpdate) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": buffer : " << buffer << std::endl;
@@ -571,7 +571,7 @@ std::cerr << __PRETTY_FUNCTION__ << ": write into xmlClob_" << std::endl;
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the buffer is empty
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-unsigned int DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) {
+unsigned int DbAccess::setXMLClobFromQuery(std::string writeString, std::string buffer, std::string partitionName) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": writeString : " << writeString << std::endl;
@@ -636,7 +636,7 @@ unsigned int DbAccess::setXMLClobFromQuery(std::string writeString, std::string 
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the buffer is empty
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-unsigned int DbAccess::setXMLClobFromQuery(std::string writeString, std::string *buffer, std::string partitionName, bool newPartition) throw (oracle::occi::SQLException, FecExceptionHandler) {
+unsigned int DbAccess::setXMLClobFromQuery(std::string writeString, std::string *buffer, std::string partitionName, bool newPartition) noexcept(false) {
 
 #ifdef DATABASEDEBUG
     std::cerr << __PRETTY_FUNCTION__ << ": writeString : " << writeString << std::endl;

@@ -155,11 +155,11 @@ class FecVmeRingDevice: public FecRingDevice {
 
   /** \brief create a VME FEC based on the VME device provided by HAL
    */
-FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ringSlot, bool init, fecRingDeviceFifoAccessModeEnum blockMode, uint32_t adapterSlot, bool invertClockPolarity = false ) throw ( FecExceptionHandler ) ;
+FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ringSlot, bool init, fecRingDeviceFifoAccessModeEnum blockMode, uint32_t adapterSlot, bool invertClockPolarity = false ) noexcept(false) ;
 
   /** Destructor
    */
-  virtual ~FecVmeRingDevice( ) throw ( FecExceptionHandler );
+  virtual ~FecVmeRingDevice( ) noexcept(false);
 
   /** \return the FEC hardware id
    */
@@ -201,27 +201,18 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
   static unsigned long getTraFifoSent();
   /** \brief create a bus adapter depending of which was chosen
    */
-  static HAL::VMEBusAdapterInterface *createBusAdapter ( uint32_t adapterSlot, std::string strBusAdapter ) throw ( HAL::BusAdapterException, FecExceptionHandler ) ;  
+  static HAL::VMEBusAdapterInterface *createBusAdapter ( uint32_t adapterSlot, std::string strBusAdapter ) noexcept(false) ;  
 
   //PnP initialisation function
   static HAL::VME64xCrate * configurePlugAndPlay( uint32_t adapteurSlot, std::string mapfile, std::string maptable, std::string strBusAdapter, hashMapVMEDevice &hashMapVMEDevice )
-    throw (HAL::BusAdapterException,
-	   HAL::NoSuchFileException,
-	   HAL::IllegalValueException,
-	   HAL::XMLProcessingException,
-	   HAL::HardwareProblemException,
-	   HAL::UnsupportedException);
+	   noexcept(false);
   
   //Hardcoded base address initialisation function
   static HAL::VME64xDevice * configureHardBaseAddress( uint32_t adapteurSlot, std::string addresstablefile, uint32_t baseaddress, uint32_t fecSlot, std::string strBusAdapter )
-    throw (HAL::BusAdapterException,
-	   HAL::NoSuchFileException,
-	   HAL::IllegalValueException,
-	   HAL::UnsupportedException, 
-	   FecExceptionHandler);
+	   noexcept(false);
 
   //Check if we really have a VME board on the allocated base address
-  static tscType16 detectVmeBoard(HAL::VME64xDevice *vmedevice, tscType8 fecSlot) throw ( FecExceptionHandler );
+  static tscType16 detectVmeBoard(HAL::VME64xDevice *vmedevice, tscType8 fecSlot) noexcept(false);
 
   /** \brief detect which numbering schema for the FEC rings
    */
@@ -237,11 +228,11 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
   /* \brief Clean up allocated memory on request
    */
-  static void closeFecVmeAccess ( ) throw (HAL::BusAdapterException) ;
+  static void closeFecVmeAccess ( ) noexcept(false) ;
   
   /* \brief Resets the whole VME crate 
    */
-  static void crateReset ( uint32_t adapterSlot) throw ( FecExceptionHandler ) ;
+  static void crateReset ( uint32_t adapterSlot) noexcept(false) ;
   
   /******************************************************
 		CONTROL & STATUS RTEGISTERS ACCESS
@@ -249,36 +240,36 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
   
   /** \brief Set the control register 0  the FEC
    */ 
-  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false ) throw ( FecExceptionHandler );
+  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false ) noexcept(false);
   
   /** \brief Get the control register 0  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR0( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingCR0( ) noexcept(false);
   
   /** \brief Set the control register 1  the FEC
    * \param ctrl1Value - value to be set
    */ 
-  void setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler );
+  void setFecRingCR1( tscType16 ctrl1Value ) noexcept(false);
   
   /** \brief Get the control register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR1( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingCR1( ) noexcept(false);
   
   /** \brief Get the status register 0  the FEC
    * \return value read
    */
-  tscType32 getFecRingSR0(unsigned long sleeptime=0) throw ( FecExceptionHandler );
+  tscType32 getFecRingSR0(unsigned long sleeptime=0) noexcept(false);
   
     /** \brief Get the status register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingSR1( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingSR1( ) noexcept(false);
 
     /** \brief return the firmware version of the FEC
    */
-  tscType16 getFecFirmwareVersion( ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecFirmwareVersion( ) noexcept(false) ;
 
   /******************************************************
 		FIFO ACCESS - NATIVE 32 BITS FORMAT
@@ -287,30 +278,30 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
   
   /** \brief return a word from the FIFO receive
    */
-  tscType32 getFifoReceive( ) throw ( FecExceptionHandler );
+  tscType32 getFifoReceive( ) noexcept(false);
   
   /** \brief write a word in the FIFO receive
    * \param value - value to be written
    */
-  void setFifoReceive( tscType32 fiforecValue ) throw ( FecExceptionHandler );
+  void setFifoReceive( tscType32 fiforecValue ) noexcept(false);
 
   /** \brief return a word from the FIFO return
    */
-  tscType8 getFifoReturn( ) throw ( FecExceptionHandler );
+  tscType8 getFifoReturn( ) noexcept(false);
   
   /** \brief write a word in the FIFO return
    * \param value - value to be written
    */
-  void setFifoReturn( tscType8 fiforetValue ) throw ( FecExceptionHandler );
+  void setFifoReturn( tscType8 fiforetValue ) noexcept(false);
   
   /** \brief return a word from the FIFO transmit
    */
-  tscType32 getFifoTransmit( ) throw ( FecExceptionHandler );
+  tscType32 getFifoTransmit( ) noexcept(false);
   
   /** \brief write a word in the FIFO transmit
    * \param value - value to be written
    */
-  void setFifoTransmit( tscType32 fifotraValue ) throw ( FecExceptionHandler );  
+  void setFifoTransmit( tscType32 fifotraValue ) noexcept(false);  
   
   /******************************************************
 		HARD RESET
@@ -318,7 +309,7 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
   /** \brief issue a crate reset
    */
-  void fecHardReset ( ) throw ( FecExceptionHandler ) ;
+  void fecHardReset ( ) noexcept(false) ;
 
   /******************************************************
    * The next methods is able to be overloaded in the sub-classes in order to implement
@@ -328,19 +319,19 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
    /** \brief get block of words from the FIFO transmit
     */
-   tscType32* getFifoTransmit (  tscType32 *value, int count ) throw (FecExceptionHandler) ;
+   tscType32* getFifoTransmit (  tscType32 *value, int count ) noexcept(false) ;
 
    /** \brief get block of words from the FIFO receive
     */
-   tscType32* getFifoReceive (  tscType32 *value, int count ) throw (FecExceptionHandler) ;
+   tscType32* getFifoReceive (  tscType32 *value, int count ) noexcept(false) ;
 
    /** \brief set a word into the FIFO Transmit
     */
-   void setFifoTransmit ( tscType32 *value, int count ) throw (FecExceptionHandler) ;
+   void setFifoTransmit ( tscType32 *value, int count ) noexcept(false) ;
 
    /** \brief set a word into the FIFO Transmit
     */
-   void setFifoReceive ( tscType32 *value, int count ) throw (FecExceptionHandler) ;
+   void setFifoReceive ( tscType32 *value, int count ) noexcept(false) ;
 
   /******************************************************
 		IRQ enable / disable
@@ -348,7 +339,7 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
   /** \brief Enable or disable the VME IRQ with the level
    */
-  void setIRQ ( bool enable, tscType8 level=1 ) throw ( FecExceptionHandler ) ;
+  void setIRQ ( bool enable, tscType8 level=1 ) noexcept(false) ;
   
   /******************************************************
            VME64x CSR/CR space operations
@@ -360,16 +351,16 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
   /** \brief return the trigger FPGA firmware version
    */
-  tscType32 getTriggerVersion() throw ( FecExceptionHandler ) ;
+  tscType32 getTriggerVersion() noexcept(false) ;
 
   /**  \brief return VMEslave version number
    */
-  tscType32 getVmeVersion() throw ( FecExceptionHandler );
+  tscType32 getVmeVersion() noexcept(false);
   /**  \brief return VMEslave version number
    */
   /**  \brief Reload all the uFECs on the board. Sleep about 1 sec after that.
    */
-  void uFecsReload(tscType8 value = 0x1) throw ( FecExceptionHandler );
+  void uFecsReload(tscType8 value = 0x1) noexcept(false);
 
 
   /******************************************************
@@ -378,7 +369,7 @@ FecVmeRingDevice ( HAL::VME64xDevice *vmedevice, tscType8 fecSlot, tscType8 ring
 
   /** \brief return the hardware id related to the slot
    */
-  static std::string getSerialNumber ( uint32_t slot, uint32_t adapterSlot) throw ( FecExceptionHandler ) ;
+  static std::string getSerialNumber ( uint32_t slot, uint32_t adapterSlot) noexcept(false) ;
   
   /** \brief return the min value of the ring 
    */

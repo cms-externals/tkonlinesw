@@ -55,21 +55,21 @@ class XMLTkIdVsHostname: public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLTkIdVsHostname () throw (FecExceptionHandler);
+  XMLTkIdVsHostname () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLTkIdVsHostname ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLTkIdVsHostname ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor with database access
    */
-  XMLTkIdVsHostname ( DbTkIdVsHostnameAccess *dbAccess )throw (FecExceptionHandler) ;
+  XMLTkIdVsHostname ( DbTkIdVsHostnameAccess *dbAccess )noexcept(false) ;
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLTkIdVsHostname ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLTkIdVsHostname ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLTkIdVsHostname
    */
@@ -85,7 +85,7 @@ class XMLTkIdVsHostname: public XMLCommonFec {
 
   /** \brief Sets the device vector private attribute
    */
-  void setTkIdVsHostnameVector (TkIdVsHostnameVector) throw (FecExceptionHandler);
+  void setTkIdVsHostnameVector (TkIdVsHostnameVector) noexcept(false);
 
   /** \brief Parse the XML buffer
    */
@@ -97,40 +97,40 @@ class XMLTkIdVsHostname: public XMLCommonFec {
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  TkIdVsHostnameVector getAllTkIdVsHostnameFromFile (  ) throw (FecExceptionHandler) ;
+  TkIdVsHostnameVector getAllTkIdVsHostnameFromFile (  ) noexcept(false) ;
 
 #ifdef DATABASE
-  void parseDatabaseResponse( unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler);
-  void parseDatabaseResponse( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler);
-  void parseDatabaseResponse( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler);
+  void parseDatabaseResponse( unsigned int versionMajor, unsigned int versionMinor ) noexcept(false);
+  void parseDatabaseResponse( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false);
+  void parseDatabaseResponse( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  TkIdVsHostnameVector getAllTkIdVsHostname ( unsigned int versionMajor = 0, unsigned int versionMinor = 0  ) throw (FecExceptionHandler);
+  TkIdVsHostnameVector getAllTkIdVsHostname ( unsigned int versionMajor = 0, unsigned int versionMinor = 0  ) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  TkIdVsHostnameVector getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajor = 0, unsigned int versionMinor = 0 ) throw (FecExceptionHandler);
+  TkIdVsHostnameVector getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajor = 0, unsigned int versionMinor = 0 ) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  TkIdVsHostnameVector getTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajor = 0, unsigned int versionMinor = 0 ) throw (FecExceptionHandler);
+  TkIdVsHostnameVector getTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajor = 0, unsigned int versionMinor = 0 ) noexcept(false);
 
 #endif
 
 
 /** \brief Writes the device vector parameter in a ASCII file
    */
-  void setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, std::string outputFileName ) throw (FecExceptionHandler);
+  void setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the device vector attribute in a ASCII file
    */
-  void setTkIdVsHostnameVector ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setTkIdVsHostnameVector ( std::string outputFileName ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, bool major ) throw (FecExceptionHandler);
+  void setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, bool major ) noexcept(false);
 #endif
 } ;
 

@@ -347,11 +347,11 @@ class FecAccessManager {
 
   /** \brief set an access into an hash table
    */
-  virtual void setAccess ( deviceAccess *access ) throw (FecExceptionHandler) ;
+  virtual void setAccess ( deviceAccess *access ) noexcept(false) ;
 
   /** \brief download the values
    */
-  virtual unsigned int downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) throw (FecExceptionHandler) ;
+  virtual unsigned int downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) noexcept(false) ;
 
   /** \brief calibrate the DOH (find for a specific gain the bias values)
    */
@@ -359,7 +359,7 @@ class FecAccessManager {
 
   /** \brief download the values into the hardware through block of frames
    */
-  virtual unsigned int downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) throw (FecExceptionHandler) ;
+  virtual unsigned int downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) noexcept(false) ;
 
   /** \brief Download the values only for certain APV registers on all APVs
    */
@@ -426,11 +426,11 @@ class FecAccessManager {
 
   /** \brief reset all modules by using PIA channel
    */
-  unsigned int resetPiaModules ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) ;
+  unsigned int resetPiaModules ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) noexcept(false) ;
 
   /** \brief reset all modules by using PIA channel
    */
-  unsigned int resetPiaModulesMultipleFrames ( piaResetVector *vPiaReset,  std::list<FecExceptionHandler *> &errorList) throw (FecExceptionHandler) ;
+  unsigned int resetPiaModulesMultipleFrames ( piaResetVector *vPiaReset,  std::list<FecExceptionHandler *> &errorList) noexcept(false) ;
 
   /** \brief cold reset for PLL
    */

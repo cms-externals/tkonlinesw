@@ -115,7 +115,7 @@ namespace Fed9U {
      *        software method.
      * \sa    getFed9UDescription.
      */
-    explicit Fed9UVmeDevice(const Fed9UDescription& description, u32 adaptorSlot = 0) throw (Fed9UVmeDeviceException);
+    explicit Fed9UVmeDevice(const Fed9UDescription& description, u32 adaptorSlot = 0) noexcept(false);
 
     /**
      * \brief  Tidies up the FED memory. Deletes the Fed9UDescription object.
@@ -148,11 +148,11 @@ namespace Fed9U {
      * \brief  sets the periodic counter for spy arming every N events.
      * \param  spyArmPeriod to set the value of N to arm on every Nth trigger
      */
-    Fed9UVmeDevice& setSpyArmPeriod(const u32  spyArmPeriod) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setSpyArmPeriod(const u32  spyArmPeriod) noexcept(false);
 
-    u32 getSpyArmPeriod() throw (Fed9UVmeDeviceException);
+    u32 getSpyArmPeriod() noexcept(false);
  
-    Fed9UVmeDevice& setSpyArmCommand(u8 spyArmCommand_)  throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setSpyArmCommand(u8 spyArmCommand_)  noexcept(false);
 
     // <NAC date=01/03/2007>
     /**
@@ -160,7 +160,7 @@ namespace Fed9U {
      * \param  selectedDelayChip The address pointing to the delay chip to pass the 
      * \param  command to or broadcast to all delay chips on one FeUnit or whole FED. 
      */
-    void armSpy(const Fed9UAddress& selectedDelayChip) throw (Fed9UVmeDeviceException);
+    void armSpy(const Fed9UAddress& selectedDelayChip) noexcept(false);
     /**
      * \brief  Reads back Spy Channel data
      * \param  selectedDelayChip The address pointing to the delay chip to pass the 
@@ -168,35 +168,35 @@ namespace Fed9U {
      * \param  destBuffer Pointer to buffer into which data is copied. 
      *         Must have 1504 bytes space.
      */
-    void fireSpy(const Fed9UAddress& selectedDelayChip, void* destBuffer) throw (Fed9UVmeDeviceException);
+    void fireSpy(const Fed9UAddress& selectedDelayChip, void* destBuffer) noexcept(false);
  
     // <NAC date="25/06/2009"> Added second spy L1A/QDR register commands
     /**
      * \brief  Reads back Latched QDR count at the time of the last TTC B channel spy arm command (warning: this is L1A count in some firmware versions)
      */
-    u32 getSpyTotalEventCount() throw (Fed9UVmeDeviceException);
+    u32 getSpyTotalEventCount() noexcept(false);
 
    /**
      * \brief  Reads back Latched L1A count at the time of the last TTC B channel spy arm command (warning: this is L1A count in some firmware versions)
      */
-    u32 getSpyL1ACount() throw (Fed9UVmeDeviceException);
+    u32 getSpyL1ACount() noexcept(false);
     // </NAC>
 
-    u32 getTotalEventCount32() throw (Fed9UVmeDeviceException);
+    u32 getTotalEventCount32() noexcept(false);
 
-    u32 getTotalL1ACount32() throw (Fed9UVmeDeviceException);
+    u32 getTotalL1ACount32() noexcept(false);
 
-    u32 getTotalEventOutCount() throw (Fed9UVmeDeviceException);
+    u32 getTotalEventOutCount() noexcept(false);
 
-    u32 getFeFrameLengthCount() throw (Fed9UVmeDeviceException);
+    u32 getFeFrameLengthCount() noexcept(false);
 
-    u32 getDummyEventCount() throw (Fed9UVmeDeviceException);
+    u32 getDummyEventCount() noexcept(false);
 
-    u32 getPayloadDownCount() throw (Fed9UVmeDeviceException);
+    u32 getPayloadDownCount() noexcept(false);
 
-    u32 getPayloadLength() throw (Fed9UVmeDeviceException);
+    u32 getPayloadLength() noexcept(false);
 
-    u64 getDebugRegTwo()  throw (Fed9UVmeDeviceException);
+    u64 getDebugRegTwo()  noexcept(false);
 
 
 
@@ -205,62 +205,62 @@ namespace Fed9U {
      *         description supplied to the constructor of this class.
      * \return A self reference.
      */
-    Fed9UVmeDevice& verifyHardwareId() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& verifyHardwareId() noexcept(false);
     
     /**
      * \brief  Verify versions checks that the versions of hardware and firmware within the
      *         FED matches that in the description supplied to the constructor of this class
      * \return A self reference.
      */
-    Fed9UVmeDevice& verifyVersions() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& verifyVersions() noexcept(false);
 
     /**
      * \brief  Verifies that the firmware versions on the FED match that in the global firmware file.
      *         It will upload the global firmware version if necessary.
      */
-    void verifySystemACEFirmwareVersions() throw (Fed9UVmeDeviceException);
+    void verifySystemACEFirmwareVersions() noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setOptoRxInputOffset
      * \throw   Fed9UVmeDeviceException Thrown in the case of an out of bounds error for the
      *          input parameters.
      */
-    Fed9UVmeDevice& setOptoRxInputOffset(const Fed9UAddress& feFpga, u16 inputOffset) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setOptoRxInputOffset(const Fed9UAddress& feFpga, u16 inputOffset) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getOptoRxInputOffset
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getOptoRxInputOffset(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    u16 getOptoRxInputOffset(const Fed9UAddress& feFpga) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setOptoRxOutputOffset
      * \throw   Fed9UVmeDeviceException Thrown in the case of an out of bounds error for the
      *          input parameters.
      */
-    Fed9UVmeDevice& setOptoRxOutputOffset(const Fed9UAddress& feFpga, u16 outputOffset) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setOptoRxOutputOffset(const Fed9UAddress& feFpga, u16 outputOffset) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getOptoRxOutputOffset
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getOptoRxOutputOffset(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    u16 getOptoRxOutputOffset(const Fed9UAddress& feFpga) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setOptoRxCapacitor
      * \throw   Fed9UVmeDeviceException Thrown in the case of an out of bounds error for the
      *          input parameters.
      */
-    Fed9UVmeDevice& setOptoRxCapacitor(const Fed9UAddress& feFpga, u16 capacitor) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setOptoRxCapacitor(const Fed9UAddress& feFpga, u16 capacitor) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getOptoRxCapacitor
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getOptoRxCapacitor(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    u16 getOptoRxCapacitor(const Fed9UAddress& feFpga) const noexcept(false);
 
     /**
      * \brief  Used to set the pedestal values on a given FED APV.
@@ -276,7 +276,7 @@ namespace Fed9U {
      * strip settings are also to be set then setPedsAndDisabledStrips should be used.
      * The pedestal values are subtracted from the strip data during zero suppression mode.
      */
-    Fed9UVmeDevice& setPedestals(const Fed9UAddress& fedApv, const std::vector<u16>& pedestals) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setPedestals(const Fed9UAddress& fedApv, const std::vector<u16>& pedestals) noexcept(false);
 
     /**
      * \brief  Returns a vector containing the pedestal value of each of the 128 strips on an APV.
@@ -290,7 +290,7 @@ namespace Fed9U {
      * getPedsAndDisabledStrips. Pedestals are subtracted from the strip reading during zero
      * suppression mode.
      */
-    std::vector<u16> getPedestals(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getPedestals(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \brief  Used to set the disable values on a given FED APV.
@@ -307,7 +307,7 @@ namespace Fed9U {
      * removes them from the common mode median calculation and also provides a flag to highlight an
      * invalid strip. It <b> does not </b> remove the strip data from the event.
      */
-    Fed9UVmeDevice& setDisabledStrips(const Fed9UAddress& fedApv, const std::vector<bool>& disabledStrips) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDisabledStrips(const Fed9UAddress& fedApv, const std::vector<bool>& disabledStrips) noexcept(false);
 
     /**
      * \brief  Returns a vector containing the disbale setting of each of the 128 strips on an APV.
@@ -320,7 +320,7 @@ namespace Fed9U {
      * Both the pedestals and disabled strip settings can be returned simulataneously using
      * getPedsAndDisabledStrips. Used to flag strips that have bad data during a run.
      */
-    std::vector<bool> getDisabledStrips(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    std::vector<bool> getDisabledStrips(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \brief  Returns the number of valid strips used in the Common Mode Median calculation.
@@ -331,7 +331,7 @@ namespace Fed9U {
      *
      * This number is determined by the number of disabled strips and cannot be set on its own.
      */
-    u16 getNumberOfValidStrips(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    u16 getNumberOfValidStrips(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \brief  Sets the 128 pedestals for an APV and which strips should be excluded from the common mode calculation.
@@ -347,7 +347,7 @@ namespace Fed9U {
      * The CM median calculated by the requires the number of valid strips in order to calculate the median. The number
      * of valid strips is set automatically depending on the number of strips set disabled by this method.
      */
-    Fed9UVmeDevice& setPedsAndDisabledStrips(const Fed9UAddress& fedApv, const std::vector<u16>& pedestals, const std::vector<bool>& disabledStrips) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setPedsAndDisabledStrips(const Fed9UAddress& fedApv, const std::vector<u16>& pedestals, const std::vector<bool>& disabledStrips) noexcept(false);
 
     /** 
      * \brief  Gets the 128 pedestals and valid strip settings for an APV.
@@ -359,7 +359,7 @@ namespace Fed9U {
      * \throw  Fed9UVmeDeviceException Catches all errors from internal method calls and
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    const Fed9UVmeDevice& getPedsAndDisabledStrips(const Fed9UAddress& fedApv, std::vector<u16>& pedestals, std::vector<bool>& disabledStrips, u16& numberValidStrips) const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& getPedsAndDisabledStrips(const Fed9UAddress& fedApv, std::vector<u16>& pedestals, std::vector<bool>& disabledStrips, u16& numberValidStrips) const noexcept(false);
 
     /**
      * \brief  Sets the 128 high cluster thresholds for an APV.
@@ -372,7 +372,7 @@ namespace Fed9U {
      * Two types of cluster threshold can be set. The high thresholds are used to identify single strip clusters
      * in the cluster finding algorithm.
      */
-    Fed9UVmeDevice& setHighClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& highThresholds) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setHighClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& highThresholds) noexcept(false);
 
     /**
      * \brief  Returns the 128 high cluster thresholds for an APV.
@@ -384,7 +384,7 @@ namespace Fed9U {
      * Two types of cluster threshold can be set. The high thresholds are used to identify single strip clusters
      * in the cluster finding algorithm.
      */
-    std::vector<u16> getHighClusterThresholds(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getHighClusterThresholds(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \brief  Sets the 128 low cluster thresholds for an APV.
@@ -398,7 +398,7 @@ namespace Fed9U {
      * Two types of cluster threshold can be set. The low thresholds are used to identify multiple strip clusters
      * in the cluster finding algorithm.
      */
-    Fed9UVmeDevice& setLowClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& lowThresholds) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setLowClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& lowThresholds) noexcept(false);
 
     /**
      * \brief  Returns the 128 low cluster thresholds for an APV.
@@ -410,7 +410,7 @@ namespace Fed9U {
      * Two types of cluster threshold can be set. The low thresholds are used to identify multiple strip clusters
      * in the cluster finding algorithm.
      */
-    std::vector<u16> getLowClusterThresholds(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getLowClusterThresholds(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \brief  Sets the 128 cluster thresholds for an APV.
@@ -427,7 +427,7 @@ namespace Fed9U {
      * is to be used on single strip hits and low on multiple strip hits. The maximum threshold value is 254
      * for both high and low thresholds. If the threshold is set to 255 it is excluded from the cluster finding.
      */
-    Fed9UVmeDevice& setClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& highThresholds, const std::vector<u16>& lowThresholds) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setClusterThresholds(const Fed9UAddress& fedApv, const std::vector<u16>& highThresholds, const std::vector<u16>& lowThresholds) noexcept(false);
 
     /**
      * \brief  Returns the 128 low cluster thresholds for an APV.
@@ -444,7 +444,7 @@ namespace Fed9U {
      * The high threshold is to be used on single strip hits and low on multiple
      * strip hits.
      */
-    const Fed9UVmeDevice& getClusterThresholds(const Fed9UAddress& fedApv, std::vector<u16>& highThresholds, std::vector<u16>& lowThresholds) const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& getClusterThresholds(const Fed9UAddress& fedApv, std::vector<u16>& highThresholds, std::vector<u16>& lowThresholds) const noexcept(false);
 
     /**
      * \brief  Performs a soft reset on the FPGA.
@@ -454,7 +454,7 @@ namespace Fed9U {
      *
      * Performs a one clock cycle reset on a specified FE FPGA.
      */
-    Fed9UVmeDevice& feFpgaSoftReset(const Fed9UAddress& fpga) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& feFpgaSoftReset(const Fed9UAddress& fpga) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setAdcControls
@@ -471,28 +471,28 @@ namespace Fed9U {
      * li ADC 4 = Ch 8 & 11
      * li ADC 5 = Ch 9 & 10
      */
-    Fed9UVmeDevice& setAdcControls(const Fed9UAddress& fedChannel, const Fed9UAdcControls& adcControlSettings) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAdcControls(const Fed9UAddress& fedChannel, const Fed9UAdcControls& adcControlSettings) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getAdcControls
      * \throw  Fed9UVmeDeviceException Catches all errors from internal method calls and
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UAdcControls getAdcControls(const Fed9UAddress& fedChannel) const throw (Fed9UVmeDeviceException);
+    Fed9UAdcControls getAdcControls(const Fed9UAddress& fedChannel) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setFineDelay
      * \throw   Fed9UVmeDeviceException Performs a range check on the fine delay setting and will throw
      *          the error if it is out of bounds.
      */
-    Fed9UVmeDevice& setFineDelay(const Fed9UAddress& fedChannel, u16 fineDelay) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFineDelay(const Fed9UAddress& fedChannel, u16 fineDelay) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setCoarseDelay
      * \throw   Fed9UVmeDeviceException Performs a range check on the fine delay setting and will throw
      *          the error if it is out of bounds.
      */
-    Fed9UVmeDevice& setCoarseDelay(const Fed9UAddress& fedChannel, u16 coarseDelay) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setCoarseDelay(const Fed9UAddress& fedChannel, u16 coarseDelay) noexcept(false);
 
     /**
      * \brief  Sets the nano second delay value required for a specific FED channel.
@@ -505,126 +505,126 @@ namespace Fed9U {
      * The delay in nano seconds is converted to fine and coarse delay values. As a result only whole values of
      * nano seconds are available.
      */
-    Fed9UVmeDevice& setDelay(const Fed9UAddress& fedChannel, float nanoDelay) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDelay(const Fed9UAddress& fedChannel, float nanoDelay) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setDelay
      * \throw   Fed9UVmeDeviceException Performs a range check on the fine delay setting and will throw
      *          the error if it is out of bounds.
      */
-    Fed9UVmeDevice& setDelay(const Fed9UAddress& fedChannel, u16 coarseDelay, u16 fineDelay) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDelay(const Fed9UAddress& fedChannel, u16 coarseDelay, u16 fineDelay) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setApvDisable
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setApvDisable(const Fed9UAddress& fedApv, bool apvDisable) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setApvDisable(const Fed9UAddress& fedApv, bool apvDisable) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getApvDisable
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    bool getApvDisable(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    bool getApvDisable(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setFrameThreshold
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setFrameThreshold(const Fed9UAddress& fedChannel, u16 threshOnChannel) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFrameThreshold(const Fed9UAddress& fedChannel, u16 threshOnChannel) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getFrameThreshold
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getFrameThreshold(const Fed9UAddress& fedChannel) const throw (Fed9UVmeDeviceException);
+    u16 getFrameThreshold(const Fed9UAddress& fedChannel) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getFedStrips
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UStrips & getFedStrips() throw (Fed9UVmeDeviceException);
+    Fed9UStrips & getFedStrips() noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setCmMedianOverride
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setCmMedianOverride(Fed9UAddress feFpga, bool medianOverrideDisable, std::vector<u16> medianValue = std::vector<u16>(24,0)) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setCmMedianOverride(Fed9UAddress feFpga, bool medianOverrideDisable, std::vector<u16> medianValue = std::vector<u16>(24,0)) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getCmMedianOverride
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    std::vector<u16> getCmMedianOverride(Fed9UAddress feFpga, bool& medianOverrideDisable) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getCmMedianOverride(Fed9UAddress feFpga, bool& medianOverrideDisable) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setCmMedianOverrideValue
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setCmMedianOverrideValue(const Fed9UAddress& fedApv, u16 medianValue) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setCmMedianOverrideValue(const Fed9UAddress& fedApv, u16 medianValue) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getCmMedianOverrideValue
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getCmMedianOverrideValue(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    u16 getCmMedianOverrideValue(const Fed9UAddress& fedApv) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setApvDisable
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setCmMedianOverrideDisable(const Fed9UAddress& feFpga, bool disable) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setCmMedianOverrideDisable(const Fed9UAddress& feFpga, bool disable) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getCmMedianOverrideDisable
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    bool getCmMedianOverrideDisable(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    bool getCmMedianOverrideDisable(const Fed9UAddress& feFpga) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setScopeLength
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setScopeLength(u16 numberOfWords) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setScopeLength(u16 numberOfWords) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getScopeLength
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getScopeLength() const throw (Fed9UVmeDeviceException);
+    u16 getScopeLength() const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setComplement
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& setComplement(const Fed9UAddress& fedChannel, bool disableComplement) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setComplement(const Fed9UAddress& fedChannel, bool disableComplement) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getComplement
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    bool getComplement(const Fed9UAddress& fedChannel) const throw (Fed9UVmeDeviceException);
+    bool getComplement(const Fed9UAddress& fedChannel) const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setTrimDacOffset
      * \throw   Fed9UVmeDeviceException Verifies the TrimDAC offset is with bounds, otherwise this exception
      *          is thrown.
      */
-    Fed9UVmeDevice& setTrimDacOffset(const Fed9UAddress& fedChannel, u16 offset) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTrimDacOffset(const Fed9UAddress& fedChannel, u16 offset) noexcept(false);
 
     /**
      * \brief  Sends a reset to the trimDACs.
@@ -632,7 +632,7 @@ namespace Fed9U {
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    Fed9UVmeDevice& sendTrimDacReset(const Fed9UAddress& feFpga) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendTrimDacReset(const Fed9UAddress& feFpga) noexcept(false);
 
     /**
      * \brief  Returns the FE event buffer occupancy on a FED channel.
@@ -641,7 +641,7 @@ namespace Fed9U {
      * \throw   Fed9UVmeDeviceException Catches all errors from internal method calls and
      *          rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u16 getChannelBufferOccupancy(const Fed9UAddress& fedChannel) const throw (Fed9UVmeDeviceException);
+    u16 getChannelBufferOccupancy(const Fed9UAddress& fedChannel) const noexcept(false);
 
     /**
      * \brief  Returns the firmware ID that is in use on all the FE FPGAs.
@@ -650,7 +650,7 @@ namespace Fed9U {
      *         on one of the FE FPGAs compared to the 1st FE FPGA. Catches all exceptions from internal
      *         function calls and rethrows them as this type.
      */
-    u32 getFeFirmwareId() const throw (Fed9UVmeDeviceException);
+    u32 getFeFirmwareId() const noexcept(false);
 
     /**
      * \brief  Returns the firmware ID that is in use on all the delay FPGAs.
@@ -659,7 +659,7 @@ namespace Fed9U {
      *         on one of the delay FPGAs compared to the 1st delay FPGA. Catches all exceptions from internal
      *         function calls and rethrows them as this type.
      */
-    u32 getDelayFirmwareId() const throw (Fed9UVmeDeviceException);
+    u32 getDelayFirmwareId() const noexcept(false);
 
     // <JEC date=30-05-06>
     /**
@@ -669,7 +669,7 @@ namespace Fed9U {
      * \throw  Fed9UVmeDeviceException Catches all errors from internal method calls and
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      */
-    u32 getFeFakeEventTriggerFifoData(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    u32 getFeFakeEventTriggerFifoData(const Fed9UAddress& feFpga) const noexcept(false);
     // </JEC>
 
     //<JEC date=16/03/07>
@@ -681,7 +681,7 @@ namespace Fed9U {
      * \param  address of the FE-FPGA whose register is being accessed.
      * \todo   make it work !!
     */
-    u16 getFEFrameCapturePrescale(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    u16 getFEFrameCapturePrescale(const Fed9UAddress& feFpga) const noexcept(false);
     //</JEC>
 
     // <JEC date=10-04-06>
@@ -695,7 +695,7 @@ namespace Fed9U {
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      * \todo   Update to use the Fed9UAddress class.
      */
-    void dumpFeRegisters(unsigned short selectedFpga, ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
+    void dumpFeRegisters(unsigned short selectedFpga, ostream &os, bool addHtml) noexcept(false);
     // </JEC>
 
     // <JEC date=10-05-06>
@@ -708,7 +708,7 @@ namespace Fed9U {
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      * \todo   Update to use the Fed9UAddress class.
      */
-    void dumpApvData(unsigned short selectedFpga, ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
+    void dumpApvData(unsigned short selectedFpga, ostream &os, bool addHtml) noexcept(false);
     // </JEC>
 
     // <JEC date=10-05-06>
@@ -721,7 +721,7 @@ namespace Fed9U {
      *         rethrown as a Fed9UVmeDeviceException appending relevant method information.
      * \todo   Update to use the Fed9UAddress class.
      */
-    void dumpPedAndThreshData(unsigned short selectedFpga, ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
+    void dumpPedAndThreshData(unsigned short selectedFpga, ostream &os, bool addHtml) noexcept(false);
     // </JEC>
 
   private:
@@ -736,7 +736,7 @@ namespace Fed9U {
      * represents a strip. This method uses the FED logic system so a 1 will enable a strip
      * and a 0 will disable it.
      */
-    Fed9UVmeDevice& createStripData(const Fed9UAddress& fedApv, const bool setThreshold, const std::vector<u16>& pedsOrHighThresh, const std::vector<u16>& valStripOrLowThresh ) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& createStripData(const Fed9UAddress& fedApv, const bool setThreshold, const std::vector<u16>& pedsOrHighThresh, const std::vector<u16>& valStripOrLowThresh ) noexcept(false);
 
     /**
      * Writes the strip data to the FED.
@@ -747,7 +747,7 @@ namespace Fed9U {
      * is true then the cluster threshold data is returned. False and the pedestal and valid
      * channel data is returned.
      */
-    Fed9UVmeDevice& setStripData(const Fed9UAddress& fedApv, const bool setThreshold, const std::vector<u16>& pedsOrHighThresh, const std::vector<u16>& valStripOrLowThresh) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setStripData(const Fed9UAddress& fedApv, const bool setThreshold, const std::vector<u16>& pedsOrHighThresh, const std::vector<u16>& valStripOrLowThresh) noexcept(false);
 
     /**
      * This will return a 128 element vector that contains the pedestals and disable strip
@@ -756,7 +756,7 @@ namespace Fed9U {
      * This should only be called from getStripData as it relies on the pedestal address
      * being set before this method is called.
      */
-    const Fed9UVmeDevice& getPedsAndDisabledStripData(const Fed9UAddress& fedApv, std::vector<u16>& pedestals, std::vector<u16>& validStrips) const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& getPedsAndDisabledStripData(const Fed9UAddress& fedApv, std::vector<u16>& pedestals, std::vector<u16>& validStrips) const noexcept(false);
 
     /**
      * This will return a 128 element std::vector that contains the thresholds on an APV.
@@ -764,7 +764,7 @@ namespace Fed9U {
      * This should only be called from getStripData as it relies on the pedestal address
      * being set before this method is called.
      */
-    const Fed9UVmeDevice& getClusterData(const Fed9UAddress& fedApv, std::vector<u16>& highThresholds, std::vector<u16>& lowThresholds) const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& getClusterData(const Fed9UAddress& fedApv, std::vector<u16>& highThresholds, std::vector<u16>& lowThresholds) const noexcept(false);
 
     /**
      * This will take a vector that contains four APVs of strips (512 elements) with
@@ -776,7 +776,7 @@ namespace Fed9U {
      * output ordering is the same as that coming into the FED. This method was written by
      * Mattew Pearson, RAL, 12/2003 and modified by Gareth Rogers, RAL, 01/2004.
      */
-    Fed9UVmeDevice& disOrderingAlgorithm(const std::vector<u16>& stripOrderedInput, std::vector<u16>& apvOrderedOutput) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& disOrderingAlgorithm(const std::vector<u16>& stripOrderedInput, std::vector<u16>& apvOrderedOutput) noexcept(false);
 
     /**
      * This will take a vector that contains one APV of strips (128 elements) where
@@ -786,7 +786,7 @@ namespace Fed9U {
      *
      * This method was written by Matthew Pearson, RAL, 12/2003.
      */
-    const Fed9UVmeDevice& reOrderingAlgorithm(const std::vector<u16>& apvOrderedInput, std::vector<u16>& stripOrderedOutput) const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& reOrderingAlgorithm(const std::vector<u16>& apvOrderedInput, std::vector<u16>& stripOrderedOutput) const noexcept(false);
 
     /**
      * This sets the number of strips that should be used in the median calculation
@@ -796,7 +796,7 @@ namespace Fed9U {
      * of strips. A 1 represents disabled and a 0 enabled. Each element contains the
      * state of a strip. It must always be the same as the common-mode calculation values.
      */
-    Fed9UVmeDevice& setNumberValidStrips(const Fed9UAddress& fedApv, const std::vector<bool>& disabledStrips) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setNumberValidStrips(const Fed9UAddress& fedApv, const std::vector<bool>& disabledStrips) noexcept(false);
 
     /**
      * This gets the number of strips that should be used in the median calculation.
@@ -804,7 +804,7 @@ namespace Fed9U {
      * The return value is the number strips that are enabled on an APV. It must always
      * be the same as the common-mode calculation values.
      */
-    u16 getNumberValidStrips(const Fed9UAddress& fedApv) const throw (Fed9UVmeDeviceException);
+    u16 getNumberValidStrips(const Fed9UAddress& fedApv) const noexcept(false);
 
     //<JEC date=16/03/07>
     /**
@@ -812,7 +812,7 @@ namespace Fed9U {
      * because it must be used in conjunction with the corresponding BE-FPGA register.
      * All 8 FE-FPGAs are set simultaneously.
      */
-    Fed9UVmeDevice & setFEFrameCapturePrescale(u16 prescale) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setFEFrameCapturePrescale(u16 prescale) noexcept(false);
     //</JEC>
 
     /*******************************************************************************
@@ -828,7 +828,7 @@ namespace Fed9U {
      * that can be found in TypeDefs.hh. The possible settings are TTC, backplane
      * or software triggers.
      */
-    Fed9UVmeDevice& setTriggerSource(Fed9UTrigSource triggerSource) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTriggerSource(Fed9UTrigSource triggerSource) noexcept(false);
 
     /**
      * This returns the trigger source for the BE FPGA.
@@ -837,29 +837,29 @@ namespace Fed9U {
      * that can be found in TypeDefs.hh. The possible settings are TTC, backplane
      * or software triggers.
      */
-    Fed9UTrigSource getTriggerSource() const throw (Fed9UVmeDeviceException);
+    Fed9UTrigSource getTriggerSource() const noexcept(false);
 
     /**
      * This will load all the read and write setting from the Fed9UTtcrxDescription
      * object to the TTCrx.
      */
-    Fed9UVmeDevice& setTtcrx(const Fed9UTtcrxDescription& ttcrxDescription) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTtcrx(const Fed9UTtcrxDescription& ttcrxDescription) noexcept(false);
 
     /**
      * Enable or disable the ttcrx serial b data path explicitly
      */
-    Fed9UVmeDevice& setTtcrxSerialBDataEnable(bool value=true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTtcrxSerialBDataEnable(bool value=true) noexcept(false);
 
     /**
      * Returns all the current read and writable settings on the TTCrx device.
      */
-    Fed9UTtcrxDescription getTtcrx() const throw (Fed9UVmeDeviceException);
+    Fed9UTtcrxDescription getTtcrx() const noexcept(false);
 
     /**
      * Returns all the current settings on the TTCrx device. Both the read only and read
      * and writable settings.
      */
-    Fed9UTtcrxDescriptionInfo getTtcrxInfo() const throw (Fed9UVmeDeviceException);
+    Fed9UTtcrxDescriptionInfo getTtcrxInfo() const noexcept(false);
 
     /**
      * Will reset the TTCrx chip.
@@ -869,20 +869,20 @@ namespace Fed9U {
      * the TTC clock is selected. If internal is true then an internal reset will be
      * sent. If it is false then an external reset will be sent.
      */
-    Fed9UVmeDevice& sendTtcrxReset(bool internal, bool doWait=true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendTtcrxReset(bool internal, bool doWait=true) noexcept(false);
 
     /**
      * This command can be used to alter the settings in the test register.
      *
      * The argument passed is just the decimal representation of the bits in the register.
      */
-    Fed9UVmeDevice& setTestRegister(u32 testSettings) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTestRegister(u32 testSettings) noexcept(false);
 
     /**
      * This command will return the decimal equivalent of the number represented
      * by the bits in this register.
      */
-    u32 getTestRegister() const throw (Fed9UVmeDeviceException);
+    u32 getTestRegister() const noexcept(false);
 
     /**
      * Disables a FE FPGA.
@@ -891,12 +891,12 @@ namespace Fed9U {
      * then a soft reset of the BE FPGA is performed. See BE FPGA soft reset documentation
      * for details of its effect.
      */
-    Fed9UVmeDevice& setFedFeUnitDisable(const Fed9UAddress& feFpga, bool feFpgaDisable) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFedFeUnitDisable(const Fed9UAddress& feFpga, bool feFpgaDisable) noexcept(false);
 
     /**
      * Returns a true if a FE FPGA is disabled and a false if the FE FPGA is enabled.
      */
-    bool getFedFeUnitDisable(const Fed9UAddress& feFpga) const throw (Fed9UVmeDeviceException);
+    bool getFedFeUnitDisable(const Fed9UAddress& feFpga) const noexcept(false);
 
     /**
      * This allows the user to select the output data route.
@@ -904,7 +904,7 @@ namespace Fed9U {
      * The values of the Fed9UReadRoute enum can be found in TypeDefs.hh.
      * The settings for the read route is either the S-LINK or the VME-LINK.
      */
-    Fed9UVmeDevice& setBeFpgaReadRoute(Fed9UReadRoute readRoute) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setBeFpgaReadRoute(Fed9UReadRoute readRoute) noexcept(false);
 
     /**
      * This returns the output data route.
@@ -912,14 +912,14 @@ namespace Fed9U {
      * The values of the Fed9UReadRoute enum can be found in TypeDefs.hh.
      * The settings for the read route is either the S-LINK or the VME-LINK.
      */
-    Fed9UReadRoute getBeFpgaReadRoute() const throw (Fed9UVmeDeviceException);
+    Fed9UReadRoute getBeFpgaReadRoute() const noexcept(false);
 
     /**
      * This will disable the BE FPGA preventing it from seeing both triggers and frames.
      *
      * A true will disable the BE FPGA and a false will enable the BE FPGA.
      */
-    Fed9UVmeDevice& setFedBeFpgaDisable(bool fedDisable) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFedBeFpgaDisable(bool fedDisable) noexcept(false);
 
     /**
      * If a true is returned then the BE FPGA is disabled. If a false is returned then
@@ -927,7 +927,7 @@ namespace Fed9U {
      *
      * If the BE FPGA is disabled then it will ignore both triggers and frames.
      */
-    bool getFedBeFpgaDisable() const throw (Fed9UVmeDeviceException);
+    bool getFedBeFpgaDisable() const noexcept(false);
 
     /**
      * This allows the user to set the FED ID in the DAQ header.
@@ -935,7 +935,7 @@ namespace Fed9U {
      * The FED ID is a number unique to a FED and allows the DAQ to identify
      * which FED the data came from. It has a maximum value of 4095.
      */
-    Fed9UVmeDevice& setFedId(u16 fedId) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFedId(u16 fedId) noexcept(false);
 
     /**
      * This allows the user to get the FED ID that will be sent in the DAQ header.
@@ -944,12 +944,12 @@ namespace Fed9U {
      * which FED the data came from. do not confuse this software ID with the FedHardwarID, which is unique to every FED and written into 
      * the Eprom during industrial testing
      */
-    u16 getFedId() const throw (Fed9UVmeDeviceException);
+    u16 getFedId() const noexcept(false);
 
     /**
      * Generates a software trigger.
      */
-    Fed9UVmeDevice& sendSoftwareTrigger() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendSoftwareTrigger() noexcept(false);
 
     /**
      * This performs a soft reset on the BE FPGA.
@@ -957,43 +957,43 @@ namespace Fed9U {
      * It resets the BE FPGA counters. It does not affect the DCMs and
      * control registers. It does reset the event counters.
      */
-    Fed9UVmeDevice& beFpgaSoftReset() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& beFpgaSoftReset() noexcept(false);
 
     /** 
      * The return value holds data from the extra event register
      */
-    u32 getBeDebugRegister() const throw (Fed9UVmeDeviceException);
+    u32 getBeDebugRegister() const noexcept(false);
 
               
     /** 
      * The return value holds data from the extra event register
      */
-    u32 getBeExtraEventRegister() const throw (Fed9UVmeDeviceException);
+    u32 getBeExtraEventRegister() const noexcept(false);
                  
                  
     /**
      * The return value holds data from various sections
      */
-    u32 getBeStatusRegister() const throw (Fed9UVmeDeviceException);
+    u32 getBeStatusRegister() const noexcept(false);
 
     /**
      * Stores the number of triggers that the FED has received since last reset (BE FPGA or
      * FED reset).
      */
-    u32 getTriggerNumber() const throw (Fed9UVmeDeviceException);
+    u32 getTriggerNumber() const noexcept(false);
 
     /**
      * Returns how many bunch crossings have occurred within the FED since the last reset.
      *
      * This counter is reset by both the FED reset and the BE FPGA soft reset.
      */
-    u32 getBunchCount() const throw (Fed9UVmeDeviceException);
+    u32 getBunchCount() const noexcept(false);
 
     /**
      * This returns the number of frames that are held in the QDR memory at that
      * instant in time.
      */
-    u32 getQdrFrameCount() const throw (Fed9UVmeDeviceException);
+    u32 getQdrFrameCount() const noexcept(false);
 
     /**
      * Returns the status of the TTC chip.
@@ -1001,41 +1001,41 @@ namespace Fed9U {
      * 1 ready
      * 0 not ready
      */
-    bool getTtcrxStatus() const throw (Fed9UVmeDeviceException);
+    bool getTtcrxStatus() const noexcept(false);
 
     /**
      * Returns the current version of the firmware that is being used by the BE FPGA.
      */
-    u32 getBeFirmwareId() const throw (Fed9UVmeDeviceException);
+    u32 getBeFirmwareId() const noexcept(false);
 
     /**
      * Returns the number of 64 bit words currently in the QDR buffer.
      */
-    u32 getQdrBufferLevel() const throw (Fed9UVmeDeviceException);
+    u32 getQdrBufferLevel() const noexcept(false);
 
     /**
      * Returns the total number of frames that have been held in the QDR buffer since
      * last reset (BE FPGA or FED reset).
      */
-    u32 getQdrTotalFrameCount() const throw (Fed9UVmeDeviceException);
+    u32 getQdrTotalFrameCount() const noexcept(false);
 
     //Matthew Pearson April 2005 - new BE commands for FEDv2.
 
     /**Returns the DAQ register 32 bit number. 
        This number is written to the FED data buffer header when in full debug mode.*/
-    u32 getDaqRegister(void) const throw (Fed9UVmeDeviceException);
+    u32 getDaqRegister(void) const noexcept(false);
 
     /**Sets the DAQ register 32 bit number.                                              
        This number is written to the FED data buffer header when in full debug mode.*/
-    Fed9UVmeDevice& setDaqRegister(u32 daqReg) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqRegister(u32 daqReg) noexcept(false);
     
     /**Returns the DAQ register Two 32 bit number.
        This number is written to the FED data buffer header when in full debug mode.*/
-    u32 getDaqRegisterTwo(void) const throw (Fed9UVmeDeviceException);
+    u32 getDaqRegisterTwo(void) const noexcept(false);
     
     /**Sets the DAQ register Two 32 bit number.
        This number is written to the FED data buffer header when in full debug mode.*/
-    Fed9UVmeDevice& setDaqRegisterTwo(u32 daqReg) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqRegisterTwo(u32 daqReg) noexcept(false);
     
     
     /**Returns the status of the requested buffer from the BE status register.
@@ -1043,32 +1043,32 @@ namespace Fed9U {
        Currently the default is to set it to empty.
        It also uses the enum Fed9UFifoType to identify which buffer status is being requested.*/
     // JEC 23-02-06
-    Fed9UFifoStatus getFifoStatus(Fed9UFifoType fifoId) const throw (Fed9UVmeDeviceException);
+    Fed9UFifoStatus getFifoStatus(Fed9UFifoType fifoId) const noexcept(false);
 
     /**Returns the status of the Tracker Header Monitor data from the BE status register.*/
     // JEC 24-02-06
-    bool getTrackerHeaderMonitorStatus(void) const throw (Fed9UVmeDeviceException);
+    bool getTrackerHeaderMonitorStatus(void) const noexcept(false);
 
     /**Returns an error flag if the internal bunch crossing counter and the value from the TTC system do not match
        at orbit reset.*/
     // JEC 27-02-06
-    bool getBunchCrossingAtOrbitReset(void) const throw (Fed9UVmeDeviceException);
+    bool getBunchCrossingAtOrbitReset(void) const noexcept(false);
 
     /**Returns the S-LINK back pressure flag from the BE status register.*/
-    bool getSlinkBackPressure(void) const throw (Fed9UVmeDeviceException);
+    bool getSlinkBackPressure(void) const noexcept(false);
 
     /**Returns the S-LINK link full flag from the BE status register.*/
-    bool getSlinkFull(void) const throw (Fed9UVmeDeviceException);
+    bool getSlinkFull(void) const noexcept(false);
 
     /**Returns the S-LINK link down flag from the BE status register.*/
-    bool getSlinkDown(void) const throw (Fed9UVmeDeviceException);
+    bool getSlinkDown(void) const noexcept(false);
 
     /**Returns the internal freeze flag. This flag indicated if the FED trigger FIFOs have
        overflowed. The FED will be frozen for debugging if positive.*/
-    bool getTriggerFifoOverflow(void) const throw (Fed9UVmeDeviceException);
+    bool getTriggerFifoOverflow(void) const noexcept(false);
 
     /**Returns the over temperature interrupt signal flag.*/
-    bool getTempInterrupt(void) const throw (Fed9UVmeDeviceException);
+    bool getTempInterrupt(void) const noexcept(false);
 
     //<JEC date=09/01/06>
     //Added tracker header type to Fed9UVmeDevice.
@@ -1076,13 +1076,13 @@ namespace Fed9U {
      * \copydoc Fed9UABC::setHeaderFormatType
      * \throw   Fed9UVmeDeviceException Catches and rethrows all errors thrown during this method call as a this exception type.
      */
-    Fed9UVmeDevice& setHeaderFormatType(Fed9UHeaderFormat headerType) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setHeaderFormatType(Fed9UHeaderFormat headerType) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getHeaderFormatType
      * \throw   Fed9UVmeDeviceException Catches and rethrows all errors thrown during this method call as this exception type.
      */
-    Fed9UHeaderFormat getHeaderFormatType(void) const throw (Fed9UVmeDeviceException);
+    Fed9UHeaderFormat getHeaderFormatType(void) const noexcept(false);
     //</JEC>
 
     //<JEC date=23/02/2006>
@@ -1092,13 +1092,13 @@ namespace Fed9U {
      * \throw   Fed9UVmeDeviceException Throws for an out of bounds error and rethrows all events thrown during member function
      *          execution as this type.
      */
-    Fed9UVmeDevice& setBunchCrossingOffset(u16 bxOffset) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setBunchCrossingOffset(u16 bxOffset) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::getBunchCrossingOffset
      * \throw   Fed9UVmeDeviceException Rethrows all errors thrown during member function execution and rethrows as this exception.
      */
-    u16 getBunchCrossingOffset(void) const throw (Fed9UVmeDeviceException);
+    u16 getBunchCrossingOffset(void) const noexcept(false);
     //</JEC>
 
     //<JEC date=08/12/2005>
@@ -1108,13 +1108,13 @@ namespace Fed9U {
      * \throw   Fed9UVmeDeviceException Throws this exception if eventType is out of range. Rethrows all errors thrown during member
      *          function execution and rethrows as this exception.
      */
-    Fed9UVmeDevice& setDaqEventType(u16 eventType) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqEventType(u16 eventType) noexcept(false);
 
     /**
      * \copdoc Fed9UABC::getDaqEventType
      * \throw  Fed9UVmeDeviceException Rethrows all errors thrown during member function execution and rethrows as this exception.
      */
-    u16 getDaqEventType(void) const throw (Fed9UVmeDeviceException);
+    u16 getDaqEventType(void) const noexcept(false);
     //</JEC>
 
     //<JEC date=08/12/2005>
@@ -1124,39 +1124,39 @@ namespace Fed9U {
      * \throw   Fed9UVmeDeviceException Thrown for an out of bounds error and rethrows all errors thrown
      *          during member function execution.
      */
-    Fed9UVmeDevice& setDaqFov(u16 fov) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqFov(u16 fov) noexcept(false);
     /**
      * \copydoc Fed9UABC::setDaqFov
      * \throw   Fed9UVmeDeviceException Rethrows all errors thrown
      *          during member function execution.
      */
-    u16 getDaqFov(void) const throw (Fed9UVmeDeviceException);
+    u16 getDaqFov(void) const noexcept(false);
     //</JEC>
 
     // <JEC date="1/12/2006">
-    Fed9UVmeDevice& setBunchCrossingOrbitTotal(u16 orbitTotal) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setBunchCrossingOrbitTotal(u16 orbitTotal) noexcept(false);
     //</JEC>
 
     /**Returns the bunch crossing number total for each LHC orbit. This is a read
        only register. It should return the same value each orbit. It is a 12-bit number.*/
-    u16 getBunchCrossingOrbitTotal(void) throw (Fed9UVmeDeviceException);
+    u16 getBunchCrossingOrbitTotal(void) noexcept(false);
 
     // JEC 8/3/06
     // under development
-    Fed9UVmeDevice& setFmmTestRegister(u16 testSettings) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFmmTestRegister(u16 testSettings) noexcept(false);
 
     /**Returns the contents of the FMM test register.  It is a 4-bit number which is used to test the signals to the FMM
        manually.  This register is enabled via bit 5 of the main test register, but should not be enabled during normal
        operation.*/
     // JEC 6/3/06
-    u16 getFmmTestRegister(void) throw (Fed9UVmeDeviceException);
+    u16 getFmmTestRegister(void) noexcept(false);
     
     //<JEC date=16/03/07>  NB.  setter is private as it must be used in conjunction with corresponding FE command
     /**
      * Retrieves the prescale applied to all triggers received by the BE-FPGA.  The firmware needs the number of events
      * to skip.  This method converts that into the actual prescale factor.  Skip every Nth event means a prescale factor of N+1.
      */
-    u16 getBEFrameCapturePrescale(void) const throw (Fed9UVmeDeviceException);
+    u16 getBEFrameCapturePrescale(void) const noexcept(false);
     //</JEC>
     
     /**Returns all the tracker header monitor information. The tracker header monitor for
@@ -1167,7 +1167,7 @@ namespace Fed9U {
        NOTE: this method internally checks the tracker header monitor status flag which is
        in the DAQ register before reading the tracker header monitor. An exception is thrown
        if the data is not ready to be read.*/
-    std::vector<u8> getTrackerHeaderMonitor(u16 feFpga) const throw (Fed9UVmeDeviceException);
+    std::vector<u8> getTrackerHeaderMonitor(u16 feFpga) const noexcept(false);
 
     /**
      * \brief  Returns the level 1 event number as defined by the TTC system.
@@ -1176,41 +1176,41 @@ namespace Fed9U {
      *         level 1 accept from the header would be invalid. All exceptions that are thrown during this member function call
      *         are caught and rethrown as this type.
      */
-    u32 getL1AcceptID(void) const throw (Fed9UVmeDeviceException);
+    u32 getL1AcceptID(void) const noexcept(false);
     
     /**Returns the TTS Read bit.*/
-    bool getTTSRead(void) const throw (Fed9UVmeDeviceException);
+    bool getTTSRead(void) const noexcept(false);
 
     /**Returns the TTS Warn Overflow bit.*/
-    bool getTTSWarnOverflow(void) const throw (Fed9UVmeDeviceException);
+    bool getTTSWarnOverflow(void) const noexcept(false);
 
     /**Returns the TTS Busy bit.*/
-    bool getTTSBusy(void) const throw (Fed9UVmeDeviceException);
+    bool getTTSBusy(void) const noexcept(false);
 
     /**Returns the TTS Out of Sync bit.*/
-    bool getTTSOutOfSync(void) const throw (Fed9UVmeDeviceException);
+    bool getTTSOutOfSync(void) const noexcept(false);
 
     /**Reads the Bx counter value at LHC orbit from the long_read_1 register.
        This should be identical to the value read using the getBunchCrossingOrbitTotal() method.*/
-    u16 getBunchCrossingOrbitLongRead1(void) const throw (Fed9UVmeDeviceException);
+    u16 getBunchCrossingOrbitLongRead1(void) const noexcept(false);
 
     /** Returns the complete contents of the second BE status register.*/
     // JEC 20-11-06
-    vector<u32> getSecondBeStatusRegister(void) const throw (Fed9UVmeDeviceException);
+    vector<u32> getSecondBeStatusRegister(void) const noexcept(false);
 
     /**Reads the last TTC broadcast frame (short format) decoded from channel B of the TTCrx.*/
-    std::vector<u16> getTtcBroadcastCommand(void) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getTtcBroadcastCommand(void) const noexcept(false);
 
     /**Read the last TTC individually addressed command (long format) decoded from channel B of the TTCrx.*/
-    std::vector<u16> getTtcIndividuallyAddressedCommand(void) const throw (Fed9UVmeDeviceException);
+    std::vector<u16> getTtcIndividuallyAddressedCommand(void) const noexcept(false);
 
     // JEC 10-04-06
     /** This method dumps the contents of all read/write BE registers.
      *  Only those registers which are set up during initialisation are printed out.
      */
-    void dumpBeRegisters(ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
-    void dumpBeStatusRegisters(ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
-    void dumpTrackerHeaderMonitor(ostream &os, bool addHtml) throw (Fed9UVmeDeviceException);
+    void dumpBeRegisters(ostream &os, bool addHtml) noexcept(false);
+    void dumpBeStatusRegisters(ostream &os, bool addHtml) noexcept(false);
+    void dumpTrackerHeaderMonitor(ostream &os, bool addHtml) noexcept(false);
 
   private:
     // JEC 06-10-06
@@ -1246,7 +1246,7 @@ namespace Fed9U {
      * This sets the value of the prescale applied to all triggers coming into the BE-FPGA.  It is a private member because
      * it must be used in conjunction with the corresponding register for the FE-FPGAs.
     */
-    Fed9UVmeDevice& setBEFrameCapturePrescale(u16 prescale) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setBEFrameCapturePrescale(u16 prescale) noexcept(false);
     //</JEC>
     
     /*******************************************************************************
@@ -1258,7 +1258,7 @@ namespace Fed9U {
     /**
      * Returns the firmware ID on the VME FPGA.
      */
-    u32 getVmeFirmwareId() const throw (Fed9UVmeDeviceException);
+    u32 getVmeFirmwareId() const noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setClock
@@ -1270,7 +1270,7 @@ namespace Fed9U {
      * This is not affect by a FED reset. After the rest there will be a
      * software pause to allow the FED to lock to the new clock.
      */
-    Fed9UVmeDevice& setClock(Fed9UClockSource clockSelect) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setClock(Fed9UClockSource clockSelect) noexcept(false);
 
     /**
      * \copydoc Fed9UABC::setClock
@@ -1281,7 +1281,7 @@ namespace Fed9U {
      * the reset can be removed. As long as the User guaranties there will be no communication
      * with the FED for at least 0.5secs after the clock change there should be no problem.
      */
-    Fed9UVmeDevice& setClock(Fed9UClockSource clockSelect, bool doWait) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setClock(Fed9UClockSource clockSelect, bool doWait) noexcept(false);
 
     /**
      * Returns the clock source.
@@ -1289,7 +1289,7 @@ namespace Fed9U {
      * The clocks avaliable to be selected are the on board, TTC and back plane clock.
      * The Fed9UClockSource enum is defined in TypeDefs.hh.
      */
-    Fed9UClockSource getClock() const throw (Fed9UVmeDeviceException);
+    Fed9UClockSource getClock() const noexcept(false);
 
     /**
      * This method will set the amount of read only memory on the EPROM.
@@ -1302,7 +1302,7 @@ namespace Fed9U {
      * These values are from the Fed9UEpromReadOnlyLevel enum found in the TypeDefs.
      * At present it is not possible to read back this setting.
      */
-    Fed9UVmeDevice& setEpromReadOnlyLevel(Fed9UEpromReadOnlyLevel readOnlyLevel) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setEpromReadOnlyLevel(Fed9UEpromReadOnlyLevel readOnlyLevel) noexcept(false);
 
     /**
      * This method is used to write to the EPROM memory.
@@ -1313,7 +1313,7 @@ namespace Fed9U {
      * and must always be less than the size of the EPROM minus the offset. It is defaulted to 2047. The default
      * value will update the entire EPROM.
      */
-    Fed9UVmeDevice& setEprom(const Fed9UEpromDescription& epromDescription, u32 initialOffset = 0, u32 numberOfBytes = 2047) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setEprom(const Fed9UEpromDescription& epromDescription, u32 initialOffset = 0, u32 numberOfBytes = 2047) noexcept(false);
 
     /**
      * This method will return the contents of a section of the EPROM memory.
@@ -1323,40 +1323,40 @@ namespace Fed9U {
      * to 0 and has a maximum value of 2046. The number of bytes has a maximum value of 2047 and is defaulted to 2047.
      * The updated EPROM is returned by reference.
      */
-    Fed9UEpromDescription getEprom(u32 initialOffset = 0, u32 numberOfBytes = 2047) const throw (Fed9UVmeDeviceException);
+    Fed9UEpromDescription getEprom(u32 initialOffset = 0, u32 numberOfBytes = 2047) const noexcept(false);
 
     /**
      * This method will set the FED serial number.
      * NOTE: This method will be become depreciated during 2005.
      */
-    Fed9UVmeDevice& setFedSerialNumber(u32 serialNumber) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFedSerialNumber(u32 serialNumber) noexcept(false);
 
     /**
      * This method will set the FED hardware id which is also called fed serial number.
      * this method maps to that in the Fed9UABC and the Fed9UDescription
      * NOTE: This method will be become depreciated during 2005.
      */
-    Fed9UVmeDevice& setFedHardwareId(u32 serialNumber) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFedHardwareId(u32 serialNumber) noexcept(false);
 
     /**
      * This method will return the FED serial number.
      * NOTE: This method will be become depreciated during 2005. Use the getFedSerialNumberProtected method instead.
      */
-    u32 getFedSerialNumber() const throw (Fed9UVmeDeviceException);
+    u32 getFedSerialNumber() const noexcept(false);
 
     /**
      * This method will read the FED hardware ID (or serial number) from the write protected EPROM memory.
      * It uses a enum defined in TypeDefs.hh which sets the byte at which the write protected area of the
      * EPROM begins.
      */
-    u32 getFedSerialNumberProtected() const throw (Fed9UVmeDeviceException);
+    u32 getFedSerialNumberProtected() const noexcept(false);
     
     /**
      * This method will return the FED HardwareId which is also called Fed serial number.
      * this method maps to that in the Fed9UABC and the Fed9UDescription
      * NOTE: This method will be become depreciated during 2005. Use the getFedSerialNumberProtected method instead.
      */
-    u32 getFedHardwareId() const throw (Fed9UVmeDeviceException);
+    u32 getFedHardwareId() const noexcept(false);
 
     /**
      * This can be used to place the voltage controller in a stand by mode which does not perform
@@ -1366,12 +1366,12 @@ namespace Fed9U {
      * A true will shut the controller down and a false enable it. This will not reset the chip.
      * All register values will remain unaffected.
      */
-    Fed9UVmeDevice& setVoltageMonitorStandBy(bool standBy) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setVoltageMonitorStandBy(bool standBy) noexcept(false);
 
     /**
      * This provides the ability to reset the status registers to their hardware defaults.
      */
-    Fed9UVmeDevice& resetVoltageMonitorStatusRegister() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& resetVoltageMonitorStatusRegister() noexcept(false);
 
     /**
      * This is used to configure the voltage monitor.
@@ -1379,19 +1379,19 @@ namespace Fed9U {
      * It must be given a Fed9UVoltageController which should contain all the 
      * appropiate settings.
      */
-    Fed9UVmeDevice& setVoltageMonitor(const Fed9UVoltageControl& voltageController) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setVoltageMonitor(const Fed9UVoltageControl& voltageController) noexcept(false);
 
     /**
      * This return a Fed9UVoltageMonitor which contains all the current read and writable
      * settings on the voltage monitor.
      */
-    Fed9UVoltageControl getVoltageMonitor() const throw (Fed9UVmeDeviceException);
+    Fed9UVoltageControl getVoltageMonitor() const noexcept(false);
 
     /**
      * This returns a Fed9UVoltageMonitorInfo which contains all the current settings
      * on the voltage monitor. Both the read writable settings and the read only ones.
      */
-    Fed9UVoltageControlInfo getVoltageMonitorInfo() const throw (Fed9UVmeDeviceException);
+    Fed9UVoltageControlInfo getVoltageMonitorInfo() const noexcept(false);
 
     /**
      * This will reset all the configuration and status registers on the System ACE controller. It will
@@ -1399,7 +1399,7 @@ namespace Fed9U {
      *
      * The firmware will be reloaded from the current configuration address.
      */
-    Fed9UVmeDevice& resetSystemAce() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& resetSystemAce() noexcept(false);
 
     /**
      * \brief  Reload the FPGA firmware from a compact flash card revision.
@@ -1412,7 +1412,7 @@ namespace Fed9U {
      * select the revision from which the CF card will load the firmware. getCfFileHeader can be used to view
      * the firmware version stored in each CF revision.
      */
-    Fed9UVmeDevice& reloadFpgaFirmwareFromCompactFlash(u32 configAddr) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& reloadFpgaFirmwareFromCompactFlash(u32 configAddr) noexcept(false);
     
     /**
      * This is used to set the System ACE data words to 16 bit.
@@ -1423,7 +1423,7 @@ namespace Fed9U {
      * in word mode. Each method that uses the System ACE sets itself into word
      * mode and so there should be no need to call this method.
      */
-    Fed9UVmeDevice& setSysAceWordMode() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setSysAceWordMode() noexcept(false);
     
     /**
      * Checks the size of the data used by the Compact Flash (CF).
@@ -1433,13 +1433,13 @@ namespace Fed9U {
      * not. All System ACE methods rely on it begin in word mode. Each method always sets itself into
      * word mode before writting to the System ACE.
      */
-    bool getSysAceWordMode() const throw (Fed9UVmeDeviceException);
+    bool getSysAceWordMode() const noexcept(false);
 
     //\todo - these are test functions and need to be removed once everything is working.
     //Depreciated. Do not use. They will be removed in future versions.
-    Fed9UVmeDevice& setSystemAceRegister(u32 data, u32 regAddr) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setSystemAceRegister(u32 data, u32 regAddr) noexcept(false);
 
-    u32 getSystemAceRegister(u32 regAddr) const throw (Fed9UVmeDeviceException);
+    u32 getSystemAceRegister(u32 regAddr) const noexcept(false);
 
     /**
      * \brief  Returns the firmware versions and the revision they are stored in by reading the header file, which was loaded
@@ -1449,7 +1449,7 @@ namespace Fed9U {
      * \throw  Fed9UVmeDeviceException If the file fails to open or does not contain a valid header then this exception is thrown.
      *         All exceptions thrown during this method call will be caught and rethrown as this type.
      */
-    std::string getCfFileHeader(const std::string& cfFileName) throw (Fed9UVmeDeviceException);
+    std::string getCfFileHeader(const std::string& cfFileName) noexcept(false);
 
     /**
      * \brief  A method to load a new Compact Flash (CF) image on to the FEDs CF card.
@@ -1469,7 +1469,7 @@ namespace Fed9U {
      * Once the upload is complete then firmware will not be reloaded and it must be done by a call to
      * reloadFpgaFirmwareFromCompactFlash. This member function is thread safe.
      */
-    std::string setCfImageFile(const std::string& cfInputImageFilePath, bool testCf = false, bool setGlobalFirmware = false) throw (Fed9UVmeDeviceException);
+    std::string setCfImageFile(const std::string& cfInputImageFilePath, bool testCf = false, bool setGlobalFirmware = false) noexcept(false);
 
     /**
      * \brief  Loads a blank file allocation table to the CF card. Performing a quick format of the card.
@@ -1481,7 +1481,7 @@ namespace Fed9U {
      * This method has no knowledge of the file structure on the CF card and in order perform a quick format loads a preformatted
      * CF image to the CF device that is included as part of the Fed9U installation.
      */
-    Fed9UVmeDevice& setEraseCfImage() throw (Fed9UVmeDeviceException) ;
+    Fed9UVmeDevice& setEraseCfImage() noexcept(false) ;
 
     /**
      * \brief  Reads a portion of the compact flash card and saves it to file. It saves a direct copy of the words on the CF file.
@@ -1501,7 +1501,7 @@ namespace Fed9U {
      * The file name generated by the member function is in a binary format containing the firmware versions stored on each revision.
      * It can be overriden using a human readable name, however the software will no longer consider this a valid .ace file.
      */
-    Fed9UVmeDevice& getCfImageFile(u32 mbToReadFromCf, std::string cfOutputImageFile = "UseBinary", u32 maxRev=8) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& getCfImageFile(u32 mbToReadFromCf, std::string cfOutputImageFile = "UseBinary", u32 maxRev=8) noexcept(false);
 
 
     /**
@@ -1515,7 +1515,7 @@ namespace Fed9U {
      * after this method is called as it will leave the data on the CF card in an undefined state. Always try to reset the
      * system ace and rewrite the image first this is a last resort method!
      */
-    Fed9UVmeDevice& cfDataBufferWriteDump() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& cfDataBufferWriteDump() noexcept(false);
 
     /**
      * \brief  To be used in the event that reading from the compact flash fails and leave the system ace controller in a
@@ -1528,7 +1528,7 @@ namespace Fed9U {
      * CF data request and its false for data buffer mode. It will read the remaining data from the buffer and should unlock
      * the system ace controller.
      */
-    Fed9UVmeDevice& cfDataBufferReadDump() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& cfDataBufferReadDump() noexcept(false);
 
     /**
      * Returns the version number.
@@ -1536,7 +1536,7 @@ namespace Fed9U {
      * The returned string contains the major version, minor version and revision number each separated
      * by an underscore.
      */
-    std::string getSystemAceVersionNumber() throw (Fed9UVmeDeviceException);
+    std::string getSystemAceVersionNumber() noexcept(false);
 
     /**
      * This returns the address that the current firmware is loaded from.
@@ -1544,7 +1544,7 @@ namespace Fed9U {
      * The Compact Flash (CF) card can contain multiple firmware versions. This provides the address of the firmware
      * used on the CF card. It should be used if the current firmware version is to be reloaded. It is a 3 bit number.
      */
-    u16 getCfFirmwareAddress() throw (Fed9UVmeDeviceException);
+    u16 getCfFirmwareAddress() noexcept(false);
 
     /**
      * This returns an 17 element vector which contains all the setting in the status register. A description of
@@ -1571,7 +1571,7 @@ namespace Fed9U {
      * 15 CF Correctable Error - true if a correctable error has occurred. See the error register for more details.
      * 16 CF Error - true if an error has occurred. See the error register for more details.
      */
-    std::vector<bool> getSystemAceStatusRegister() throw (Fed9UVmeDeviceException);
+    std::vector<bool> getSystemAceStatusRegister() noexcept(false);
 
     /**
      * This returns a five element vector that contains all the error bits for the configuration
@@ -1586,7 +1586,7 @@ namespace Fed9U {
      * 3 Instruction Error - true if an invalid instruction was encountered during configuration.
      * 4 Monitor Error - true if the configuration did not start within 500ms of being told to start.
      */
-    std::vector<bool> getSysAceConfigErrorStatus() throw (Fed9UVmeDeviceException);
+    std::vector<bool> getSysAceConfigErrorStatus() noexcept(false);
 
     /**
      * This returns a 10 element vector that contains all the Compact Flash error bits.
@@ -1603,7 +1603,7 @@ namespace Fed9U {
      * 8 Command Abort - true if a CF command was aborted.
      * 9 General Error - true if a general error has occured.
      */
-    std::vector<bool> getCfErrorStatus() throw (Fed9UVmeDeviceException);
+    std::vector<bool> getCfErrorStatus() noexcept(false);
 
     /**
      * This returns an 8 element vector which contains the status of the Compact Flash (CF)
@@ -1620,12 +1620,12 @@ namespace Fed9U {
      * 6 Calculate if FAT12 or not based on the cluster count - true if FAT12 format.
      * 7 Calculate if FAT16 or not based on the cluster count - true if FAT16 format.
      */
-    std::vector<bool> getCfFatStatus() throw (Fed9UVmeDeviceException);
+    std::vector<bool> getCfFatStatus() noexcept(false);
 
     /**
      * Returns the number of events that have been readout over the VME link.
      */
-    u32 vmeEventCounter() const throw (Fed9UVmeDeviceException);
+    u32 vmeEventCounter() const noexcept(false);
 
     /**
      * \brief  Looks in the event buffer for an event.
@@ -1634,7 +1634,7 @@ namespace Fed9U {
      * \throw  Fed9UVmeDeviceException Catches all exceptions thrown from called methods
      *         and rethrows as this exception with method information appended.
      */
-    u32 hasEvent() const throw (Fed9UVmeDeviceException);
+    u32 hasEvent() const noexcept(false);
 
     /**
      * The event in the buffer is read out to the location of memory specified by the
@@ -1648,7 +1648,7 @@ namespace Fed9U {
      * out a single 32 bit word at a time. By setting this value to false a block transfer
      * will be performed, true and single reads will be used instead.
      */
-    Fed9UVmeDevice& getCompleteEvent(u32* destBuffer, u32 freeBufSpace, u32& numU32sAddedToBuffer, u32& eventCounter, bool blockDisable = true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& getCompleteEvent(u32* destBuffer, u32 freeBufSpace, u32& numU32sAddedToBuffer, u32& eventCounter, bool blockDisable = true) noexcept(false);
 
     /**
      * \brief  Reads the full event from memory into a software buffer using a VME block transfer.
@@ -1660,7 +1660,7 @@ namespace Fed9U {
      * \throw  Fed9UVmeDeviceException This error type is thrown in response to a variety of error condition
      *         that may occur while reading the event.
      */
-    Fed9UVmeDevice& getCompleteEventTurboStyle(u32* destBuffer, u32 freeBufSpace, u32&  numU32sAddedToBuffer, u32& eventCounter) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& getCompleteEventTurboStyle(u32* destBuffer, u32 freeBufSpace, u32&  numU32sAddedToBuffer, u32& eventCounter) noexcept(false);
 
     /**
      * Purge the event buffer.
@@ -1668,7 +1668,7 @@ namespace Fed9U {
      * Removes any existing events from the buffer. It returns the number of events that
      * were purged and the number of events that have been readout over the VME link.
      */
-    Fed9UVmeDevice& purgeEvents(u32& numberOfPurgedEvents, u32& eventCounter) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& purgeEvents(u32& numberOfPurgedEvents, u32& eventCounter) noexcept(false);
 
 
   private:
@@ -1682,25 +1682,25 @@ namespace Fed9U {
      * The memory address of the byte to be written is given in the second element of
      * the vector.
      */
-    Fed9UVmeDevice& epromWrite(const std::vector<u32>& epromDataAndOffset) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& epromWrite(const std::vector<u32>& epromDataAndOffset) noexcept(false);
 
     /**
      * This is used to read a byte of memory on the EPROM. It takes only one arguement
      * the address of the byte of memory to be read.
      */
-    u32 epromRead(u32 offset) const throw (Fed9UVmeDeviceException);
+    u32 epromRead(u32 offset) const noexcept(false);
 
     /**
      * Before the Compact Flash (CF) card can be read from the System ACE controller must get a lock.
      * If the method fails to get a lock then a Fed9UVmeDeviceException error will be thrown.
      */
-    Fed9UVmeDevice& getCompactFlashLock() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& getCompactFlashLock() noexcept(false);
 
     /**
      * Once the System ACE has a lock with the Compact Flash (CF) card it must then check to
      * see if the CF device is ready to receive commands.
      */
-    Fed9UVmeDevice& checkCfReadyForCommands() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& checkCfReadyForCommands() noexcept(false);
 
     /**
      * This sets the starting Logical Block Address (LBA), the number of sectors that are to be written
@@ -1711,12 +1711,12 @@ namespace Fed9U {
      * of memory on the CF card that the read/write should start from. It has a maximum value of 128,000
      * on a 64MB CF card.
      */
-    Fed9UVmeDevice& setDataRegionToReadOrWrite(u32 lba, u32 sectorCount, bool read) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDataRegionToReadOrWrite(u32 lba, u32 sectorCount, bool read) noexcept(false);
 
     /**
      * This polls the data buffer to ensure it is ready to be read.
      */
-    Fed9UVmeDevice& checkDataBufferReady() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& checkDataBufferReady() noexcept(false);
 
     /**
      * \brief  Scans the available revisions on the CF cards to look for alternate firmware version
@@ -1731,7 +1731,7 @@ namespace Fed9U {
      * This method will detect the firmware versions stored in each revision by sequentially loading each revision stored on the
      * compact flash card and reading back the firmwares from the FED registers. This will disrupt anything else the FED is doing.
      */
-    std::vector<std::string> setCfFileHeader(u32 maxRev=8)  throw (Fed9UVmeDeviceException);
+    std::vector<std::string> setCfFileHeader(u32 maxRev=8)  noexcept(false);
 
     /**
      * \brief  Utility method to check the CF image .ace file for consistancy and to remove the file header.
@@ -1749,7 +1749,7 @@ namespace Fed9U {
      * Arguements are passed by reference and are modified, hence the references must be mutual exclusion must be provided by the User
      * if they are two common data structures.
      */
-    Fed9UVmeDevice& removeCfFileHeaderAndMarkers(std::ifstream& cfInputFile, std::ios::pos_type& endDataMarker, std::string& firmwareInfo/*, std::ios::pos_type& startDataMarker=std::ios::off_type(-1)*/) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& removeCfFileHeaderAndMarkers(std::ifstream& cfInputFile, std::ios::pos_type& endDataMarker, std::string& firmwareInfo/*, std::ios::pos_type& startDataMarker=std::ios::off_type(-1)*/) noexcept(false);
 
     /**
      * \brief  Will return true if the Compact Flash (CF) card reloaded correctly after a reboot from the CF, otherwise false.
@@ -1759,7 +1759,7 @@ namespace Fed9U {
      * This polls the system ACE registers to check for a valid reload in the status register. It will time out if the firmware
      * is found not to reload correctly.
      */
-    bool pollCfForFirmwareReload() const throw (Fed9UVmeDeviceException);
+    bool pollCfForFirmwareReload() const noexcept(false);
 
     /*******************************************************************************
      *                      These are the high level commands                      *
@@ -1892,7 +1892,7 @@ namespace Fed9U {
      * to clear an event without having to rerun the init() method. Warning this will
      * reset the APV disable settings.
      */
-    Fed9UVmeDevice& sendFedCompleteLogicReset() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendFedCompleteLogicReset() noexcept(false);
 
     /**
      * This will reset the whole FED.
@@ -1900,32 +1900,32 @@ namespace Fed9U {
      * The TTCrx chip, the temperature monitors, pedestals, disabled strips, high and
      * low cluster thresholds and the clock source are unaffected by a FED Reset.
      */
-    Fed9UVmeDevice& sendFedReset(bool doWait=true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendFedReset(bool doWait=true) noexcept(false);
 
     /**
      * This will reset VME VLink and counters only.
      *
      */
-    Fed9UVmeDevice& sendVLinkReset() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendVLinkReset() noexcept(false);
 
     /**
      * This will reset VME Bus using the Bus controller resetBus Method.
      *
      */
-    Fed9UVmeDevice& sendVmeBusReset() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendVmeBusReset() noexcept(false);
  
     /**
      * This will reset VME Bus using the Bus controller resetBus Method.
      *
      */
-    Fed9UVmeDevice& sendVmeBusResetInhibit(bool value) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendVmeBusResetInhibit(bool value) noexcept(false);
 
  
 
    /**
      * \copydoc Fed9UABC::setDaqMode
      */
-    Fed9UVmeDevice& setDaqMode(Fed9UDaqMode newFedDaqMode) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqMode(Fed9UDaqMode newFedDaqMode) noexcept(false);
 
     /**
      * Sets the DAQ super mode for the FED.
@@ -1938,7 +1938,7 @@ namespace Fed9U {
     /**
      * \copydoc Fed9UDaqSuperMode
      */
-    Fed9UVmeDevice& setDaqSuperMode(Fed9UDaqSuperMode newFedDaqMode) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setDaqSuperMode(Fed9UDaqSuperMode newFedDaqMode) noexcept(false);
 
     
    /**
@@ -1947,7 +1947,7 @@ namespace Fed9U {
      * In order to identify FEDs in the crate we read from this register
      * It should hold the value 0x00000FED
      */
-    bool getIsFed()  const throw (Fed9UVmeDeviceException);
+    bool getIsFed()  const noexcept(false);
 
 
     /**
@@ -1958,7 +1958,7 @@ namespace Fed9U {
      * process raw data mode, zero suppressed data mode, virgin raw dat
      * mode and scope mode.
      */
-    Fed9UDaqMode getDaqMode()  const throw (Fed9UVmeDeviceException);
+    Fed9UDaqMode getDaqMode()  const noexcept(false);
 
 
     /**
@@ -1968,18 +1968,18 @@ namespace Fed9U {
      * is declared in TypeDefs.hh. There are thre DAQ Super modes avaliable
      * fake, zero lite and normal
      */
-    Fed9UDaqSuperMode getDaqSuperMode()  const throw (Fed9UVmeDeviceException);
+    Fed9UDaqSuperMode getDaqSuperMode()  const noexcept(false);
   
     /**
      * \copydoc Fed9UABC::setTempControl
      */
-    Fed9UVmeDevice& setTempControl(const Fed9UAddress& fpga, const Fed9UTempControl& temperatureSettings) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setTempControl(const Fed9UAddress& fpga, const Fed9UTempControl& temperatureSettings) noexcept(false);
 
     /**
      * Returns a Fed9UTempControl object which contain all the read/write settings on the LM82
      * temperature monitor, but not the read only settings.
      */
-    Fed9UTempControl getTempControl(const Fed9UAddress& fpga)  const throw (Fed9UVmeDeviceException);
+    Fed9UTempControl getTempControl(const Fed9UAddress& fpga)  const noexcept(false);
 
     /**
      * This reads back all the settings on the LM82 temperature monitor. It returns a
@@ -1989,7 +1989,7 @@ namespace Fed9U {
      * it also contains the read only register. The status register u32 can be masked with the enum
      * Fed9UTemperatureStatus, found in TypeDefs.hh, to check the individual status bits.
      */
-    Fed9UTempControlInfo getTempControlInfo(const Fed9UAddress& fpga)  const throw (Fed9UVmeDeviceException);
+    Fed9UTempControlInfo getTempControlInfo(const Fed9UAddress& fpga)  const noexcept(false);
 
     /**
      * The returned vector contains the status of the BE FPGA registers that contain
@@ -2002,7 +2002,7 @@ namespace Fed9U {
      * 2 Number of unread words in QDR
      * 3 Total frame count written to QDR
      */
-    std::vector<u32> getBeEventCounterStatus()  const throw (Fed9UVmeDeviceException);
+    std::vector<u32> getBeEventCounterStatus()  const noexcept(false);
 
     /**
      * In the event that theLocalFedSettings gets totally out of sync with the FED
@@ -2010,7 +2010,7 @@ namespace Fed9U {
      * stored on the FED and pass it to the theLocalFedSettings.  The only
      * information it does not get is what is stored in the EPROM.
      */
-    Fed9UVmeDevice& updateLocalDescriptionFromFed() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& updateLocalDescriptionFromFed() noexcept(false);
 
     /**
      * This method will prepare the FED to run in a DAQ mode specified in theLocalFedSettings
@@ -2021,7 +2021,7 @@ namespace Fed9U {
      * can be taken. The strip settings (pedestals, disabled strips and cluster thresholds) and
      * the APV disable flag settings and the BE FPGA disable flag are not setup.
      */
-    Fed9UVmeDevice& init(bool setClockAndReset=true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& init(bool setClockAndReset=true) noexcept(false);
 
     /** 
      * This method prepares the FED for running in the fastest possible way.
@@ -2031,40 +2031,40 @@ namespace Fed9U {
      * vmeFpgaSoftReset
      * stop() (note that stop also disables all the ADCs in order to reduce power consumption when fed is not running
      */
-    Fed9UVmeDevice& fastInit() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& fastInit() noexcept(false);
 
     /**
      * This method will initialise all the strips on a FED so that they are ready to take data.
      *
      * Initialises the pedestals, disabled strips, low and high cluster thresholds from theLocalFedSettings.
      */
-    Fed9UVmeDevice& initStrips() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& initStrips() noexcept(false);
     
     /**
      * This method will initialise the Fake Event RAMs on a FED so that they are ready to output fake events.
      *
      * Added all parameters after first 2 for use in FedPatternCheck.cc.  Can be left out to run the function as it did previously (AAB 8/15/2015)
      */
-    Fed9UVmeDevice& initFakeEvent( bool useEventFile, bool blockUpload = false, std::string * inFEDString = NULL, std::string * inFEDString2 = NULL ,std::string * inFEDString4 = NULL, int uniqueChannels = 1, bool isZS = false ) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& initFakeEvent( bool useEventFile, bool blockUpload = false, std::string * inFEDString = NULL, std::string * inFEDString2 = NULL ,std::string * inFEDString4 = NULL, int uniqueChannels = 1, bool isZS = false ) noexcept(false);
 
     /**
      * This will initialise the temperature monitors, TTCrx device and the voltage monitor.
      */
-    Fed9UVmeDevice& initAuxiliaryChips() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& initAuxiliaryChips() noexcept(false);
 
     /**
      * This enables the FED so that it can start taking data.
      *
      * Sets the APV disable flag settings and the BE FPGA disable flag settings.
      */
-    Fed9UVmeDevice& start() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& start() noexcept(false);
 
     /**
      * Stops the FED after it has performed a run
      *
      * This is done by disabling all the APVs and the BE FPGA.
      */
-    Fed9UVmeDevice& stop() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& stop() noexcept(false);
 
     /**
      * Scans through all the FED delay settings.
@@ -2072,7 +2072,7 @@ namespace Fed9U {
      * It can either scan through a nano second range or fine and coarse skew setting range
      * for a given channel.
      */
-    Fed9UVmeDevice& scanDelayValues(const Fed9UAddress& fedChannel, bool nanoDelay=true, bool scanCoarse=false) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& scanDelayValues(const Fed9UAddress& fedChannel, bool nanoDelay=true, bool scanCoarse=false) noexcept(false);
 
     /**
      * \brief  If there is an event in the buffer then an error is thrown.
@@ -2080,56 +2080,56 @@ namespace Fed9U {
      * \throw  Fed9UDeviceException Thrown if an event is found in the buffer.
      * \todo   Check if this is actually a good idea!
      */
-    const Fed9UVmeDevice& checkEvent()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& checkEvent()  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the BE FPGA.
      */
-    const Fed9UVmeDevice& backEndCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& backEndCheck()  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the FE FPGA.
      */
-    const Fed9UVmeDevice& frontEndCheck(bool CMMedianOverridOnly=false)  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& frontEndCheck(bool CMMedianOverridOnly=false)  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the VME FPGA.
      */
-    const Fed9UVmeDevice& vmeCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& vmeCheck()  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the higher level commands.
      */
-    const Fed9UVmeDevice& higherLevelCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& higherLevelCheck()  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the TTCrx device.
      */
-    const Fed9UVmeDevice& ttcrxCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& ttcrxCheck()  const noexcept(false);
 
     /**
      * This method checks each byte of the EPROM memory to ensure that it is the same
      * as that stored in the Fed9UDescription.
      */
-    const Fed9UVmeDevice& epromCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& epromCheck()  const noexcept(false);
 
     /**
      * This method can be used to compare the values of the Fed9UDescrition to those
      * on the FED for the whole FED.
      */
-    const Fed9UVmeDevice& fedCheck()  const throw (Fed9UVmeDeviceException);
+    const Fed9UVmeDevice& fedCheck()  const noexcept(false);
 
     // JEC 10-04-06
     /** This method can be used to dump out all read/write FE & BE register information.
      *  Output is in the form of an ostream object, so can be used either to dump to
      *	the screen or to a file.
      */
-    void dumpFedInformation(int dumpChoice, unsigned short Fpga, ostream &os) throw (Fed9UVmeDeviceException);
+    void dumpFedInformation(int dumpChoice, unsigned short Fpga, ostream &os) noexcept(false);
 
     /**
      * Returns a copy of the Fed9UDescription object.
@@ -2146,7 +2146,7 @@ namespace Fed9U {
      * initAuxiliaryChips and setEprom. It is not possible to change FEDs or crates.
      * The base address and crate number should remain the same.
      */
-    Fed9UVmeDevice& setFed9UVMEDeviceDescription(const Fed9UDescription& newFed9UDescription, bool initFed) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFed9UVMEDeviceDescription(const Fed9UDescription& newFed9UDescription, bool initFed) noexcept(false);
     // <NAC date="23/04/2007"> 
     /**
      * Loads a new Fed9UDecription and sets FED registers. 
@@ -2156,7 +2156,7 @@ namespace Fed9U {
      * parameters into the FED. It is not possible to change FEDs or crates.
      * The base address and crate number should remain the same.
      */
-    Fed9UVmeDevice& loadDescription(const Fed9UDescription& newDescription) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& loadDescription(const Fed9UDescription& newDescription) noexcept(false);
     // </NAC>
 
     /**
@@ -2179,7 +2179,7 @@ namespace Fed9U {
      * is the actual prescale factor and is internally converted to the "skip N events" value of N that is
      * required by the firmware.
      */
-    Fed9UVmeDevice& setFrameCapturePrescale(u32 prescale) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setFrameCapturePrescale(u32 prescale) noexcept(false);
     //</JEC>
 
   private:
@@ -2191,7 +2191,7 @@ namespace Fed9U {
      * A reference value for FE DAQ mode is passed and all other FE DAQ modes are compared to this value.
      * The BE FPGA is then compared to the FE FPGA mode to ensure they are consistant.
      */
-    Fed9UDaqMode daqConsistancyCheck(const std::vector<u32>& feDaqMode, const u32 beDaqMode) const throw (Fed9UVmeDeviceException);
+    Fed9UDaqMode daqConsistancyCheck(const std::vector<u32>& feDaqMode, const u32 beDaqMode) const noexcept(false);
 
     /**
      * This method is used to ensure that either the FE FPGA DAQ mode is the same on all the FE FPGAs
@@ -2200,7 +2200,7 @@ namespace Fed9U {
      * A reference value for FE DAQ mode is passed and all other FE DAQ modes are compared to this value.
      * The BE FPGA is then compared to the FE FPGA mode to ensure they are consistant.
      */
-    Fed9UDaqSuperMode daqSuperModeConsistancyCheck(const std::vector<u32>& feDaqMode ) const throw (Fed9UVmeDeviceException);
+    Fed9UDaqSuperMode daqSuperModeConsistancyCheck(const std::vector<u32>& feDaqMode ) const noexcept(false);
 
     /**
      * Writes the LM82 temperature monitoring chip setting for a specific register.
@@ -2213,7 +2213,7 @@ namespace Fed9U {
      * 0x0d - Writes the FPGA temperature high point.
      * 0x5a - Writes the critical temperature set point.
      */
-    Fed9UVmeDevice& tempControlWrite(u16 fpga_, const std::vector<u32>& tempDataAndRegAddr) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& tempControlWrite(u16 fpga_, const std::vector<u32>& tempDataAndRegAddr) noexcept(false);
 
     /**
      * Reads the LM82 temperature monitoring chip setting for a specific register.
@@ -2228,44 +2228,44 @@ namespace Fed9U {
      * 0x42 - Reads the critical temperature set point.
      * 0xfe - Reads the LM82 manufacturers ID.
      */
-    u32 tempControlRead(u16 fpga_, const std::vector<u32>& regAddress) const throw (Fed9UVmeDeviceException);
+    u32 tempControlRead(u16 fpga_, const std::vector<u32>& regAddress) const noexcept(false);
 
     /**
      * This is used to write to the configuration register on the temperature monitor chip.
      */
-    Fed9UVmeDevice& tempControlConfig(const u16 fpga_, const u32 configSettings) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& tempControlConfig(const u16 fpga_, const u32 configSettings) noexcept(false);
 
     /**
      * Loads the complete set of FE FPGA disbale settings to the FED from the localFedSettings.
      */
-    Fed9UVmeDevice& setAllFedFeUnitDisable() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllFedFeUnitDisable() noexcept(false);
 
     /**
      * Loads all the temperature monitor data.
      */
-    Fed9UVmeDevice& setAllTempControlData() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllTempControlData() noexcept(false);
 
     /**
      * Loads all the frame finding thresholds.
      */
-    Fed9UVmeDevice& setAllFrameThresholds() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllFrameThresholds() noexcept(false);
 
     /**
      * Loads all the OptoRx controls.
      */
-    Fed9UVmeDevice& setAllOptoRxControls() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllOptoRxControls() noexcept(false);
 
   public:
 
     /**
      * Loads all the median over-ride values from theLocalFedSettings to the FED.
      */
-    Fed9UVmeDevice& setAllCmMedianOverrideValues() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllCmMedianOverrideValues() noexcept(false);
 
     /**
      * Loads the complete set of delay FPGA skews.
      */
-    Fed9UVmeDevice& setAllDelays() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllDelays() noexcept(false);
 
 
     /**
@@ -2273,7 +2273,7 @@ namespace Fed9U {
      *
      * It has a maximum value of 25.
      */
-    Fed9UVmeDevice & setGlobalFineSkew(u16 GlobalSkew) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setGlobalFineSkew(u16 GlobalSkew) noexcept(false);
 
     /**
      * Returns the global shift that is applied to all the channels in the FED.
@@ -2286,26 +2286,26 @@ namespace Fed9U {
      * 
      */
 #ifdef EVENT_STREAMLINE
-    Fed9UVmeDevice & setFakeEventFrame(Fed9UAddress & fedChannel, Fed9UEventStreamLine * fakeEvent, bool blockMode = true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setFakeEventFrame(Fed9UAddress & fedChannel, Fed9UEventStreamLine * fakeEvent, bool blockMode = true) noexcept(false);
 #else
-    Fed9UVmeDevice & setFakeEventFrame(Fed9UAddress & fedChannel, Fed9UEvent * fakeEvent, bool blockMode = true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setFakeEventFrame(Fed9UAddress & fedChannel, Fed9UEvent * fakeEvent, bool blockMode = true) noexcept(false);
 #endif
    
     /**
      * returns a vector containing the fake event frame for a specific channel
      */
-    std::vector<u32> getFakeEventFrame(Fed9UAddress & fedChannel) throw (Fed9UVmeDeviceException);
+    std::vector<u32> getFakeEventFrame(Fed9UAddress & fedChannel) noexcept(false);
 
-    u16 getFakeEventAddress(Fed9UAddress & fedChannel) throw (Fed9UVmeDeviceException);
+    u16 getFakeEventAddress(Fed9UAddress & fedChannel) noexcept(false);
     
     /**
      * return all Fake Event frames in the form of a Fed9UEvent object pointer
      * the memory for this object is managed by the user that receives the returned pointer.
      */
 #ifdef EVENT_STREAMLINE
-    Fed9UEventStreamLine * getAllFakeEvents() throw (Fed9UVmeDeviceException);
+    Fed9UEventStreamLine * getAllFakeEvents() noexcept(false);
 #else
-    Fed9UEvent * getAllFakeEvents() throw (Fed9UVmeDeviceException);
+    Fed9UEvent * getAllFakeEvents() noexcept(false);
 #endif
 
     /**
@@ -2315,9 +2315,9 @@ namespace Fed9U {
      * ( Frame Interval and Frame Repeat not yet implemented )
      */
 #ifdef EVENT_STREAMLINE
-    Fed9UVmeDevice & setFakeEventSettings(Fed9UAddress & feUnitChannelPair, Fed9UEventStreamLine * fakeEvent) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setFakeEventSettings(Fed9UAddress & feUnitChannelPair, Fed9UEventStreamLine * fakeEvent) noexcept(false);
 #else
-    Fed9UVmeDevice & setFakeEventSettings(Fed9UAddress & feUnitChannelPair, Fed9UEvent * fakeEvent) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setFakeEventSettings(Fed9UAddress & feUnitChannelPair, Fed9UEvent * fakeEvent) noexcept(false);
 #endif
     /**
      * Loads all Fake Events into the FED for all FeUnits
@@ -2325,12 +2325,12 @@ namespace Fed9U {
      * 
      */
 #ifdef EVENT_STREAMLINE
-    Fed9UVmeDevice & setAllFakeEvents(Fed9UEventStreamLine * fakeEvent, bool blockUpload = false) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setAllFakeEvents(Fed9UEventStreamLine * fakeEvent, bool blockUpload = false) noexcept(false);
 #else
-    Fed9UVmeDevice & setAllFakeEvents(Fed9UEvent * fakeEvent, bool blockUpload = false) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setAllFakeEvents(Fed9UEvent * fakeEvent, bool blockUpload = false) noexcept(false);
 #endif
     
-    Fed9UVmeDevice & setBlockModeUpload(bool value=true) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice & setBlockModeUpload(bool value=true) noexcept(false);
 
     bool isStarted();
   private:
@@ -2338,35 +2338,35 @@ namespace Fed9U {
     /**
      * Loads the complete set of APV complement flags.
      */
-    Fed9UVmeDevice& setAllComplements() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllComplements() noexcept(false);
 
     /**
      * Loads the complete set of Trim DAC offsets.
      */
-    Fed9UVmeDevice& setAllTrimDacOffsets() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllTrimDacOffsets() noexcept(false);
 
     /**
      * Loads the all the strip data for a FED.
      *
      * It loads the pedestal values, the cluster thresholds and the number of valid channels.
      */
-    Fed9UVmeDevice& setAllStripData() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllStripData() noexcept(false);
 
     /**
      * Loads the complete set of ADC settings from the FED.
      */
-    Fed9UVmeDevice& setAllAdcControls() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllAdcControls() noexcept(false);
 
     /**
      * Loads the complete set of APV disable settings from theLocalFedSettings
      * to the FED.
      */
-    Fed9UVmeDevice& setAllApvDisable() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& setAllApvDisable() noexcept(false);
 
     /**
      * Disable all APVs.
      */
-    Fed9UVmeDevice& disableAllApvs() throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& disableAllApvs() noexcept(false);
 
     /**
      * This is used to compare two floating point numbers to see if they are equivalent.
@@ -2553,7 +2553,7 @@ namespace Fed9U {
      *
      * Removes any existing events from the buffer but does not return the number purged. This is a fast and hard core purge method!
      */
-    u32 purgeEvents() throw (Fed9UVmeDeviceException);
+    u32 purgeEvents() noexcept(false);
     
     // <NAC date="30/04/2009"> readout of complete spy events packed with header and trailer
     // <NAC date="15/02/2010"> added 1/N mode
@@ -2570,7 +2570,7 @@ namespace Fed9U {
                                                  const uint32_t runNumber = 0,
                                                  const bool allowMixedEvent = false,
                                                  u32* pEventCountBeforeRead = NULL, u32* pL1ACountBeforeRead = NULL,
-                                                 const bool oneOverNMode = false) throw (Fed9UDeviceException);
+                                                 const bool oneOverNMode = false) noexcept(false);
     // </NAC>
     // </NAC>
     // </NAC>

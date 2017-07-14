@@ -34,7 +34,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLCommonFec::XMLCommonFec()</I>
  * @see <I>XMLTkDcuPsuMap::init()</I>
  */
-XMLTkDcuPsuMap::XMLTkDcuPsuMap () throw (FecExceptionHandler) :
+XMLTkDcuPsuMap::XMLTkDcuPsuMap () noexcept(false) :
   XMLCommonFec () 
 {
   countDcuPsuMap_ = 0 ;
@@ -50,7 +50,7 @@ XMLTkDcuPsuMap::XMLTkDcuPsuMap () throw (FecExceptionHandler) :
  * @see <I>XMLCommonFec::XMLCommonFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLTkDcuPsuMap::init()</I>
  */
-XMLTkDcuPsuMap::XMLTkDcuPsuMap (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ){
+XMLTkDcuPsuMap::XMLTkDcuPsuMap (const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ){
 
   countDcuPsuMap_ = 0 ;
   dcuPsuMapParameterNames_ = TkDcuPsuMap::getParameterNames() ;
@@ -65,7 +65,7 @@ XMLTkDcuPsuMap::XMLTkDcuPsuMap (const XMLByte* xmlBuffer ) throw (FecExceptionHa
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuPsuMap::init()</I>
  */
-XMLTkDcuPsuMap::XMLTkDcuPsuMap ( DbTkDcuPsuMapAccess *dbAccess )throw (FecExceptionHandler) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
+XMLTkDcuPsuMap::XMLTkDcuPsuMap ( DbTkDcuPsuMapAccess *dbAccess )noexcept(false) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
 
   countDcuPsuMap_ = 0 ;
   dcuPsuMapParameterNames_ = TkDcuPsuMap::getParameterNames() ;
@@ -80,7 +80,7 @@ XMLTkDcuPsuMap::XMLTkDcuPsuMap ( DbTkDcuPsuMapAccess *dbAccess )throw (FecExcept
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuPsuMap::init()</I>
  */
-XMLTkDcuPsuMap::XMLTkDcuPsuMap ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLTkDcuPsuMap::XMLTkDcuPsuMap ( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
 
   countDcuPsuMap_ = 0 ;
   dcuPsuMapParameterNames_ = TkDcuPsuMap::getParameterNames() ;
@@ -122,7 +122,7 @@ tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMapVector () {
  * Copy all elements from <I>dVector</I> parameter to <I>pVector_</I> attribute
  * @exception FecExceptionHandler : a FecExceptionHandler is raised, if <I>pVector_</I> is NULL
  */
-void XMLTkDcuPsuMap::setDcuPsuMapVector (tkDcuPsuMapVector dVector) throw (FecExceptionHandler) {
+void XMLTkDcuPsuMap::setDcuPsuMapVector (tkDcuPsuMapVector dVector) noexcept(false) {
   // empty and delete previous dVector_
 #ifdef DATABASEDEBUG
   std::cout << "on vide le dVector !!!!!" << std::endl;
@@ -178,7 +178,7 @@ unsigned int XMLTkDcuPsuMap::parseAttributes ( XERCES_CPP_NAMESPACE::DOMNode *n 
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLTkDcuPsuMap::parseXMLBuffer()
  */
-tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMaps () throw (FecExceptionHandler) {
+tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMaps () noexcept(false) {
   parseXMLBuffer();
   return dVector_;
 }
@@ -198,7 +198,7 @@ tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMaps () throw (FecExceptionHandler) {
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLTkDcuPsuMap::parsePsuNameDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
@@ -265,7 +265,7 @@ void XMLTkDcuPsuMap::parsePsuNameDatabaseResponse(std::string partitionName, uns
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLTkDcuPsuMap::parseDcuPsuMapDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
@@ -328,7 +328,7 @@ void XMLTkDcuPsuMap::parseDcuPsuMapDatabaseResponse(std::string partitionName, u
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLTkDcuPsuMap::parsePsuNotConnectedDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
@@ -393,7 +393,7 @@ void XMLTkDcuPsuMap::parsePsuNotConnectedDatabaseResponse(std::string partitionN
  * @see <I>XMLCommonFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNames (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (FecExceptionHandler) {
+tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNames (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
   parsePsuNameDatabaseResponse(partitionName,versionMajorId,versionMinorId);
   parseXMLBuffer();
   return dVector_;
@@ -410,7 +410,7 @@ tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNames (std::string partitionName, unsign
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMap (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMap (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
   parseDcuPsuMapDatabaseResponse(partitionName,majorVersionId, minorVersionId);
   parseXMLBuffer();
   return dVector_;
@@ -427,7 +427,7 @@ tkDcuPsuMapVector XMLTkDcuPsuMap::getDcuPsuMap (std::string partitionName, unsig
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNotConnected (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNotConnected (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
   parsePsuNotConnectedDatabaseResponse(partitionName,majorVersionId, minorVersionId);
   parseXMLBuffer();
   return dVector_;
@@ -443,7 +443,7 @@ tkDcuPsuMapVector XMLTkDcuPsuMap::getPsuNotConnected (std::string partitionName,
  *     - the MemBufOutputSource created from the parameter <I>dVector</I> is not initialized 
  * @see XMLFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLTkDcuPsuMap::setFileDcuPsuMap ( tkDcuPsuMapVector dVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLTkDcuPsuMap::setFileDcuPsuMap ( tkDcuPsuMapVector dVector, std::string outputFileName) noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector,false);
   XMLCommonFec::writeXMLFile(memBufOS.getOutputBuffer()->str(), outputFileName);
@@ -458,7 +458,7 @@ void XMLTkDcuPsuMap::setFileDcuPsuMap ( tkDcuPsuMapVector dVector, std::string o
  * @see XMLFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  * @warning the formating is the same than for the DCU/PSU map
  */
-void XMLTkDcuPsuMap::setFilePsuName ( tkDcuPsuMapVector dVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLTkDcuPsuMap::setFilePsuName ( tkDcuPsuMapVector dVector, std::string outputFileName) noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector,false);
   XMLCommonFec::writeXMLFile(memBufOS.getOutputBuffer()->str(), outputFileName);
@@ -474,7 +474,7 @@ void XMLTkDcuPsuMap::setFilePsuName ( tkDcuPsuMapVector dVector, std::string out
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLTkDcuPsuMap::setDbDcuPsuMaps (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId)  throw (FecExceptionHandler) {
+void XMLTkDcuPsuMap::setDbDcuPsuMaps (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId)  noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector, true);
   try {
@@ -504,7 +504,7 @@ void XMLTkDcuPsuMap::setDbDcuPsuMaps (tkDcuPsuMapVector dVector, std::string par
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  * @warning same call than for the setDbDcuPsuMap, same XML formatting
  */
-void XMLTkDcuPsuMap::setDbPsuNames (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId)  throw (FecExceptionHandler) {
+void XMLTkDcuPsuMap::setDbPsuNames (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId)  noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector, true);
   try {

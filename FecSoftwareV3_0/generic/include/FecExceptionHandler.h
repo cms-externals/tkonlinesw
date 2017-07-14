@@ -194,7 +194,7 @@ class FecExceptionHandler {
   /**
    * \brief Default constructor for inheritance
    */
-  FecExceptionHandler ( ) throw ( ):
+  FecExceptionHandler ( ) noexcept:
     errorCode_(0),
     errorMessage_("Not an error"),
     faultSeverity_(INFORMATIONCODE),
@@ -236,7 +236,7 @@ class FecExceptionHandler {
 			errorType faultSeverity,
 			std::string method,
 			std::string sourceFileName,
-			unsigned int line ) throw ( ) :
+			unsigned int line ) noexcept :
     errorCode_(errorCode),
     errorMessage_(errorMessage),
     faultSeverity_(faultSeverity),
@@ -285,7 +285,7 @@ class FecExceptionHandler {
 			FecRingRegisters *fecRingRegisters = NULL,
 			tscType8 *frame = NULL,
 			tscType8 *dAck = NULL,
-			tscType8 *fAck = NULL ) throw ( ):
+			tscType8 *fAck = NULL ) noexcept:
     
     errorCode_(errorCode),
     errorMessage_(errorMessage),
@@ -337,7 +337,7 @@ class FecExceptionHandler {
 
   /** Delete the register given
    */
-  virtual ~FecExceptionHandler ( ) throw ( ) { 
+  virtual ~FecExceptionHandler ( ) noexcept { 
 
     if (fecRingRegisters_ != NULL) {
       delete fecRingRegisters_ ;
@@ -458,7 +458,7 @@ class FecExceptionHandler {
   /**
    * Display the last error
    */
-  virtual void writeTo ( std::ostringstream flux ) throw ( ) {    
+  virtual void writeTo ( std::ostringstream flux ) noexcept {    
 
     flux << "------------------ FecExceptionHandler error ---------------" << std::endl ;
     flux << what ( ) << std::endl ;
@@ -476,7 +476,7 @@ class FecExceptionHandler {
    * <li>More information
    * </lu>
    */
-  virtual std::string what ( ) throw ( ) {
+  virtual std::string what ( ) noexcept {
 
     std::stringstream strMsg ;
     strMsg << "FecExceptionHandler: " << std::endl 
@@ -578,7 +578,7 @@ class FecExceptionHandler {
    * \brief Returned an xml buffer containing all the information for the error
    * \return string - message
    */
-  virtual std::string getXMLBuffer ( std::string fecHardwareId = "", unsigned int crateSlot = 0xFFFFFFFF ) throw ( ) {
+  virtual std::string getXMLBuffer ( std::string fecHardwareId = "", unsigned int crateSlot = 0xFFFFFFFF ) noexcept {
 
     std::ostringstream xmlBuffer ;
 

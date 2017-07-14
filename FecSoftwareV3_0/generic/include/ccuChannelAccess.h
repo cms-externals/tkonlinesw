@@ -71,7 +71,7 @@ class ccuChannelAccess {
                      enumDeviceType deviceType,
                      enumAccessModeType accessMask,
                      FecRingDevice *fec) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Destructor: remove the access into the FecRingDevice class
    */

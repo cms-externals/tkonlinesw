@@ -153,7 +153,7 @@ namespace Fed9U {
      * \param  bufferData Each element contains the reading from a strip, there must be one element for each strip on a FED. Size:24,576.
      * \return Self reference
      */
-    Fed9UBufferDescription & setFed9UBufferData(const std::vector<unsigned short> &bufferData) throw (ICException);
+    Fed9UBufferDescription & setFed9UBufferData(const std::vector<unsigned short> &bufferData) noexcept(false);
 
     /**
      * \brief  Method to set the channel length vector.
@@ -161,7 +161,7 @@ namespace Fed9U {
      *         on the FED. Size:96.
      * \return Self reference
      */
-    Fed9UBufferDescription & setChannelLengths(const std::vector<unsigned short> &channelLengths) throw (ICException);
+    Fed9UBufferDescription & setChannelLengths(const std::vector<unsigned short> &channelLengths) noexcept(false);
 
     /**
      * \brief  Method to set the FE length vector.
@@ -169,7 +169,7 @@ namespace Fed9U {
      *         FE unit on the FED. Size:8.
      * \return Self reference
      */
-    Fed9UBufferDescription & setFeLengths(const std::vector<unsigned short> &feLengths) throw (ICException);
+    Fed9UBufferDescription & setFeLengths(const std::vector<unsigned short> &feLengths) noexcept(false);
 
     /**
      * \brief  Method to set the packet code.
@@ -185,7 +185,7 @@ namespace Fed9U {
      * \param  cmMedians Common mode median value recorded by each APV. There must be one element for each APV on the FED. Size:192.
      * \return Self reference
      */
-    Fed9UBufferDescription & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICException);
+    Fed9UBufferDescription & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false);
 
    /**
      * \brief  Method to 32-bit swap data into slink format. Should only be performed AFTER buffer generation.

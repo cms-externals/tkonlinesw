@@ -24,7 +24,7 @@ using namespace XERCES_CPP_NAMESPACE ;
 
 /** Default constructor
  */
-XMLTkIdVsHostname::XMLTkIdVsHostname () throw (FecExceptionHandler) :
+XMLTkIdVsHostname::XMLTkIdVsHostname () noexcept(false) :
   XMLCommonFec () {
 
   countTkIdVsHostname_ = 0 ;
@@ -34,7 +34,7 @@ XMLTkIdVsHostname::XMLTkIdVsHostname () throw (FecExceptionHandler) :
 /** Constructor with xml buffer
  * \param xmlBuffer - XML buffer
  */
-XMLTkIdVsHostname::XMLTkIdVsHostname ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ) {
+XMLTkIdVsHostname::XMLTkIdVsHostname ( const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ) {
 
   countTkIdVsHostname_ = 0 ;
   parameterNames_ = TkIdVsHostnameDescription::getParameterNames() ;
@@ -44,7 +44,7 @@ XMLTkIdVsHostname::XMLTkIdVsHostname ( const XMLByte* xmlBuffer ) throw (FecExce
 /** Constructor with database access
  * \param dbAccess - database access
  */
-XMLTkIdVsHostname::XMLTkIdVsHostname ( DbTkIdVsHostnameAccess *dbAccess )throw (FecExceptionHandler): 
+XMLTkIdVsHostname::XMLTkIdVsHostname ( DbTkIdVsHostnameAccess *dbAccess )noexcept(false): 
   XMLCommonFec( (DbCommonAccess *)dbAccess ) {
   
   countTkIdVsHostname_ = 0 ;
@@ -55,7 +55,7 @@ XMLTkIdVsHostname::XMLTkIdVsHostname ( DbTkIdVsHostnameAccess *dbAccess )throw (
 /** Constructor with file access
  * \param xmlFileName - XML file name
  */
-XMLTkIdVsHostname::XMLTkIdVsHostname ( std::string xmlFileName ) throw (FecExceptionHandler):
+XMLTkIdVsHostname::XMLTkIdVsHostname ( std::string xmlFileName ) noexcept(false):
   XMLCommonFec( xmlFileName ) {
 
   countTkIdVsHostname_ = 0 ;
@@ -133,7 +133,7 @@ TkIdVsHostnameVector XMLTkIdVsHostname::getTkIdVsHostnameVectorAttribut ( ) {
 /** Sets the device vector private attribute
  * \param tkIdVsHostname - vector of TkIdVsHostnameDescription
  */
-void XMLTkIdVsHostname::setTkIdVsHostnameVector (TkIdVsHostnameVector tkIdVsHostname) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::setTkIdVsHostnameVector (TkIdVsHostnameVector tkIdVsHostname) noexcept(false) {
 
   clearVector() ;
   for (TkIdVsHostnameVector::iterator it = tkIdVsHostname.begin() ; it != tkIdVsHostname.end() ; it ++) {
@@ -143,7 +143,7 @@ void XMLTkIdVsHostname::setTkIdVsHostnameVector (TkIdVsHostnameVector tkIdVsHost
 
 /** Gets a pointer on the device vector private attribute from database
  */
-TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostnameFromFile (  ) throw (FecExceptionHandler) {
+TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostnameFromFile (  ) noexcept(false) {
 
   parseXMLBuffer();
   return dVector_;
@@ -154,7 +154,7 @@ TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostnameFromFile (  ) throw 
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-void XMLTkIdVsHostname::parseDatabaseResponse( unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::parseDatabaseResponse( unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferForAllIdVsHostname";
 #ifdef DATABASEDEBUG
@@ -209,7 +209,7 @@ void XMLTkIdVsHostname::parseDatabaseResponse( unsigned int versionMajor, unsign
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferForAllIdVsHostname";
 
@@ -266,7 +266,7 @@ void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned in
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferForAllIdVsHostname";
 #ifdef DATABASEDEBUG
@@ -320,7 +320,7 @@ void XMLTkIdVsHostname::parseDatabaseResponse( std::string hostname, unsigned in
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostname ( unsigned int versionMajor, unsigned int versionMinor  ) throw (FecExceptionHandler) {
+TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostname ( unsigned int versionMajor, unsigned int versionMinor  ) noexcept(false) {
 
   parseDatabaseResponse(versionMajor,versionMinor) ;
   parseXMLBuffer();
@@ -332,7 +332,7 @@ TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdVsHostname ( unsigned int vers
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) {
+TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) {
 
   parseDatabaseResponse(hostname,versionMajor,versionMinor) ;
   parseXMLBuffer();
@@ -345,7 +345,7 @@ TkIdVsHostnameVector XMLTkIdVsHostname::getAllTkIdFromHostname ( std::string hos
  * \param versionMajor - version major (default 0)
  * \param versionMinor - version minor (default 0)
  */
-TkIdVsHostnameVector XMLTkIdVsHostname::getTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler) {
+TkIdVsHostnameVector XMLTkIdVsHostname::getTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false) {
 
   parseDatabaseResponse(hostname,slot,versionMajor,versionMinor) ;
   parseXMLBuffer();
@@ -358,7 +358,7 @@ TkIdVsHostnameVector XMLTkIdVsHostname::getTkIdFromHostnameSlot ( std::string ho
  * \param dVector - vector of TkIdVsHostnameDescription
  * \param outputFileName - output file name
  */
-void XMLTkIdVsHostname::setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, std::string outputFileName ) noexcept(false) {
   
   if (dVector.size()) {
     MemBufOutputSource memBufOS (dVector, false );
@@ -371,7 +371,7 @@ void XMLTkIdVsHostname::setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, 
 /** Writes the device vector attribute in a ASCII file
  * \param outputFileName - output file name
  */
-void XMLTkIdVsHostname::setTkIdVsHostnameVector ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::setTkIdVsHostnameVector ( std::string outputFileName ) noexcept(false) {
 
   if (dVector_.size()) {
     MemBufOutputSource memBufOS (dVector_ );
@@ -387,7 +387,7 @@ void XMLTkIdVsHostname::setTkIdVsHostnameVector ( std::string outputFileName ) t
  * \param major - major or minor version (major if all, minor if a part)
  * \warning the vector is set at the level of a hostname
  */
-void XMLTkIdVsHostname::setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, bool major ) throw (FecExceptionHandler) {
+void XMLTkIdVsHostname::setTkIdVsHostnameVector ( TkIdVsHostnameVector dVector, bool major ) noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector, true);
   try {

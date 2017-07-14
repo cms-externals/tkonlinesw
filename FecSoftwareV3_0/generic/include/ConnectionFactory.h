@@ -90,12 +90,12 @@ class ConnectionFactory: public DeviceFactoryInterface {
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   std::list<unsigned int *> getPartitionVersion ( std::string partitionName ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for all connections from the input
    */
-  void getConnectionDescriptions ( bool fileUsed, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, std::string partitionName, ConnectionVector &outVector, bool allConnections = false, bool forceDbReload = false ) throw (FecExceptionHandler ) ;
+  void getConnectionDescriptions ( bool fileUsed, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, std::string partitionName, ConnectionVector &outVector, bool allConnections = false, bool forceDbReload = false ) noexcept(false) ;
 
  public:
 
@@ -108,7 +108,7 @@ class ConnectionFactory: public DeviceFactoryInterface {
   /** \brief Build a factory for database
    */
   ConnectionFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Buid a FEC factory for FEC database
    */
@@ -153,12 +153,12 @@ class ConnectionFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -173,7 +173,7 @@ class ConnectionFactory: public DeviceFactoryInterface {
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   void getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskVersionMajor, unsigned int *maskVersionMinor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
 #endif
 
@@ -190,16 +190,16 @@ class ConnectionFactory: public DeviceFactoryInterface {
   /** \brief Retreive the descriptions for all connections from the input for partition name
    */ 
   void getConnectionDescriptions ( std::string partitionName, ConnectionVector &outVector, unsigned int versionMajor = 0, unsigned int versionMinor = 0, unsigned int maskVersionMajor = 0, unsigned int maskVersionMinor = 0, bool allConnections = false, bool forceDbReload = false )
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief return the connection descriptions from file
    */
-  void getConnectionDescriptions ( ConnectionVector &outVector, bool allConnections = false ) throw (FecExceptionHandler ) ;
+  void getConnectionDescriptions ( ConnectionVector &outVector, bool allConnections = false ) noexcept(false) ;
 
   /** \brief Upload the description in the output
    */
   void setConnectionDescriptions ( ConnectionVector connectionVector, std::string partitionName = "nil", unsigned int *versionMajor = NULL, unsigned int *versionMinor = NULL, bool majorVersion = false ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** Delete a ConnectionVector
    * \param connectionVector - vector of connection descriptions

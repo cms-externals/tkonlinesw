@@ -68,7 +68,7 @@ ConnectionFactory::ConnectionFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 ConnectionFactory::ConnectionFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-    throw ( oracle::occi::SQLException ): 
+    noexcept(false): 
   DeviceFactoryInterface ( login, password, path, threaded ) {
 
   setDatabaseAccess ( login, password, path ) ;
@@ -187,7 +187,7 @@ void ConnectionFactory::setInputFileName ( std::string inputFileName ) {
  * \warning in the destructor of ConnectionFactory, the dbAccess is deleted
  */
 void ConnectionFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For connection database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -215,7 +215,7 @@ void ConnectionFactory::setDatabaseAccess ( std::string login, std::string passw
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void ConnectionFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // Retreive the parameters
   std::string login, password, path ;
@@ -253,7 +253,7 @@ void ConnectionFactory::setDatabaseAccess ( DbConnectionsAccess *dbAccess ) {
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 std::list<unsigned int *> ConnectionFactory::getPartitionVersion ( std::string partitionName ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "Retreive the current version for the partition " << partitionName << std::endl ;
@@ -305,7 +305,7 @@ std::list<unsigned int *> ConnectionFactory::getPartitionVersion ( std::string p
  * \param partitionNumber - partition number returned
  */
 void ConnectionFactory::getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskVersionMajor, unsigned int *maskVersionMinor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "Retreive the current version for the partition " << partitionName << std::endl ;
@@ -354,7 +354,7 @@ void ConnectionFactory::getPartitionVersion ( std::string partitionName, unsigne
  * \warning You must delete the vector you pass to the method with ConnectionFactory::deleteVector method
  */ 
 void ConnectionFactory::getConnectionDescriptions ( bool fileUsed, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, std::string partitionName, ConnectionVector &outVector, bool allConnections, bool forceDbReload ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << versionMajor << "." << versionMinor << std::endl ;
@@ -599,7 +599,7 @@ void ConnectionFactory::buildModuleList( ) {
  * \warning this method is the same than getConnectionDescriptionsPartitionName, it is maintained for backward compatilibility
  */ 
 void ConnectionFactory::getConnectionDescriptions ( std::string partitionName, ConnectionVector &outVector, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool allConnections, bool forceDbReload ) 
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 
   getConnectionDescriptions ( false, versionMajor, versionMinor, maskVersionMajor, maskVersionMinor, partitionName, outVector, allConnections, forceDbReload ) ;
 }
@@ -610,7 +610,7 @@ void ConnectionFactory::getConnectionDescriptions ( std::string partitionName, C
  * \warning You must delete the vector you pass to the method
  */
 void ConnectionFactory::getConnectionDescriptions ( ConnectionVector &outVector, bool allConnections )
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 
   getConnectionDescriptions ( true, 0, 0, 0, 0, "nil", outVector, allConnections ) ;
 }
@@ -630,7 +630,7 @@ void ConnectionFactory::getConnectionDescriptions ( ConnectionVector &outVector,
  * \warning the version uploaded is set automatically as the next version to be downloaded
  */
 void ConnectionFactory::setConnectionDescriptions ( ConnectionVector connectionVector, std::string partitionName, unsigned int *versionMajor, unsigned int *versionMinor, bool majorVersion )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE

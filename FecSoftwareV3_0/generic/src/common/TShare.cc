@@ -49,7 +49,7 @@ void clrshm(int ie,void *arg)
 //}
 
 
-TShare::TShare(char *cdev,int type,int size) throw (std::string)
+TShare::TShare(char *cdev,int type,int size) noexcept(false)
 {
   fSize=size;
   memset(fName,0,256);
@@ -116,7 +116,7 @@ TShare::TShare(char *cdev,int type,int size) throw (std::string)
       //  on_exit(rmsem,(void*)&fSemid);
     }
 } 
-TShare::~TShare() throw (std::string)
+TShare::~TShare() noexcept(false)
 {
   if (isServer)
     {
@@ -138,7 +138,7 @@ TShare::~TShare() throw (std::string)
 
 }
 
-void TShare::Lock() throw (std::string)
+void TShare::Lock() noexcept(false)
 {
   int nretry = 0;
  start:
@@ -158,7 +158,7 @@ void TShare::Lock() throw (std::string)
       goto start;
     }
 }
-void TShare::Unlock() throw (std::string)
+void TShare::Unlock() noexcept(false)
 {
   union semun arg={0};
   int nretry=0;
@@ -187,7 +187,7 @@ void TShare::Unlock() throw (std::string)
     }
 
 }
-void* TShare::Attach() throw (std::string)
+void* TShare::Attach() noexcept(false)
 {
   
   void* Shared = shmat(fShmid, 0, 0);
@@ -201,7 +201,7 @@ void* TShare::Attach() throw (std::string)
   return Shared;
 }
 
-void TShare::Detach(const void* ad) throw (std::string)
+void TShare::Detach(const void* ad) noexcept(false)
 {
   
  int err= shmdt(ad);

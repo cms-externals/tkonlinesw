@@ -42,7 +42,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLFec::XMLFec()</I>
  * @see <I>XMLFecPiaReset::init()</I>
  */
-XMLFecPiaReset::XMLFecPiaReset () throw (FecExceptionHandler) : XMLFec() {
+XMLFecPiaReset::XMLFecPiaReset () noexcept(false) : XMLFec() {
 }
 
 #ifdef DATABASE
@@ -54,7 +54,7 @@ XMLFecPiaReset::XMLFecPiaReset () throw (FecExceptionHandler) : XMLFec() {
  * @see <I>XMLFec::XMLFec(DbAccess *dbAccess, std::string partitionName)</I>
  * @see <I>XMLFecPiaReset::init()</I>
  */
-XMLFecPiaReset::XMLFecPiaReset ( DbPiaResetAccess *dbAccess ) throw (FecExceptionHandler) : XMLFec( dbAccess ) {
+XMLFecPiaReset::XMLFecPiaReset ( DbPiaResetAccess *dbAccess ) noexcept(false) : XMLFec( dbAccess ) {
 }
 #endif
 
@@ -66,7 +66,7 @@ XMLFecPiaReset::XMLFecPiaReset ( DbPiaResetAccess *dbAccess ) throw (FecExceptio
  * @see <I>XMLFec::XMLFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLFecPiaReset::init()</I>
  */
-XMLFecPiaReset::XMLFecPiaReset (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLFec( xmlBuffer ){
+XMLFecPiaReset::XMLFecPiaReset (const XMLByte* xmlBuffer ) noexcept(false) : XMLFec( xmlBuffer ){
 
 }
 
@@ -78,7 +78,7 @@ XMLFecPiaReset::XMLFecPiaReset (const XMLByte* xmlBuffer ) throw (FecExceptionHa
  * @see <I>XMLFec::XMLFec(std::string xmlFileName)</I>
  * @see <I>XMLFecPiaReset::init()</I>
  */
-XMLFecPiaReset::XMLFecPiaReset ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLFec( xmlFileName ) {
+XMLFecPiaReset::XMLFecPiaReset ( std::string xmlFileName ) noexcept(false) : XMLFec( xmlFileName ) {
 }
 
 /**Delete the <I>handler_</I> attribute<BR>
@@ -113,7 +113,7 @@ piaResetVector XMLFecPiaReset::getPiaResetVector () {
  * Copy all elements from <I>devices</I> parameter to <I>pVector_</I> attribute
  * @exception FecExceptionHandler : a FecExceptionHandler is raised, if <I>pVector_</I> is NULL
  */
-void XMLFecPiaReset::setPiaResetVector (piaResetVector piaResets) throw (FecExceptionHandler) {
+void XMLFecPiaReset::setPiaResetVector (piaResetVector piaResets) noexcept(false) {
   // empty and delete previous piaResetVector
   // delete all elements
   clearVector() ;
@@ -128,7 +128,7 @@ void XMLFecPiaReset::setPiaResetVector (piaResetVector piaResets) throw (FecExce
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLFecPiaReset::parseXMLBuffer()
  */
-piaResetVector XMLFecPiaReset::getPiaResets () throw (FecExceptionHandler) {
+piaResetVector XMLFecPiaReset::getPiaResets () noexcept(false) {
 
   parseXMLBuffer();
 
@@ -147,7 +147,7 @@ piaResetVector XMLFecPiaReset::getPiaResets () throw (FecExceptionHandler) {
  * @see <I>XMLFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName) throw (FecExceptionHandler) {
+piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName) noexcept(false) {
 
   //unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
   parseDatabaseResponse(partitionName);
@@ -173,7 +173,7 @@ piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName) throw (F
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName, std::string fecHardId) throw (FecExceptionHandler) {
+piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName, std::string fecHardId) noexcept(false) {
 
   //unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
   parseDatabaseResponse(partitionName, fecHardId);
@@ -197,7 +197,7 @@ piaResetVector XMLFecPiaReset::getPiaResets (std::string partitionName, std::str
  *     - the MemBufOutputSource created from the parameter <I>pVector</I> is not initialized 
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLFecPiaReset::setFilePiaResets ( piaResetVector pVector, std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLFecPiaReset::setFilePiaResets ( piaResetVector pVector, std::string outputFileName ) noexcept(false) {
 
   if (pVector.size()) {
     MemBufOutputSource memBufOS(pVector);
@@ -212,7 +212,7 @@ void XMLFecPiaReset::setFilePiaResets ( piaResetVector pVector, std::string outp
  * @exception FecExceptionHandler
  * @see XMLFecPiaReset::setFilePiaResets ( piaResetVector pVector, std::string outputFileName)
  */
-void XMLFecPiaReset::setFilePiaResets ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLFecPiaReset::setFilePiaResets ( std::string outputFileName ) noexcept(false) {
   setFilePiaResets( pVector_, outputFileName );
 }
 
@@ -236,7 +236,7 @@ void XMLFecPiaReset::display() {
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * \see DbAccess::setXMLClob(std::string xmlBuffer, std::string partitionName);
  */
-void XMLFecPiaReset::setDbPiaResets (piaResetVector pVector, std::string partitionName)  throw (FecExceptionHandler) {
+void XMLFecPiaReset::setDbPiaResets (piaResetVector pVector, std::string partitionName)  noexcept(false) {
 
   MemBufOutputSource memBufOS(pVector, true);
 
@@ -264,7 +264,7 @@ void XMLFecPiaReset::setDbPiaResets (piaResetVector pVector, std::string partiti
  * @exception FecExceptionHandler
  * @see XMLFecPiaReset::setDbPiaResets ((piaResetVector , std::string partitionName)
  */
-void XMLFecPiaReset::setDbPiaResets(std::string partitionName) throw (FecExceptionHandler) {
+void XMLFecPiaReset::setDbPiaResets(std::string partitionName) noexcept(false) {
 
   setDbPiaResets(pVector_, partitionName);
 }

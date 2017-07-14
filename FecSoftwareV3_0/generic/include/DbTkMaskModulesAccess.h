@@ -41,114 +41,114 @@ class DbTkMaskModulesAccess : public DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbTkMaskModulesAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkMaskModulesAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbTkMaskModulesAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkMaskModulesAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbTkMaskModulesAccess ( ) throw (oracle::occi::SQLException);
+  ~DbTkMaskModulesAccess ( ) noexcept(false);
 
   /**
    * \brief Return the mask version for partition
    */
-  void getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor ) throw (oracle::occi::SQLException) ;
+  void getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor ) noexcept(false) ;
 
   /**\brief copy a mask from a version for a given partition to a new major version
    */
-  void copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 
   /** 
    * \brief copy a mask from the current version for a given partition to a new major version
    */
-  void copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 
   /** 
    * \brief Reset the masking version for a given partition. This method retreive the versions before the mask and put it to the StateHistory/CurrentState
    */
-  void resetMask ( std::string pPartitionName ) throw (oracle::occi::SQLException) ;
+  void resetMask ( std::string pPartitionName ) noexcept(false) ;
 
   /**
    * \brief Disable all modules for a FED
    */
-  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 
   /**
    * \brief Disable all modules for a FED channel
    */
-  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 
   /**
    * \brief Disable all modules for a FED channel and a given APV (1 or 2)
    */
-  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 
   /** 
    * \brief Disable all modules for a FEC
    */
-  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC
    */
-  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring
    */
-  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring
    */
-  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU
    */
-  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU
    */
-  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU, channel
    */
-  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU, channel
    */
-  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU, channel, device
    */
-  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /** 
    * \brief Disable all modules for a FEC, ring, CCU, channel, device
    */
-  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /**
    * \brief mask a module with DCU hard ID
    */
-  void maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /**
    * \brief mask a module with DET ID
    */
-  void maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
   
   /**
    * \brief mask all modules related to PSU name
    */
-  void maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) throw (oracle::occi::SQLException) ;
+  void maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor ) noexcept(false) ;
 };
 
 #endif

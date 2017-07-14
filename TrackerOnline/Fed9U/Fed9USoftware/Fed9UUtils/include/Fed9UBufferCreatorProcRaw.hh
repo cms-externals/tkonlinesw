@@ -28,7 +28,7 @@ namespace Fed9U {
      *
      * In processed raw data mode the FED will perform strip reodering and pedestal subtraction.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
 
   private:
 

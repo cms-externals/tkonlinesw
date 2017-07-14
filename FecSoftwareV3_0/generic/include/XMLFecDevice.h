@@ -94,21 +94,21 @@ class XMLFecDevice : public XMLFec {
   //
   /** \brief Default constructor
    */
-  XMLFecDevice () throw (FecExceptionHandler);
+  XMLFecDevice () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLFecDevice ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLFecDevice ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor whith database access
    */
-  XMLFecDevice ( DbFecAccess *dbAccess ) throw (FecExceptionHandler);
+  XMLFecDevice ( DbFecAccess *dbAccess ) noexcept(false);
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLFecDevice ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLFecDevice ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLFecDevice
    */
@@ -128,11 +128,11 @@ class XMLFecDevice : public XMLFec {
 
   /** \brief Sets the device vector private attribute
    */
-  void setDeviceVector (deviceVector) throw (FecExceptionHandler);
+  void setDeviceVector (deviceVector) noexcept(false);
 
   /** \brief Parse the inputSource and gets a pointer on the device vector private attribute
    */
-  deviceVector getDevices ( ) throw (FecExceptionHandler);
+  deviceVector getDevices ( ) noexcept(false);
 
   /** \brief clear the vector of devices
    */
@@ -141,57 +141,57 @@ class XMLFecDevice : public XMLFec {
 #ifdef DATABASE
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  deviceVector getDevices (std::string partitionName) throw (FecExceptionHandler);
+  deviceVector getDevices (std::string partitionName) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  deviceVector getDevices (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor ) throw (FecExceptionHandler);
+  deviceVector getDevices (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor ) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  deviceVector getDevices (std::string partitionName, std::string fecHardId ) throw (FecExceptionHandler);
+  deviceVector getDevices (std::string partitionName, std::string fecHardId ) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  deviceVector getDevices (std::string partitionName, std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor ) throw (FecExceptionHandler);
+  deviceVector getDevices (std::string partitionName, std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor ) noexcept(false);
 #endif
 
   /** \brief Writes the device vector parameter in a ASCII file
    */
-  virtual void setDevices ( deviceVector dVector, std::string outputFileName ) throw (FecExceptionHandler);
+  virtual void setDevices ( deviceVector dVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the device vector attribute in a ASCII file
    */
-  virtual void setDevices ( std::string outputFileName ) throw (FecExceptionHandler);
+  virtual void setDevices ( std::string outputFileName ) noexcept(false);
 
   /** \brief Displays the contents of the device vector attribute
    */
-  void display() throw (FecExceptionHandler);
+  void display() noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDevices ( deviceVector dVector, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (FecExceptionHandler);
+  void setDevices ( deviceVector dVector, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false);
 
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDevices ( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (FecExceptionHandler);
+  void setDevices ( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false);
 
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDevices ( deviceVector dVector, std::string partitionName, unsigned int versionUpdate ) throw (FecExceptionHandler);
+  void setDevices ( deviceVector dVector, std::string partitionName, unsigned int versionUpdate ) noexcept(false);
 
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDevices ( std::string partitionName, unsigned int versionUpdate ) throw (FecExceptionHandler);
+  void setDevices ( std::string partitionName, unsigned int versionUpdate ) noexcept(false);
 
   /** \brief Configures the database
    */
-  unsigned int dbConfigure(std::string partitionName, boolean newPartition = true) throw (FecExceptionHandler);
+  unsigned int dbConfigure(std::string partitionName, boolean newPartition = true) noexcept(false);
 
   /** \brief Configures the database
    */
-  //  unsigned int newDbConfigure(std::string partitionName, boolean newPartition = true) throw (FecExceptionHandler);
+  //  unsigned int newDbConfigure(std::string partitionName, boolean newPartition = true) noexcept(false);
 #endif
 
 } ;

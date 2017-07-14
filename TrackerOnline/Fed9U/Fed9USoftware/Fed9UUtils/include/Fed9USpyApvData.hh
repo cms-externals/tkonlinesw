@@ -71,14 +71,14 @@ namespace Fed9U {
      * \throw  Fed9USpyApvDataException index is out of range.
      * \return The value of the sample in ADC counts. 
      */
-    u16 getSample(u16 index) const throw (Fed9USpyApvDataException);
+    u16 getSample(u16 index) const noexcept(false);
     /**
      * \brief  Set a sample from the spy data.
      * \param  index Index of sample in spy data (not apv data frame).
      * \throw  Fed9USpyApvDataException index is out of range.
      * \return The value of the sample in ADC counts.
      */
-    Fed9USpyApvData& setSample(u16 index, i16 value) throw (Fed9USpyApvDataException);
+    Fed9USpyApvData& setSample(u16 index, i16 value) noexcept(false);
     
     //member functions to extract values from the APV header
     /**
@@ -87,14 +87,14 @@ namespace Fed9U {
      * \throw  Fed9USpyApvDataException Tick mark isn't found.
      * \return Number of samples before the start of the tick mark.
      */
-    u8 getTickOffset(i16 threshold) const throw (Fed9USpyApvDataException);
+    u8 getTickOffset(i16 threshold) const noexcept(false);
     /*
      * \brief  Get the pipeline address APV header.
      * \param  threshold The threshold for a high value in the APV header.
      * \throw  Fed9USpyApvDataException Tick mark isn't found.
      * \return Pipeline address from the APV header.
      */
-    u8 getPipelineAddress(i16 threshold) const throw (Fed9USpyApvDataException);
+    u8 getPipelineAddress(i16 threshold) const noexcept(false);
     /**
      * \brief  Get APV header error bit.
      * \param  threshold The threshold for a high value in the APV header.
@@ -102,7 +102,7 @@ namespace Fed9U {
      * \return True if the error bit was high (ie no error) or 
      *         false if it was low (ie there was an error).
      */
-    bool getErrorBit(i16 threshold) const throw (Fed9USpyApvDataException);
+    bool getErrorBit(i16 threshold) const noexcept(false);
     
     
     /**

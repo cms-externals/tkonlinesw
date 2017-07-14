@@ -42,47 +42,47 @@ class DbTkDcuPsuMapAccess : public DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbTkDcuPsuMapAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkDcuPsuMapAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbTkDcuPsuMapAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkDcuPsuMapAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbTkDcuPsuMapAccess ( ) throw (oracle::occi::SQLException);
+  ~DbTkDcuPsuMapAccess ( ) noexcept(false);
 
   /** \brief get the DCU/PSU map version for the given partition
    */
-  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException) ;
+  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) noexcept(false) ;
 
   /**Sends a request to the database to execute a PL/SQL stored procedure in order to get a Clob containing the data from the database.<BR>
    */
-  oracle::occi::Clob *getXMLClob( int onlyPsuName, std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  oracle::occi::Clob *getXMLClob( int onlyPsuName, std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false) ;
 
   /** Request the PSU names from the database
    */
-  oracle::occi::Clob *getPsuNameXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  oracle::occi::Clob *getPsuNameXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false) ;
 
   /** Request the DCU / PSU from the database
    */
-  oracle::occi::Clob *getDcuPsuMapXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  oracle::occi::Clob *getDcuPsuMapXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false) ;
 
   /** Request the DCU / PSU from the database
    */
-  oracle::occi::Clob *getPsuNotConnectedXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  oracle::occi::Clob *getPsuNotConnectedXMLClob( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false) ;
 
   /**Sends a request to the database to execute a PL/SQL stored procedure in order to set a Clob containing the data to the database.<BR>
    */
-  void setXMLClob(bool psuNameOnly, std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  void setXMLClob(bool psuNameOnly, std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) noexcept(false) ;
 
   /** Upload the PSU names in a new version
    */
-  void uploadPsuNames ( std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  void uploadPsuNames ( std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) noexcept(false) ;
 
   /** Upload the PSU/DCU map in a new version
    */
-  void uploadDcuPsuMap ( std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  void uploadDcuPsuMap ( std::string buffer, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) noexcept(false) ;
 
 };
 

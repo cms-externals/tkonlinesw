@@ -153,7 +153,7 @@ void philipsAccess::getBlockWriteValues ( philipsDescription philipsValues, std:
  * \warning if a problem occurs in one channel then 0 is set in the corresponding registers
  */
 unsigned int philipsAccess::getPhilipsValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, philipsAccess *> &philipsSet, deviceVector &philipsVector,
-							     std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) {
+							     std::list<FecExceptionHandler *> &errorList ) noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, philipsDescription * > deviceDescriptionsMap ;

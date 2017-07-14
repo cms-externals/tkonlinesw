@@ -90,21 +90,21 @@ class XMLTkDcuInfo : public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLTkDcuInfo () throw (FecExceptionHandler);
+  XMLTkDcuInfo () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLTkDcuInfo ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLTkDcuInfo ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor with database access
    */
-  XMLTkDcuInfo ( DbTkDcuInfoAccess *dbAccess )throw (FecExceptionHandler) ;
+  XMLTkDcuInfo ( DbTkDcuInfoAccess *dbAccess )noexcept(false) ;
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLTkDcuInfo ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLTkDcuInfo ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLTkDcuInfo
    */
@@ -136,7 +136,7 @@ class XMLTkDcuInfo : public XMLCommonFec {
 
   /** \brief Sets the device vector private attribute
    */
-  void setDcuInfoVector (tkDcuInfoVector) throw (FecExceptionHandler);
+  void setDcuInfoVector (tkDcuInfoVector) noexcept(false);
 
   /** \brief Parse the XML buffer
    */
@@ -144,116 +144,116 @@ class XMLTkDcuInfo : public XMLCommonFec {
 
   /** \brief Parse the XML buffer and gets a pointer on the device vector private attribute
    */
-  tkDcuInfoVector getDcuInfos ( ) throw (FecExceptionHandler);
+  tkDcuInfoVector getDcuInfos ( ) noexcept(false);
 
   /** \brief clear the vector of elements
    */
   void clearVector();
 
 #ifdef DATABASE
-  void parseDatabaseResponse(std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0) throw (FecExceptionHandler);
-  void parseDatabaseResponse(unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler);
-  void parseDatabaseResponse() throw (FecExceptionHandler);
-  void parseStateDatabaseResponse() throw (FecExceptionHandler);
-  void parseFecVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseFedVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseDcuInfoVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseConnectionVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseDcuPsuMapVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseMaskVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseRunDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
-  void parseRunDatabaseResponse() throw (FecExceptionHandler);
-  void parseRunDatabaseResponse(std::string partitionName, int runNumber) throw (FecExceptionHandler);
-  void parseLastRunO2ODatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
+  void parseDatabaseResponse(std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0) noexcept(false);
+  void parseDatabaseResponse(unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false);
+  void parseDatabaseResponse() noexcept(false);
+  void parseStateDatabaseResponse() noexcept(false);
+  void parseFecVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseFedVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseDcuInfoVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseConnectionVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseDcuPsuMapVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseMaskVersionsDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseRunDatabaseResponse(std::string partitionName) noexcept(false);
+  void parseRunDatabaseResponse() noexcept(false);
+  void parseRunDatabaseResponse(std::string partitionName, int runNumber) noexcept(false);
+  void parseLastRunO2ODatabaseResponse(std::string partitionName) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  tkDcuInfoVector getDcuInfos (std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0) throw (FecExceptionHandler);
-  tkDcuInfoVector getAllDcuInfos (unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler);
-  tkDcuInfoVector getAllDcuInfos () throw (FecExceptionHandler);//last version only
+  tkDcuInfoVector getDcuInfos (std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0) noexcept(false);
+  tkDcuInfoVector getAllDcuInfos (unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false);
+  tkDcuInfoVector getAllDcuInfos () noexcept(false);//last version only
 
   /** \brief Gets a vector of TkState containing all the current states.
    *  YOU have to delete all TkState objects + the vector!
    */
-  tkStateVector getAllCurrentStates () throw (FecExceptionHandler);
+  tkStateVector getAllCurrentStates () noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fec versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllFecVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllFecVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fec versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllDcuInfoVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllDcuInfoVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fec versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllConnectionVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllConnectionVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fec versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllDcuPsuMapVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllDcuPsuMapVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fec versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllMaskVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllMaskVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a vector of TkVersion containing all the Fed versions.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkVersionVector getAllFedVersions (std::string partitionName) throw (FecExceptionHandler);
+  tkVersionVector getAllFedVersions (std::string partitionName) noexcept(false);
 
   /** \brief Gets a TkRun containing the last run.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  TkRun *getLastRun(std::string partitionName) throw (FecExceptionHandler);
+  TkRun *getLastRun(std::string partitionName) noexcept(false);
 
   /** \brief Gets a TkRun containing the given run.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  TkRun *getRun(std::string partitionName, unsigned int runNumber) throw (FecExceptionHandler);
+  TkRun *getRun(std::string partitionName, unsigned int runNumber) noexcept(false);
 
   /** \brief Gets a TkRunVector containing all the Runs of the account.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  tkRunVector getAllRuns() throw (FecExceptionHandler);
+  tkRunVector getAllRuns() noexcept(false);
 
    /** \brief Gets a TkRun containing the last run of O2O.
    *  YOU have to delete all TkVersion objects + the vector!
    */
-  TkRun *getLastO2ORun(std::string partitionName) throw (FecExceptionHandler);
+  TkRun *getLastO2ORun(std::string partitionName) noexcept(false);
  
 #endif
 
 
 /** \brief Writes the device vector parameter in a ASCII file
    */
-  void setDcuInfos ( tkDcuInfoVector dVector, std::string outputFileName ) throw (FecExceptionHandler);
+  void setDcuInfos ( tkDcuInfoVector dVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the device vector attribute in a ASCII file
    */
-  void setDcuInfos ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setDcuInfos ( std::string outputFileName ) noexcept(false);
 
   /** \brief Displays the contents of the device vector attribute
    */
-  //void display() throw (FecExceptionHandler);
+  //void display() noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDcuInfos ( tkDcuInfoVector dVector ) throw (FecExceptionHandler);
+  void setDcuInfos ( tkDcuInfoVector dVector ) noexcept(false);
 
   /** \brief Sends the parameter value from device vector to the database
    */
-  void setDcuInfos ( ) throw (FecExceptionHandler);
+  void setDcuInfos ( ) noexcept(false);
 
   /** \brief Configures the database
    */
-  void dbConfigure() throw (FecExceptionHandler);
+  void dbConfigure() noexcept(false);
 #endif
 } ;
 

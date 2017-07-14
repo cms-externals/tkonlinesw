@@ -86,7 +86,7 @@ class laserdriverAccess: public deviceAccess {
 
   /** \brief Set all values for a laserdriver
    */
-  void setValues ( laserdriverDescription laserdriverValues ) throw (FecExceptionHandler) ;
+  void setValues ( laserdriverDescription laserdriverValues ) noexcept(false) ;
 
   /** \brief Set all values for a laserdriver in multiple frames
    */
@@ -94,33 +94,33 @@ class laserdriverAccess: public deviceAccess {
 
   /** \brief Get all values from a laserdriver
    */
-  laserdriverDescription *getValues ( ) throw (FecExceptionHandler) ;
+  laserdriverDescription *getValues ( ) noexcept(false) ;
 
   /** \brief Set the value in the specified register
    */
-  void setGain ( tscType8 gain ) throw (FecExceptionHandler) ;
+  void setGain ( tscType8 gain ) noexcept(false) ;
 
   /** \brief Set the value in the specified register
    */
-  void setBias ( tscType8 *bias ) throw (FecExceptionHandler) ;
+  void setBias ( tscType8 *bias ) noexcept(false) ;
 
   /** \brief Get the value from the specified register
    */
-  void getBias ( tscType8 *bias ) throw (FecExceptionHandler) ;
+  void getBias ( tscType8 *bias ) noexcept(false) ;
 
   /** \brief Get the value from the specified register
    */
-  tscType8 getGain ( ) throw (FecExceptionHandler) ;
+  tscType8 getGain ( ) noexcept(false) ;
 
   /** \brief returns true if as SEU is detected ( bit 8 of gainReg = 1 )
    */
-  bool getSeuStatus() throw (FecExceptionHandler) ;
+  bool getSeuStatus() noexcept(false) ;
 
   /** \brief static method to upload from the hardware the devices
    */
   static unsigned int getLaserdriverValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, laserdriverAccess *> &laserdriverSet, deviceVector &laserdriverVector,
 							   std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 };
 
 #endif

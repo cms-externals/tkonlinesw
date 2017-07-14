@@ -34,7 +34,7 @@
  * \see <I>DbCommonAccess::getDbConfiguration</I>, <I>DbCommonAccess::dbConnect</I>
  * \param threaded - if the process is thread then a connection is created for these process. In the other case then the process used a static variables
  */
-DbCommonAccess::DbCommonAccess ( bool threaded ) throw (oracle::occi::SQLException) {
+DbCommonAccess::DbCommonAccess ( bool threaded ) noexcept(false) {
   // Try to find the access through environment variables
   std::string login = "nil" ;
   std::string passwd = "nil" ;
@@ -59,7 +59,7 @@ DbCommonAccess::DbCommonAccess ( bool threaded ) throw (oracle::occi::SQLExcepti
  * \exception oracle::occi::SQLException thrown by DbCommonAccess::dbConnect
  * \see DbCommonAccess::dbConnect
  */
-DbCommonAccess::DbCommonAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) {
+DbCommonAccess::DbCommonAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) {
   dbConnect (user, passwd, dbPath, threaded) ;
   xmlClob_ = new oracle::occi::Clob();
   xmlClobArray_ = new oracle::occi::Clob[8];
@@ -75,7 +75,7 @@ DbCommonAccess::DbCommonAccess (std::string user, std::string passwd, std::strin
  * \param dbPath - path for the database
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating the environnement or the connection
  */
-void DbCommonAccess::dbConnect (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException){
+void DbCommonAccess::dbConnect (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false){
 
   dbEnvironment_ = NULL ; xmlClob_ = NULL ; xmlClobArray_ = NULL ;
 
@@ -135,7 +135,7 @@ void DbCommonAccess::dbConnect (std::string user, std::string passwd, std::strin
  * Closes the environnement.<BR>
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in closing the environnement or the connection
  * */
-DbCommonAccess::~DbCommonAccess () throw (oracle::occi::SQLException) {
+DbCommonAccess::~DbCommonAccess () noexcept(false) {
 
   if (xmlClob_) { delete xmlClob_; xmlClob_ = NULL ; }
   if (xmlClobArray_) { delete[] xmlClobArray_;  xmlClobArray_ = NULL ; }
@@ -238,7 +238,7 @@ void DbCommonAccess::prepareXmlClobArray( int index ) {
  * \return a pointer to a initialized Clob
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in statement creation or statement execution
  */
-oracle::occi::Clob DbCommonAccess::initializeClob () throw (oracle::occi::SQLException) {
+oracle::occi::Clob DbCommonAccess::initializeClob () noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::getXMLClob initialize a Clob" << std::endl;
@@ -286,7 +286,7 @@ oracle::occi::Clob DbCommonAccess::initializeClob () throw (oracle::occi::SQLExc
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement.
  * \warning to retreive the next run number, retreive the current run number and add 1 to it
  */
-unsigned int DbCommonAccess::getCurrentRunNumber() throw (FecExceptionHandler) {
+unsigned int DbCommonAccess::getCurrentRunNumber() noexcept(false) {
 
   static std::string queryString = "BEGIN :a := PkgRun.GetCurrentRun(); END;";
   unsigned int nextRunId = 0;
@@ -323,7 +323,7 @@ unsigned int DbCommonAccess::getCurrentRunNumber() throw (FecExceptionHandler) {
  * @return a pointer to a list of unsigned int pointers (partitionId, versionMajorId, versionMinorId, maskVersionMajorId, maskVersionMinorId : THIS LIST OF POINTERS HAS TO BE REMOVED BY THE USER !!
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::list<unsigned int*> DbCommonAccess::getDatabaseVersionFromQuery (std::string sqlQuery, std::string partitionName) throw (oracle::occi::SQLException) {
+std::list<unsigned int*> DbCommonAccess::getDatabaseVersionFromQuery (std::string sqlQuery, std::string partitionName) noexcept(false) {
 
   oracle::occi::Statement *stmt = NULL ;
   oracle::occi::ResultSet *rset = NULL ; 
@@ -368,7 +368,7 @@ void DbCommonAccess::createStateHistory (unsigned int stateHistoryId, std::strin
 					 unsigned int connectionVersionMajorId, unsigned int connectionVersionMinorId,
 					 unsigned int dcuInfoVersionMajorId, unsigned int dcuInfoVersionMinorId, 
 					 unsigned int dcuPsuMapVersionMajorId, unsigned int dcuPsuMapVersionMinorId,
-					 unsigned int maskVersionMajorId, unsigned int maskVersionMinorId ) throw (oracle::occi::SQLException) {
+					 unsigned int maskVersionMajorId, unsigned int maskVersionMinorId ) noexcept(false) {
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::createState(...)" << std::endl;
 #endif
@@ -433,7 +433,7 @@ void DbCommonAccess::createStateHistory (unsigned int stateHistoryId, std::strin
 /**Create a new run <BR>
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in statement creation or statement execution
  */
-void DbCommonAccess::setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) throw (oracle::occi::SQLException, FecExceptionHandler){
+void DbCommonAccess::setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::setRun(" << partitionName << "," << runNumber << ", "<< runMode <<")"<<std::endl;
 #endif
@@ -472,7 +472,7 @@ void DbCommonAccess::setRun(std::string partitionName, unsigned int runNumber, i
 
 /** \brief Stop a run 
    */
-void DbCommonAccess::stopRun(std::string partitionName, std::string comment) throw (oracle::occi::SQLException,FecExceptionHandler){
+void DbCommonAccess::stopRun(std::string partitionName, std::string comment) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::stopRun(" << partitionName << ")"<<std::endl;
 #endif
@@ -510,7 +510,7 @@ void DbCommonAccess::stopRun(std::string partitionName, std::string comment) thr
 /**Tag the run as transfered by O2O <BR>
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in statement creation or statement execution
  */
-void DbCommonAccess::setO2ORun(std::string partitionName, unsigned int runNumber) throw (oracle::occi::SQLException, FecExceptionHandler){
+void DbCommonAccess::setO2ORun(std::string partitionName, unsigned int runNumber) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::setO2ORun(" << partitionName << "," << runNumber << ")"<<std::endl;
 #endif
@@ -543,7 +543,7 @@ void DbCommonAccess::setO2ORun(std::string partitionName, unsigned int runNumber
  * \param runNumber The number of the run
  * \param newComment The new value of the comment
  */
-void DbCommonAccess::setNewComment(std::string partitionName, unsigned int runNumber, std::string newComment) throw (oracle::occi::SQLException, FecExceptionHandler){
+void DbCommonAccess::setNewComment(std::string partitionName, unsigned int runNumber, std::string newComment) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::setNewComment(" << partitionName << "," << runNumber << "," << newComment << " )"<<std::endl;
 #endif
@@ -575,7 +575,7 @@ void DbCommonAccess::setNewComment(std::string partitionName, unsigned int runNu
 /** \brief Retreive the database version
  * \return version of the database as a double
  */
-double DbCommonAccess::getDbVersion( ) throw (oracle::occi::SQLException, FecExceptionHandler){
+double DbCommonAccess::getDbVersion( ) noexcept(false){
 
   static std::string query = "select version from dbversion" ;
 
@@ -616,7 +616,7 @@ double DbCommonAccess::getDbVersion( ) throw (oracle::occi::SQLException, FecExc
 /** \brief Retreive the database size
  * \return the database size in Mbytes
  */
-double DbCommonAccess::getDbSize( ) throw (oracle::occi::SQLException, FecExceptionHandler){
+double DbCommonAccess::getDbSize( ) noexcept(false){
 
   static std::string query = "select sum(bytes)/1024/1024 as space_used_in_MB from user_extents" ;
 
@@ -658,7 +658,7 @@ double DbCommonAccess::getDbSize( ) throw (oracle::occi::SQLException, FecExcept
 /** \brief Get the state ID from the current state
  *  \return The ID of the given state   
  */
-unsigned int DbCommonAccess::getCurrentStateHistoryId( ) throw (oracle::occi::SQLException, FecExceptionHandler){
+unsigned int DbCommonAccess::getCurrentStateHistoryId( ) noexcept(false){
 
   static std::string query = "" ;
   query = "select stateHistoryId from CurrentState";
@@ -696,7 +696,7 @@ unsigned int DbCommonAccess::getCurrentStateHistoryId( ) throw (oracle::occi::SQ
  * \return a pointer to a initialized Clob
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in statement creation or statement execution
  */
-unsigned int DbCommonAccess::getNewStateHistoryId () throw (oracle::occi::SQLException) {
+unsigned int DbCommonAccess::getNewStateHistoryId () noexcept(false) {
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::getNewStateHistoryId()" << std::endl;
 #endif
@@ -724,7 +724,7 @@ unsigned int DbCommonAccess::getNewStateHistoryId () throw (oracle::occi::SQLExc
  *  \param stateName The state name
  *  \return The ID of the given state   
  */
-unsigned int DbCommonAccess::getStateHistoryId(std::string stateHistoryName) throw (oracle::occi::SQLException, FecExceptionHandler){
+unsigned int DbCommonAccess::getStateHistoryId(std::string stateHistoryName) noexcept(false){
 
   static std::string query = "" ;
   query = "select stateHistoryId from StateHistory where stateHistoryName='"+stateHistoryName+"'";
@@ -760,7 +760,7 @@ unsigned int DbCommonAccess::getStateHistoryId(std::string stateHistoryName) thr
 
 /** \brief Create a new version of dcu psu mapping 
    */
-void DbCommonAccess::createNewDcuPsuMapVersion(unsigned int *majorVersion, unsigned int *minorVersion) throw (oracle::occi::SQLException,FecExceptionHandler){
+void DbCommonAccess::createNewDcuPsuMapVersion(unsigned int *majorVersion, unsigned int *minorVersion) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::createNewDcuPsuMapVersion(:major, :minor)"<<std::endl;
 #endif
@@ -797,7 +797,7 @@ void DbCommonAccess::createNewDcuPsuMapVersion(unsigned int *majorVersion, unsig
 
 /** \brief Create a new Version of dcu infos 
    */
-void DbCommonAccess::createNewDcuInfoVersion() throw (oracle::occi::SQLException,FecExceptionHandler){
+void DbCommonAccess::createNewDcuInfoVersion() noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::createNewDcuInfoVersion(:major, :minor)"<<std::endl;
 #endif
@@ -835,7 +835,7 @@ void DbCommonAccess::createNewDcuInfoVersion() throw (oracle::occi::SQLException
     \param partitionName The name of the concerned partition
     \param dcuHardId The list of the dcuHardId to change
 **/
-void DbCommonAccess::setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int newState) throw (oracle::occi::SQLException){
+void DbCommonAccess::setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int newState) noexcept(false){
   oracle::occi::Statement *stmt = NULL ;
   static std::string sqlQuery = "BEGIN PkgDcu.setState(:partitionName, :state);END;";
 
@@ -888,7 +888,7 @@ void DbCommonAccess::setDeviceState(std::string partitionName, std::vector<unsig
 
 /** Copy the given state and set it as currentState
  */
-unsigned int DbCommonAccess::setCurrentState(unsigned int stateHistoryId) throw (oracle::occi::SQLException){
+unsigned int DbCommonAccess::setCurrentState(unsigned int stateHistoryId) noexcept(false){
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::setCurrentState(" << stateHistoryId << ")"<<std::endl;
 #endif
@@ -958,7 +958,7 @@ unsigned int DbCommonAccess::setCurrentState(unsigned int stateHistoryId) throw 
  * \param allPartition - copy or update/insert of the state coming from the run number
  * \param return the new state ID created
  */
-unsigned int DbCommonAccess::copyStateForRunNumber(unsigned int runNumber, bool allPartition) throw (oracle::occi::SQLException) {
+unsigned int DbCommonAccess::copyStateForRunNumber(unsigned int runNumber, bool allPartition) noexcept(false) {
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": for the run " << runNumber ;
   if (allPartition) std::cerr << " for all partitions in the run (" << allPartition << ")" << std::endl ;
@@ -995,7 +995,7 @@ unsigned int DbCommonAccess::copyStateForRunNumber(unsigned int runNumber, bool 
 
 /** Copy the current state, update the given partition with its values in the given state set the state as current
  */
-unsigned int DbCommonAccess::setCurrentState(std::string partitionName, unsigned int stateHistoryId) throw (oracle::occi::SQLException){
+unsigned int DbCommonAccess::setCurrentState(std::string partitionName, unsigned int stateHistoryId) noexcept(false){
 
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::setCurrentState(" << partitionName << ", "<< stateHistoryId << ")"<<std::endl;
@@ -1035,7 +1035,7 @@ unsigned int DbCommonAccess::setCurrentState(std::string partitionName, unsigned
 //     \param partitionName The name of the concerned partition
 //     \param dcuHardId The list of the dcuHardId to change
 // **/
-// void DbCommonAccess::setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int newState) throw (oracle::occi::SQLException){
+// void DbCommonAccess::setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int newState) noexcept(false){
 //   oracle::occi::Statement *stmt;
 //   static std::string sqlQuery = "BEGIN PkgDcu.setDevicesState(:partitionName, :dcuHardId, :state);END;";
 
@@ -1087,7 +1087,7 @@ unsigned int DbCommonAccess::setCurrentState(std::string partitionName, unsigned
  * @return The list containing the partition names - YOU have to delete that list!!!!!
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::list<std::string> DbCommonAccess::getAllPartitionNames ()  throw (oracle::occi::SQLException){
+std::list<std::string> DbCommonAccess::getAllPartitionNames ()  noexcept(false){
 
   std::list<std::string> partitionNameList ;
   oracle::occi::Statement *stmt = NULL ;
@@ -1119,7 +1119,7 @@ std::list<std::string> DbCommonAccess::getAllPartitionNames ()  throw (oracle::o
  * @return The list containing the partition names
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::list<std::string> DbCommonAccess::getAllPartitionNames ( unsigned int runNumber )  throw (oracle::occi::SQLException) {
+std::list<std::string> DbCommonAccess::getAllPartitionNames ( unsigned int runNumber )  noexcept(false) {
 
   std::list<std::string> partitionNameList ;
   oracle::occi::Statement *stmt = NULL ;
@@ -1159,7 +1159,7 @@ std::list<std::string> DbCommonAccess::getAllPartitionNames ( unsigned int runNu
  * @return The list containing the partition names
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::list<std::string> DbCommonAccess::getAllPartitionNamesFromCurrentState ( )  throw (oracle::occi::SQLException) {
+std::list<std::string> DbCommonAccess::getAllPartitionNamesFromCurrentState ( )  noexcept(false) {
 
   std::list<std::string> partitionNameList ;
   oracle::occi::Statement *stmt = NULL ;
@@ -1199,7 +1199,7 @@ std::list<std::string> DbCommonAccess::getAllPartitionNamesFromCurrentState ( ) 
  * @return The list containing the state names - YOU have to delete that list!!!!!
  * @exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-std::list<std::string> DbCommonAccess::getAllStateHistoryNames ()  throw (oracle::occi::SQLException){
+std::list<std::string> DbCommonAccess::getAllStateHistoryNames ()  noexcept(false){
   std::list<std::string> stateHistoryNameList ;
   oracle::occi::Statement *stmt = NULL ;
   oracle::occi::ResultSet *rset = NULL ; 
@@ -1231,7 +1231,7 @@ std::list<std::string> DbCommonAccess::getAllStateHistoryNames ()  throw (oracle
  * \return a pointer on a Clob containing the data from the database.
  * \exception oracle::occi::SQLException : an SQLException is raised in case of trouble in creating or executing the statement
  */
-oracle::occi::Clob *DbCommonAccess::getXMLClobFromQuery (std::string readString ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbCommonAccess::getXMLClobFromQuery (std::string readString ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << "readString " << readString << std::endl;
@@ -1298,7 +1298,7 @@ std::string DbCommonAccess::getErrorMessage() {
  * \param deleteValues - delete the values before doing the update: 0 do not delete, 1 delete the partitions which are not in the current state, 2 delete everything
  * \param withStrips - update the FED with strips
  */
-void DbCommonAccess::refreshCacheXMLClob ( int deleteValues, bool withStrips ) throw (oracle::occi::SQLException) {
+void DbCommonAccess::refreshCacheXMLClob ( int deleteValues, bool withStrips ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::refreshCacheXMLClob()" << std::endl;
@@ -1323,7 +1323,7 @@ void DbCommonAccess::refreshCacheXMLClob ( int deleteValues, bool withStrips ) t
 
 /** Delete the cache of the connections, FEC, FED
  */
-void DbCommonAccess::deleteCacheXMLClob ( ) throw (oracle::occi::SQLException) {
+void DbCommonAccess::deleteCacheXMLClob ( ) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << "DbCommonAccess::deleteCacheXMLClob()" << std::endl;
@@ -1355,7 +1355,7 @@ void DbCommonAccess::deleteCacheXMLClob ( ) throw (oracle::occi::SQLException) {
  * \param partitionName - partition name
  * \return a list of pairs containing the name of the cooling and if DCU/PSU map detected is the one expected
  */
-std::vector<std::pair<std::string, bool> > DbCommonAccess::setTKCCDcuPsuMapValidation(std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) {
+std::vector<std::pair<std::string, bool> > DbCommonAccess::setTKCCDcuPsuMapValidation(std::string partitionName) noexcept(false) {
 
   // ----------------------------------------
   // Get the partition ID
@@ -1493,7 +1493,7 @@ std::vector<std::pair<std::string, bool> > DbCommonAccess::setTKCCDcuPsuMapValid
 /** \brief send a XML buffer to the database to be parsed
  * \param buffer - XML buffer to be sent
  */
-int DbCommonAccess::setGenericXMLClob(std::string buffer, std::string tableName) throw (oracle::occi::SQLException, FecExceptionHandler){
+int DbCommonAccess::setGenericXMLClob(std::string buffer, std::string tableName) noexcept(false){
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << ": " << buffer <<std::endl;
@@ -1571,7 +1571,7 @@ std::string DbCommonAccess::what ( std::string message, oracle::occi::SQLExcepti
  * \param o2oTimestamp - a given timestamp (o2o time operation)
  */
 void DbCommonAccess::setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int runNumber ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DATABASEDEBUG
   std::cerr << __PRETTY_FUNCTION__ << " for partition " << partitionName << " and subdetector " << subDetector << " at " << runNumber << std::endl;
@@ -1600,7 +1600,7 @@ void DbCommonAccess::setO2OOperation ( std::string partitionName, std::string su
  * \param partitionName - partition name
  * \return true if the versions for the partition is coherent, false if it is not coherent
  */
-int DbCommonAccess::getO2OXchecked ( std::string partitionName ) throw (FecExceptionHandler) {
+int DbCommonAccess::getO2OXchecked ( std::string partitionName ) noexcept(false) {
 
   static std::string queryString = "BEGIN :a := PkgO2OPartition.getO2OXChecked(:b); END;";
   int result = 0;

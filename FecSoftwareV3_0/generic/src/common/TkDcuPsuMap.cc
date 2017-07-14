@@ -25,7 +25,7 @@
 
 /** Constructor
  */
-TkDcuPsuMap::TkDcuPsuMap ( tscType32 dcuHardId, std::string psuName, std::string psuType, keyType fecIndex, std::string dcuType ) throw (FecExceptionHandler):
+TkDcuPsuMap::TkDcuPsuMap ( tscType32 dcuHardId, std::string psuName, std::string psuType, keyType fecIndex, std::string dcuType ) noexcept(false):
   dcuHardId_(dcuHardId),
   psuType_(psuType),
   fecIndex_(fecIndex),
@@ -36,7 +36,7 @@ TkDcuPsuMap::TkDcuPsuMap ( tscType32 dcuHardId, std::string psuName, std::string
 
 /** Constructor with the parameter definition extracted from the database or XML file
  */
-TkDcuPsuMap::TkDcuPsuMap ( parameterDescriptionNameType parameterNames ) throw (FecExceptionHandler):
+TkDcuPsuMap::TkDcuPsuMap ( parameterDescriptionNameType parameterNames ) noexcept(false):
   dcuHardId_(0),
   dpName_(""),
   pvssName_(""),
@@ -71,7 +71,7 @@ tscType32 TkDcuPsuMap::getDcuHardId ( ) {
  * DB. This method will separate in two parts this name. If one error is detected then an exception is raised.
  * \param psuName - complete PSU name
  */
-void TkDcuPsuMap::setPsuName ( std::string psuName ) throw (FecExceptionHandler) {
+void TkDcuPsuMap::setPsuName ( std::string psuName ) noexcept(false) {
 
   std::string::size_type loc = psuName.find( COMMA, 0 );
   if (loc == std::string::npos) {

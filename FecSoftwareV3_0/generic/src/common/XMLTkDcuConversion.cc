@@ -32,7 +32,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLCommonFec::XMLCommonFec()</I>
  * @see <I>XMLTkDcuConversion::init()</I>
  */
-XMLTkDcuConversion::XMLTkDcuConversion () throw (FecExceptionHandler) :
+XMLTkDcuConversion::XMLTkDcuConversion () noexcept(false) :
   XMLCommonFec () 
 {
   countDCUConversion_ = 0 ;
@@ -48,7 +48,7 @@ XMLTkDcuConversion::XMLTkDcuConversion () throw (FecExceptionHandler) :
  * @see <I>XMLCommonFec::XMLCommonFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLTkDcuConversion::init()</I>
  */
-XMLTkDcuConversion::XMLTkDcuConversion (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ){
+XMLTkDcuConversion::XMLTkDcuConversion (const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ){
   countDCUConversion_ = 0 ;
   parameterNames_ = TkDcuConversionFactors::getParameterNames() ;
 }
@@ -62,7 +62,7 @@ XMLTkDcuConversion::XMLTkDcuConversion (const XMLByte* xmlBuffer ) throw (FecExc
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuConversion::init()</I>
  */
-XMLTkDcuConversion::XMLTkDcuConversion ( DbTkDcuConversionAccess *dbAccess ) throw (FecExceptionHandler) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
+XMLTkDcuConversion::XMLTkDcuConversion ( DbTkDcuConversionAccess *dbAccess ) noexcept(false) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
   countDCUConversion_ = 0 ;
   parameterNames_ = TkDcuConversionFactors::getParameterNames() ;
 }
@@ -76,7 +76,7 @@ XMLTkDcuConversion::XMLTkDcuConversion ( DbTkDcuConversionAccess *dbAccess ) thr
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuConversion::init()</I>
  */
-XMLTkDcuConversion::XMLTkDcuConversion ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLTkDcuConversion::XMLTkDcuConversion ( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
   countDCUConversion_ = 0 ;
   parameterNames_ = TkDcuConversionFactors::getParameterNames() ;
 }
@@ -156,7 +156,7 @@ dcuConversionVector XMLTkDcuConversion::getDcuConversionVector () {
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLTkDcuConversion::parseXMLBuffer()
  */
-dcuConversionVector XMLTkDcuConversion::getDcuConversions () throw (FecExceptionHandler) {
+dcuConversionVector XMLTkDcuConversion::getDcuConversions () noexcept(false) {
 
   parseXMLBuffer();
   return dVector_;
@@ -173,7 +173,7 @@ dcuConversionVector XMLTkDcuConversion::getDcuConversions () throw (FecException
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLTkDcuConversion::parseDatabaseResponse(std::string partitionName) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
 #ifdef DATABASEDEBUG
@@ -232,7 +232,7 @@ void XMLTkDcuConversion::parseDatabaseResponse(std::string partitionName)
  *    - the dataBaseAccess or the dcuHardId name have not been intialized
  */
 void XMLTkDcuConversion::parseDatabaseResponse(tscType32 dcuHardId) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromDcuHardIdNumber";
 #ifdef DATABASEDEBUG
  std::cout << "void XMLTkDcuConversion::parseDatabaseResponse ( dcuHardId ) " <<std::endl ;
@@ -290,7 +290,7 @@ void XMLTkDcuConversion::parseDatabaseResponse(tscType32 dcuHardId)
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-dcuConversionVector XMLTkDcuConversion::getDcuConversions (tscType32 dcuHardId) throw (FecExceptionHandler) {
+dcuConversionVector XMLTkDcuConversion::getDcuConversions (tscType32 dcuHardId) noexcept(false) {
     parseDatabaseResponse(dcuHardId);
     parseXMLBuffer();
     return dVector_;
@@ -305,7 +305,7 @@ dcuConversionVector XMLTkDcuConversion::getDcuConversions (tscType32 dcuHardId) 
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-dcuConversionVector XMLTkDcuConversion::getDcuConversions (std::string partitionName) throw (FecExceptionHandler) {
+dcuConversionVector XMLTkDcuConversion::getDcuConversions (std::string partitionName) noexcept(false) {
   parseDatabaseResponse(partitionName);
   parseXMLBuffer();
   return dVector_;
@@ -321,7 +321,7 @@ dcuConversionVector XMLTkDcuConversion::getDcuConversions (std::string partition
  *     - the MemBufOutputSource created from the parameter <I>dVector</I> is not initialized 
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLTkDcuConversion::setDcuConversions ( dcuConversionVector dVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLTkDcuConversion::setDcuConversions ( dcuConversionVector dVector, std::string outputFileName) noexcept(false) {
 
   if (dVector.size()) {
     MemBufOutputSource memBufOS (dVector );
@@ -336,7 +336,7 @@ void XMLTkDcuConversion::setDcuConversions ( dcuConversionVector dVector, std::s
  * @exception FecExceptionHandler
  * @see XMLTkDcuConversion::setDevices ( dcuConversionVector dVector, std::string outputFileName)
  */
-void XMLTkDcuConversion::setDcuConversions ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLTkDcuConversion::setDcuConversions ( std::string outputFileName ) noexcept(false) {
   setDcuConversions( dVector_, outputFileName);
 }
 
@@ -346,7 +346,7 @@ void XMLTkDcuConversion::setDcuConversions ( std::string outputFileName ) throw 
  * Copy all elements from <I>dcuConversions</I> parameter to <I>pVector_</I> attribute
  * @exception FecExceptionHandler : a FecExceptionHandler is raised, if <I>pVector_</I> is NULL
  */
-void XMLTkDcuConversion::setDcuConversionVector (dcuConversionVector dcuConversions) throw (FecExceptionHandler) {
+void XMLTkDcuConversion::setDcuConversionVector (dcuConversionVector dcuConversions) noexcept(false) {
   // empty and delete previous dVector_
   // delete all elements
   if (dVector_.size()) {
@@ -371,7 +371,7 @@ void XMLTkDcuConversion::setDcuConversionVector (dcuConversionVector dcuConversi
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLTkDcuConversion::setDcuConversions (dcuConversionVector dVector)  throw (FecExceptionHandler) {
+void XMLTkDcuConversion::setDcuConversions (dcuConversionVector dVector)  noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector, true);
   try {
@@ -395,7 +395,7 @@ void XMLTkDcuConversion::setDcuConversions (dcuConversionVector dVector)  throw 
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLTkDcuConversion::setDcuConversions ()  throw (FecExceptionHandler) {
+void XMLTkDcuConversion::setDcuConversions ()  noexcept(false) {
   setDcuConversions(dVector_);
 }
 
@@ -409,7 +409,7 @@ void XMLTkDcuConversion::setDcuConversions ()  throw (FecExceptionHandler) {
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
 */
-void XMLTkDcuConversion::dbConfigure() throw (FecExceptionHandler) {
+void XMLTkDcuConversion::dbConfigure() noexcept(false) {
 
   MemBufOutputSource memBufOS (dVector_, true);
 

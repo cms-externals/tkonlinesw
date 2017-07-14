@@ -190,7 +190,7 @@ void DohAccess::setBias ( tscType8 *bias ) {
  * \exception FecExceptionHandler
  * \warning this method reset the ring several times so do not forget to apply the reset on FecAccessManager object if you use it
  */
-laserdriverDescription *DohAccess::calibrateDOH ( bool displayDebugMessage, unsigned char gain, unsigned char minBiasValue ) throw (FecExceptionHandler) {
+laserdriverDescription *DohAccess::calibrateDOH ( bool displayDebugMessage, unsigned char gain, unsigned char minBiasValue ) noexcept(false) {
 
   displayDebugMessage = true ;
 

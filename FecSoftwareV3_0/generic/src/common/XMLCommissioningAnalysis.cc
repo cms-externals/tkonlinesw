@@ -19,24 +19,24 @@ const char *XMLCommissioningAnalysis::RUNVERSION[] = {"runNumber","versionMajorI
 
 
 //----------------------------------
-XMLCommissioningAnalysis::XMLCommissioningAnalysis() throw (FecExceptionHandler) : XMLCommonFec () {
+XMLCommissioningAnalysis::XMLCommissioningAnalysis() noexcept(false) : XMLCommonFec () {
   _init();
 }
 
 //----------------------------------
-XMLCommissioningAnalysis::XMLCommissioningAnalysis( const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ) {
+XMLCommissioningAnalysis::XMLCommissioningAnalysis( const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ) {
   _init();
 }
 
 #ifdef DATABASE
 //----------------------------------
-XMLCommissioningAnalysis::XMLCommissioningAnalysis( DbCommissioningAnalysisAccess *dbAccess )throw (FecExceptionHandler) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
+XMLCommissioningAnalysis::XMLCommissioningAnalysis( DbCommissioningAnalysisAccess *dbAccess )noexcept(false) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
   _init();
 }
 #endif
 
 //----------------------------------
-XMLCommissioningAnalysis::XMLCommissioningAnalysis( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLCommissioningAnalysis::XMLCommissioningAnalysis( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
   _init();
   parseXMLBuffer();
 }
@@ -249,7 +249,7 @@ std::vector<CommissioningAnalysisDescription*> XMLCommissioningAnalysis::getDesc
 }
 
 //----------------------------------
-void XMLCommissioningAnalysis::setDescriptions( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType type ) throw (FecExceptionHandler) {
+void XMLCommissioningAnalysis::setDescriptions( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
   clearVector();
   _currentCommissioningType = type;
   std::cout << "SET DESCRIPTIONS:" << inVector.size() << " TYPE:" << CommissioningAnalysisDescription::getAnalysisType(type) << std::endl;
@@ -260,7 +260,7 @@ void XMLCommissioningAnalysis::setDescriptions( std::vector<CommissioningAnalysi
 }
 
 //----------------------------------
-void XMLCommissioningAnalysis::uploadAnalysis( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLCommissioningAnalysis::uploadAnalysis( std::string outputFileName ) noexcept(false) {
   if ( _dVector.size() ) {
     MemBufOutputSource memBufOS( _dVector, _currentCommissioningType, false );
     XMLCommonFec::writeXMLFile( memBufOS.getOutputBuffer()->str(), outputFileName );
@@ -272,7 +272,7 @@ void XMLCommissioningAnalysis::uploadAnalysis( std::string outputFileName ) thro
 
 
 //----------------------------------
-uint32_t XMLCommissioningAnalysis::uploadAnalysis( bool updateCurrentState ) throw ( FecExceptionHandler ) {
+uint32_t XMLCommissioningAnalysis::uploadAnalysis( bool updateCurrentState ) noexcept(false) {
 #ifndef DATABASE
   return 0;
 #else
@@ -298,7 +298,7 @@ uint32_t XMLCommissioningAnalysis::uploadAnalysis( bool updateCurrentState ) thr
 
 //----------------------------------
 std::vector<CommissioningAnalysisDescription*> XMLCommissioningAnalysis::getCalibrationData( uint32_t runNumber,
-											     std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+											     std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 #ifndef DATABASE
   {
     RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, "Database support not compiled", FATALERRORCODE) ;
@@ -356,7 +356,7 @@ std::vector<CommissioningAnalysisDescription*> XMLCommissioningAnalysis::getCali
 
 
 //----------------------------------
-HashMapRunVersion XMLCommissioningAnalysis::getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+HashMapRunVersion XMLCommissioningAnalysis::getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 #ifndef DATABASE
   {
     RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, "Database support not compiled", FATALERRORCODE) ;
@@ -415,7 +415,7 @@ HashMapRunVersion XMLCommissioningAnalysis::getAnalysisHistory( std::string part
 
 //----------------------------------
 std::vector<CommissioningAnalysisDescription*> XMLCommissioningAnalysis::getAnalysisHistory( std::string partitionName,
-											     uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+											     uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 #ifndef DATABASE
   {
     RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, "Database support not compiled", FATALERRORCODE) ;	
@@ -473,7 +473,7 @@ std::vector<CommissioningAnalysisDescription*> XMLCommissioningAnalysis::getAnal
 
 
 //----------------------------------
-HashMapAnalysisVersions XMLCommissioningAnalysis::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( FecExceptionHandler ) {
+HashMapAnalysisVersions XMLCommissioningAnalysis::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false) {
 #ifndef DATABASE
   {
     RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, "Database support not compiled", FATALERRORCODE) ;

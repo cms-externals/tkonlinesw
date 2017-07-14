@@ -146,7 +146,7 @@ class FecInterfaceRingDevice {
    /** \brief Get the FEC version register 
    * \return value read
    */
-   virtual tscType16 getFecFirmwareVersion( ) throw ( FecExceptionHandler ) ;
+   virtual tscType16 getFecFirmwareVersion( ) noexcept(false) ;
 	
   /******************************************************
 	FIFO ACCESS - NATIVE 32 BITS FORMAT
@@ -201,14 +201,14 @@ class FecInterfaceRingDevice {
 
   /** \brief write a block of words to the FIFO receive
    */
-  virtual void setFifoReceive ( tscType32 *value, int count) throw (FecExceptionHandler) {
+  virtual void setFifoReceive ( tscType32 *value, int count) noexcept(false) {
     int i;
     for(i=0;i<count;i++) setFifoReceive(value[i]) ;
   };
 
   /** \brief get block of words from the FIFO receive
    */
-  virtual tscType32* getFifoReceive (  tscType32 *value, int count ) throw (FecExceptionHandler) {
+  virtual tscType32* getFifoReceive (  tscType32 *value, int count ) noexcept(false) {
     int i;
     for(i=0;i<count;i++) value[i] = getFifoReceive() ;
     return value ;
@@ -216,14 +216,14 @@ class FecInterfaceRingDevice {
   
   /** \brief set a word into the FIFO return
    */
-  virtual void setFifoReturn ( tscType8 *value, int count ) throw (FecExceptionHandler) {
+  virtual void setFifoReturn ( tscType8 *value, int count ) noexcept(false) {
      int i;
      for(i=0;i<count;i++) setFifoReturn(value[i]) ;
   } ;
   
   /** \brief get a word from the FIFO return
    */
-  virtual tscType8* getFifoReturn (  tscType8 *value,int count ) throw (FecExceptionHandler) {
+  virtual tscType8* getFifoReturn (  tscType8 *value,int count ) noexcept(false) {
     int i;
     for(i=0;i<count;i++) value[i]  = getFifoReturn() ;
     return value ;
@@ -231,14 +231,14 @@ class FecInterfaceRingDevice {
   
   /** \brief set a word into the FIFO Transmit
    */
-  virtual void setFifoTransmit ( tscType32 *value, int count ) throw (FecExceptionHandler) {
+  virtual void setFifoTransmit ( tscType32 *value, int count ) noexcept(false) {
     int i;
     for(i=0;i<count;i++) setFifoTransmit(value[i]) ;
   };
   
   /** \brief get a word from the FIFO transmit
    */
-  virtual tscType32* getFifoTransmit (  tscType32 *value,int count ) throw (FecExceptionHandler) {
+  virtual tscType32* getFifoTransmit (  tscType32 *value,int count ) noexcept(false) {
     int i;
     for(i=0;i<count;i++) value[i]  = getFifoTransmit() ;
     return value ;

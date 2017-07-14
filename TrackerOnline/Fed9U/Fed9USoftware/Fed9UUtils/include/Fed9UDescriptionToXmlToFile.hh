@@ -46,12 +46,12 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throws this error if there are any error during construction and also catches and rethrows any exception
      *        thrown by other functions during the function call.
      */
-    Fed9UDescriptionToXmlToFile(const std::string &targetXMLFileName, std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite ) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXmlToFile(const std::string &targetXMLFileName, std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite ) noexcept(false);
     
     /**
      * \brief Method which construct and writes the XML to the file.
      */
-    void writeXmlFile(void) throw (Fed9UXMLDescriptionException);
+    void writeXmlFile(void) noexcept(false);
     
   private:
     std::string theTargetXMLFileName; //!< File to write the XML data to.

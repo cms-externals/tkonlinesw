@@ -145,7 +145,7 @@ class TkDcuInfo {
   /** \brief return the corresponding subdetector from the det id
    * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
    */
-  std::string getSubDetectorFromDetId ( ) throw (std::string) ;
+  std::string getSubDetectorFromDetId ( ) noexcept(false) ;
 
   // ------------------------------------------------------------------------------------------------------
   // 
@@ -157,7 +157,7 @@ class TkDcuInfo {
    * \param detId - detector ID
    * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
    */
-  static std::string getSubDetectorFromDetId ( unsigned int detId ) throw (std::string) ;
+  static std::string getSubDetectorFromDetId ( unsigned int detId ) noexcept(false) ;
 
   /** \brief Return a list of parameter name
    * must be delete by the owner of the description

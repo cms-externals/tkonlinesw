@@ -59,21 +59,21 @@ class XMLConnection: public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLConnection () throw (FecExceptionHandler);
+  XMLConnection () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLConnection ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLConnection ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor with xml buffer
    */
-  XMLConnection ( DbConnectionsAccess *dbAccess ) throw (FecExceptionHandler);
+  XMLConnection ( DbConnectionsAccess *dbAccess ) noexcept(false);
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLConnection ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLConnection ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLConnection
    */
@@ -99,23 +99,23 @@ class XMLConnection: public XMLCommonFec {
 #ifdef DATABASE
   /** retreive buffer from database for a given partition
    */
-  void parseDatabaseResponse(std::string partitionName) throw (FecExceptionHandler);
+  void parseDatabaseResponse(std::string partitionName) noexcept(false);
 
   /** retreive buffer from database for a given partition and version
    */
-  void parseDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool retreiveApvNotConnected = false) throw (FecExceptionHandler);
+  void parseDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool retreiveApvNotConnected = false) noexcept(false);
 
   /** retreive from the database the connection list for a given partition
    */
-  ConnectionVector getConnections (std::string partitionName) throw (FecExceptionHandler) ;
+  ConnectionVector getConnections (std::string partitionName) noexcept(false) ;
 
   /** retreive from the database the connection list for a given partition and a given version
    */
-  ConnectionVector getConnections (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (FecExceptionHandler) ;
+  ConnectionVector getConnections (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) ;
 
   /** retreive from the database the APV which have no connection
    */
-  ConnectionVector getApvNotConnected (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (FecExceptionHandler) ;
+  ConnectionVector getApvNotConnected (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) ;
 #endif
 
   /** Generate the XML buffer for DB or for file
@@ -124,24 +124,24 @@ class XMLConnection: public XMLCommonFec {
 
   /** return the vector of connection
    */
-  ConnectionVector getConnections () throw (FecExceptionHandler) ;
+  ConnectionVector getConnections () noexcept(false) ;
 
   /** \brief Writes the device vector parameter in a ASCII file
    */
-  void setFileConnections ( ConnectionVector cVector, std::string outputFileName ) throw (FecExceptionHandler);
+  void setFileConnections ( ConnectionVector cVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the device vector attribute in a ASCII file
    */
-  void setFileConnections ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setFileConnections ( std::string outputFileName ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sends the descriptions from the description to the database
    */
-  void setDbConnectionDescription ( std::string partitionName, ConnectionVector cVector, unsigned int versionUpdate ) throw (FecExceptionHandler, oracle::occi::SQLException);
+  void setDbConnectionDescription ( std::string partitionName, ConnectionVector cVector, unsigned int versionUpdate ) noexcept(false);
 
   /** \brief Sends the descriptions from the description to the database
    */
-  void setDbConnectionDescription ( std::string partitionName, unsigned int versionUpdate ) throw (FecExceptionHandler, oracle::occi::SQLException);
+  void setDbConnectionDescription ( std::string partitionName, unsigned int versionUpdate ) noexcept(false);
 #endif
 
 };

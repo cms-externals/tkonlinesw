@@ -236,7 +236,7 @@ class apvAccess: public deviceAccess {
    */
   static unsigned int getApvValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, apvAccess *> &apvSet, deviceVector &apvVector,
 						   std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 } ;
 

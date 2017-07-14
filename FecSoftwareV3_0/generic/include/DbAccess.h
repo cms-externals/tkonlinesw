@@ -45,7 +45,7 @@ class DbAccess : public DbCommonAccess {
   // private: 
   //   /** \brief Set the currentStateId as the stateId in the table run */
   //    */ 
-  //   virtual void setRun(unsigned int, std::string, unsigned int, std::string) throw (oracle::occi::SQLException); */
+  //   virtual void setRun(unsigned int, std::string, unsigned int, std::string) noexcept(false); */
 
  public:
   //
@@ -53,95 +53,95 @@ class DbAccess : public DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbAccess(bool threaded = false) noexcept(false);
 
   /** \brief Creates the access to the database
    */
-  DbAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
   
   /** \brief Closes the connection with the database
    */
-  virtual ~DbAccess ( ) throw (oracle::occi::SQLException);
+  virtual ~DbAccess ( ) noexcept(false);
 
   /** \brief Get version number
    */
-  virtual unsigned int getVersion(std::string sqlQuery) throw (oracle::occi::SQLException);
+  virtual unsigned int getVersion(std::string sqlQuery) noexcept(false);
 
   /** \brief Retrives the partitionName from the partition identifier
    */
-  virtual std::string getPartitionName ( unsigned int partitionId ) throw (oracle::occi::SQLException);
+  virtual std::string getPartitionName ( unsigned int partitionId ) noexcept(false);
 
   /** \brief Retrives the partition id from a partition name
    */
-  virtual unsigned int getPartitionId ( std::string partitionName ) throw (oracle::occi::SQLException);
+  virtual unsigned int getPartitionId ( std::string partitionName ) noexcept(false);
   
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClob (std::string partitionName) throw (oracle::occi::SQLException) = 0 ;
+  virtual oracle::occi::Clob *getXMLClob (std::string partitionName) noexcept(false) = 0 ;
 
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) = 0;
+  virtual oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) = 0;
 
   /** \brief Download a Clob from the database
    */
-  virtual oracle::occi::Clob *getXMLClob (std::string partitionName, std::string hardId) throw (oracle::occi::SQLException) = 0;
+  virtual oracle::occi::Clob *getXMLClob (std::string partitionName, std::string hardId) noexcept(false) = 0;
 
   /** \brief Download a Clob from the database
    */
-  virtual oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) = 0;
+  virtual oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) = 0;
 
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName) noexcept(false);
   
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false);
 
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQueryWithoutMask (std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQueryWithoutMask (std::string readString, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
   
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id) noexcept(false);
   
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
   
   /** \brief Download a Clob from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString) noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id, unsigned int ri) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString, std::string partitionName, std::string id, unsigned int ri) noexcept(false);
 
   /** \brief Upload a Clob from the database
    */
-  //  virtual void setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException, FecExceptionHandler);
+  //  virtual void setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
 
   /** \brief Upload a Clob from the database
    */
-  //  virtual void setXMLClob (std::string buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler);
+  //  virtual void setXMLClob (std::string buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false);
 
   /** \brief Upload parameters to the database    
    */
-  virtual void setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException, FecExceptionHandler);
+  virtual void setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
   
   /** \brief Upload parameters to the database    
    */
-  virtual void setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName, int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler);
+  virtual void setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName, int versionUpdate) noexcept(false);
   
   /** \brief Upload parameters to the database    
    */
-  virtual unsigned int setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler);
+  virtual unsigned int setXMLClobFromQuery (std::string writeString, std::string buffer, std::string partitionName) noexcept(false);
 
   /** \brief Upload parameters to the database    
    */
-  virtual unsigned int setXMLClobFromQuery (std::string writeString, std::string *buffer, std::string partitionName, bool newPartition) throw (oracle::occi::SQLException, FecExceptionHandler);
+  virtual unsigned int setXMLClobFromQuery (std::string writeString, std::string *buffer, std::string partitionName, bool newPartition) noexcept(false);
   
   /** for SQL tracing
    */

@@ -611,50 +611,50 @@ class TkDcuConversionFactors {
   /** \brief Display the conversion factors
    * \param convertedValue - display the converted value with the DCU
    */
-  void display ( bool convertedValue = false ) throw (std::string) ;
+  void display ( bool convertedValue = false ) noexcept(false) ;
 
   /** \brief Display the conversion factors
    * \param convertedValue - display the converted value with the DCU
    */
-  std::string getDisplay ( bool convertedValue = false ) throw (std::string) ;
+  std::string getDisplay ( bool convertedValue = false ) noexcept(false) ;
 
   /** \brief Evaluate the silicon sensor temperature from the channel 0 for a FEH or a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return silicon sensor temperature
    * \warning return temperature are in degree celcuis
    */
-  double getSiliconSensorTemperature ( bool &quality ) throw (std::string) ;
+  double getSiliconSensorTemperature ( bool &quality ) noexcept(false) ;
 
   /** \brief V250 from channel 1 for a FEH or from a channel 2 for a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return V250 in mV
    */
-  double getV250 ( bool &quality ) throw (std::string) ;
+  double getV250 ( bool &quality ) noexcept(false) ;
 
   /** \brief V125 from channel 2 for a FEH or from channel 3 for a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return V125 in mV
    */
-  double getV125 ( bool &quality ) throw (std::string) ;
+  double getV125 ( bool &quality ) noexcept(false) ;
 
   /** \brief Leakage current from channel 3 for a FEH, cannot be recovered for a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return Leakage current in uA
    */
-  double getILeak ( bool &quality ) throw (std::string) ;
+  double getILeak ( bool &quality ) noexcept(false) ;
 
   /** \brief Temperature of each hybrid from channel 4 of FEH, cannnot be recovered for a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return Temperature of the corresponding hybrid
    * \warning return temperature are in degree celcuis
    */
-  double getHybridTemperature ( bool &quality ) throw (std::string) ;
+  double getHybridTemperature ( bool &quality ) noexcept(false) ;
       
   /** \brief Temperature of the DCU from channel 7 for a FEH or from channel 7 for a DCU on CCU
    * \param quality - data quality (good or bad)
    * \return Temperature of the DCU
    */
-  double getDcuTemperature ( bool &quality ) throw (std::string) ;
+  double getDcuTemperature ( bool &quality ) noexcept(false) ;
 
   /** \brief check if the difference between two DCUs and return true if it reach a certain level of %
    * \param dcu - dcu to be compare
@@ -668,7 +668,7 @@ class TkDcuConversionFactors {
   /** \brief return the corresponding subdetector from the det id
    * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
    */
-  std::string getSubDetectorFromDetId ( ) throw (std::string) ;
+  std::string getSubDetectorFromDetId ( ) noexcept(false) ;
 
   /** \brief Return a list of parameter name
    * must be delete by the owner of the description

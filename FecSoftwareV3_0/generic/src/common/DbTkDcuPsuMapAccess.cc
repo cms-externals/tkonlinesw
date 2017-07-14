@@ -26,7 +26,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbTkDcuPsuMapAccess::DbTkDcuPsuMapAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {
+DbTkDcuPsuMapAccess::DbTkDcuPsuMapAccess ( bool threaded ) noexcept(false) : DbCommonAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -37,14 +37,14 @@ DbTkDcuPsuMapAccess::DbTkDcuPsuMapAccess ( bool threaded ) throw (oracle::occi::
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbTkDcuPsuMapAccess::DbTkDcuPsuMapAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbCommonAccess (user, passwd, dbPath, threaded) {
+DbTkDcuPsuMapAccess::DbTkDcuPsuMapAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbTkDcuPsuMapAccess::~DbTkDcuPsuMapAccess ()  throw (oracle::occi::SQLException) {
+DbTkDcuPsuMapAccess::~DbTkDcuPsuMapAccess ()  noexcept(false) {
 }
 
 /**Get the current version for a given partition name
@@ -54,7 +54,7 @@ DbTkDcuPsuMapAccess::~DbTkDcuPsuMapAccess ()  throw (oracle::occi::SQLException)
  * @see DbAccess::getDatabaseVersion (std::string sqlQuery)
  * @todo use a callable statement to execute a PL/SQL function with bind variable to avoid the query parsing at every call 
  */
-std::list<unsigned int*> DbTkDcuPsuMapAccess::getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException){
+std::list<unsigned int*> DbTkDcuPsuMapAccess::getDatabaseVersion (std::string partitionName) noexcept(false){
 
   static std::string sqlQuery = "SELECT DISTINCT StateHistory.partitionId, StateHistory.dcuPsuMapVersionMajorId, StateHistory.dcuPsuMapVersionMinorId, StateHistory.maskVersionMajorId, StateHistory.maskVersionMinorId FROM CurrentState, StateHistory, Partition  WHERE StateHistory.stateHistoryId = CurrentState.stateHistoryId AND StateHistory.partitionId=Partition.partitionId AND Partition.partitionName = :partitionName" ;
 
@@ -74,7 +74,7 @@ std::list<unsigned int*> DbTkDcuPsuMapAccess::getDatabaseVersion (std::string pa
  * @see DbAccess::getXMLClob(std::string readString, std::string supervisorIp, unsigned int xdaqInstance, std::string xdaqClassName)
  * @see PkgFecXML.getAllFecFromPartitionAndIp ( pcIpNumber IN VARCHAR2, xdaqInstanceNb IN NUMBER, xdaqClassName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbTkDcuPsuMapAccess::getXMLClob( int onlyPsuName, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+oracle::occi::Clob *DbTkDcuPsuMapAccess::getXMLClob( int onlyPsuName, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false) {
   static std::string readString ;
 
   switch (onlyPsuName) {
@@ -127,7 +127,7 @@ oracle::occi::Clob *DbTkDcuPsuMapAccess::getXMLClob( int onlyPsuName, std::strin
  * @param versionMinor - version major (0.0 means current version)
  * @see the method DbTkDcuPsuMapAccess::getXMLClob( bool onlyPsuName, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId )
  */
-oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNameXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNameXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false) {
 
   return getXMLClob ( 0, partitionName, versionMajorId, versionMinorId ) ;
 }
@@ -139,7 +139,7 @@ oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNameXMLClob( std::string partitio
  * @param versionMinor - version major (0.0 means current version)
  * @see the method DbTkDcuPsuMapAccess::getXMLClob( bool onlyPsuName, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId )
  */
-oracle::occi::Clob *DbTkDcuPsuMapAccess::getDcuPsuMapXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+oracle::occi::Clob *DbTkDcuPsuMapAccess::getDcuPsuMapXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false) {
 
   return getXMLClob ( 1, partitionName, versionMajorId, versionMinorId ) ;
 }
@@ -151,7 +151,7 @@ oracle::occi::Clob *DbTkDcuPsuMapAccess::getDcuPsuMapXMLClob( std::string partit
  * @param versionMinor - version major (0.0 means current version)
  * @see the method DbTkDcuPsuMapAccess::getXMLClob( bool onlyPsuName, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId )
  */
-oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNotConnectedXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNotConnectedXMLClob( std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId ) noexcept(false) {
 
   return getXMLClob ( 2, partitionName, versionMajorId, versionMinorId ) ;
 }
@@ -167,7 +167,7 @@ oracle::occi::Clob *DbTkDcuPsuMapAccess::getPsuNotConnectedXMLClob( std::string 
  * @exception FecExceptionHandler
  * @see PkgFecXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  */
-void DbTkDcuPsuMapAccess::setXMLClob(bool psuNameOnly, std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbTkDcuPsuMapAccess::setXMLClob(bool psuNameOnly, std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) noexcept(false) {
 
   static std::string writeString ;
 
@@ -252,7 +252,7 @@ void DbTkDcuPsuMapAccess::setXMLClob(bool psuNameOnly, std::string buffer, std::
  * @param versionMajor - version uploaded
  * @param versionMinor - version uploaded
  */
-void DbTkDcuPsuMapAccess::uploadPsuNames ( std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbTkDcuPsuMapAccess::uploadPsuNames ( std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) noexcept(false) {
 
   setXMLClob(true, buffer, partitionName, versionMajorId, versionMinorId ) ;
 }
@@ -263,7 +263,7 @@ void DbTkDcuPsuMapAccess::uploadPsuNames ( std::string buffer, std::string parti
  * @param versionMajor - version uploaded
  * @param versionMinor - version uploaded
  */
-void DbTkDcuPsuMapAccess::uploadDcuPsuMap ( std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbTkDcuPsuMapAccess::uploadDcuPsuMap ( std::string buffer, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) noexcept(false) {
 
   setXMLClob(false, buffer, partitionName, versionMajorId, versionMinorId ) ;
 }

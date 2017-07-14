@@ -26,7 +26,7 @@ CommissioningAnalysisFactory::CommissioningAnalysisFactory() : DeviceFactoryInte
 #ifdef DATABASE
 //---------------------------
 CommissioningAnalysisFactory::CommissioningAnalysisFactory( std::string login, std::string password, std::string path, bool threaded )
-  throw ( oracle::occi::SQLException ) : DeviceFactoryInterface ( login, password, path, threaded ) {
+  noexcept(false) : DeviceFactoryInterface ( login, password, path, threaded ) {
   setDatabaseAccess ( login, password, path );
 }
 
@@ -109,7 +109,7 @@ std::vector<CommissioningAnalysisDescription*> CommissioningAnalysisFactory::get
 /** 
  * @brief Create the database access
  */
-void CommissioningAnalysisFactory::setDatabaseAccess( std::string login, std::string password, std::string path ) throw ( oracle::occi::SQLException ) {
+void CommissioningAnalysisFactory::setDatabaseAccess( std::string login, std::string password, std::string path ) noexcept(false) {
 
   // delete the old one if needed
   if (dbAccess_ != NULL) {
@@ -131,7 +131,7 @@ void CommissioningAnalysisFactory::setDatabaseAccess( std::string login, std::st
 /** 
  * @brief Create the database access with the configuration given by the env. variable CONFDB
  */
-void CommissioningAnalysisFactory::setDatabaseAccess() throw ( oracle::occi::SQLException ) {
+void CommissioningAnalysisFactory::setDatabaseAccess() noexcept(false) {
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
     setDatabaseAccess (login, password, path) ;
@@ -164,7 +164,7 @@ void CommissioningAnalysisFactory::setDatabaseAccess( DbCommissioningAnalysisAcc
 
 //-----------------------------------
 uint32_t CommissioningAnalysisFactory::uploadAnalysis( uint32_t runNumber, std::string partitionName, CommissioningAnalysisDescription::commissioningType type, 
-						       std::vector<CommissioningAnalysisDescription*> &descriptions, bool updateCurrentState ) throw ( FecExceptionHandler ) {
+						       std::vector<CommissioningAnalysisDescription*> &descriptions, bool updateCurrentState ) noexcept(false) {
   uint32_t versionId = 0;
 
   if ( descriptions.empty() ) RAISEFECEXCEPTIONHANDLER (NODATAAVAILABLE, NODATAAVAILABLE_MSG + " to be uploaded in DB", ERRORCODE) ;
@@ -191,7 +191,7 @@ uint32_t CommissioningAnalysisFactory::uploadAnalysis( uint32_t runNumber, std::
 
 
 //-----------------------------------
-void CommissioningAnalysisFactory::uploadAnalysisState( uint32_t uploadedVersion ) throw ( FecExceptionHandler ) {
+void CommissioningAnalysisFactory::uploadAnalysisState( uint32_t uploadedVersion ) noexcept(false) {
 #ifndef DATABASE
   return;
 #else
@@ -215,7 +215,7 @@ void CommissioningAnalysisFactory::uploadAnalysisState( uint32_t uploadedVersion
 
 //-----------------------------------
 std::vector<CommissioningAnalysisDescription*> CommissioningAnalysisFactory::getCalibrationData( uint32_t runNumber,
-												 std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+												 std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 #ifdef DATABASE
   if ( getDbUsed() ) {
     this->deleteCalibrationVector();
@@ -244,7 +244,7 @@ std::vector<CommissioningAnalysisDescription*> CommissioningAnalysisFactory::get
 
 //-----------------------------------
 HashMapRunVersion CommissioningAnalysisFactory::getAnalysisHistory(std::string partitionName,
-								   CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+								   CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 
 #ifdef DATABASE
   if ( getDbUsed() ) {
@@ -266,7 +266,7 @@ HashMapRunVersion CommissioningAnalysisFactory::getAnalysisHistory(std::string p
 //-----------------------------------
 std::vector<CommissioningAnalysisDescription*> CommissioningAnalysisFactory::getAnalysisHistory(std::string partitionName,
 												uint32_t versionMajorID, uint32_t versionMinorID, 
-												CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler ) {
+												CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 
 #ifdef DATABASE
   if ( getDbUsed() ) {
@@ -286,7 +286,7 @@ std::vector<CommissioningAnalysisDescription*> CommissioningAnalysisFactory::get
 
 
 //-----------------------------------
-HashMapAnalysisVersions CommissioningAnalysisFactory::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( FecExceptionHandler ) {
+HashMapAnalysisVersions CommissioningAnalysisFactory::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false) {
 #ifdef DATABASE
   if ( getDbUsed() ) {
     this->deleteAnalysisLocalVersions();

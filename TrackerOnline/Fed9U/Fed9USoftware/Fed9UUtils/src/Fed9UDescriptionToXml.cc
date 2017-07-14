@@ -51,7 +51,7 @@ namespace Fed9U {
   using std::ofstream;
 
 
-  Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException): 
+  Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) noexcept(false): 
     doc(NULL),
     theDOMWriter(NULL),
     theDOMOutput(NULL),
@@ -72,7 +72,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UDescriptionToXml::Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException): 
+  Fed9UDescriptionToXml::Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) noexcept(false): 
     doc(NULL),
     theDOMWriter(NULL),
     theDOMOutput(NULL),
@@ -93,7 +93,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName, Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException) : 
+  Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName, Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) noexcept(false) : 
     doc(NULL),
     theDOMWriter(NULL),
     theDOMOutput(NULL),
@@ -113,7 +113,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UDescriptionToXml::Fed9UDescriptionToXml( Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException) :    
+  Fed9UDescriptionToXml::Fed9UDescriptionToXml( Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) noexcept(false) :    
     doc(NULL),
     theDOMWriter(NULL),
     theDOMOutput(NULL),
@@ -148,7 +148,7 @@ namespace Fed9U {
   }
 
   
-  void Fed9UDescriptionToXml::streamOutDescription(std::ostream * os) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::streamOutDescription(std::ostream * os) noexcept(false)
   {
     try {
       constuctDOMDocument();
@@ -191,7 +191,7 @@ namespace Fed9U {
   }*/
 
 
-  void Fed9UDescriptionToXml::writeXmlFile(void) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::writeXmlFile(void) noexcept(false)
   {
     try {
       constuctDOMDocument();
@@ -233,7 +233,7 @@ namespace Fed9U {
   //****************************************************************************************************
 
 
-  void Fed9UDescriptionToXml::constuctDOMDocument(void) throw (Fed9UXMLDescriptionException) {
+  void Fed9UDescriptionToXml::constuctDOMDocument(void) noexcept(false) {
   
     try {
       //Get a DOM Core implementation.
@@ -286,7 +286,7 @@ namespace Fed9U {
     
 
   //Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.
-  void Fed9UDescriptionToXml::initializeXerces(void) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::initializeXerces(void) noexcept(false)
   {
     try {
       if (XMLPlatformUtils::fgTransService == NULL)   
@@ -305,7 +305,7 @@ namespace Fed9U {
   }
 
   
-  void Fed9UDescriptionToXml::addDOMElements(DOMElement *rootElement) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addDOMElements(DOMElement *rootElement) noexcept(false)
   {
     //    DOMElement* rootElement = doc->getDocumentElement();
 
@@ -389,7 +389,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addFedAttributes(DOMElement* childElement) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addFedAttributes(DOMElement* childElement) noexcept(false)
   {
     try {
     bool fedParamBool = false;
@@ -956,7 +956,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addFeFpgaAttributes(DOMElement* childElement, unsigned short feId) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addFeFpgaAttributes(DOMElement* childElement, unsigned short feId) noexcept(false)
   {
     try {
     bool fedParamBool = false;
@@ -1028,7 +1028,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addChannelPairAttributes(DOMElement* childElement, unsigned short channelPairId) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addChannelPairAttributes(DOMElement* childElement, unsigned short channelPairId) noexcept(false)
   {
     try {
       bool fedParamBool = false;
@@ -1069,7 +1069,7 @@ namespace Fed9U {
   }
   
 
-  void Fed9UDescriptionToXml::addChannelAttributes(DOMElement* childElement, unsigned short channelId) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addChannelAttributes(DOMElement* childElement, unsigned short channelId) noexcept(false)
   {
     try {
       bool fedParamBool = false;
@@ -1143,7 +1143,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addApvAttributes(DOMElement* childElement, unsigned short apvId) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addApvAttributes(DOMElement* childElement, unsigned short apvId) noexcept(false)
   {
     try {
     bool fedParamBool = false;
@@ -1198,7 +1198,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addStripAttributes(DOMElement* childElement, unsigned short stripId) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addStripAttributes(DOMElement* childElement, unsigned short stripId) noexcept(false)
   {
     try {
     bool fedParamBool = false;
@@ -1258,7 +1258,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::addStripsAttribute(DOMElement* childElement) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXml::addStripsAttribute(DOMElement* childElement) noexcept(false)
   {
     try {
 
@@ -1342,7 +1342,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UDescriptionToXml::getStripDataBuffer(char * stripsBuf) throw (Fed9UXMLDescriptionException) {
+  void Fed9UDescriptionToXml::getStripDataBuffer(char * stripsBuf) noexcept(false) {
     // now we must loop over all strips building all the info for each 
     // strip (pedestal, lowthresholdfactor, highthresholdfactor, noise, disable)
     // into one blob. To do this we use a stringstream streaming in values as hex

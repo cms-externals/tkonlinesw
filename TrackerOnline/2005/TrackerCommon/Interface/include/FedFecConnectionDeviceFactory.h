@@ -124,7 +124,7 @@ class FedFecConnectionDeviceFactory  : public DeviceFactoryInterface {
    * This method will create for each connection (retreive from the Tracker parser) the corresponding string that will be uploaded finally to the database
    * The DTD must not be specified at this point
    */
-  void setDatabaseDOMInputSource ( std::string partitionName, bool majorVersion = true ) throw (oracle::occi::SQLException) {
+  void setDatabaseDOMInputSource ( std::string partitionName, bool majorVersion = true ) noexcept(false) {
 
 
     // database connection
@@ -184,7 +184,7 @@ class FedFecConnectionDeviceFactory  : public DeviceFactoryInterface {
 #ifdef DATABASEDEBUG
 	cerr << "No connection is available" << endl ;
 #endif
-	//throw (exception) ;
+	//noexcept(false) ;
       }
     }
     else {
@@ -192,7 +192,7 @@ class FedFecConnectionDeviceFactory  : public DeviceFactoryInterface {
 #ifdef DATABASEDEBUG
       cerr << "No database access created" << endl ;
 #endif
-      //throw (exception) ;
+      //noexcept(false) ;
     }
   }
 
@@ -202,7 +202,7 @@ class FedFecConnectionDeviceFactory  : public DeviceFactoryInterface {
    * \warning this method initialize xerces
    */
   xercesc::DOMInputSource *getDatabaseDOMInputSource( std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 )
-    throw (exception) {    
+    noexcept(false) {    
 
     xercesc::DOMInputSource* domInputSource = NULL ;
     //    XERCES_CPP_NAMESPACE::MemBufInputSource* xmlInputSource = NULL;
@@ -325,7 +325,7 @@ class FedFecConnectionDeviceFactory  : public DeviceFactoryInterface {
 #ifdef DATABASE
   /**
    */
-  void setFedFecConnectionDatabaseAccess ( string login, string password, string path ) throw ( oracle::occi::SQLException ) {
+  void setFedFecConnectionDatabaseAccess ( string login, string password, string path ) noexcept(false) {
 
     // For database
     if (dbAccess_ != NULL)

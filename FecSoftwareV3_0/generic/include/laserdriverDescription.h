@@ -209,13 +209,13 @@ class laserdriverDescription: public deviceDescription {
    * \return the value
    * \exception FecExceptionHandler in case of bad channel number
    */
-  tscType8 getGain ( tscType8 channel ) throw (FecExceptionHandler) ;
+  tscType8 getGain ( tscType8 channel ) noexcept(false) ;
 
   /** \brief set the gain value for a given channel
    * \param channel - channel value
    * \param gain - gain value
    */
-  void setGain ( tscType8 channel, tscType8 gain ) throw (FecExceptionHandler) ;
+  void setGain ( tscType8 channel, tscType8 gain ) noexcept(false) ;
 
   /** \brief return the value of the param
    * Return the value of laserdriver register
@@ -265,13 +265,13 @@ class laserdriverDescription: public deviceDescription {
    * \return the value
    * \exception FecExceptionHandler in case of bad channel number
    */
-  tscType8 getBias ( tscType8 channel ) throw (FecExceptionHandler) ;
+  tscType8 getBias ( tscType8 channel ) noexcept(false) ;
 
   /** \brief set the bias value for a given channel
    * \param channel - channel value
    * \param bias - bias value
    */
-  void setBias ( tscType8 channel, tscType8 bias) throw (FecExceptionHandler) ;
+  void setBias ( tscType8 channel, tscType8 bias) noexcept(false) ;
 
   /** \brief set the value for register
    * Set the value for a laserdriver description

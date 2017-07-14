@@ -4,7 +4,7 @@
 /**
   -Create a DbClient with the Share Memory name
 */
-DbClient::DbClient(std::string name) throw (std::string)
+DbClient::DbClient(std::string name) noexcept(false)
     {
       dbmem_ = new TShare((char*)name.c_str(),TShare_OPEN,0x200000);
       start_ = (char*) dbmem_->Attach();
@@ -94,7 +94,7 @@ void DbClient::purge()
   /**
      Parse the Sahre memory and create and fill local vectors
   */
-  void DbClient::parse() throw (std::string)
+  void DbClient::parse() noexcept(false)
     {
       purge();
     // FEC devices

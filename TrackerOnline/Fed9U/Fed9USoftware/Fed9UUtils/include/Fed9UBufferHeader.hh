@@ -29,7 +29,7 @@ namespace Fed9U {
      *
      * This is 8 bytes, which contains the bunch crossing number and FED mode.
      */
-    void generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
     /**
      * \brief This constructs the Fed9U Tracker Special DAQ header in the 2nd 64-bit word of the Fed9U buffer.
@@ -38,7 +38,7 @@ namespace Fed9U {
      *
      * This is another 8 bytes which contain FED debug information.
      */
-    void generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
     /**
      * \brief This adds the FE header information to the Fed9U buffer. 
@@ -49,7 +49,7 @@ namespace Fed9U {
      * the 8 FE lengths in bytes for all channel info for that FE (including channel header and packet code).
      * They do not include the length of the FE header itself.
      */
-    void generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
   private:
 

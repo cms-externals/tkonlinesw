@@ -28,12 +28,12 @@ namespace Fed9U {
   }
 
 
-  Fed9UDescriptionToXmlToFile::Fed9UDescriptionToXmlToFile(const std::string &targetXMLFileName, std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite ) throw (Fed9UXMLDescriptionException) : Fed9UDescriptionToXml(targetXMLFileName, Fed9UDescriptionsToWrite ), theTargetXMLFileName(targetXMLFileName) {
+  Fed9UDescriptionToXmlToFile::Fed9UDescriptionToXmlToFile(const std::string &targetXMLFileName, std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite ) noexcept(false) : Fed9UDescriptionToXml(targetXMLFileName, Fed9UDescriptionsToWrite ), theTargetXMLFileName(targetXMLFileName) {
   
   }
 
 
-  void Fed9UDescriptionToXmlToFile::writeXmlFile(void) throw (Fed9UXMLDescriptionException) {
+  void Fed9UDescriptionToXmlToFile::writeXmlFile(void) noexcept(false) {
     try {
       if (debugOutput_)
 	std::cout << "calling :: writeXmlFile() ... filename = " << theTargetXMLFileName << std::endl;

@@ -34,7 +34,7 @@ namespace Fed9U {
      *
      * In scope mode the full APV frames are recorded upon receipt of a trigger. A scope lengths worth of 23 bit words of the frame is recorded.
      */
-    void generateBuffer( Fed9UBufferDescription *bufDesc ) throw (ICException);
+    void generateBuffer( Fed9UBufferDescription *bufDesc ) noexcept(false);
     
   private:
     

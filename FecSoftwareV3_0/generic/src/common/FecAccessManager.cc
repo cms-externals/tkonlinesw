@@ -820,7 +820,7 @@ tbbAccessedType &FecAccessManager::getTbbAccesses ( ) {
  * \param access - device access class
  * \exception FecExceptionHandler
  */
-void FecAccessManager::setAccess ( deviceAccess *access ) throw (FecExceptionHandler) {
+void FecAccessManager::setAccess ( deviceAccess *access ) noexcept(false) {
 
   keyType index = access->getKey() ;
   enumDeviceType deviceType = access->getDeviceType() ;
@@ -1071,7 +1071,7 @@ void FecAccessManager::setAccess ( deviceAccess *access ) throw (FecExceptionHan
  * \return error number
  * \exception FecHandlerException
  */
-unsigned int FecAccessManager::downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset, bool dohSet ) throw (FecExceptionHandler) {
+unsigned int FecAccessManager::downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset, bool dohSet ) noexcept(false) {
 
   if (displayDebugMessage_) 
     std::cout << __PRETTY_FUNCTION__ << ": " << std::dec << vDevice->size() << " devices to be downloaded" << std::endl ;
@@ -1281,7 +1281,7 @@ unsigned int FecAccessManager::calibrateDOH ( deviceVector &dohDevices, std::lis
  * \return error number
  * \exception FecHandlerException
  */
-unsigned int FecAccessManager::downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset, bool dohSet ) throw (FecExceptionHandler) {
+unsigned int FecAccessManager::downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset, bool dohSet ) noexcept(false) {
 
   if (displayDebugMessage_) 
     std::cout << __PRETTY_FUNCTION__ << ": " << std::dec << vDevice->size() << " devices to be downloaded => " << maxErrorAllowed_ << std::endl ;
@@ -3750,7 +3750,7 @@ unsigned int FecAccessManager::getLastErrorLastOperation() {
  * Take a vector of PIA reset and reset all modules given by this vector
  * \param vPiaReset - vector of PIA reset description
  */
-unsigned int FecAccessManager::resetPiaModules ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) {
+unsigned int FecAccessManager::resetPiaModules ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) noexcept(false) {
 
   // Number of errors
   unsigned int error = 0 ;
@@ -3861,7 +3861,7 @@ unsigned int FecAccessManager::resetPiaModules ( piaResetVector *vPiaReset, std:
  * \warning The mask must be the same
  * \warning The delayActiveReset and intervalDelayReset that will be used will be the maximum time given by this two arguments
  */
-unsigned int FecAccessManager::resetPiaModulesMultipleFrames ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) {
+unsigned int FecAccessManager::resetPiaModulesMultipleFrames ( piaResetVector *vPiaReset, std::list<FecExceptionHandler *> &errorList ) noexcept(false) {
 
   // Number of errors
   unsigned int error = 0 ;

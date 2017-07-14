@@ -108,63 +108,63 @@ class dcuAccess: public deviceAccess {
 
   /**\brief Get all values from an DCU
    */
-  dcuDescription *getValues ( ) throw (FecExceptionHandler) ;
+  dcuDescription *getValues ( ) noexcept(false) ;
 
   /**\brief get the value of DCU hardware address
    */
-  tscType32 getDcuHardId ( ) throw (FecExceptionHandler) ;
+  tscType32 getDcuHardId ( ) noexcept(false) ;
 
   /**\brief get the value of DCU channels
    */
-  tscType16 getDcuChannel ( tscType8 channel, bool setTreg=true ) throw (FecExceptionHandler) ;
+  tscType16 getDcuChannel ( tscType8 channel, bool setTreg=true ) noexcept(false) ;
 
   /** \brief Set DCU control register (CREG)
    */
-  void setDcuCREG( tscType8 value ) throw (FecExceptionHandler) ;
+  void setDcuCREG( tscType8 value ) noexcept(false) ;
 
   /** \brief get the DCU control register (CREG)
    */
-  tscType8 getDcuCREG() throw (FecExceptionHandler) ;
+  tscType8 getDcuCREG() noexcept(false) ;
 
   /** \brief Set DCU test register (TREG)
    */
-  void setDcuTREG( tscType8 value ) throw (FecExceptionHandler) ;
+  void setDcuTREG( tscType8 value ) noexcept(false) ;
 
   /** \brief get the DCU test register (TREG)
    */
-  tscType8 getDcuTREG() throw (FecExceptionHandler) ;
+  tscType8 getDcuTREG() noexcept(false) ;
 
   /**\brief set the DCU test register 
    */
-  void setDcuTestRegister( tscType8 value)throw (FecExceptionHandler) ;
+  void setDcuTestRegister( tscType8 value)noexcept(false) ;
   
   /**\brief read  the DCU test register 
    */
-  tscType8 getDcuTestRegister() throw (FecExceptionHandler) ;
+  tscType8 getDcuTestRegister() noexcept(false) ;
 
   /** \brief Set DCU auxilairy register (AREG)
    */
-  void setDcuAREG( tscType8 value ) throw (FecExceptionHandler) ;
+  void setDcuAREG( tscType8 value ) noexcept(false) ;
 
   /** \brief get the DCU auxiliary register (AREG)
    */
-  tscType8 getDcuAREG() throw (FecExceptionHandler) ;
+  tscType8 getDcuAREG() noexcept(false) ;
 
   /** \brief get the DCU status and data high register (SHREG)
    */
-  tscType8 getDcuSHREG() throw (FecExceptionHandler) ;
+  tscType8 getDcuSHREG() noexcept(false) ;
 
   /** \brief Set DCU data low register (LREG)
    */
-  void setDcuLREG( tscType8 value ) throw (FecExceptionHandler) ;
+  void setDcuLREG( tscType8 value ) noexcept(false) ;
 
   /** \brief get the DCU data low register (LREG)
    */
-  tscType8 getDcuLREG() throw (FecExceptionHandler) ;
+  tscType8 getDcuLREG() noexcept(false) ;
 
   /** \brief returns true if as SEU is detected ( bit 6  of Satais & DataReg = 1 )
    */
-  bool getSeuStatus() throw (FecExceptionHandler);
+  bool getSeuStatus() noexcept(false);
   
   /** DCU Reset function
    */
@@ -174,7 +174,7 @@ class dcuAccess: public deviceAccess {
    */
   static unsigned int getDcuValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, dcuAccess *> &dcuSet, deviceVector &dcuVector,
 						   std::list<FecExceptionHandler *> &errorList, bool ducHardIdOnly = false ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 };
 

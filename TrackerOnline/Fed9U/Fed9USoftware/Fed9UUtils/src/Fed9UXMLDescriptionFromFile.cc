@@ -33,7 +33,7 @@ namespace Fed9U {
 
   /**Method which modifies the Fed9UDescription. 
      It modifies the object member reference to the Fed9UDescription.*/
-  /* vector<Fed9UDescription*> * Fed9UXMLDescriptionFromFile::makeNewFed9UDescription(void) throw (Fed9UXMLDescriptionException) {
+  /* vector<Fed9UDescription*> * Fed9UXMLDescriptionFromFile::makeNewFed9UDescription(void) noexcept(false) {
     try {
       ifstream theXMLBuf(theXMLFileName.c_str());
       if (!theXMLBuf.is_open()) {

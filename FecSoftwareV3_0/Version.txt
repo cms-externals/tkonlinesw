@@ -100,15 +100,15 @@ FecSoftware: 4.0
 	  virtual ~FecAccessManager ( ) ;
 	  virtual void removeDevices ( ) ;
 	  virtual void removeDevices ( enumDeviceType type ) ;
-	  virtual void setAccess ( deviceAccess *access ) throw (FecExceptionHandler) ;
+	  virtual void setAccess ( deviceAccess *access ) noexcept(false) ;
 	  virtual deviceAccess *getAccess ( enumDeviceType deviceType, keyType index ) ;
-	  virtual unsigned int downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) throw (FecExceptionHandler) ;
-	  virtual unsigned int downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) throw (FecExceptionHandler) ;
+	  virtual unsigned int downloadValues ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) noexcept(false) ;
+	  virtual unsigned int downloadValuesMultipleFrames ( deviceVector *vDevice, std::list<FecExceptionHandler *> &errorList, bool pllReset = false, bool dohSet = true) noexcept(false) ;
 	  virtual deviceVector *uploadValues ( std::list<FecExceptionHandler *> &errorList, bool comparison = false, bool dcuUpload = true, bool dohSet = true ) ;
 	  virtual deviceVector *uploadValuesMultipleFrames ( std::list<FecExceptionHandler *> &errorList, bool comparison = false, bool dcuUpload = true, bool dohSet = true ) ;
 	XMLFecDevice:
-	  virtual void setDevices ( deviceVector dVector, std::string outputFileName ) throw (FecExceptionHandler);
-	  virtual void setDevices ( std::string outputFileName ) throw (FecExceptionHandler);
+	  virtual void setDevices ( deviceVector dVector, std::string outputFileName ) noexcept(false);
+	  virtual void setDevices ( std::string outputFileName ) noexcept(false);
 	FecFactory:
 	  virtual ~FecFactory ( ) ;
 	FecDeviceFactory

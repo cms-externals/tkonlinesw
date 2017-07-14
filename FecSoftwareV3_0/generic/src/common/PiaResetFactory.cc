@@ -68,7 +68,7 @@ PiaResetFactory::PiaResetFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 PiaResetFactory::PiaResetFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   DeviceFactoryInterface ( login, password, path, threaded ) {
 
   setDatabaseAccess ( login, password, path ) ;
@@ -211,7 +211,7 @@ void PiaResetFactory::setInputFileName ( std::string inputFileName, std::string 
  * \warning in the destructor of PiaResetFactory, the dbAccess is deleted
  */
 void PiaResetFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -236,7 +236,7 @@ void PiaResetFactory::setDatabaseAccess ( std::string login, std::string passwor
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void PiaResetFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -266,7 +266,7 @@ void PiaResetFactory::setDatabaseAccess ( DbPiaResetAccess *dbAccess ) {
  * \bug is this method is usefull. In the FecDeviceFactory, it is mandatory to create or not the partition but is it necessary in the PiaResetFactory
  */
 void PiaResetFactory::createPartition ( piaResetVector devices, std::string partitionName ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "PiaResetFactory::createPartition ( piaResetVector devices, std::string partitionName = \"\" )"  << std::endl ;
@@ -322,7 +322,7 @@ void PiaResetFactory::createPartition ( piaResetVector devices, std::string part
  * retreived from the input file.
  */
 void PiaResetFactory::getPiaResetDescriptions ( bool fileUsed, std::string partitionName, std::string fecHardwareId, piaResetVector &outVector, bool allDevices, bool forceDbReload  ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   if (fileUsed) 
@@ -369,7 +369,7 @@ void PiaResetFactory::getPiaResetDescriptions ( bool fileUsed, std::string parti
  * retreived from the input file.
  */
 void PiaResetFactory::getPiaResetDescriptions ( std::string partitionName, std::string fecHardwareId, piaResetVector &outVector, bool allDevices, bool forceDbReload )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getPiaResetDescriptions(false, partitionName, fecHardwareId, outVector, allDevices, forceDbReload) ;
 }
@@ -386,7 +386,7 @@ void PiaResetFactory::getPiaResetDescriptions ( std::string partitionName, std::
  * \warning this method is the same than getPiaResetDescriptionsPartitionName, it is maintained for backward compatibility
  */
 void PiaResetFactory::getPiaResetDescriptions ( std::string partitionName, piaResetVector &outVector, bool allDevices, bool forceDbReload )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getPiaResetDescriptions(false, partitionName, "0", outVector, allDevices, forceDbReload) ;
 }
@@ -396,7 +396,7 @@ void PiaResetFactory::getPiaResetDescriptions ( std::string partitionName, piaRe
  * \param allDevices - return all devices including the disable device
  */
 void PiaResetFactory::getPiaResetDescriptions ( piaResetVector &outVector, bool allDevices )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getPiaResetDescriptions(true, "nil", "0", outVector, allDevices ) ;
 }
@@ -411,7 +411,7 @@ void PiaResetFactory::getPiaResetDescriptions ( piaResetVector &outVector, bool 
  * \warning if you create a minor version, the process will try to get the version for the partition if it is set or FEC hardware ID and partition name
  */
 void PiaResetFactory::setPiaResetDescriptions ( piaResetVector devices, std::string partitionName ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE

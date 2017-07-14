@@ -2,19 +2,19 @@
 
 namespace Fed9U {
   
-  u16 Fed9USpyApvData::getSample(u16 index) const throw (Fed9USpyApvDataException)
+  u16 Fed9USpyApvData::getSample(u16 index) const noexcept(false)
   {
     ICUTILS_VERIFY(index < SAMPLES_PER_APV)(index).msg("Trying to get sample with index greater than number of samples per APV.")
     .error().code(Fed9USpyApvDataException::ERROR_OUT_OF_RANGE);
     return samples_[index];
   }
-  Fed9USpyApvData& Fed9USpyApvData::setSample(u16 index, i16 value) throw (Fed9USpyApvDataException)
+  Fed9USpyApvData& Fed9USpyApvData::setSample(u16 index, i16 value) noexcept(false)
   {
     ICUTILS_VERIFY(index < SAMPLES_PER_APV)(index).msg("Trying to set sample with index greater than number of samples per APV.")
     .error().code(Fed9USpyApvDataException::ERROR_OUT_OF_RANGE);
     samples_[index] = value; return *this;
   }
-  u8 Fed9USpyApvData::getTickOffset(i16 threshold) const throw (Fed9USpyApvDataException)
+  u8 Fed9USpyApvData::getTickOffset(i16 threshold) const noexcept(false)
   {
     u8 tickOffset=0;
     //skip low bits at the begining
@@ -25,7 +25,7 @@ namespace Fed9U {
     .msg("Tick mark too short.").error().code(Fed9USpyApvDataException::ERROR_TICK_MARK_NOT_FOUND);
     return tickOffset;
   }
-  bool Fed9USpyApvData::getErrorBit(i16 threshold) const throw (Fed9USpyApvDataException)
+  bool Fed9USpyApvData::getErrorBit(i16 threshold) const noexcept(false)
   {
     u8 errorBitOffset = 11;	//3 samples for tick marks, 8 for address
     try {
@@ -35,7 +35,7 @@ namespace Fed9U {
     }
     return samples_[errorBitOffset] > threshold;
   }
-  u8 Fed9USpyApvData::getPipelineAddress(i16 threshold) const throw (Fed9USpyApvDataException)
+  u8 Fed9USpyApvData::getPipelineAddress(i16 threshold) const noexcept(false)
   {
     u8 result = 0x0;
     //find the tick mark

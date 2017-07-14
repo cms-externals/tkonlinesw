@@ -23,9 +23,9 @@ AR  = ar
 
 CPPFLAGS = -I$(INC) -DNDEBUG
 
-CFLAGS = -ansi -pedantic -Wall -W -O2 $(CPPFLAGS)
+CFLAGS = -Wall -W -O2 $(CPPFLAGS)
 CXFLAGS = $(CFLAGS)
-CCFLAGS = -fPIC -ansi -pedantic -Wall -W -O2 $(CPPFLAGS)
+CCFLAGS = -fPIC -Wall -W -O2 $(CPPFLAGS)
 CXXFLAGS = $(CCFLAGS)
 LDFLAGS = -L$(HOME)/lib
 ARFLAGS = rcvs

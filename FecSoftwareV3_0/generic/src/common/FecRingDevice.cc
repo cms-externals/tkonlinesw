@@ -109,7 +109,7 @@ FecRingDevice::FecRingDevice ( tscType8 fecSlot, tscType8 ringSlot, enumFecBusTy
  * \exception FecExceptionHandler
  */
 void FecRingDevice::setInitFecRingDevice ( bool init, bool invertClockPolarity ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   firmwareVersion_ = getFecFirmwareVersion() ;
 
@@ -366,7 +366,7 @@ void FecRingDevice::removeAccess ( ) {
  * </ul>
  * \warning no hardware access is performed in this method if the ring is scanned at the beginning
  */
-void FecRingDevice::basicCheckError ( keyType index ) throw (FecExceptionHandler) {
+void FecRingDevice::basicCheckError ( keyType index ) noexcept(false) {
 
 #ifdef S2NDLEVELCHECK
 
@@ -511,7 +511,7 @@ unsigned int FecRingDevice::getReturnFifoDepth () {
  * \author Laurent Gross for the sending and receiving frame
  */
 void FecRingDevice::writeFrame ( tscType8 *frame, bool ignoreDirectAck ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   tscType16 fecSR0D = getFecRingSR0() ;
@@ -1369,7 +1369,7 @@ void FecRingDevice::writeFrame ( tscType8 *frame, bool ignoreDirectAck )
  * \author Laurent Gross for the sending and receiving frame
  */
 void FecRingDevice::writeFrameDelayed ( tscType8 *frame, bool ignoreDirectAck ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   tscType16 fecSR0D = getFecRingSR0() ;
@@ -2201,7 +2201,7 @@ void FecRingDevice::writeFrameDelayed ( tscType8 *frame, bool ignoreDirectAck )
  * \author Laurent Gross for the sending and receiving frame
  */
 void FecRingDevice::readFrame ( tscType8 transaction, tscType8 *frame, tscType8 expectedSize )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType16 fecSR0 ;
 
@@ -2585,7 +2585,7 @@ void FecRingDevice::readFrame ( tscType8 transaction, tscType8 *frame, tscType8 
  * \warning any change in the CR0 will keep the value set
  */
 void FecRingDevice::setFecInputB ( bool inputB ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (inputB) setFecRingCR0 ( FEC_CR0_SELSERIN, CMD_OR ) ;
   else setFecRingCR0 ( FEC_CR0_SELSERIN, CMD_XOR ) ;
@@ -2596,7 +2596,7 @@ void FecRingDevice::setFecInputB ( bool inputB )
  * \warning any change in the CR0 will keep the value set
  */
 void FecRingDevice::setFecOutputB ( bool outputB ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (outputB) setFecRingCR0 ( FEC_CR0_SELSEROUT, CMD_OR ) ;
   else setFecRingCR0 ( FEC_CR0_SELSEROUT, CMD_XOR ) ;
@@ -2607,7 +2607,7 @@ void FecRingDevice::setFecOutputB ( bool outputB )
  * \warning any change in the CR0 will keep the value set
  */
 void FecRingDevice::setInvertClockPolarity ( bool invertPolarity ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (invertPolarity) {
     invertClockPolarity_ = 1 ;
@@ -2624,7 +2624,7 @@ void FecRingDevice::setInvertClockPolarity ( bool invertPolarity )
  * \warning any change in the CR0 will keep the value set
  */
 void FecRingDevice::setInternalClock ( bool internal )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (internal) setFecRingCR0 ( FEC_CR0_XTALCLOCK, CMD_OR ) ;
   else setFecRingCR0 ( FEC_CR0_XTALCLOCK, CMD_XOR ) ;
@@ -2635,7 +2635,7 @@ void FecRingDevice::setInternalClock ( bool internal )
  * \param op - operation to be performed
  */
  void FecRingDevice::setFecRingCR0 ( tscType16 mask, logicalOperationType op ) 
-   throw (FecExceptionHandler) {
+   noexcept(false) {
 
    // READ modify write
    tscType16 fecCR0 = getFecRingCR0() ;
@@ -2677,7 +2677,7 @@ void FecRingDevice::setInternalClock ( bool internal )
  * \exception FecExceptionHandler
  */
 void FecRingDevice::fecRingResetFSM ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setFecRingCR0 ( FEC_CR0_RESETFSMFEC, CMD_OR ) ;
   setFecRingCR0 ( FEC_CR0_RESETFSMFEC, CMD_XOR ) ;
@@ -2707,7 +2707,7 @@ void FecRingDevice::fecRingResetFSM ( )
  * \warning The FEC reset FEC/CCU (but not the modules done via PIA channels for the CMS Tracker)
  */
 void FecRingDevice::fecRingReset ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setFecRingCR0 ( FEC_CR0_RESETOUT, CMD_OR ) ;
   setFecRingCR0 ( FEC_CR0_RESETOUT, CMD_XOR ) ;
@@ -2763,7 +2763,7 @@ void FecRingDevice::fecRingReset ( )
  * \warning The FEC reset FEC/CCU (but not the modules done via PIA channels for the CMS Tracker)
  */
 void FecRingDevice::fecRingResetB ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setFecRingCR0 ( FEC_CR0_RESETRINGB, CMD_OR ) ;
   setFecRingCR0 ( FEC_CR0_RESETRINGB, CMD_XOR ) ;
@@ -2814,7 +2814,7 @@ void FecRingDevice::fecRingResetB ( )
  * \warning The FEC reset FEC/CCU (but not the modules done via PIA channels for the CMS Tracker)
  */
 void FecRingDevice::initAfterHardReset ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Change the clock polarity
   if (invertClockPolarity_) setFecRingCR0(FEC_CR0_POLARITY,CMD_OR) ;
@@ -2852,7 +2852,7 @@ void FecRingDevice::initAfterHardReset ( )
  * <li> Check if the FIFO receive is empty 
  * </lu>
  */
-void FecRingDevice::checkRing ( ) throw (FecExceptionHandler) {
+void FecRingDevice::checkRing ( ) noexcept(false) {
 
   // Check the status register 0 of the FEC
   tscType32 fecSR0 = getFecRingSR0() ;
@@ -2911,7 +2911,7 @@ void FecRingDevice::checkRing ( ) throw (FecExceptionHandler) {
  * \warning the FEC release is made two times due to the hardware (?)
  */
 void FecRingDevice::fecRingRelease ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Generate the token
   setFecRingCR1 ( FEC_CR1_RELEASEFEC ) ;
@@ -2952,7 +2952,7 @@ void FecRingDevice::fecRingRelease ( )
  * \thanks Wojciech BIALAS
  */
 void FecRingDevice::emptyFifoReceive ( )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType16 fecSR0 ; 
 
@@ -2989,7 +2989,7 @@ void FecRingDevice::emptyFifoReceive ( )
  * \thanks Wojciech BIALAS
  */
 void FecRingDevice::emptyFifoReturn ( )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType16 fecSR0 ; 
 
@@ -3026,7 +3026,7 @@ void FecRingDevice::emptyFifoReturn ( )
  * \thanks Wojciech BIALAS
  */
 void FecRingDevice::emptyFifoTransmit ( )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType16 fecSR0 ; 
 
@@ -3214,7 +3214,7 @@ void FecRingDevice::checkFifoReceive ( int display ) {
  * \warning This method is only used in the basic check error in case of the ring
  * was not scanned at the beginning
  */
-bool FecRingDevice::connectCCU ( keyType index ) throw (FecExceptionHandler) {
+bool FecRingDevice::connectCCU ( keyType index ) noexcept(false) {
 
   // is a CCU 25 ?
   bool isCcu25 ;
@@ -3292,7 +3292,7 @@ bool FecRingDevice::connectCCU ( keyType index ) throw (FecExceptionHandler) {
  * \warning When you use this method all the CCU must be CCU 25
  */
 void FecRingDevice::fecScanRingBroadcast ( )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGGETREGISTERS
   bool readRegisters = readRegistersError_ ;
@@ -3481,7 +3481,7 @@ void FecRingDevice::fecScanRingBroadcast ( )
  * \warning When you use this method all the CCU must be old CCUs
  */
 void FecRingDevice::fecScanRingNoBroadcast ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGGETREGISTERS
   bool readRegisters = readRegistersError_ ;
@@ -3594,7 +3594,7 @@ void FecRingDevice::fecScanRingNoBroadcast ( )
  * \warning this method need the order of the CCU
  */
 tscType16 FecRingDevice::fecRingReconfigure ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Ring closed
   tscType16 fecSR0 = getFecRingSR0() ;
@@ -3637,7 +3637,7 @@ tscType16 FecRingDevice::fecRingReconfigure ( )
  * \warning this method apply bindly the redundancy given
  */
 tscType16 FecRingDevice::fecRingReconfigure ( TkRingDescription &tkRing ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   unsigned long msStart;
   unsigned long msCurrent;
@@ -3897,7 +3897,7 @@ tscType16 FecRingDevice::fecRingReconfigure ( TkRingDescription &tkRing )
  */   
 bool FecRingDevice::getCcuType ( keyType index,
                                  tscType32 *CRE ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // read the register and write the new one with the correct value 
   tscType8 frame[DD_USER_MAX_MSG_LENGTH*4] = { 
@@ -3946,7 +3946,7 @@ bool FecRingDevice::getCcuType ( keyType index,
  * \exception FecExceptionHandler
  */   
  bool FecRingDevice::getCcuType ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType32 CRE = 0 ;
   bool isCcu25 = getCcuType (index, &CRE) ;
@@ -3964,7 +3964,7 @@ bool FecRingDevice::getCcuType ( keyType index,
 void FecRingDevice::setCcuRegister ( keyType index, 
                                      tscType8 ccuRegister, 
                                      tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -4057,7 +4057,7 @@ void FecRingDevice::setCcuRegister ( keyType index,
  */   
 tscType32 FecRingDevice::getCcuRegister ( keyType index, 
                                           tscType8 ccuRegister ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -4191,7 +4191,7 @@ tscType32 FecRingDevice::getCcuRegister ( keyType index,
 void FecRingDevice::setCcuRegister ( keyType index, 
                                      tscType8 ccuRegister, 
                                      tscType8 value,
-                                     logicalOperationType op ) throw (FecExceptionHandler) {
+                                     logicalOperationType op ) noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -4260,7 +4260,7 @@ void FecRingDevice::setCcuRegister ( keyType index,
  * \param value - value to be written
  */
 void FecRingDevice::setCcuCRA ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   setCcuRegister( index, CMD_CCUWRITECRA, value ) ;
 }
@@ -4275,7 +4275,7 @@ void FecRingDevice::setCcuCRA ( keyType index, tscType8 value )
  * \param value - value to be written
  */
 void FecRingDevice::setCcuCRB ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setCcuRegister( index, CMD_CCUWRITECRB, value ) ;
 }
@@ -4286,7 +4286,7 @@ void FecRingDevice::setCcuCRB ( keyType index, tscType8 value )
  * \param op - operation to be done (CMD_OR, CMD_AND, CMD_XOR, CMD_EQUAL)
  */
 void FecRingDevice::setCcuCRB ( keyType index, tscType8 value, logicalOperationType op )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setCcuRegister( index, CMD_CCUWRITECRB, value, op ) ;
 }
@@ -4301,7 +4301,7 @@ void FecRingDevice::setCcuCRB ( keyType index, tscType8 value, logicalOperationT
  * </ul>
  */
 void FecRingDevice::setCcuCRC ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   reconfigurationRunning_ = true ;
 
@@ -4358,7 +4358,7 @@ void FecRingDevice::setCcuCRC ( keyType index, tscType8 value )
  * \param op - operation to be done (CMD_OR, CMD_AND, CMD_XOR, CMD_EQUAL)
  * \exception FecExceptionHandler
  */
-void FecRingDevice::setCcuCRC ( keyType index, tscType8 value, logicalOperationType op ) throw (FecExceptionHandler) {
+void FecRingDevice::setCcuCRC ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
   
   reconfigurationRunning_ = true ;
 
@@ -4418,7 +4418,7 @@ void FecRingDevice::setCcuCRC ( keyType index, tscType8 value, logicalOperationT
  * \warning The broadcast register is set to 0x80 after a reset
  */
 void FecRingDevice::setCcuCRD ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setCcuRegister( index, CMD_CCUWRITECRD, value ) ;
 }
@@ -4430,7 +4430,7 @@ void FecRingDevice::setCcuCRD ( keyType index, tscType8 value )
  * \warning The broadcast register is set to 0x80 after a reset
  */
 void FecRingDevice::setCcuCRD ( keyType index, tscType8 value, logicalOperationType op ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setCcuRegister( index, CMD_CCUWRITECRD, value, op ) ;
 }
@@ -4454,7 +4454,7 @@ void FecRingDevice::setCcuCRE ( keyType index, tscType32 value )
   // tscType8 value0,  // 16 - 23
   // tscType8 value1,  // 8 - 15
   // tscType8 value2)  // 0 - 7   
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -4524,7 +4524,7 @@ void FecRingDevice::setCcuCRE ( keyType index,
                             tscType8 valueMemory,
                             tscType8 valueTrigger,
                             tscType8 valueJTAG)
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   setCcuCRE ( index, 
               (valueI2C & 0xFF) | 
@@ -4545,7 +4545,7 @@ void FecRingDevice::setCcuCRE ( keyType index,
  */
 void FecRingDevice::setCcuCRE ( keyType index, 
                                 tscType24 value,
-                                logicalOperationType op ) throw (FecExceptionHandler) {
+                                logicalOperationType op ) noexcept(false) {
 
   // read the register and write the new one with the correct value 
   tscType24 CR = getCcuCRE ( index ) ;
@@ -4570,7 +4570,7 @@ void FecRingDevice::setCcuCRE ( keyType index,
  * \return value read
  */   
 tscType8 FecRingDevice::getCcuCRA ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
  
   return ( getCcuRegister( index, CMD_CCUREADCRA )) ;
 }
@@ -4580,7 +4580,7 @@ tscType8 FecRingDevice::getCcuCRA ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuCRB ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADCRB )) ;
 }
@@ -4590,7 +4590,7 @@ tscType8 FecRingDevice::getCcuCRB ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuCRC ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADCRC )) ;
 }
@@ -4600,7 +4600,7 @@ tscType8 FecRingDevice::getCcuCRC ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuCRD ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADCRD )) ;
 }
@@ -4614,7 +4614,7 @@ tscType8 FecRingDevice::getCcuCRD ( keyType index )
  * </ul>
  */
 tscType24 FecRingDevice::getCcuCRE ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   tscType32 CR = getCcuRegister( index, CMD_CCUREADCRE ) ;
 
@@ -4626,7 +4626,7 @@ tscType24 FecRingDevice::getCcuCRE ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuSRA ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRA )) ;
 }
@@ -4636,7 +4636,7 @@ tscType8 FecRingDevice::getCcuSRA ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuSRB ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRB )) ;
 }
@@ -4646,7 +4646,7 @@ tscType8 FecRingDevice::getCcuSRB ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuSRC ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRC )) ;
 }
@@ -4656,7 +4656,7 @@ tscType8 FecRingDevice::getCcuSRC ( keyType index )
  * \return value read
  */
 tscType8 FecRingDevice::getCcuSRD ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRD )) ;
 }
@@ -4666,7 +4666,7 @@ tscType8 FecRingDevice::getCcuSRD ( keyType index )
  * \return value read
  */
 tscType24 FecRingDevice::getCcuSRE ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRE )) ;
 }
@@ -4676,7 +4676,7 @@ tscType24 FecRingDevice::getCcuSRE ( keyType index )
  * \return value read
  */
 tscType16 FecRingDevice::getCcuSRF ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRF )) ;
 }
@@ -4690,7 +4690,7 @@ tscType16 FecRingDevice::getCcuSRF ( keyType index )
  * </ul>
  */
 tscType8 FecRingDevice::getCcuSRG ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRG )) ;
 }
@@ -4704,7 +4704,7 @@ tscType8 FecRingDevice::getCcuSRG ( keyType index )
  * </ul>
  */
 tscType8 FecRingDevice::getCcuSRH ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getCcuRegister( index, CMD_CCUREADSRH )) ;
 }
@@ -4716,7 +4716,7 @@ tscType8 FecRingDevice::getCcuSRH ( keyType index )
  * \return a list of keyType
  */
 std::list<keyType> *FecRingDevice::getCcuList ( bool noBroadcast, bool scan) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   //#ifndef SCANCCUATSTARTING
   // If the scan order was not done in the FecRingDevice constructor => do it
@@ -4758,7 +4758,7 @@ std::list<keyType> *FecRingDevice::getCcuList ( bool noBroadcast, bool scan)
  * \warning For the CCU 25, all the channels can enable, for the old CCU only the i2c channel and pia channel can be enable (pia channel are not yet developpeed for the PIA)
  */
 void FecRingDevice::setChannelEnable ( keyType index, bool enable ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -4977,7 +4977,7 @@ void FecRingDevice::setChannelEnable ( keyType index, bool enable )
 void FecRingDevice::setCcuAlarmsEnable ( keyType index, 
                                          bool enable1, bool enable2, 
                                          bool enable3, bool enable4 ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -5010,7 +5010,7 @@ void FecRingDevice::setCcuAlarmsEnable ( keyType index,
  */
 void FecRingDevice::waitForAnyCcuAlarms ( keyType index, 
                                           tscType8 frame[DD_USER_MAX_MSG_LENGTH*4] ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -5146,7 +5146,7 @@ void FecRingDevice::waitForAnyCcuAlarms ( keyType index,
  * \warning When a warning is emitted then the transaction number must be zero
  */
 void FecRingDevice::waitForAnyCcuAlarms ( tscType8 frame[DD_USER_MAX_MSG_LENGTH*4] ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
     // Build the frame in 32 bits
     tscType32 c[DD_USER_MAX_MSG_LENGTH], realSize32 = 0, realSize = 0 ;
@@ -5644,7 +5644,7 @@ FecRingRegisters FecRingDevice::getFecRingRegisters ( keyType index ) {
 void FecRingDevice::setChannelRegister ( keyType index, 
                                          tscType8 channelRegister, 
                                          tscType8 value )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -5696,7 +5696,7 @@ void FecRingDevice::setChannelRegister ( keyType index,
                                          tscType8 channelRegister, 
                                          tscType8 value,
                                          logicalOperationType op )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   // Check the index
   basicCheckError (index) ;
@@ -5760,7 +5760,7 @@ void FecRingDevice::setChannelRegister ( keyType index,
  */   
 tscType8 FecRingDevice::getChannelRegister ( keyType index,
 					     tscType8 channelRegister ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   // Check the index
   basicCheckError (index); 
@@ -5830,7 +5830,7 @@ tscType8 FecRingDevice::getChannelRegister ( keyType index,
  * \warning for the old CCU, the software is not developped (if you need it, please contact fec-support@ires.in2p3.fr
  */
 void FecRingDevice::setInitPiaChannel ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -5867,7 +5867,7 @@ void FecRingDevice::setInitPiaChannel ( keyType index )
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value ) noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -5881,7 +5881,7 @@ void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value ) throw ( F
  * \param value - value to be written
  * \param op - operation to be done (CMD_OR, CMD_AND, CMD_XOR, CMD_EQUAL)
  */
-void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value, logicalOperationType op ) throw ( FecExceptionHandler ) {
+void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -5894,7 +5894,7 @@ void FecRingDevice::setPiaChannelGCR ( keyType index, tscType8 value, logicalOpe
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType8 FecRingDevice::getPiaChannelGCR ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecRingDevice::getPiaChannelGCR ( keyType index ) noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELPIAREADGCR)) ;
 }
@@ -5903,7 +5903,7 @@ tscType8 FecRingDevice::getPiaChannelGCR ( keyType index ) throw ( FecExceptionH
  * \param index - key of the corresponding channel
  * \return value read
  */ 
-tscType8 FecRingDevice::getPiaChannelStatus ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecRingDevice::getPiaChannelStatus ( keyType index ) noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELPIAREADSTATUS)) ;
 }
@@ -5916,7 +5916,7 @@ tscType8 FecRingDevice::getPiaChannelStatus ( keyType index ) throw ( FecExcepti
  * <li>TSCFEC_FECPARAMETERNOTMANAGED
  * </ul>
  */
-void FecRingDevice::setPiaChannelDDR ( keyType index, tscType8 value ) throw (FecExceptionHandler) {
+void FecRingDevice::setPiaChannelDDR ( keyType index, tscType8 value ) noexcept(false) {
 
   // The basic check is done in the setChannelRegister
   setChannelRegister ( index, CMD_CHANNELPIAWRITEDDR, value) ;
@@ -5947,7 +5947,7 @@ void FecRingDevice::setPiaChannelDDR ( keyType index, tscType8 value ) throw (Fe
 void FecRingDevice::setPiaChannelDDR ( keyType index, 
                                        tscType8 value, 
                                        logicalOperationType op ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
  
   // The basic check is done in the setChannelRegister
   setChannelRegister ( index, CMD_CHANNELPIAWRITEDDR, value, op) ;
@@ -5969,7 +5969,7 @@ void FecRingDevice::setPiaChannelDDR ( keyType index,
  * \param index - key of the corresponding channel
  * \return value read
  */ 
-tscType8 FecRingDevice::getPiaChannelDDR ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecRingDevice::getPiaChannelDDR ( keyType index ) noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELPIAREADDDR)) ;
 }
@@ -5978,7 +5978,7 @@ tscType8 FecRingDevice::getPiaChannelDDR ( keyType index ) throw ( FecExceptionH
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecRingDevice::setPiaChannelDataReg ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecRingDevice::setPiaChannelDataReg ( keyType index, tscType8 value ) noexcept(false) {
 
   // The basic check is done in the setChannelRegister
   setChannelRegister ( index, CMD_CHANNELPIAWRITEDATAREG, value) ;
@@ -5995,7 +5995,7 @@ void FecRingDevice::setPiaChannelDataReg ( keyType index, tscType8 value ) throw
  */
 void FecRingDevice::setPiaChannelDataReg ( keyType index, 
                                        tscType8 value, 
-                                       logicalOperationType op) throw (FecExceptionHandler) {
+                                       logicalOperationType op) noexcept(false) {
 
   // The basic check is done in the setChannelRegister
   setChannelRegister ( index, CMD_CHANNELPIAWRITEDATAREG, value, op) ;
@@ -6014,7 +6014,7 @@ void FecRingDevice::setPiaChannelDataReg ( keyType index,
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType8 FecRingDevice::getPiaChannelDataReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecRingDevice::getPiaChannelDataReg ( keyType index ) noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELPIAREADDATAREG)) ;
 }
@@ -6024,7 +6024,7 @@ tscType8 FecRingDevice::getPiaChannelDataReg ( keyType index ) throw ( FecExcept
  * \exception FecExceptionHandler
  */
 void FecRingDevice::piaChannelReset( keyType index) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6049,7 +6049,7 @@ void FecRingDevice::piaChannelReset( keyType index)
  * \warning Alarms works with CCU 25 and not old CCU
  * \warning The source must be CLEARED before reenable it.
  */
-void FecRingDevice::setPiaInterruptEnable ( keyType index ) throw (FecExceptionHandler) {
+void FecRingDevice::setPiaInterruptEnable ( keyType index ) noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -6123,7 +6123,7 @@ void FecRingDevice::setPiaInterruptEnable ( keyType index ) throw (FecExceptionH
  * </ul>
  * \warning Alarms works with CCU 25 and not old CCU
  */
-void FecRingDevice::setPiaClearInterrupts ( keyType index ) throw (FecExceptionHandler) {
+void FecRingDevice::setPiaClearInterrupts ( keyType index ) noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -6176,7 +6176,7 @@ void FecRingDevice::setPiaClearInterrupts ( keyType index ) throw (FecExceptionH
  * \param forceAck - the force ack bit
  */
 void FecRingDevice::setInitI2cChannelCRA ( keyType index, bool forceAck, tscType16 i2cSpeed ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the access
   basicCheckError (index);
@@ -6237,7 +6237,7 @@ void FecRingDevice::setInitI2cChannelCRA ( keyType index, bool forceAck, tscType
  * </ul>
  */
 void FecRingDevice::seti2cChannelCRA ( keyType index, tscType8 value) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -6275,7 +6275,7 @@ void FecRingDevice::seti2cChannelCRA ( keyType index, tscType8 value)
  * </ul>
  */
 void FecRingDevice::seti2cChannelCRA ( keyType index, tscType8 value,logicalOperationType op) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -6310,7 +6310,7 @@ void FecRingDevice::seti2cChannelCRA ( keyType index, tscType8 value,logicalOper
  * \return value read
  */ 
 tscType8 FecRingDevice::geti2cChannelCRA ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELI2CREADCRA)) ;
 }
@@ -6320,7 +6320,7 @@ tscType8 FecRingDevice::geti2cChannelCRA ( keyType index )
  * \return value read
  */ 
 tscType8 FecRingDevice::geti2cChannelSRA ( keyType index )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELI2CREADSRA)) ;
 }
@@ -6330,7 +6330,7 @@ tscType8 FecRingDevice::geti2cChannelSRA ( keyType index )
  * \return value read
  */ 
 tscType8 FecRingDevice::geti2cChannelSRB ( keyType index )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELI2CREADSRB) ) ;
 }
@@ -6340,7 +6340,7 @@ tscType8 FecRingDevice::geti2cChannelSRB ( keyType index )
  * \return value read
  */ 
 tscType8 FecRingDevice::geti2cChannelSRC ( keyType index )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELI2CREADSRC)) ;
 }
@@ -6350,7 +6350,7 @@ tscType8 FecRingDevice::geti2cChannelSRC ( keyType index )
  * \return value read
  */ 
 tscType8 FecRingDevice::geti2cChannelSRD ( keyType index )   
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELI2CREADSRD)) ;
 }
@@ -6364,7 +6364,7 @@ tscType8 FecRingDevice::geti2cChannelSRD ( keyType index )
  * </ul>
  */
 void FecRingDevice::i2cChannelReset ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Same command than PIA
   piaChannelReset (index) ;
@@ -6374,7 +6374,7 @@ void FecRingDevice::i2cChannelReset ( keyType index )
  * \param index - key of the corresponding channel
  */
 void FecRingDevice::i2cChannelReset ( keyType index, bool reconf )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -6403,7 +6403,7 @@ void FecRingDevice::i2cChannelReset ( keyType index, bool reconf )
  * \warning this method is only available for CCU 25
  */
 bool FecRingDevice::isChannelEnabled ( keyType index )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6492,7 +6492,7 @@ bool FecRingDevice::isChannelEnabled ( keyType index )
  * \warning this method is only available for CCU 25
  */
 bool FecRingDevice::isChannelBusy ( keyType index )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   //char msg[80] ;
   //decodeKey(msg,index) ;
@@ -6559,7 +6559,7 @@ bool FecRingDevice::isChannelBusy ( keyType index )
  * \param enable - boolean for enable or disable the force ack bit
  */
 void FecRingDevice::setChannelForceAck ( keyType index, bool enable )   
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6603,7 +6603,7 @@ void FecRingDevice::setChannelForceAck ( keyType index, bool enable )
  * \exception FecExceptionHandler
  */
 void FecRingDevice::writei2cDevice ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6653,7 +6653,7 @@ void FecRingDevice::writei2cDevice ( keyType index, tscType8 value )
 void FecRingDevice::writei2cDevice ( keyType index, 
                                      tscType8 offset, 
                                      tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6703,7 +6703,7 @@ void FecRingDevice::writei2cDevice ( keyType index,
 void FecRingDevice::writei2cRalDevice ( keyType index, 
                                         tscType8 offset, 
                                         tscType8 value )   
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Same as write extended mode
   writei2cDevice (index, offset, value) ;
@@ -6720,7 +6720,7 @@ void FecRingDevice::writei2cDeviceOffset ( keyType index,
                                            tscType8 offset, 
                                            tscType8 decal, 
                                            tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6768,7 +6768,7 @@ void FecRingDevice::writei2cDeviceOffset ( keyType index,
  */
 void FecRingDevice::writei2cDeviceOffset ( keyType index, 
                                            tscType8 offset, tscType8 value )   
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   writei2cDeviceOffset (index, offset, 0) ;
 }
@@ -6779,7 +6779,7 @@ void FecRingDevice::writei2cDeviceOffset ( keyType index,
  * \exception FecExceptionHandler
  */
 tscType8 FecRingDevice::readi2cDevice ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   // Check the index
   basicCheckError (index) ;
@@ -6815,7 +6815,7 @@ tscType8 FecRingDevice::readi2cDevice ( keyType index )
  */
 tscType8 FecRingDevice::readi2cDevice ( keyType index, 
                                         tscType8 addressMSB ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the access
   basicCheckError (index) ;
@@ -6853,7 +6853,7 @@ tscType8 FecRingDevice::readi2cDevice ( keyType index,
  */
 tscType8 FecRingDevice::readi2cRalDevice ( keyType index, 
                                            tscType8 offset ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the access
   basicCheckError (index) ;
@@ -6892,7 +6892,7 @@ tscType8 FecRingDevice::readi2cRalDevice ( keyType index,
 tscType8 FecRingDevice::readi2cDeviceOffset ( keyType index, 
                                               tscType8 offset, 
                                               tscType8 decal ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -6926,7 +6926,7 @@ tscType8 FecRingDevice::readi2cDeviceOffset ( keyType index,
  * \return the value read in the register
  */
 tscType8 FecRingDevice::readi2cDeviceOffset ( keyType index, tscType8 offset ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return (readi2cDeviceOffset (index, offset, 0)) ;
 }
@@ -6952,7 +6952,7 @@ std::list<keyType> *FecRingDevice::scanRingForI2CDevice ( keyType *deviceValues,
 							  tscType32 sizeDevices,
 							  bool noBroadcast,
 							  bool display ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // --------------------------------------------------------------------------------------
   // Check the FEC ring SR0
@@ -7173,7 +7173,7 @@ std::list<keyType> *FecRingDevice::scanRingForI2CDevice ( keyType *deviceValues,
  * \warning this method is dedicated to the CCU 25 but can work for old CCUs
  */
 std::list<keyType> *FecRingDevice::scanRingForI2CDevice ( bool noBroadcast, bool display ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGGETREGISTERS
   bool readRegisters = readRegistersError_ ;
@@ -7282,7 +7282,7 @@ std::list<keyType> *FecRingDevice::scanRingForI2CDevice ( bool noBroadcast, bool
  * \param index - key of the corresponding channel
  */
 void FecRingDevice::memoryChannelReset( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   piaChannelReset (index) ;
 }
@@ -7293,7 +7293,7 @@ void FecRingDevice::memoryChannelReset( keyType index )
  * \param value - value to be written
  */
 void FecRingDevice::setMemoryChannelCRA ( keyType index, tscType8 value )  
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -7308,7 +7308,7 @@ void FecRingDevice::setMemoryChannelCRA ( keyType index, tscType8 value )
  */
 void FecRingDevice::setMemoryChannelCRA ( keyType index, tscType8 value,
                                           logicalOperationType op ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -7326,7 +7326,7 @@ void FecRingDevice::setMemoryChannelCRA ( keyType index, tscType8 value,
  void FecRingDevice::setMemoryChannelWinReg ( keyType index, 
                                               tscType8 memoryRegister, 
                                               tscType16 value ) 
-   throw (FecExceptionHandler) {
+   noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -7366,7 +7366,7 @@ void FecRingDevice::setMemoryChannelCRA ( keyType index, tscType8 value,
  * \param value - value to be written
  */
 void FecRingDevice::setMemoryChannelWin1LReg ( keyType index, tscType16 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // The basic check is done in setMemoryChannelWinReg
   setMemoryChannelWinReg ( index, CMD_CHANNELMEMWRITEWIN1LREG, value ) ;
@@ -7377,7 +7377,7 @@ void FecRingDevice::setMemoryChannelWin1LReg ( keyType index, tscType16 value )
  * \param value - value to be written
  */
 void FecRingDevice::setMemoryChannelWin1HReg ( keyType index, tscType16 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // The basic check is done in setMemoryChannelWinReg
   setMemoryChannelWinReg ( index, CMD_CHANNELMEMWRITEWIN1HREG, value ) ;
@@ -7388,7 +7388,7 @@ void FecRingDevice::setMemoryChannelWin1HReg ( keyType index, tscType16 value )
  * \param value - value to be written
  */
 void FecRingDevice::setMemoryChannelWin2LReg ( keyType index, tscType16 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   // The basic check is done in setMemoryChannelWinReg
   setMemoryChannelWinReg ( index, CMD_CHANNELMEMWRITEWIN2LREG, value ) ;
 }
@@ -7398,7 +7398,7 @@ void FecRingDevice::setMemoryChannelWin2LReg ( keyType index, tscType16 value )
  * \param value - value to be written
  */
 void FecRingDevice::setMemoryChannelWin2HReg ( keyType index, tscType16 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // The basic check is done in setMemoryChannelWinReg
   setMemoryChannelWinReg ( index, CMD_CHANNELMEMWRITEWIN2HREG, value ) ;
@@ -7410,7 +7410,7 @@ void FecRingDevice::setMemoryChannelWin2HReg ( keyType index, tscType16 value )
  * \param op - logical operation (and / or / xor)
  */
 void FecRingDevice::setMemoryChannelMaskReg ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -7424,7 +7424,7 @@ void FecRingDevice::setMemoryChannelMaskReg ( keyType index, tscType8 value )
  * \return value read
  */   
 tscType8 FecRingDevice::getMemoryChannelCRA ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELMEMREADCRA)) ;
 }
@@ -7434,7 +7434,7 @@ tscType8 FecRingDevice::getMemoryChannelCRA ( keyType index )
  * \return value read
  */   
 tscType8 FecRingDevice::getMemoryChannelMaskReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELMEMREADMASKREG)) ;
 }
@@ -7447,7 +7447,7 @@ tscType8 FecRingDevice::getMemoryChannelMaskReg ( keyType index )
  */
 tscType16 FecRingDevice::getMemoryChannelWinReg ( keyType index,
                                                   tscType8 memoryRegister ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index); 
@@ -7514,7 +7514,7 @@ tscType16 FecRingDevice::getMemoryChannelWinReg ( keyType index,
  * \return value read
  */   
 tscType16 FecRingDevice::getMemoryChannelWin1LReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getMemoryChannelWinReg ( index, CMD_CHANNELMEMREADWIN1LREG)) ;
 }
@@ -7524,7 +7524,7 @@ tscType16 FecRingDevice::getMemoryChannelWin1LReg ( keyType index )
  * \return value read
  */   
 tscType16 FecRingDevice::getMemoryChannelWin1HReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getMemoryChannelWinReg ( index, CMD_CHANNELMEMREADWIN1HREG)) ;
 }
@@ -7534,7 +7534,7 @@ tscType16 FecRingDevice::getMemoryChannelWin1HReg ( keyType index )
  * \return value read
  */   
 tscType16 FecRingDevice::getMemoryChannelWin2LReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getMemoryChannelWinReg ( index, CMD_CHANNELMEMREADWIN2LREG)) ;
 }
@@ -7544,7 +7544,7 @@ tscType16 FecRingDevice::getMemoryChannelWin2LReg ( keyType index )
  * \return value read
  */   
 tscType16 FecRingDevice::getMemoryChannelWin2HReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getMemoryChannelWinReg ( index, CMD_CHANNELMEMREADWIN2HREG)) ;
 }
@@ -7554,7 +7554,7 @@ tscType16 FecRingDevice::getMemoryChannelWin2HReg ( keyType index )
  * \return value read
  */   
 tscType8 FecRingDevice::getMemoryChanneMaskReg ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELMEMREADMASKREG)) ;
 }
@@ -7564,7 +7564,7 @@ tscType8 FecRingDevice::getMemoryChanneMaskReg ( keyType index )
  * \return value read
  */   
 tscType8 FecRingDevice::getMemoryChannelStatus ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   return ( getChannelRegister ( index, CMD_CHANNELMEMREADSTATUSREG)) ;
 }
@@ -7579,7 +7579,7 @@ tscType8 FecRingDevice::getMemoryChannelStatus ( keyType index )
 void FecRingDevice::writeIntoMemory ( keyType index, 
                                       tscType8 AH, tscType8 AL, 
                                       tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -7629,7 +7629,7 @@ void FecRingDevice::writeIntoMemory ( keyType index,
                                       tscType8 AH, tscType8 AL, 
                                       tscType8 *values,
                                       unsigned long size ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 
 
@@ -7741,7 +7741,7 @@ void FecRingDevice::writeIntoMemory2BytesLength ( keyType index,
                                                   tscType8 AH, tscType8 AL, 
                                                   tscType8 *values,
                                                   unsigned long size ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // 127 means FEC_UPPERLIMIT_LENGTH
   // 119 means FEC_UPPERLIMIT_LENGTH - 5 - 3
@@ -7841,7 +7841,7 @@ void FecRingDevice::writeIntoMemory ( keyType index,
                                       tscType8 AH, tscType8 AL, 
                                       logicalOperationType op, 
                                       tscType8 mask ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Set the mask register with the value
   setMemoryChannelMaskReg ( index, mask ) ;
@@ -7861,7 +7861,7 @@ void FecRingDevice::writeIntoMemory ( keyType index,
 void FecRingDevice::writeIntoMemory ( keyType index, 
                                       tscType8 AH, tscType8 AL, 
                                       logicalOperationType op) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -7915,7 +7915,7 @@ void FecRingDevice::writeIntoMemory ( keyType index,
  */
 tscType8 FecRingDevice::readFromMemory ( keyType index, 
                                          tscType8 AH, tscType8 AL ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -7968,7 +7968,7 @@ void FecRingDevice::readFromMemory ( keyType index,
                                      tscType8 AH, tscType8 AL,
                                      unsigned long size,
                                      tscType8 *values ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the index
   basicCheckError (index) ;
@@ -8138,7 +8138,7 @@ tscType8 FecRingDevice::getTriggerChannelSRA ( keyType index ) {
 /**
  */
 tscType32 FecRingDevice::getTriggerChannelCounter ( keyType index, 
-                                                    int cnt ) throw (FecExceptionHandler) {
+                                                    int cnt ) noexcept(false) {
 
   // Check the access
   basicCheckError (index) ;
@@ -8199,7 +8199,7 @@ tscType32 FecRingDevice::getTriggerChannelCounter ( keyType index,
  * </ul>
  */
 void FecRingDevice::setCR0Receive ( bool enable ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Enable the receive of clock for the optical link of the FEC
   tscType16 fecCR0Value = getFecRingCR0() ;
@@ -8213,7 +8213,7 @@ void FecRingDevice::setCR0Receive ( bool enable )
 /** initialise the TTCRx
  * \exception FecExceptionHandler
  */
-void FecRingDevice::initTTCRx ( ) throw (FecExceptionHandler) {
+void FecRingDevice::initTTCRx ( ) noexcept(false) {
 
   setFecRingCR0 ( FEC_CR0_RESETTCRX ) ;
   setFecRingCR0 ( FEC_CR0_ENABLEFEC ) ;
@@ -8233,7 +8233,7 @@ void FecRingDevice::initTTCRx ( ) throw (FecExceptionHandler) {
  * \param value - values to be written (array)
  * \param count - number of values
  */
-void FecRingDevice::setFifoReceive ( tscType32 *value, int count) throw (FecExceptionHandler) {
+void FecRingDevice::setFifoReceive ( tscType32 *value, int count) noexcept(false) {
   int i;
   for(i=0;i<count;i++) setFifoReceive(value[i]) ;
 }
@@ -8243,7 +8243,7 @@ void FecRingDevice::setFifoReceive ( tscType32 *value, int count) throw (FecExce
  * \param count - number of value to be read
  * \return pointer to the array of value ( = value )
  */
-tscType32* FecRingDevice::getFifoReceive (  tscType32 *value, int count ) throw (FecExceptionHandler) {
+tscType32* FecRingDevice::getFifoReceive (  tscType32 *value, int count ) noexcept(false) {
   int i;
   for(i=0;i<count;i++) value[i] = getFifoReceive() ;
   return value ;
@@ -8253,7 +8253,7 @@ tscType32* FecRingDevice::getFifoReceive (  tscType32 *value, int count ) throw 
  * \param value - values to be written (array)
  * \param count - number of values
  */
-void FecRingDevice::setFifoReturn ( tscType8 *value, int count ) throw (FecExceptionHandler) {
+void FecRingDevice::setFifoReturn ( tscType8 *value, int count ) noexcept(false) {
   int i;
   for(i=0;i<count;i++) setFifoReturn(value[i]) ;
 }
@@ -8263,7 +8263,7 @@ void FecRingDevice::setFifoReturn ( tscType8 *value, int count ) throw (FecExcep
  * \param count - number of value to be read
  * \return pointer to the array of value ( = value )
  */
-tscType8* FecRingDevice::getFifoReturn (  tscType8 *value,int count ) throw (FecExceptionHandler) {
+tscType8* FecRingDevice::getFifoReturn (  tscType8 *value,int count ) noexcept(false) {
   int i;
   for(i=0;i<count;i++) value[i]  = getFifoReturn() ;
   return value ;
@@ -8273,7 +8273,7 @@ tscType8* FecRingDevice::getFifoReturn (  tscType8 *value,int count ) throw (Fec
  * \param value - values to be written (array)
  * \param count - number of values
  */
-void FecRingDevice::setFifoTransmit ( tscType32 *value, int count ) throw (FecExceptionHandler) {
+void FecRingDevice::setFifoTransmit ( tscType32 *value, int count ) noexcept(false) {
   int i;
   for(i=0;i<count;i++) setFifoTransmit(value[i]) ;
 }
@@ -8283,7 +8283,7 @@ void FecRingDevice::setFifoTransmit ( tscType32 *value, int count ) throw (FecEx
  * \param count - number of value to be read
  * \return pointer to the array of value ( = value )
  */
-tscType32* FecRingDevice::getFifoTransmit (  tscType32 *value,int count ) throw (FecExceptionHandler) {
+tscType32* FecRingDevice::getFifoTransmit (  tscType32 *value,int count ) noexcept(false) {
   int i;
   for(i=0;i<count;i++) value[i]  = getFifoTransmit() ;
   return value ;
@@ -8484,7 +8484,7 @@ unsigned int FecRingDevice::buildPIAFrame ( accessDeviceType b, tscType32 *toBeT
  * \warning All the accessDeviceType must be initialise with dAck = 0 and sent = false
  * \warning if this method encounters a register problem, the rest of the registers will be sent and the same exception (pointer point of view) is set in all the request to that device. So do not delete directly all the exception from the list returned
  */
-void FecRingDevice::setBlockDevices ( std::list<accessDeviceType> &vAccessDevices, bool forceAcknowledge ) throw (FecExceptionHandler) {
+void FecRingDevice::setBlockDevices ( std::list<accessDeviceType> &vAccessDevices, bool forceAcknowledge ) noexcept(false) {
 
   if (firmwareVersion_ >= MINFIRMWAREVERSION) {
     setBlockDevicesBltMode(vAccessDevices, forceAcknowledge) ;
@@ -9421,7 +9421,7 @@ void FecRingDevice::setBlockDevices ( std::list<accessDeviceType> &vAccessDevice
  */
 void FecRingDevice::getBlockFrames ( bool forceChannelAck, accessTransactionFrameMap &tnumSent,
 				     Sgi::hash_map<keyType, int> & busy, unsigned int & cptRead )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   //#define DEBUGMSGERROR_DISPLAYMULTIPLEFRAMES 
   //#define DEBUGMSGERRORMF
@@ -9960,7 +9960,7 @@ void FecRingDevice::getBlockFrames ( bool forceChannelAck, accessTransactionFram
  * \warning if this method encounters a register problem, the rest of the registers will be sent and the same exception (pointer point of view) is set in all the request to that device. So do not delete directly all the exception from the list returned
  */
 void FecRingDevice::setBlockDevicesBltMode ( std::list<accessDeviceType> &vAccessDevices, bool forceAcknowledge )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   //#define DEBUGMSGERROR_DISPLAYMULTIPLEFRAMES 
   //#define DEBUGMSGERRORMF

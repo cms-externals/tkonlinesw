@@ -32,7 +32,7 @@ namespace Fed9U {
      *
      * In zero suppression mode full data processing is performed. Strip re-odering, pedestal subtraction, common mode median subtraction and cluster finding.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
 
   private:
 
@@ -48,7 +48,7 @@ namespace Fed9U {
      */
     void findDataLengths(const std::vector<unsigned short> &bufferData, 
 			 std::vector<unsigned short> &feLengths, 
-			 std::vector<unsigned short> &channelLengths) throw (ICException);
+			 std::vector<unsigned short> &channelLengths) noexcept(false);
       
     Fed9UEventInfo mFed9UEventInfo; //!< See the Fed9UEventInfo documentation for more information about this class.
 

@@ -5,7 +5,7 @@ namespace Fed9U {
 
   using std::exception;
 
-  void Fed9UBufferCreatorProcRaw::generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException) {
+  void Fed9UBufferCreatorProcRaw::generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false) {
     try {      
             
       //Make vectors of the data sizes for each FE and each channel.

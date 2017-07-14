@@ -122,7 +122,7 @@ class DohAccess: public laserdriverAccess {
 
   /** \brief Find the optimal value for the DOH bias for a given gain
    */
-  laserdriverDescription *calibrateDOH ( bool displayDebugMessage = false, unsigned char gain = 1, unsigned char minBiasValue = MINBIASVALUE ) throw (FecExceptionHandler) ;
+  laserdriverDescription *calibrateDOH ( bool displayDebugMessage = false, unsigned char gain = 1, unsigned char minBiasValue = MINBIASVALUE ) noexcept(false) ;
 };
 
 #endif

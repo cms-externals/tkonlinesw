@@ -14,7 +14,7 @@ class DbClient
 /**
   -Create a DbClient with the Share Memory name
 */
-  DbClient(std::string name) throw (std::string);
+  DbClient(std::string name) noexcept(false);
     /**
       Detach the Sahre memory
      */   
@@ -26,7 +26,7 @@ class DbClient
   /**
      Parse the Sahre memory and create and fill local vectors
   */
-  void parse() throw (std::string);
+  void parse() noexcept(false);
     /**
     Return a ptr to the local vector of FEC devices
     */

@@ -89,10 +89,10 @@ class FecUsbRingDevice: public FecRingDevice {
    * \param ringSlot - ring slot on the corresponding FEC
    * \param init - initialise or not the FEC ring
    */
-  FecUsbRingDevice (std::string serial, tscType8 fecSlot, tscType8 ringSlot, bool init = true, bool invertClockPolarity = false ) throw ( FecExceptionHandler ) ;
+  FecUsbRingDevice (std::string serial, tscType8 fecSlot, tscType8 ringSlot, bool init = true, bool invertClockPolarity = false ) noexcept(false) ;
 	
   //Destructor
-  virtual ~FecUsbRingDevice() throw ( FecExceptionHandler );
+  virtual ~FecUsbRingDevice() noexcept(false);
 
 
   /******************************************************
@@ -111,39 +111,39 @@ class FecUsbRingDevice: public FecRingDevice {
 
   /** \brief Set the control register 0  the FEC
    */ 
-  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false ) throw ( FecExceptionHandler );
+  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false ) noexcept(false);
 
   /** \brief Get the control register 0  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR0( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingCR0( ) noexcept(false);
 
   /** \brief Set the control register 1  the FEC
    * \param ctrl1Value - value to be set
    */ 
-  void setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler );
+  void setFecRingCR1( tscType16 ctrl1Value ) noexcept(false);
 
   /** \brief Get the control register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR1( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingCR1( ) noexcept(false);
 
   /** \brief Get the status register 0  the FEC
    * \return value read
    */
-  tscType32 getFecRingSR0( ) throw ( FecExceptionHandler );
+  tscType32 getFecRingSR0( ) noexcept(false);
 
   /** \brief Get the status register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingSR1( ) throw ( FecExceptionHandler );
+  tscType16 getFecRingSR1( ) noexcept(false);
 	
 
 
   /** \brief Get the FEC version register the FEC
    * \return value read
    */
-  tscType16 getFecFirmwareVersion( )  throw ( FecExceptionHandler );
+  tscType16 getFecFirmwareVersion( )  noexcept(false);
 	
 	
   /******************************************************
@@ -153,37 +153,37 @@ class FecUsbRingDevice: public FecRingDevice {
 
   /** \brief return a word from the FIFO receive
    */
-  tscType32 getFifoReceive( ) throw ( FecExceptionHandler );
+  tscType32 getFifoReceive( ) noexcept(false);
 	
   /** \brief write a word in the FIFO receive
    * \param value - value to be written
    */
-  void setFifoReceive( tscType32 fiforecValue ) throw ( FecExceptionHandler );
+  void setFifoReceive( tscType32 fiforecValue ) noexcept(false);
 
   /** \brief return a word from the FIFO return
    */
-  tscType8 getFifoReturn ( ) throw ( FecExceptionHandler );
+  tscType8 getFifoReturn ( ) noexcept(false);
 
   /** \brief write a word in the FIFO return
    * \param value - value to be written
    */
-  void setFifoReturn ( tscType8 fiforetValue ) throw ( FecExceptionHandler );
+  void setFifoReturn ( tscType8 fiforetValue ) noexcept(false);
 
   /** \brief return a word from the FIFO transmit
    */
-  tscType32 getFifoTransmit ( ) throw ( FecExceptionHandler );
+  tscType32 getFifoTransmit ( ) noexcept(false);
 
   /** \brief write a word in the FIFO transmit
    * \param value - value to be written
    */
-  void setFifoTransmit ( tscType32 fifotraValue ) throw ( FecExceptionHandler );
+  void setFifoTransmit ( tscType32 fifotraValue ) noexcept(false);
 
   /** \brief Use USB block transfer to write a set of values inside the FIFO
    * \param value - values to be written (array)
    * \param count - number of values
    */
   void setFifoReceive ( tscType32 *value, int count) 
-    throw (FecExceptionHandler);
+    noexcept(false);
 
   /** \brief Use USB block transfer to read values from the FIFO
    * \param value - value to be read
@@ -191,14 +191,14 @@ class FecUsbRingDevice: public FecRingDevice {
    * \return pointer to the array of value ( = value )
    */
   tscType32* getFifoReceive (  tscType32 *value, int count ) 
-    throw (FecExceptionHandler);
+    noexcept(false);
 
   /** \brief Use USB block transfer to word a set of values inside the FIFO
    * \param value - values to be written (array)
    * \param count - number of values
    */
   void setFifoReturn ( tscType8 *value, int count ) 
-    throw (FecExceptionHandler);
+    noexcept(false);
 
   /** \brief Use USB block transfer to read values from the FIFO
    * \param value - value to be read
@@ -206,14 +206,14 @@ class FecUsbRingDevice: public FecRingDevice {
    * \return pointer to the array of value ( = value )
    */
   tscType8* getFifoReturn (  tscType8 *value,int count ) 
-    throw (FecExceptionHandler);
+    noexcept(false);
 
   /** \brief Use USB block transfer to word a set of values inside the FIFO
    * \param value - values to be written (array)
    * \param count - number of values
    */
   void setFifoTransmit ( tscType32 *value, int count ) 
-    throw (FecExceptionHandler);
+    noexcept(false);
 
   /** \brief Use USB block transfer to read values from the FIFO
    * \param value - value to be read
@@ -221,7 +221,7 @@ class FecUsbRingDevice: public FecRingDevice {
    * \return pointer to the array of value ( = value )
    */
   tscType32* getFifoTransmit (  tscType32 *value,int count ) 
-    throw (FecExceptionHandler);
+    noexcept(false);
       
       
       
@@ -233,7 +233,7 @@ class FecUsbRingDevice: public FecRingDevice {
 
   /** \brief Issue a hard reset
    */
-  void fecHardReset ( ) throw ( FecExceptionHandler ) ;
+  void fecHardReset ( ) noexcept(false) ;
       
   /******************************************************
 		IRQ enable / disable
@@ -241,7 +241,7 @@ class FecUsbRingDevice: public FecRingDevice {
 
   /** \brief enable or disable the IRQ, not use in the USB FEC
    */
-  void setIRQ ( bool enable, tscType8 level=1 ) throw ( FecExceptionHandler ) ;
+  void setIRQ ( bool enable, tscType8 level=1 ) noexcept(false) ;
 
 } ;
 

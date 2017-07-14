@@ -34,7 +34,7 @@ MemBufOutputSource::MemBufOutputSource () {
  * @see MemBufOutputSource::generateDeviceTag(deviceVector)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, bool forDb) noexcept(false) {
   generateHeader();
   generateStartTag(COMMON_XML_SCHEME);
   generateDeviceTag(deviceParameters, forDb);
@@ -57,7 +57,7 @@ MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, bool forD
  * @see MemBufOutputSource::generateStartTag()
  * @see MemBufOutputSource::generateDeviceTag(deviceVector *) 
  * @see MemBufOutputSource::generateEndTag()                                                                                          */
-MemBufOutputSource::MemBufOutputSource (ConnectionVector connections, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (ConnectionVector connections, bool forDb) noexcept(false) {
   generateHeader();
   if (forDb) memBuffer_ << "<ROWSET>" ;
   else generateStartTag(COMMON_XML_SCHEME);
@@ -83,7 +83,7 @@ MemBufOutputSource::MemBufOutputSource (ConnectionVector connections, bool forDb
  * @see MemBufOutputSource::generatePiaResetTag(piaResetVector *)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (piaResetVector piaResetParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (piaResetVector piaResetParameters, bool forDb) noexcept(false) {
 
   generateHeader();
   generateStartTag(COMMON_XML_SCHEME);
@@ -108,7 +108,7 @@ MemBufOutputSource::MemBufOutputSource (piaResetVector piaResetParameters, bool 
  * @see MemBufOutputSource::generatePiaResetTag(piaResetVector)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (dcuConversionVector dcuConversionParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (dcuConversionVector dcuConversionParameters, bool forDb) noexcept(false) {
   generateHeader();
   generateStartTag(DCUCONVERSION_XML_SCHEME);
   generateTkDcuConversionTag(dcuConversionParameters, forDb);
@@ -132,7 +132,7 @@ MemBufOutputSource::MemBufOutputSource (dcuConversionVector dcuConversionParamet
  * @see MemBufOutputSource::generatePiaResetTag(piaResetVector)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource ( TkIdVsHostnameVector tkIdVsHostnameVector , bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource ( TkIdVsHostnameVector tkIdVsHostnameVector , bool forDb) noexcept(false) {
 
   generateHeader();
   if (forDb) memBuffer_ << "<ROWSET>" ;
@@ -160,7 +160,7 @@ MemBufOutputSource::MemBufOutputSource ( TkIdVsHostnameVector tkIdVsHostnameVect
  * @see MemBufOutputSource::generatePiaResetTag(tkDcuInfoVector)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (tkDcuInfoVector dcuInfoParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (tkDcuInfoVector dcuInfoParameters, bool forDb) noexcept(false) {
   if(!forDb){
     generateHeader();
     generateStartTag(DCUCONVERSION_XML_SCHEME);
@@ -188,7 +188,7 @@ MemBufOutputSource::MemBufOutputSource (tkDcuInfoVector dcuInfoParameters, bool 
  * @see MemBufOutputSource::generatePiaResetTag(tkDcuPsuMapVector *)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (tkDcuPsuMapVector dcuPsuMapParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (tkDcuPsuMapVector dcuPsuMapParameters, bool forDb) noexcept(false) {
   if(!forDb){
     generateHeader();
     generateStartTag(DCUCONVERSION_XML_SCHEME);
@@ -219,7 +219,7 @@ MemBufOutputSource::MemBufOutputSource (tkDcuPsuMapVector dcuPsuMapParameters, b
  * @see MemBufOutputSource::generateDeviceTag(deviceVector)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, piaResetVector piaResetParameters) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, piaResetVector piaResetParameters) noexcept(false) {
   generateHeader();
   generateStartTag(COMMON_XML_SCHEME);
   generatePiaResetTag(piaResetParameters);
@@ -248,7 +248,7 @@ MemBufOutputSource::MemBufOutputSource (deviceVector deviceParameters, piaResetV
  * @see MemBufOutputSource::generateCcuTag(ccuVector,bool)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (ccuVector ccuParameters, bool forDb) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (ccuVector ccuParameters, bool forDb) noexcept(false) {
   if(!forDb){
     generateHeader();
     generateStartTag(COMMON_XML_SCHEME);
@@ -277,7 +277,7 @@ MemBufOutputSource::MemBufOutputSource (ccuVector ccuParameters, bool forDb) thr
  * @see MemBufOutputSource::generateTkRingTag(TkRingDescription,bool)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (TkRingDescription ringParameters, bool forDb, bool withCcus) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (TkRingDescription ringParameters, bool forDb, bool withCcus) noexcept(false) {
 
   if (forDb && withCcus) {
     std::cerr << "ERROR in running mode> " << __PRETTY_FUNCTION__ << "with forDb==true and withCcus==true." << std::endl ;
@@ -319,7 +319,7 @@ MemBufOutputSource::MemBufOutputSource (TkRingDescription ringParameters, bool f
  * @see MemBufOutputSource::generateTkRingTag(TkRingDescription,bool)
  * @see MemBufOutputSource::generateEndTag()
  */
-MemBufOutputSource::MemBufOutputSource (tkringVector rings, bool forDb, bool withCcus) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource (tkringVector rings, bool forDb, bool withCcus) noexcept(false) {
 
   if (forDb && withCcus) {
     std::cerr << "ERROR in running mode> " << __PRETTY_FUNCTION__ << "with forDb==true and withCcus==true." << std::endl ;
@@ -364,7 +364,7 @@ MemBufOutputSource::MemBufOutputSource (tkringVector rings, bool forDb, bool wit
  * @param forDb - Indicates whether XML output has to be generated for database target or ASCII file
  * @exception FecExceptionHandler
  */
-MemBufOutputSource::MemBufOutputSource( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) throw (FecExceptionHandler) {
+MemBufOutputSource::MemBufOutputSource( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) noexcept(false) {
 	generateHeader();
 	//std::string xmlVersion("1.1");
 	if (forDb)
@@ -535,7 +535,7 @@ void MemBufOutputSource::generateEndTag(){
  * @see generateXMLKchip(kchipDescription *, std::stringstream &);
  * @see generateXMLVfat(vfatDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generateDeviceTag(deviceVector deviceParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateDeviceTag(deviceVector deviceParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
 #ifdef PRESHOWER
@@ -652,7 +652,7 @@ void MemBufOutputSource::generateDeviceTag(deviceVector deviceParameters, bool f
  * @param ringParameters - TkRingDescriptions
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the ccuType code is unknown
  */
-void MemBufOutputSource::generateConnectionTag(ConnectionVector connections, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateConnectionTag(ConnectionVector connections, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
   for (ConnectionVector::iterator it = connections.begin() ; it != connections.end() ; it ++) {
@@ -687,7 +687,7 @@ void MemBufOutputSource::generateConnectionTag(ConnectionVector connections, boo
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the ccuType code is unknown
  * @see generateXMLCcu(CCUDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generateCcuTag(ccuVector ccuParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateCcuTag(ccuVector ccuParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
   std::stringstream memBufferCcu ;
 
@@ -714,7 +714,7 @@ void MemBufOutputSource::generateCcuTag(ccuVector ccuParameters, bool forDb) thr
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the ccuType code is unknown
  * @see generateXMLTkRing(TkRingDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generateTkRingTag(TkRingDescription ringParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateTkRingTag(TkRingDescription ringParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
   std::stringstream memBufferTkRing ;
 
@@ -739,7 +739,7 @@ void MemBufOutputSource::generateTkRingTag(TkRingDescription ringParameters, boo
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the deviceType code is unknown
  * @see generateXMLPiaReset(piaResetDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generatePiaResetTag(piaResetVector piaResetParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generatePiaResetTag(piaResetVector piaResetParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
   if (forDb) {
@@ -769,7 +769,7 @@ void MemBufOutputSource::generatePiaResetTag(piaResetVector piaResetParameters, 
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the deviceType code is unknown
  * @see generateXMLPiaReset(piaResetDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generateTkDcuConversionTag(dcuConversionVector dcuConversionParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateTkDcuConversionTag(dcuConversionVector dcuConversionParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
   if (forDb) {
@@ -791,7 +791,7 @@ void MemBufOutputSource::generateTkDcuConversionTag(dcuConversionVector dcuConve
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the deviceType code is unknown
  * @see generateXMLPiaReset(piaResetDescription *, std::stringstream &);
  */
-void MemBufOutputSource::generateTkIdVsHostnameTag( TkIdVsHostnameVector tkIdVsHostnameVector, bool forDb ) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateTkIdVsHostnameTag( TkIdVsHostnameVector tkIdVsHostnameVector, bool forDb ) noexcept(false) {
   std::stringstream errorMsg;
 
   for (TkIdVsHostnameVector::iterator it = tkIdVsHostnameVector.begin() ; it != tkIdVsHostnameVector.end() ; it ++) {
@@ -807,7 +807,7 @@ void MemBufOutputSource::generateTkIdVsHostnameTag( TkIdVsHostnameVector tkIdVsH
  * @param analysisType - Analysis type
  * @param forDb - Indicates whether XML output has to be built for database or ASCII file target 
  */
-void MemBufOutputSource::generateAnalysisTag( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateAnalysisTag( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) noexcept(false) {
 	for (std::vector<CommissioningAnalysisDescription*>::iterator it=inVector.begin(); it!=inVector.end(); it++) {
 		CommissioningAnalysisDescription *description = *it;
 		generateXMLAnalysisTag(description, memBuffer_, analysisType, forDb);
@@ -1081,7 +1081,7 @@ void MemBufOutputSource::generateXMLTkIdVsHostname(TkIdVsHostnameDescription *ho
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the deviceType code is unknown
  * @see generateXMLTkDcuInfo(TkDcuInfo*, std::stringstream &);
  */
-void MemBufOutputSource::generateTkDcuInfoTag(tkDcuInfoVector dcuInfoParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateTkDcuInfoTag(tkDcuInfoVector dcuInfoParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
   if (forDb) {
@@ -1130,7 +1130,7 @@ void MemBufOutputSource::generateXMLTkDcuInfo(TkDcuInfo *dcuInfo, std::stringstr
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the deviceType code is unknown
  * @see generateXMLTkDcuInfo(TkDcuInfo*, std::stringstream &);
  */
-void MemBufOutputSource::generateTkDcuPsuMapTag(tkDcuPsuMapVector dcuPsuMapParameters, bool forDb) throw (FecExceptionHandler) {
+void MemBufOutputSource::generateTkDcuPsuMapTag(tkDcuPsuMapVector dcuPsuMapParameters, bool forDb) noexcept(false) {
   std::stringstream errorMsg;
 
   if (forDb) {

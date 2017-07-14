@@ -48,7 +48,7 @@ using std::hex;
  * \param ring - ring slot
  * \param init - initialise the FEC (with reset at the starting)
  */
-FecPciRingDevice::FecPciRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity ) throw ( FecExceptionHandler ) :
+FecPciRingDevice::FecPciRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity ) noexcept(false) :
   FecRingDevice ( fecSlot, ringSlot, FECPCI ) {
 
   // Build the name of the device driver
@@ -98,7 +98,7 @@ FecPciRingDevice::FecPciRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool in
 
 /** Close the PCI device driver
  */
-FecPciRingDevice::~FecPciRingDevice ( ) throw ( FecExceptionHandler )
+FecPciRingDevice::~FecPciRingDevice ( ) noexcept(false)
 {
 #ifdef IRQMANAGER
   // Enable the IRQ
@@ -119,7 +119,7 @@ FecPciRingDevice::~FecPciRingDevice ( ) throw ( FecExceptionHandler )
  * \param ctrl0Value - value of the CR0
  * \param force - if force is set then the value is applied blindly. if force is not set then the invert clock polarity is managed following the parameter in the class.
  */
-void FecPciRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw ( FecExceptionHandler ) {
+void FecPciRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) noexcept(false) {
 
   if (!force) {
     if (invertClockPolarity_) ctrl0Value |= FEC_CR0_POLARITY ;
@@ -145,7 +145,7 @@ void FecPciRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw 
 /** Reads a value from FEC ctrl0 
  *\return the value read
  */
-tscType16 FecPciRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
+tscType16 FecPciRingDevice::getFecRingCR0( ) noexcept(false) {
 
   tscType32 ctrl0Value;
 
@@ -168,7 +168,7 @@ tscType16 FecPciRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
 /** Write the value given as parameter in FEC control 1 register 
  * \param value to be written
  */
-void FecPciRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler ) {
+void FecPciRingDevice::setFecRingCR1( tscType16 ctrl1Value ) noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << ctrl1Value << " in CR1" << std::endl ;
@@ -190,7 +190,7 @@ void FecPciRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptio
 /** Reads a value from FEC ctrl1 
  * \return value of the FEC CR1 for that ring
  */
-tscType16 FecPciRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecPciRingDevice::getFecRingCR1( ) noexcept(false) {
 
   tscType32 ctrl1Value;
 
@@ -214,7 +214,7 @@ tscType16 FecPciRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
 /** Reads a value from FEC SR0
  * \return the value of the FEC SR0
  */
-tscType32 FecPciRingDevice::getFecRingSR0( ) throw ( FecExceptionHandler ) {
+tscType32 FecPciRingDevice::getFecRingSR0( ) noexcept(false) {
 
   tscType32 sr0Value;
   
@@ -238,7 +238,7 @@ tscType32 FecPciRingDevice::getFecRingSR0( ) throw ( FecExceptionHandler ) {
 /** Reads a value from FEC SR1
  * \return the value of the FEC SR1
  */
-tscType16 FecPciRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecPciRingDevice::getFecRingSR1( ) noexcept(false) {
 
   tscType32 sr1Value;
 
@@ -260,7 +260,7 @@ tscType16 FecPciRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
 /** Return the version of the firmware
  * \return Firmware version
  */
-tscType16 FecPciRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandler ) {
+tscType16 FecPciRingDevice::getFecFirmwareVersion( ) noexcept(false) {
 
   tscType16 fecVersion ;
 
@@ -288,7 +288,7 @@ tscType16 FecPciRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandler
 /** Return a word from the FIFO receive
  * \param return a word from the FIFO receive
  */
-tscType32 FecPciRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
+tscType32 FecPciRingDevice::getFifoReceive( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fiforec_value;
 
@@ -314,7 +314,7 @@ tscType32 FecPciRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO receive
  * \param fiforecValue - word to be set
  */
-void FecPciRingDevice::setFifoReceive( tscType32 fiforec_value )throw ( FecExceptionHandler ) {
+void FecPciRingDevice::setFifoReceive( tscType32 fiforec_value )noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforecValue << " to fifo receive" << std::endl ;
@@ -332,7 +332,7 @@ void FecPciRingDevice::setFifoReceive( tscType32 fiforec_value )throw ( FecExcep
 /** Return a word from the FIFO return
  * \param return a word from the FIFO return
  */
-tscType8 FecPciRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
+tscType8 FecPciRingDevice::getFifoReturn( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fiforet_value;
 
@@ -357,7 +357,7 @@ tscType8 FecPciRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO return
  * \param fiforet_value - word to be set
  */
-void FecPciRingDevice::setFifoReturn( tscType8 fiforet_value )throw ( FecExceptionHandler ) {
+void FecPciRingDevice::setFifoReturn( tscType8 fiforet_value )noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforet_value << " to fifo return" << std::endl ;
@@ -377,7 +377,7 @@ void FecPciRingDevice::setFifoReturn( tscType8 fiforet_value )throw ( FecExcepti
 /** Return a word from the FIFO transmit
  * \param return a word from the FIFO transmit
  */
-tscType32 FecPciRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
+tscType32 FecPciRingDevice::getFifoTransmit( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fifotra_value;
 
@@ -401,7 +401,7 @@ tscType32 FecPciRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO transmit
  * \param fifotra_value - word to be set
  */
-void FecPciRingDevice::setFifoTransmit( tscType32 fifotra_value )throw ( FecExceptionHandler ) {
+void FecPciRingDevice::setFifoTransmit( tscType32 fifotra_value )noexcept(false) {
 
 #ifdef FECPCIRINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << hex << fiforet_value << " to fifo transmit" << std::endl ;
@@ -429,7 +429,7 @@ void FecPciRingDevice::setFifoTransmit( tscType32 fifotra_value )throw ( FecExce
 
 /** Hard reset of the FEC board or the ring board => PLX reset is issued
  */
-void FecPciRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
+void FecPciRingDevice::fecHardReset ( ) noexcept(false) {
 
 #ifdef F1STLEVELCHECK
   
@@ -475,7 +475,7 @@ void FecPciRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
  * \param enable - enable or disable the IRQ on the PLX
  * \param level - not used, only for code consistent
  */
-void FecPciRingDevice::setIRQ ( bool enable, tscType8 level ) throw (FecExceptionHandler) {
+void FecPciRingDevice::setIRQ ( bool enable, tscType8 level ) noexcept(false) {
 
 #ifdef IRQMANAGER
   DD_TYPE_ERROR lcl_err ;

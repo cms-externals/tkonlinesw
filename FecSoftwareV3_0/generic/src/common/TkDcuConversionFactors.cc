@@ -602,7 +602,7 @@ TkDcuConversionFactors *TkDcuConversionFactors::clone (){
 /** \brief Display the conversion factors
  * \param convertedValue - display the converted value with the DCU
  */
-void TkDcuConversionFactors::display ( bool convertedValue ) throw (std::string) {
+void TkDcuConversionFactors::display ( bool convertedValue ) noexcept(false) {
 
   std::string str = getDisplay( convertedValue ) ;
   std::cout << str ;
@@ -611,7 +611,7 @@ void TkDcuConversionFactors::display ( bool convertedValue ) throw (std::string)
 /** \brief Display the conversion factors
  * \param convertedValue - display the converted value with the DCU
  */
-std::string TkDcuConversionFactors::getDisplay ( bool convertedValue ) throw (std::string) {
+std::string TkDcuConversionFactors::getDisplay ( bool convertedValue ) noexcept(false) {
 
   std::ostringstream str ;
 
@@ -735,7 +735,7 @@ std::string TkDcuConversionFactors::getDisplay ( bool convertedValue ) throw (st
  * \return silicon sensor temperature
  * \warning return temperature are in degree celcuis
  */
-double TkDcuConversionFactors::getSiliconSensorTemperature ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getSiliconSensorTemperature ( bool &quality ) noexcept(false) {
 
   double tSi = 0 ;
 
@@ -779,7 +779,7 @@ double TkDcuConversionFactors::getSiliconSensorTemperature ( bool &quality ) thr
  * \param quality - data quality (good or bad)
  * \return V250 in mV
  */
-double TkDcuConversionFactors::getV250 ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getV250 ( bool &quality ) noexcept(false) {
 
   double v250 = 0 ;
   if (dcuType_ == DCUFEH) {
@@ -803,7 +803,7 @@ double TkDcuConversionFactors::getV250 ( bool &quality ) throw (std::string) {
  * \param quality - data quality (good or bad)
  * \return V125 in mV
  */
-double TkDcuConversionFactors::getV125 ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getV125 ( bool &quality ) noexcept(false) {
 
   double v125 = 0 ;
   if (dcuType_ == DCUFEH) {
@@ -827,7 +827,7 @@ double TkDcuConversionFactors::getV125 ( bool &quality ) throw (std::string) {
  * \param quality - data quality (good or bad)
  * \return Leakage current in uA
  */
-double TkDcuConversionFactors::getILeak ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getILeak ( bool &quality ) noexcept(false) {
 
   double iLeak = 0 ;
 
@@ -848,7 +848,7 @@ double TkDcuConversionFactors::getILeak ( bool &quality ) throw (std::string) {
  * \return Temperature of the corresponding hybrid
  * \warning return temperature are in degree celcuis
  */
-double TkDcuConversionFactors::getHybridTemperature ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getHybridTemperature ( bool &quality ) noexcept(false) {
 
   double tHyb = 0 ;
 
@@ -870,7 +870,7 @@ double TkDcuConversionFactors::getHybridTemperature ( bool &quality ) throw (std
  * \param quality - data quality (good or bad)
  * \return Temperature of the DCU
  */
-double TkDcuConversionFactors::getDcuTemperature ( bool &quality ) throw (std::string) {
+double TkDcuConversionFactors::getDcuTemperature ( bool &quality ) noexcept(false) {
 
   double tDcu = 0 ;
 
@@ -1042,7 +1042,7 @@ bool TkDcuConversionFactors::isPourcentageDifferent ( dcuDescription *dcu, doubl
 /** \brief return the corresponding subdetector from the det id
  * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
  */
-std::string TkDcuConversionFactors::getSubDetectorFromDetId ( ) throw (std::string) {
+std::string TkDcuConversionFactors::getSubDetectorFromDetId ( ) noexcept(false) {
 
   return TkDcuInfo::getSubDetectorFromDetId ( detId_ ) ;
 }

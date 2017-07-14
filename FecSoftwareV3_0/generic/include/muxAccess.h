@@ -90,7 +90,7 @@ class muxAccess: public deviceAccess {
    */
   static unsigned int getMuxValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, muxAccess *> &muxSet, deviceVector &muxVector, 
 							      std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 };
 

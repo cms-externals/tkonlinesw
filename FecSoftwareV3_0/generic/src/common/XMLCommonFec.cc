@@ -78,7 +78,7 @@ XMLCommonFec::XMLCommonFec (DbCommonAccess *dbAccess):
 
 /** \brief Constructor with xml buffer
  */
-XMLCommonFec::XMLCommonFec ( const XMLByte* buffer, bool toBeDeleted ) throw (FecExceptionHandler):
+XMLCommonFec::XMLCommonFec ( const XMLByte* buffer, bool toBeDeleted ) noexcept(false):
 
   domImplementation_(NULL),
   parser_(NULL),
@@ -92,7 +92,7 @@ XMLCommonFec::XMLCommonFec ( const XMLByte* buffer, bool toBeDeleted ) throw (Fe
 
   /** \brief Constructor with file access
    */
-XMLCommonFec::XMLCommonFec ( std::string xmlFileName ) throw (FecExceptionHandler) :
+XMLCommonFec::XMLCommonFec ( std::string xmlFileName ) noexcept(false) :
 
   domImplementation_(NULL),
   parser_(NULL),
@@ -129,7 +129,7 @@ XMLCommonFec::~XMLCommonFec (){
 
   /** \brief Parses the xml Buffer using DOM interface
    */
-void XMLCommonFec::parseXMLBuffer( ) throw (FecExceptionHandler) {
+void XMLCommonFec::parseXMLBuffer( ) noexcept(false) {
 
   clearVector();
   // -----------------------------------------------------
@@ -152,7 +152,7 @@ void XMLCommonFec::parseXMLBuffer( ) throw (FecExceptionHandler) {
 }
   /** \brief Return the non fatal parsing error number
    */
-int XMLCommonFec::getParseErrorCount( ) throw (FecExceptionHandler){
+int XMLCommonFec::getParseErrorCount( ) noexcept(false){
 
   if (domCountErrorHandler_ != NULL) 
     return domCountErrorHandler_->getSawErrors() ;
@@ -162,7 +162,7 @@ int XMLCommonFec::getParseErrorCount( ) throw (FecExceptionHandler){
 
   /** \brief Return the non fatal parsing error messages
    */
-std::vector<std::string> *XMLCommonFec::getParseErrorMessages( ) throw (FecExceptionHandler){
+std::vector<std::string> *XMLCommonFec::getParseErrorMessages( ) noexcept(false){
 
   if (domCountErrorHandler_ != NULL) 
     return domCountErrorHandler_->getErrorMessages() ;
@@ -173,7 +173,7 @@ std::vector<std::string> *XMLCommonFec::getParseErrorMessages( ) throw (FecExcep
 
   /** \brief Writes the parameter values into an XML file
    */
-void XMLCommonFec::writeXMLFile(std::string xmlBuffer, std::string xmlFileName) throw (FecExceptionHandler){
+void XMLCommonFec::writeXMLFile(std::string xmlBuffer, std::string xmlFileName) noexcept(false){
   if (FileHandle toWriteFileHandle =  XMLPlatformUtils::openFileToWrite(xmlFileName.c_str())) {
       XMLPlatformUtils::writeBufferToFile(toWriteFileHandle, xmlBuffer.size(), (const XMLByte *)(xmlBuffer.c_str()));
       XMLPlatformUtils::closeFile(toWriteFileHandle);
@@ -203,7 +203,7 @@ std::string XMLCommonFec::getDatabaseRequest () {
 
 #endif
 
-void XMLCommonFec::init() throw (FecExceptionHandler){
+void XMLCommonFec::init() noexcept(false){
 
   //std::cout << "Using DOM parser" << std::endl ;
   pthread_mutex_lock(&mutexXMLInit_);
@@ -218,7 +218,7 @@ void XMLCommonFec::init() throw (FecExceptionHandler){
   /**
    * \brief Reads the parameter values from an XML buffer
    */
-void XMLCommonFec::readXMLBuffer(const XMLByte* buffer) throw (FecExceptionHandler){
+void XMLCommonFec::readXMLBuffer(const XMLByte* buffer) noexcept(false){
 
   std::string xmlBufferId = "theXMLBuffer";
   //std::cout<<"readXMLBuffer"<<std::endl;
@@ -259,7 +259,7 @@ void XMLCommonFec::readXMLBuffer(const XMLByte* buffer) throw (FecExceptionHandl
 /**
  * \brief Reads the parameter values from an XML file
  */
-void XMLCommonFec::readXMLFile(std::string xmlFileName) throw (FecExceptionHandler){
+void XMLCommonFec::readXMLFile(std::string xmlFileName) noexcept(false){
 
   XMLCh* fileName = XMLString::transcode(xmlFileName.c_str());
   XMLURL urlFileName = XMLURL(fileName);
@@ -291,7 +291,7 @@ void XMLCommonFec::readXMLFile(std::string xmlFileName) throw (FecExceptionHandl
   /**
    * \brief Creates a SAX parser
    */
-void XMLCommonFec::createParser() throw (FecExceptionHandler){
+void XMLCommonFec::createParser() noexcept(false){
 
   try {
     // Instantiate the DOM parser.
@@ -386,7 +386,7 @@ InputSource *XMLCommonFec::createInputSource(oracle::occi::Clob *xmlClob, std::s
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess has not been intialized
  */
-void XMLCommonFec::parseDatabaseResponse ()  throw (FecExceptionHandler) {
+void XMLCommonFec::parseDatabaseResponse ()  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromFecHardId";
 

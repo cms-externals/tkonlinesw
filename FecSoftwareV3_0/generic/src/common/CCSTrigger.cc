@@ -41,7 +41,7 @@ const uint32_t CCSTrigger::CCSVALUESSID[8] = {0xB8,0xB8,0x60,0x1B8,0xB8,0xB8,0xB
  * \param fecSlot - slot of the FEC in the crate, optional parameter (default 255)
  * \warning the value set in the conf 0 is the value given by CCSVALUESSID and by the SSID
  */
-CCSTrigger::CCSTrigger(HAL::VME64xDevice *trgBoard, std::string subSystem, tscType8 fecSlot) throw (FecExceptionHandler) {
+CCSTrigger::CCSTrigger(HAL::VME64xDevice *trgBoard, std::string subSystem, tscType8 fecSlot) noexcept(false) {
 
   using namespace std; 
 
@@ -116,7 +116,7 @@ CCSTrigger::~CCSTrigger ( ) {
 /** This method set the CCSTrigger config 0
  * \param value - value to be set
  */
-void CCSTrigger::setCCSTriggerConfig0 ( uint32_t value ) throw (FecExceptionHandler) {
+void CCSTrigger::setCCSTriggerConfig0 ( uint32_t value ) noexcept(false) {
 
   try {
     trgboard_->write("TRIG_CONFIG0", value);
@@ -195,7 +195,7 @@ void CCSTrigger::setCCSTriggerConfig0 ( uint32_t value ) throw (FecExceptionHand
 /** This method get the CCSTrigger config 0
  * \return value from the hardware
  */
-uint32_t CCSTrigger::getCCSTriggerConfig0 ( ) throw (FecExceptionHandler) {
+uint32_t CCSTrigger::getCCSTriggerConfig0 ( ) noexcept(false) {
 
   uint32_t value = 0 ;
 
@@ -278,7 +278,7 @@ uint32_t CCSTrigger::getCCSTriggerConfig0 ( ) throw (FecExceptionHandler) {
 /** This method get the CCSTrigger config 0
  * \return value from the hardware
  */
-uint32_t CCSTrigger::getCCSTriggerStatus0 ( ) throw (FecExceptionHandler) {
+uint32_t CCSTrigger::getCCSTriggerStatus0 ( ) noexcept(false) {
 
   uint32_t value = 0 ;
 
@@ -361,7 +361,7 @@ uint32_t CCSTrigger::getCCSTriggerStatus0 ( ) throw (FecExceptionHandler) {
 /** Return the corresponding SSID
  * \return SSID for the given subsystem
  */
-std::string CCSTrigger::getSSID ( ) throw (FecExceptionHandler) {
+std::string CCSTrigger::getSSID ( ) noexcept(false) {
 
   uint32_t value = getCCSTriggerConfig0 ( ) ;
   uint32_t SSID  =  (value & SSIDMASK) >> SSIDOFFSET ;
@@ -373,7 +373,7 @@ std::string CCSTrigger::getSSID ( ) throw (FecExceptionHandler) {
  * \param SSID - SSID string
   * \warning the value set in the conf 0 is the value given by CCSVALUESSID and by the SSID
  */
-void CCSTrigger::setSSID ( std::string subSystem ) throw (FecExceptionHandler) {
+void CCSTrigger::setSSID ( std::string subSystem ) noexcept(false) {
 
   using namespace std; 
  
@@ -434,7 +434,7 @@ void CCSTrigger::setSSID ( std::string subSystem ) throw (FecExceptionHandler) {
 
 /** Set the CONFIG0
  */
-void CCSTrigger::setSSID ( std::string subSystem, uint32_t originalValue ) throw (FecExceptionHandler) {
+void CCSTrigger::setSSID ( std::string subSystem, uint32_t originalValue ) noexcept(false) {
  
   int i = 0 ; while (subSystem != SubSystems[i]) i ++ ;
   if (i > 7) 
@@ -455,7 +455,7 @@ void CCSTrigger::setSSID ( std::string subSystem, uint32_t originalValue ) throw
 
 /** Reset the TTCRx
  */
-void CCSTrigger::setResetTTCRx ( ) throw (FecExceptionHandler) {
+void CCSTrigger::setResetTTCRx ( ) noexcept(false) {
  
   // Read the value
   uint32_t value = getCCSTriggerConfig0() ;
@@ -471,7 +471,7 @@ void CCSTrigger::setResetTTCRx ( ) throw (FecExceptionHandler) {
 
 /** Reset the QPLL
  */
-void CCSTrigger::setResetQPLL ( ) throw (FecExceptionHandler) {
+void CCSTrigger::setResetQPLL ( ) noexcept(false) {
 
   // Read the value
   uint32_t value = getCCSTriggerConfig0() ;
@@ -487,7 +487,7 @@ void CCSTrigger::setResetQPLL ( ) throw (FecExceptionHandler) {
 
 /** Set the QPLL auto restart
  */
-void CCSTrigger::setQPLLAutoRestart ( ) throw (FecExceptionHandler) {
+void CCSTrigger::setQPLLAutoRestart ( ) noexcept(false) {
 
   // Read the value
   uint32_t value = getCCSTriggerConfig0() ;
@@ -508,7 +508,7 @@ void CCSTrigger::setQPLLAutoRestart ( ) throw (FecExceptionHandler) {
 /** Error on QPLL
  * \return true if error false if not
  */
-bool CCSTrigger::getStatusQPLLError ( ) throw (FecExceptionHandler) {
+bool CCSTrigger::getStatusQPLLError ( ) noexcept(false) {
 
   return (getCCSTriggerStatus0() & STATUS0_QPLLERROR) ;
 }
@@ -516,7 +516,7 @@ bool CCSTrigger::getStatusQPLLError ( ) throw (FecExceptionHandler) {
 /** QPLL locked
  * \return true if locked false if not
  */
-bool CCSTrigger::getStatusQPLLLocked ( ) throw (FecExceptionHandler) {
+bool CCSTrigger::getStatusQPLLLocked ( ) noexcept(false) {
 
   return (getCCSTriggerStatus0() & STATUS0_QPLLLOCKED) ;
 }
@@ -524,14 +524,14 @@ bool CCSTrigger::getStatusQPLLLocked ( ) throw (FecExceptionHandler) {
 /** TTCRx Ready
  * \return true if ready false if not
  */
-bool CCSTrigger::getStatusTTCRxReady ( ) throw (FecExceptionHandler) {
+bool CCSTrigger::getStatusTTCRxReady ( ) noexcept(false) {
 
   return (getCCSTriggerStatus0() & STATUS0_TTCRXREADY) ;
 }
 
 /**
  */
-void CCSTrigger::clear() throw (FecExceptionHandler) {
+void CCSTrigger::clear() noexcept(false) {
 
   try {
 
@@ -616,7 +616,7 @@ void CCSTrigger::clear() throw (FecExceptionHandler) {
 
 /**
  */
-bool CCSTrigger::SetFrequency(int frequency) throw (FecExceptionHandler) {
+bool CCSTrigger::SetFrequency(int frequency) noexcept(false) {
 
   try {
     uint32_t value;
@@ -696,7 +696,7 @@ bool CCSTrigger::SetFrequency(int frequency) throw (FecExceptionHandler) {
 
 /**
  */
-int CCSTrigger::GetFrequency() throw (FecExceptionHandler) {
+int CCSTrigger::GetFrequency() noexcept(false) {
 
   try {
     uint32_t value;
@@ -774,7 +774,7 @@ int CCSTrigger::GetFrequency() throw (FecExceptionHandler) {
 
 /**
  */
-uint32_t CCSTrigger::getID() throw (FecExceptionHandler) {
+uint32_t CCSTrigger::getID() noexcept(false) {
 
   try {
     uint32_t value;
@@ -852,7 +852,7 @@ uint32_t CCSTrigger::getID() throw (FecExceptionHandler) {
 
 /**
  */
-bool CCSTrigger::SetInput(std::string block, std::string input) throw (FecExceptionHandler) {
+bool CCSTrigger::SetInput(std::string block, std::string input) noexcept(false) {
 
   try {
     for (int bl=0; bl<8; bl++) {
@@ -942,7 +942,7 @@ bool CCSTrigger::SetInput(std::string block, std::string input) throw (FecExcept
 
 /**
  */
-bool CCSTrigger::AddInput(std::string block, std::string input) throw (FecExceptionHandler) {
+bool CCSTrigger::AddInput(std::string block, std::string input) noexcept(false) {
 
   try {
     for (int bl=0; bl<8; bl++) {
@@ -1030,7 +1030,7 @@ bool CCSTrigger::AddInput(std::string block, std::string input) throw (FecExcept
 
 /**
  */
-bool CCSTrigger::SetDelay(std::string block, int Delay) throw (FecExceptionHandler) {
+bool CCSTrigger::SetDelay(std::string block, int Delay) noexcept(false) {
 
   try {
     for (int bl=0; bl<8; bl++) {
@@ -1116,7 +1116,7 @@ bool CCSTrigger::SetDelay(std::string block, int Delay) throw (FecExceptionHandl
 
 /**
  */
-bool CCSTrigger::SetCounter(std::string input, int Counter) throw (FecExceptionHandler) {
+bool CCSTrigger::SetCounter(std::string input, int Counter) noexcept(false) {
 
   try {
     std::string extin;
@@ -1215,7 +1215,7 @@ bool CCSTrigger::SetCounter(std::string input, int Counter) throw (FecExceptionH
 
 /**
  */
-int CCSTrigger::GetCounter(std::string input) throw (FecExceptionHandler) {
+int CCSTrigger::GetCounter(std::string input) noexcept(false) {
 
   try {
     std::string extin;
@@ -1305,7 +1305,7 @@ int CCSTrigger::GetCounter(std::string input) throw (FecExceptionHandler) {
 
 /**
  */
-bool CCSTrigger::SetTTCCode(std::string block, int Code) throw (FecExceptionHandler) {
+bool CCSTrigger::SetTTCCode(std::string block, int Code) noexcept(false) {
 
   try {
     for (int bl=1; bl<8; bl++) {
@@ -1393,7 +1393,7 @@ bool CCSTrigger::SetTTCCode(std::string block, int Code) throw (FecExceptionHand
 
 /**
  */
-bool CCSTrigger::SendTrigger(std::string input) throw (FecExceptionHandler) {
+bool CCSTrigger::SendTrigger(std::string input) noexcept(false) {
 
   bool found=false;
   try {

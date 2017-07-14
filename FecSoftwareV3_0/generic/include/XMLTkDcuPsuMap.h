@@ -51,21 +51,21 @@ class XMLTkDcuPsuMap : public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLTkDcuPsuMap () throw (FecExceptionHandler);
+  XMLTkDcuPsuMap () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLTkDcuPsuMap ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLTkDcuPsuMap ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor with database access
    */
-  XMLTkDcuPsuMap ( DbTkDcuPsuMapAccess *dbAccess )throw (FecExceptionHandler) ;
+  XMLTkDcuPsuMap ( DbTkDcuPsuMapAccess *dbAccess )noexcept(false) ;
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLTkDcuPsuMap ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLTkDcuPsuMap ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the XMLTkDcuPsuMap
    */
@@ -85,7 +85,7 @@ class XMLTkDcuPsuMap : public XMLCommonFec {
 
   /** \brief Sets the device vector private attribute
    */
-  void setDcuPsuMapVector (tkDcuPsuMapVector ) throw (FecExceptionHandler);
+  void setDcuPsuMapVector (tkDcuPsuMapVector ) noexcept(false);
 
   /** \brief Parse the XML buffer
    */
@@ -93,51 +93,51 @@ class XMLTkDcuPsuMap : public XMLCommonFec {
 
   /** \brief Parse the XML buffer and gets a pointer on the device vector private attribute
    */
-  tkDcuPsuMapVector getDcuPsuMaps ( ) throw (FecExceptionHandler);
+  tkDcuPsuMapVector getDcuPsuMaps ( ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Retreive the XML clob from the database 
    */
-  void parsePsuNameDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  void parsePsuNameDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
   /** \brief Retreive the XML clob from the database 
    */
-  void parseDcuPsuMapDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  void parseDcuPsuMapDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
   /** \brief Retreive the XML clob from the database 
    */
-  void parsePsuNotConnectedDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  void parsePsuNotConnectedDatabaseResponse(std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
   /** \brief Retreive the PSU names from database
    */
-  tkDcuPsuMapVector getPsuNames (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  tkDcuPsuMapVector getPsuNames (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
   /** \brief Retreive the PSU names from database
    */
-  tkDcuPsuMapVector getDcuPsuMap (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  tkDcuPsuMapVector getDcuPsuMap (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
   /** \brief Retreive the PSU names from database
    */
-  tkDcuPsuMapVector getPsuNotConnected (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) throw (FecExceptionHandler) ;
+  tkDcuPsuMapVector getPsuNotConnected (std::string partitionName, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0) noexcept(false) ;
 
 #endif
 
   /** \brief Upload the DCU PSU map in a file
    */
-  void setFileDcuPsuMap (tkDcuPsuMapVector dVector, std::string outputFileName) throw (FecExceptionHandler) ;
+  void setFileDcuPsuMap (tkDcuPsuMapVector dVector, std::string outputFileName) noexcept(false) ;
 
   /** \brief Upload the PSU name in a file
    */
-  void setFilePsuName (tkDcuPsuMapVector dVector, std::string outputFileName) throw (FecExceptionHandler) ;
+  void setFilePsuName (tkDcuPsuMapVector dVector, std::string outputFileName) noexcept(false) ;
 
 #ifdef DATABASE
   /** \brief Upload the DCU PSU map in database
    */
-  void setDbDcuPsuMaps (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) throw (FecExceptionHandler) ;
+  void setDbDcuPsuMaps (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) noexcept(false) ;
 
   /** \brief Upload the PSU names in database
    */
-  void setDbPsuNames (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) throw (FecExceptionHandler) ;
+  void setDbPsuNames (tkDcuPsuMapVector dVector, std::string partitionName, unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL) noexcept(false) ;
 #endif
 } ;
 

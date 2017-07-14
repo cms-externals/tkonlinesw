@@ -30,7 +30,7 @@ private:
 public: 
   /** \brief Default constructor
    */
-  CCSTrigger(HAL::VME64xDevice * trgBoard, std::string subSystem, tscType8 fecSlot = 0xFF )  throw ( FecExceptionHandler ) ;
+  CCSTrigger(HAL::VME64xDevice * trgBoard, std::string subSystem, tscType8 fecSlot = 0xFF )  noexcept(false) ;
 
   /** \brief desctructor
    */
@@ -42,70 +42,70 @@ public:
 
   /** \brief set the config 0
    */
-  void setCCSTriggerConfig0 ( uint32_t value ) throw ( FecExceptionHandler ) ;
+  void setCCSTriggerConfig0 ( uint32_t value ) noexcept(false) ;
 
   /** \brief get the config 0
    */
-  uint32_t getCCSTriggerConfig0 ( ) throw ( FecExceptionHandler ) ;
+  uint32_t getCCSTriggerConfig0 ( ) noexcept(false) ;
 
   /** \brief get the config 0
    */
-  uint32_t getCCSTriggerStatus0 ( ) throw ( FecExceptionHandler ) ;
+  uint32_t getCCSTriggerStatus0 ( ) noexcept(false) ;
 
   /** \brief Set the SSID into the CCSTrigger object
    */
-  void setSSID ( std::string subSystem, uint32_t originalValue ) throw ( FecExceptionHandler ) ;
+  void setSSID ( std::string subSystem, uint32_t originalValue ) noexcept(false) ;
 
   /** \brief Set the SSID into the CCSTrigger object
    */
-  void setSSID ( std::string subSystem ) throw ( FecExceptionHandler ) ;
+  void setSSID ( std::string subSystem ) noexcept(false) ;
 
   /** \brief retreive the SSID from the FEC board
    */
-  std::string getSSID ( ) throw ( FecExceptionHandler ) ;
+  std::string getSSID ( ) noexcept(false) ;
 
   /** \brief reset the TTCRx
    */
-  void setResetTTCRx ( ) throw ( FecExceptionHandler ) ;
+  void setResetTTCRx ( ) noexcept(false) ;
 
   /** \brief reset the QPLL
    */
-  void setResetQPLL ( ) throw ( FecExceptionHandler ) ;
+  void setResetQPLL ( ) noexcept(false) ;
 
   /** \brief set the QPLL auto restart
    */
-  void setQPLLAutoRestart ( ) throw ( FecExceptionHandler ) ;
+  void setQPLLAutoRestart ( ) noexcept(false) ;
 
   /** QPLL locked
    */
-  bool getStatusQPLLLocked ( ) throw (FecExceptionHandler) ;
+  bool getStatusQPLLLocked ( ) noexcept(false) ;
 
   /** TTCRx Ready
    */
-  bool getStatusTTCRxReady ( ) throw (FecExceptionHandler)  ;
+  bool getStatusTTCRxReady ( ) noexcept(false)  ;
 
   /** Error on QPLL
    */
-  bool getStatusQPLLError ( ) throw ( FecExceptionHandler ) ;
+  bool getStatusQPLLError ( ) noexcept(false) ;
 
-  void clear() throw ( FecExceptionHandler ) ;
+  void clear() noexcept(false) ;
 
-  bool SetFrequency(int frequency)  throw ( FecExceptionHandler ) ;
-  int GetFrequency()  throw ( FecExceptionHandler ) ;
+  bool SetFrequency(int frequency)  noexcept(false) ;
+  int GetFrequency()  noexcept(false) ;
 
-  uint32_t getID()  throw ( FecExceptionHandler ) ;
+  uint32_t getID()  noexcept(false) ;
 
-  bool SetInput(std::string block, std::string input) throw ( FecExceptionHandler ) ;
-  bool AddInput(std::string block, std::string input) throw ( FecExceptionHandler ) ;
+  bool SetInput(std::string block, std::string input) noexcept(false) ;
+  bool AddInput(std::string block, std::string input) noexcept(false) ;
 
-  bool SetDelay(std::string block, int delay) throw ( FecExceptionHandler ) ;
+  bool SetDelay(std::string block, int delay) noexcept(false) ;
 
-  bool SetCounter(std::string input, int counter) throw ( FecExceptionHandler ) ;
-  int GetCounter(std::string input) throw ( FecExceptionHandler ) ;
+  bool SetCounter(std::string input, int counter) noexcept(false) ;
+  int GetCounter(std::string input) noexcept(false) ;
 
-  bool SetTTCCode(std::string block, int code) throw ( FecExceptionHandler ) ;
+  bool SetTTCCode(std::string block, int code) noexcept(false) ;
 
-  bool SendTrigger(std::string Block) throw ( FecExceptionHandler ) ;
+  bool SendTrigger(std::string Block) noexcept(false) ;
 
 
   // wb added: 

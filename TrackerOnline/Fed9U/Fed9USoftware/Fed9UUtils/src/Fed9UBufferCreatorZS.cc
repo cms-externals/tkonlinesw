@@ -6,7 +6,7 @@ namespace Fed9U {
   //using std::exception;
     
 
-  void Fed9UBufferCreatorZS::generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException) {
+  void Fed9UBufferCreatorZS::generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false) {
     try {
 
       //Init the buffer index
@@ -49,7 +49,7 @@ namespace Fed9U {
 
   void Fed9UBufferCreatorZS::findDataLengths(const std::vector<unsigned short> &bufferData, 
 					std::vector<unsigned short> &feLengths, 
-					std::vector<unsigned short> &channelLengths) throw (ICException) {
+					std::vector<unsigned short> &channelLengths) noexcept(false) {
     try {
       feLengths.clear();
       channelLengths.clear();

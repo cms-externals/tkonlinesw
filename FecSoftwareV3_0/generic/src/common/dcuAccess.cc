@@ -136,7 +136,7 @@ bool dcuAccess::getChannelEnabled ( tscType8 channel ) {
  * \warning a new object reference is dynamically defined. Do not
  * forget to delete it.
  */
-dcuDescription *dcuAccess::getValues ( ) throw (FecExceptionHandler) {
+dcuDescription *dcuAccess::getValues ( ) noexcept(false) {
 
   // error counter
   errorDigitisationCounter_ = 0 ;
@@ -186,7 +186,7 @@ dcuDescription *dcuAccess::getValues ( ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler
  */
-tscType32 dcuAccess::getDcuHardId ( ) throw (FecExceptionHandler) {
+tscType32 dcuAccess::getDcuHardId ( ) noexcept(false) {
 
   // CHIPADD = 2^16 * CHIPADDH + 2^8 * CHIPADDM + CHIPADDL
   tscType32 chipaddh = accessToFec_->readOffset(accessKey_, CHIPADDH) ;
@@ -216,7 +216,7 @@ tscType32 dcuAccess::getDcuHardId ( ) throw (FecExceptionHandler) {
  * \warning this method try to read several time the same channels (timeout)
  * and if the channel cannot be read, the value 0 is returned
  */
-tscType16 dcuAccess::getDcuChannel ( tscType8 channel, bool setTreg ) throw (FecExceptionHandler) {
+tscType16 dcuAccess::getDcuChannel ( tscType8 channel, bool setTreg ) noexcept(false) {
 
   //#define DEBUGMSGERROR
   volatile tscType16 shreg ;
@@ -327,7 +327,7 @@ void dcuAccess::reset () {
  * \param value - value to be written
  * \exception FecExceptionHandler:
  */
-void dcuAccess::setDcuCREG( tscType8 value ) throw (FecExceptionHandler) {
+void dcuAccess::setDcuCREG( tscType8 value ) noexcept(false) {
 
   accessToFec_->writeOffset(accessKey_, CREG, value);
 }
@@ -336,7 +336,7 @@ void dcuAccess::setDcuCREG( tscType8 value ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler:
  */
-tscType8 dcuAccess::getDcuCREG() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuCREG() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,CREG);
   return readvalue;
@@ -346,7 +346,7 @@ tscType8 dcuAccess::getDcuCREG() throw (FecExceptionHandler) {
  * \param value - value to be written
  * \exception FecExceptionHandler:
  */
-void dcuAccess::setDcuTREG( tscType8 value ) throw (FecExceptionHandler) {
+void dcuAccess::setDcuTREG( tscType8 value ) noexcept(false) {
 
   accessToFec_->writeOffset(accessKey_, TREG, value);
 }
@@ -355,7 +355,7 @@ void dcuAccess::setDcuTREG( tscType8 value ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler:
  */
-tscType8 dcuAccess::getDcuTREG() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuTREG() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,TREG);
   return readvalue;
@@ -366,7 +366,7 @@ tscType8 dcuAccess::getDcuTREG() throw (FecExceptionHandler) {
  * \exception FecExceptionHandler:
  * Thanks to Wim Beaumont
  */
-void dcuAccess::setDcuTestRegister( tscType8 value ) throw (FecExceptionHandler) {
+void dcuAccess::setDcuTestRegister( tscType8 value ) noexcept(false) {
 
   accessToFec_->writeOffset(accessKey_, TREG, value);
   //usleep (WAITTIME4DIGITOK) ;
@@ -377,7 +377,7 @@ void dcuAccess::setDcuTestRegister( tscType8 value ) throw (FecExceptionHandler)
  * \exception FecExceptionHandler:
  * Thanks to Wim Beaumont
  */
-tscType8 dcuAccess::getDcuTestRegister() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuTestRegister() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,TREG);
   //usleep (WAITTIME4DIGITOK) ;
@@ -388,7 +388,7 @@ tscType8 dcuAccess::getDcuTestRegister() throw (FecExceptionHandler) {
  * \param value - value to be written
  * \exception FecExceptionHandler:
  */
-void dcuAccess::setDcuAREG( tscType8 value ) throw (FecExceptionHandler) {
+void dcuAccess::setDcuAREG( tscType8 value ) noexcept(false) {
 
   accessToFec_->writeOffset(accessKey_, AREG, value);
 }
@@ -397,7 +397,7 @@ void dcuAccess::setDcuAREG( tscType8 value ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler:
  */
-tscType8 dcuAccess::getDcuAREG() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuAREG() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,AREG);
   return readvalue;
@@ -407,7 +407,7 @@ tscType8 dcuAccess::getDcuAREG() throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler:
  */
-tscType8 dcuAccess::getDcuSHREG() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuSHREG() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,SHREG);
   return readvalue;
@@ -417,7 +417,7 @@ tscType8 dcuAccess::getDcuSHREG() throw (FecExceptionHandler) {
  * \param value - value to be written
  * \exception FecExceptionHandler:
  */
-void dcuAccess::setDcuLREG( tscType8 value ) throw (FecExceptionHandler) {
+void dcuAccess::setDcuLREG( tscType8 value ) noexcept(false) {
 
   accessToFec_->writeOffset(accessKey_, LREG, value);
 }
@@ -426,7 +426,7 @@ void dcuAccess::setDcuLREG( tscType8 value ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler:
  */
-tscType8 dcuAccess::getDcuLREG() throw (FecExceptionHandler) {
+tscType8 dcuAccess::getDcuLREG() noexcept(false) {
 
   tscType8 readvalue=accessToFec_->readOffset(accessKey_,LREG);
   return readvalue;
@@ -435,7 +435,7 @@ tscType8 dcuAccess::getDcuLREG() throw (FecExceptionHandler) {
 /** \return true if as SEU is detected ( bit 6  of Satais & DataReg = 1 )
  * Thanks to Wim Beaumont
  */
-bool dcuAccess::getSeuStatus() throw (FecExceptionHandler) {
+bool dcuAccess::getSeuStatus() noexcept(false) {
 
   tscType16 readvalue=accessToFec_->readOffset(accessKey_,SHREG); 
 
@@ -454,7 +454,7 @@ bool dcuAccess::getSeuStatus() throw (FecExceptionHandler) {
  */
 unsigned int dcuAccess::getDcuValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, dcuAccess *> &dcuSet, deviceVector &dcuVector,
 						     std::list<FecExceptionHandler *> &errorList, bool dcuHardIdOnly ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #define DCUDEBUG
   // hash_map with the classification of the devices per ring

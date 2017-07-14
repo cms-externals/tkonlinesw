@@ -46,7 +46,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLFec::XMLFec()</I>
  * @see <I>XMLFecDevice::init()</I>
  */
-XMLFecDevice::XMLFecDevice () throw (FecExceptionHandler) :
+XMLFecDevice::XMLFecDevice () noexcept(false) :
   XMLFec () {
 
   initParameterNames() ;
@@ -62,7 +62,7 @@ XMLFecDevice::XMLFecDevice () throw (FecExceptionHandler) :
  * @see <I>XMLFec::XMLFec(DbAccess *dbAccess, std::string partitionName)</I>
  * @see <I>XMLFecDevice::init()</I>
  */
-XMLFecDevice::XMLFecDevice ( DbFecAccess *dbAccess )  throw (FecExceptionHandler) : 
+XMLFecDevice::XMLFecDevice ( DbFecAccess *dbAccess )  noexcept(false) : 
   XMLFec( (DbAccess *)dbAccess ) {
 
   initParameterNames() ;
@@ -77,7 +77,7 @@ XMLFecDevice::XMLFecDevice ( DbFecAccess *dbAccess )  throw (FecExceptionHandler
  * @see <I>XMLFec::XMLFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLFecDevice::init()</I>
  */
-XMLFecDevice::XMLFecDevice (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLFec( xmlBuffer ){
+XMLFecDevice::XMLFecDevice (const XMLByte* xmlBuffer ) noexcept(false) : XMLFec( xmlBuffer ){
 
   initParameterNames() ;
 }
@@ -90,7 +90,7 @@ XMLFecDevice::XMLFecDevice (const XMLByte* xmlBuffer ) throw (FecExceptionHandle
  * @see <I>XMLFec::XMLFec(std::string xmlFileName)</I>
  * @see <I>XMLFecDevice::init()</I>
  */
-XMLFecDevice::XMLFecDevice ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLFec( xmlFileName ) {
+XMLFecDevice::XMLFecDevice ( std::string xmlFileName ) noexcept(false) : XMLFec( xmlFileName ) {
 
   initParameterNames() ;
 }
@@ -165,7 +165,7 @@ deviceVector XMLFecDevice::getDeviceVector () {
  * Copy all elements from <I>devices</I> parameter to <I>dVector_</I> attribute
  * @exception FecExceptionHandler : a FecExceptionHandler is raised, if <I>dVector_</I> is NULL
  */
-void XMLFecDevice::setDeviceVector (deviceVector devices) throw (FecExceptionHandler) {
+void XMLFecDevice::setDeviceVector (deviceVector devices) noexcept(false) {
   // empty and delete previous deviceVector
   // delete all elements
   clearVector() ;
@@ -184,7 +184,7 @@ void XMLFecDevice::setDeviceVector (deviceVector devices) throw (FecExceptionHan
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLFecDevice::parseXMLBuffer()
  */
-deviceVector XMLFecDevice::getDevices () throw (FecExceptionHandler) {
+deviceVector XMLFecDevice::getDevices () noexcept(false) {
 
   parseXMLBuffer();
 
@@ -203,7 +203,7 @@ deviceVector XMLFecDevice::getDevices () throw (FecExceptionHandler) {
  * @see <I>XMLFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDevice::getDevices (std::string partitionName) throw (FecExceptionHandler) {
+deviceVector XMLFecDevice::getDevices (std::string partitionName) noexcept(false) {
 
   //unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
   parseDatabaseResponse(partitionName);
@@ -231,7 +231,7 @@ deviceVector XMLFecDevice::getDevices (std::string partitionName) throw (FecExce
  * @see <I>XMLFec::parseDatabaseResponse(std::string partitionName, unsigned int versionMajor, unsigned int versionMinor)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDevice::getDevices (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor) throw (FecExceptionHandler) {
+deviceVector XMLFecDevice::getDevices (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor) noexcept(false) {
 
   parseDatabaseResponse(partitionName, versionMajor, versionMinor, pMaskVersionMajor, pMaskVersionMinor);
   parseXMLBuffer();
@@ -250,7 +250,7 @@ deviceVector XMLFecDevice::getDevices (std::string partitionName, unsigned int v
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fecHardId) throw (FecExceptionHandler) {
+deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fecHardId) noexcept(false) {
 
   //unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
   parseDatabaseResponse(partitionName, fecHardId);
@@ -278,7 +278,7 @@ deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fe
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId, unsigned int versionMajor, unsigned int versionMinor)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor) throw (FecExceptionHandler) {
+deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor) noexcept(false) {
 
   parseDatabaseResponse(partitionName, fecHardId, versionMajor, versionMinor);
   parseXMLBuffer();
@@ -295,7 +295,7 @@ deviceVector XMLFecDevice::getDevices (std::string partitionName, std::string fe
  *     - the MemBufOutputSource created from the parameter <I>dVector</I> is not initialized 
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLFecDevice::setDevices ( deviceVector dVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices ( deviceVector dVector, std::string outputFileName) noexcept(false) {
 
   if (dVector.size()) {
     MemBufOutputSource memBufOS(dVector);
@@ -310,14 +310,14 @@ void XMLFecDevice::setDevices ( deviceVector dVector, std::string outputFileName
  * @exception FecExceptionHandler
  * @see XMLFecDevice::setDevices ( deviceVector *dVector, std::string outputFileName)
  */
-void XMLFecDevice::setDevices ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices ( std::string outputFileName ) noexcept(false) {
   setDevices( dVector_, outputFileName);
 }
 
 /**Displays the contents of the attribute <I>dVector_</I>.
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if <I>dVector</I> is not initialized
  */
-void XMLFecDevice::display() throw (FecExceptionHandler) {
+void XMLFecDevice::display() noexcept(false) {
   if (dVector_.size()) {
     for (deviceVector::iterator it = dVector_.begin() ; it != dVector_.end() ; it ++) {
       deviceDescription *deviced = *it;
@@ -340,7 +340,7 @@ void XMLFecDevice::display() throw (FecExceptionHandler) {
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId)  throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId)  noexcept(false) {
 
   MemBufOutputSource memBufOS (dVector, true);
   std::string *xmlBuffer = NULL ;
@@ -374,7 +374,7 @@ void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, 
  * @exception FecExceptionHandler
  * @see XMLFecDevice::setDevices (deviceVector *dVector, unsigned int versionMajorId, unsigned int versionMinorId)
  */
-void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
   setDevices(dVector_, partitionName, versionMajorId, versionMinorId);
 }
 
@@ -393,7 +393,7 @@ void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionMaj
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, unsigned int versionUpdate)  throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, unsigned int versionUpdate)  noexcept(false) {
 
   //unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
   MemBufOutputSource memBufOS (dVector, true);
@@ -442,7 +442,7 @@ void XMLFecDevice::setDevices (deviceVector dVector, std::string partitionName, 
  * @exception FecExceptionHandler
  * @see XMLFecDevice::setDevices (deviceVector *dVector, std::string partitionName, unsigned int versionUpdate)
  */
-void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionUpdate) throw (FecExceptionHandler) {
+void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionUpdate) noexcept(false) {
   setDevices(dVector_, partitionName, versionUpdate);
 }
 
@@ -455,7 +455,7 @@ void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionUpd
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
 */
-// unsigned int XMLFecDevice::dbConfigure(std::string partitionName, boolean newPartition ) throw (FecExceptionHandler) {
+// unsigned int XMLFecDevice::dbConfigure(std::string partitionName, boolean newPartition ) noexcept(false) {
 //   unsigned int returnedVersionMajorId = 0;
 //   MemBufOutputSource memBufOS (dVector_);
 
@@ -492,7 +492,7 @@ void XMLFecDevice::setDevices(std::string partitionName, unsigned int versionUpd
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
 */
-unsigned int XMLFecDevice::dbConfigure(std::string partitionName, boolean newPartition ) throw (FecExceptionHandler) {
+unsigned int XMLFecDevice::dbConfigure(std::string partitionName, boolean newPartition ) noexcept(false) {
   unsigned int returnedVersionMajorId = 0;
   MemBufOutputSource memBufOS (dVector_, true);
  

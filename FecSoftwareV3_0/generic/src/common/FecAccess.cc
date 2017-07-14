@@ -71,7 +71,7 @@
 FecAccess::FecAccess ( bool forceAck, bool initFec, 
                        bool scanFECs, bool scanCCUs,
 		       tscType16 i2cSpeed, bool invertClockPolarity )
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 
 #if defined(BUSVMECAENPCI) || defined(BUSVMECAENUSB) || defined (BUSVMESBS)
   vme64xCrate_ = NULL ;
@@ -121,7 +121,7 @@ FecAccess::FecAccess ( unsigned adapterSlot,
 		       tscType16 i2cSpeed,
 		       std::string strBusAdapter,
 		       bool blockMode, tscType8 numberOfRing, bool invertClockPolarity )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
 			    "The plug and play is not supported by the FEC software since 16/03/2012",
@@ -192,7 +192,7 @@ FecAccess::FecAccess ( unsigned adapterSlot, std::string configurationFile,
 		       tscType16 i2cSpeed,
 		       std::string strBusAdapter,
 		       bool blockMode,tscType8 numberOfRing, bool invertClockPolarity )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #if defined(BUSVMECAENPCI) || defined(BUSVMECAENUSB) || defined (BUSVMESBS)
   vme64xCrate_ = NULL ;
@@ -255,7 +255,7 @@ FecAccess::FecAccess ( hashMapVMEDevice hashMapVMEDevice,
                        bool scanFECs, bool scanCCUs,
 		       tscType16 i2cSpeed,
 		       bool blockMode, tscType8 numberOfRing, bool invertClockPolarity )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #if defined(BUSVMECAENPCI) || defined(BUSVMECAENUSB) || defined (BUSVMESBS)
   vme64xCrate_ = NULL ;
@@ -313,7 +313,7 @@ FecAccess::FecAccess ( hashMapVMEDevice hashMapVMEDevice,
 FecAccess::FecAccess ( hashMapFecUsbSerial fecUsbSerials, bool forceAck, bool initFec, 
                        bool scanFECs, bool scanCCUs,
 		       tscType16 i2cSpeed, bool invertClockPolarity )
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 
 #if defined(BUSVMECAENPCI) || defined(BUSVMECAENUSB) || defined (BUSVMESBS)
   vme64xCrate_ = NULL ;
@@ -340,7 +340,7 @@ FecAccess::FecAccess ( hashMapFecUsbSerial fecUsbSerials, bool forceAck, bool in
 FecAccess::FecAccess ( const std::string& strFilename, const std::string& strBoardId, bool forceAck, bool initFec, 
                        bool scanFECs, bool scanCCUs,
 		       tscType16 i2cSpeed, bool invertClockPolarity )
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
   std::cerr << "FecAccess::FecAccess 6" << std::endl;
 #if !defined(BUSUTCAFEC)
   RAISEFECEXCEPTIONHANDLER(CODECONSISTENCYERROR,
@@ -463,7 +463,7 @@ void FecAccess::deleteVmeAccesses ( ) {
 void FecAccess::setInitFecAccess ( bool forceAck, bool initFec, bool scanFECs, bool scanCCUs, tscType16 i2cSpeed, 
 				   tscType8 fecSlotMin, tscType8 fecSlotMax, tscType8 ringMin, tscType8 ringMax,
 				   bool invertClockPolarity )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   for (unsigned int i = 0 ; i < MAX_NUMBER_OF_SLOTS+1 ; i ++) reloadedFirmware_[i] = 0 ;
 
@@ -512,7 +512,7 @@ void FecAccess::configurePlugAndPlay ( unsigned adapterSlot,
                                        std::string configurationFile, 
 				       std::string mapFile, 
 				       std::string strBusAdapter ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -620,7 +620,7 @@ void FecAccess::configureBaseAddresses ( unsigned adapterSlot,
 					 std::string configurationFile, 
 					 const uint32_t *vmeBaseAddresses, 
 					 std::string strBusAdapter ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   
   
@@ -1075,7 +1075,7 @@ FecRingDevice *FecAccess::setFecRingDevice ( keyType index ) {
  * </ul>
  */
 FecRingDevice* FecAccess::getFecRingDevice ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   keyType fecRingKey = getFecRingKey(index) ;
 
@@ -1106,7 +1106,7 @@ FecRingDevice* FecAccess::getFecRingDevice ( keyType index )
  * </ul>
  */
 ccuChannelAccess *FecAccess::checkIndex ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef T3TDLEVELCHECK
   // Check if the index is correct 
@@ -1282,7 +1282,7 @@ void FecAccess::setLoopInTimeReadFrame ( unsigned long loopInTimeReadFrame ) {
  * \param index - index of the FEC
  * \return transmit fifo size (depth) in D32 words 
  */
-unsigned int FecAccess::getTransmitFifoDepth ( keyType index ) throw (FecExceptionHandler) {
+unsigned int FecAccess::getTransmitFifoDepth ( keyType index ) noexcept(false) {
 
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->getTransmitFifoDepth() ;
@@ -1292,7 +1292,7 @@ unsigned int FecAccess::getTransmitFifoDepth ( keyType index ) throw (FecExcepti
  * \param index - index of the FEC
  * \return receive fifo size (depth) in D32 words 
  */
-unsigned int FecAccess::getReceiveFifoDepth ( keyType index  ) throw (FecExceptionHandler) {
+unsigned int FecAccess::getReceiveFifoDepth ( keyType index  ) noexcept(false) {
   
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->getReceiveFifoDepth() ;
@@ -1302,7 +1302,7 @@ unsigned int FecAccess::getReceiveFifoDepth ( keyType index  ) throw (FecExcepti
  * \param index - index of the FEC
  * \return fifo size (depth) in D32 words 
  */
-unsigned int FecAccess::getReturnFifoDepth ( keyType index ) throw (FecExceptionHandler) {
+unsigned int FecAccess::getReturnFifoDepth ( keyType index ) noexcept(false) {
 
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->getReturnFifoDepth() ;
@@ -1311,7 +1311,7 @@ unsigned int FecAccess::getReturnFifoDepth ( keyType index ) throw (FecException
 /**
  * \param index - index of the FEC
  */
-void FecAccess::emptyFifoReceive ( keyType index  ) throw (FecExceptionHandler) {
+void FecAccess::emptyFifoReceive ( keyType index  ) noexcept(false) {
   
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->emptyFifoReceive() ;
@@ -1320,7 +1320,7 @@ void FecAccess::emptyFifoReceive ( keyType index  ) throw (FecExceptionHandler) 
 /**
  * \param index - index of the FEC
  */
-void FecAccess::emptyFifoTransmit ( keyType index  ) throw (FecExceptionHandler) {
+void FecAccess::emptyFifoTransmit ( keyType index  ) noexcept(false) {
   
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->emptyFifoTransmit() ;
@@ -1329,7 +1329,7 @@ void FecAccess::emptyFifoTransmit ( keyType index  ) throw (FecExceptionHandler)
 /**
  * \param index - index of the FEC
  */
-void FecAccess::emptyFifoReturn ( keyType index  ) throw (FecExceptionHandler) {
+void FecAccess::emptyFifoReturn ( keyType index  ) noexcept(false) {
   
   FecRingDevice *fec = getFecRingDevice ( index ) ;
   return fec->emptyFifoReturn() ;
@@ -1345,7 +1345,7 @@ void FecAccess::emptyFifoReturn ( keyType index  ) throw (FecExceptionHandler) {
 /** Return the CCS trigger depending of the FEC slot
  * \return address of the CCSTrigger
  */
-CCSTrigger *FecAccess::getCCSTrigger ( keyType index ) throw (FecExceptionHandler) {
+CCSTrigger *FecAccess::getCCSTrigger ( keyType index ) noexcept(false) {
 
   keyType fecRingKey = setFecSlotKey(getFecKey(index)) ;
   
@@ -1372,7 +1372,7 @@ CCSTrigger *FecAccess::getCCSTrigger ( keyType index ) throw (FecExceptionHandle
  * \param index - index of the FEC 
  * \param SSID - SSID of the system
   */
-CCSTrigger *FecAccess::setCCSTrigger ( keyType index, std::string SSID ) throw (FecExceptionHandler) {
+CCSTrigger *FecAccess::setCCSTrigger ( keyType index, std::string SSID ) noexcept(false) {
 
   CCSTrigger *ccsTrigger = NULL ;
 
@@ -1411,7 +1411,7 @@ CCSTrigger *FecAccess::setCCSTrigger ( keyType index, std::string SSID ) throw (
  * \param index of the FEC
  * \return value of the register
  */
-uint32_t FecAccess::getCCSTriggerConfig0 ( keyType index ) throw (FecExceptionHandler) {
+uint32_t FecAccess::getCCSTriggerConfig0 ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1427,7 +1427,7 @@ uint32_t FecAccess::getCCSTriggerConfig0 ( keyType index ) throw (FecExceptionHa
  * \param index of the FEC
  * \param value to be set in the register
  */
-void FecAccess::setCCSTriggerConfig0 ( keyType index, uint32_t value ) throw (FecExceptionHandler) {
+void FecAccess::setCCSTriggerConfig0 ( keyType index, uint32_t value ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1443,7 +1443,7 @@ void FecAccess::setCCSTriggerConfig0 ( keyType index, uint32_t value ) throw (Fe
  * \param index of the FEC
  * \return value of the register
  */
-uint32_t FecAccess::getCCSTriggerStatus0 ( keyType index ) throw (FecExceptionHandler) {
+uint32_t FecAccess::getCCSTriggerStatus0 ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1459,7 +1459,7 @@ uint32_t FecAccess::getCCSTriggerStatus0 ( keyType index ) throw (FecExceptionHa
  * \param index of the FEC
  * \return name of the sub-detector
  */
-std::string FecAccess::getSSID ( keyType index ) throw (FecExceptionHandler) {
+std::string FecAccess::getSSID ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1474,7 +1474,7 @@ std::string FecAccess::getSSID ( keyType index ) throw (FecExceptionHandler) {
  * \param index - index of the FEC 
  */
 void FecAccess::getFecTemperature ( keyType index, int &tempSensor1, int &tempSensor2 ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1523,7 +1523,7 @@ std::list<keyType> *FecAccess::scanFecRing (tscType8 fecSlotMin,
 					    tscType8 fecSlotMax,
 					    tscType8 ringMin,
 					    tscType8 ringMax ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // For each slot
   for ( int fecSlot = fecSlotMin ; fecSlot <= fecSlotMax ; fecSlot ++) {
@@ -1574,7 +1574,7 @@ std::list<keyType> *FecAccess::scanFecRing (tscType8 fecSlotMin,
  * \return index of the FEC
  * \warning this method is only available for VME FEC
  */
-keyType FecAccess::scanFecRing ( std::string fecHardwareId ) throw (FecExceptionHandler) {
+keyType FecAccess::scanFecRing ( std::string fecHardwareId ) noexcept(false) {
   
   // std::cout << __PRETTY_FUNCTION__ << std::endl; 
   
@@ -1653,7 +1653,7 @@ keyType FecAccess::scanFecRing ( std::string fecHardwareId ) throw (FecException
  * \param index - index of the FEC
  * \warning no error is raised one of the CCU registers has errors
  */
-void FecAccess::clearFecCcuErrorRegisters ( keyType index, bool noBroadcast ) throw (FecExceptionHandler) {
+void FecAccess::clearFecCcuErrorRegisters ( keyType index, bool noBroadcast ) noexcept(false) {
   
   // Clear the FEC CR1 
   setFecRingCR1(index, FEC_CR1_CLEARIRQ | FEC_CR1_CLEARERRORS) ;
@@ -1678,7 +1678,7 @@ void FecAccess::clearFecCcuErrorRegisters ( keyType index, bool noBroadcast ) th
  * \param index - index of the FEC
  * \return firmware version
  */
-tscType16 FecAccess::getFecFirmwareVersion( keyType index ) throw ( FecExceptionHandler ) {
+tscType16 FecAccess::getFecFirmwareVersion( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1712,7 +1712,7 @@ tscType16 FecAccess::getFecFirmwareVersion( keyType index ) throw ( FecException
  * \warning this method is only used for VME FEC, raise an exception if it is used for another FEC
  * \see FecAccess::getFecIndex ( std::string ) 
  */
-std::string FecAccess::getFecHardwareId ( keyType index ) throw (FecExceptionHandler) {
+std::string FecAccess::getFecHardwareId ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1749,7 +1749,7 @@ std::string FecAccess::getFecHardwareId ( keyType index ) throw (FecExceptionHan
  * \warning this method is only used for VME FEC, raise an exception if it is used for another FEC
  * \see FecAccess::getFecIndex ( std::string ) 
  */
-tscType32 FecAccess::getTriggerVersion ( keyType index ) throw (FecExceptionHandler) {
+tscType32 FecAccess::getTriggerVersion ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1786,7 +1786,7 @@ tscType32 FecAccess::getTriggerVersion ( keyType index ) throw (FecExceptionHand
  * \warning this method is only used for VME FEC, raise an exception if it is used for another FEC
  * \see FecAccess::getFecIndex ( std::string ) 
  */
-tscType32 FecAccess::getVmeVersion ( keyType index ) throw (FecExceptionHandler) {
+tscType32 FecAccess::getVmeVersion ( keyType index ) noexcept(false) {
 
 #if !defined(BUSVMECAENPCI) && !defined(BUSVMECAENUSB) && !defined (BUSVMESBS)
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR,
@@ -1823,7 +1823,7 @@ tscType32 FecAccess::getVmeVersion ( keyType index ) throw (FecExceptionHandler)
  * \return return index of the FEC
  * \see FecAccess::getFecgetFecHardwareId ( keyType ) 
  */
-keyType FecAccess::getFecIndex ( std::string fecHardwareId ) throw (FecExceptionHandler) {
+keyType FecAccess::getFecIndex ( std::string fecHardwareId ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "FEC " << fecHardwareId << " is on slot " << std::dec << getFecKey(fecHardwareIdMapIndex_[fecHardwareId.c_str()]) << std::endl ;
@@ -1838,7 +1838,7 @@ keyType FecAccess::getFecIndex ( std::string fecHardwareId ) throw (FecException
  * \warning any change in the CR0 will keep the value set
  */
 void FecAccess::setFecInputB ( keyType index, bool inputB ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1853,7 +1853,7 @@ void FecAccess::setFecInputB ( keyType index, bool inputB )
  * \warning any change in the CR0 will keep the value set
  */
 void FecAccess::setFecOutputB ( keyType index, bool outputB ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1868,7 +1868,7 @@ void FecAccess::setFecOutputB ( keyType index, bool outputB )
  * \warning any change in the CR0 will keep the value set
  */
 void FecAccess::setInvertClockPolarity ( bool invertPolarity ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   for (fecMapAccessedType::iterator fecPair = fecRingEnable_.begin() ; fecPair != fecRingEnable_.end() ; fecPair ++) {
       
@@ -1885,7 +1885,7 @@ void FecAccess::setInvertClockPolarity ( bool invertPolarity )
  * \warning any change in the CR0 will keep the value set
  */
 void FecAccess::setInvertClockPolarity ( keyType index, bool invertPolarity ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1900,7 +1900,7 @@ void FecAccess::setInvertClockPolarity ( keyType index, bool invertPolarity )
  * \warning any change in the CR0 will keep the value set
  */
 void FecAccess::setInternalClock ( keyType index, bool internal ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1916,7 +1916,7 @@ void FecAccess::setInternalClock ( keyType index, bool internal )
  * \exception FecExceptionHandler
  */
 void FecAccess::setFecRingCR0 ( keyType index, tscType16 value, bool force ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1935,7 +1935,7 @@ void FecAccess::setFecRingCR0 ( keyType index, tscType16 value, bool force )
 void FecAccess::setFecRingCR0 ( keyType index, 
 				tscType16 value, 
 				logicalOperationType op )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1951,7 +1951,7 @@ void FecAccess::setFecRingCR0 ( keyType index,
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::getFecRingCR0 ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1969,7 +1969,7 @@ tscType16 FecAccess::getFecRingCR0 ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setFecRingCR1 ( keyType index, tscType16 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -1989,7 +1989,7 @@ void FecAccess::setFecRingCR1 ( keyType index, tscType16 value )
 void FecAccess::setFecRingCR1 ( keyType index, 
 				tscType16 value 
 				logicalOperationType op ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2006,7 +2006,7 @@ void FecAccess::setFecRingCR1 ( keyType index,
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::getFecRingCR1 ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2024,7 +2024,7 @@ tscType16 FecAccess::getFecRingCR1 ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::getFecRingSR0 ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2042,7 +2042,7 @@ tscType16 FecAccess::getFecRingSR0 ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::getFecRingSR1 ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2060,7 +2060,7 @@ tscType16 FecAccess::getFecRingSR1 ( keyType index )
  * \warning this method reload the mFEC firmware only
  */
 void FecAccess::fecHardReset ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   FecExceptionHandler exOnLast ;
 
@@ -2114,7 +2114,7 @@ void FecAccess::fecHardReset ( )
  * \exception FecExceptionHandler
  * \warning this method reload in the plug and play the firmware and in mode not plug and play make a crate reset
  */
-void FecAccess::crateReset ( ) throw (FecExceptionHandler) {
+void FecAccess::crateReset ( ) noexcept(false) {
 
   if (fecBusType_ != FECVME) return ;
 
@@ -2155,7 +2155,7 @@ void FecAccess::crateReset ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  */
 void FecAccess::fecHardReset ( keyType index, tscType8 value ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2173,7 +2173,7 @@ void FecAccess::fecHardReset ( keyType index, tscType8 value )
  * \exception FecExceptionHandler
  */
 void FecAccess::fecRingResetFSM ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (fecRingEnable_.empty()) {
     
@@ -2201,7 +2201,7 @@ void FecAccess::fecRingResetFSM ( )
  * \exception FecExceptionHandler
  */
 void FecAccess::fecRingResetFSM ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2220,7 +2220,7 @@ void FecAccess::fecRingResetFSM ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::fecRingReset ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (fecRingEnable_.empty()) {
     
@@ -2247,7 +2247,7 @@ void FecAccess::fecRingReset ( )
  * \exception FecExceptionHandler
  */
 void FecAccess::fecRingReset ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2265,7 +2265,7 @@ void FecAccess::fecRingReset ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::initTTCRx ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (fecRingEnable_.empty()) {
     
@@ -2288,7 +2288,7 @@ void FecAccess::initTTCRx ( )
  * \exception FecExceptionHandler
  */
 void FecAccess::initTTCRx ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2302,7 +2302,7 @@ void FecAccess::initTTCRx ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCR0Receive ( keyType index, bool enable ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2317,7 +2317,7 @@ void FecAccess::setCR0Receive ( keyType index, bool enable )
  * \exception FecExceptionHandler
  */
 void FecAccess::fecRingResetB ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (fecRingEnable_.empty()) {
     
@@ -2346,7 +2346,7 @@ void FecAccess::fecRingResetB ( )
  * through ring B and all CCU will be reseted
  */
 void FecAccess::fecRingResetB ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2366,7 +2366,7 @@ void FecAccess::fecRingResetB ( keyType index )
  * \warning this method must be used once you lost the link initialised
  */
 void FecAccess::fecRingRelease ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2382,7 +2382,7 @@ void FecAccess::fecRingRelease ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::fecRingReconfigure ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2404,7 +2404,7 @@ tscType16 FecAccess::fecRingReconfigure ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::fecRingReconfigure ( keyType index, TkRingDescription &tkRing ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2430,7 +2430,7 @@ tscType16 FecAccess::fecRingReconfigure ( keyType index, TkRingDescription &tkRi
  * \warning in case of error the value put is CCU address | 0xFFFF
  */
 FecRingRegisters FecAccess::getFecRingRegisters ( keyType index )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2451,7 +2451,7 @@ FecRingRegisters FecAccess::getFecRingRegisters ( keyType index )
  * \bug the vector calculation must be done in this method and a method must be registered to be fired. This method is not yet implemented
  * \warning no exception is raised if the FEC is an USB FEC (without IRQ)
  */
-void FecAccess::setIRQ ( keyType index, bool enable, tscType8 vmeLevel ) throw (FecExceptionHandler) {
+void FecAccess::setIRQ ( keyType index, bool enable, tscType8 vmeLevel ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2479,7 +2479,7 @@ void FecAccess::setIRQ ( keyType index, bool enable, tscType8 vmeLevel ) throw (
  * \bug the vector calculation must be done in this method and a method must be registered to be fired. This method is not yet implemented
  * \warning no exception is raised if the FEC is an USB FEC (without IRQ)
  */
-void FecAccess::setIRQ ( bool enable, tscType8 vmeLevel ) throw (FecExceptionHandler) {
+void FecAccess::setIRQ ( bool enable, tscType8 vmeLevel ) noexcept(false) {
 
   // No IRQ for the FECUSB
   if (fecBusType_ == FECUSB) return ;
@@ -2530,7 +2530,7 @@ void FecAccess::setIRQ ( bool enable, tscType8 vmeLevel ) throw (FecExceptionHan
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuSRA ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2546,7 +2546,7 @@ tscType8 FecAccess::getCcuSRA ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuSRB ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2562,7 +2562,7 @@ tscType8 FecAccess::getCcuSRB ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuSRC ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2578,7 +2578,7 @@ tscType8 FecAccess::getCcuSRC ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuSRD ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2594,7 +2594,7 @@ tscType8 FecAccess::getCcuSRD ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType32 FecAccess::getCcuSRE ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2610,7 +2610,7 @@ tscType32 FecAccess::getCcuSRE ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType16 FecAccess::getCcuSRF ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2626,7 +2626,7 @@ tscType16 FecAccess::getCcuSRF ( keyType index )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuSRG ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2643,7 +2643,7 @@ tscType8 FecAccess::getCcuSRG ( keyType index )
  * \exception FecExceptionHandlerception
  */
 tscType8 FecAccess::getCcuSRH ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2659,7 +2659,7 @@ tscType8 FecAccess::getCcuSRH ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCcuCRA ( keyType index, tscType8 value ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2675,7 +2675,7 @@ void FecAccess::setCcuCRA ( keyType index, tscType8 value )
  * \exception FecExceptionHandler
  */ 
 tscType8 FecAccess::getCcuCRA ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2691,7 +2691,7 @@ tscType8 FecAccess::getCcuCRA ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCcuCRB ( keyType index, tscType8 value ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2707,7 +2707,7 @@ void FecAccess::setCcuCRB ( keyType index, tscType8 value )
  * \exception FecExceptionHandler
  */ 
 tscType8 FecAccess::getCcuCRB ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2723,7 +2723,7 @@ tscType8 FecAccess::getCcuCRB ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCcuCRC ( keyType index, tscType8 value ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2739,7 +2739,7 @@ void FecAccess::setCcuCRC ( keyType index, tscType8 value )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuCRC ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2755,7 +2755,7 @@ tscType8 FecAccess::getCcuCRC ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCcuCRD ( keyType index, tscType8 value ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2771,7 +2771,7 @@ void FecAccess::setCcuCRD ( keyType index, tscType8 value )
  * \exception FecExceptionHandler
  */
 tscType8 FecAccess::getCcuCRD ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2796,7 +2796,7 @@ tscType8 FecAccess::getCcuCRD ( keyType index )
  * \exception FecExceptionHandler
  */
 void FecAccess::setCcuCRE ( keyType index, tscType24 value ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2830,7 +2830,7 @@ void FecAccess::setCcuCRE ( keyType index,
                             tscType8 valueMemory,
                             tscType8 valueTrigger,
                             tscType8 valueJTAG) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   setCcuCRE ( index, 
               (valueI2C & 0xFF) | 
@@ -2847,7 +2847,7 @@ void FecAccess::setCcuCRE ( keyType index,
  * \exception FecExceptionHandler
  */
 tscType24 FecAccess::getCcuCRE ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2861,7 +2861,7 @@ tscType24 FecAccess::getCcuCRE ( keyType index )
  * \return true if the channel is enabled, false if not
  * \exception FecExceptionHandler
  */
-bool FecAccess::isChannelEnabled ( keyType index )  throw (FecExceptionHandler) {
+bool FecAccess::isChannelEnabled ( keyType index )  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2881,7 +2881,7 @@ bool FecAccess::isChannelEnabled ( keyType index )  throw (FecExceptionHandler) 
  * several FecSupervisor can managed the same PCI/VME bus
  */
 std::list<keyType> *FecAccess::getCcuList ( keyType index, bool noBroadcast, bool scan ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2905,7 +2905,7 @@ std::list<keyType> *FecAccess::getCcuList ( keyType index, bool noBroadcast, boo
  * \param enable4 - enable CCU alarm 4
  */
 void FecAccess::setCcuAlarmsEnable ( keyType index, bool enable1, bool enable2, bool enable3, bool enable4 ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2922,7 +2922,7 @@ void FecAccess::setCcuAlarmsEnable ( keyType index, bool enable1, bool enable2, 
  * \warning The size of the frame must be DD_USER_MAX_MSG_LENGTH
  */ 
 void FecAccess::waitForAnyCcuAlarms ( keyType index, tscType8 frame[DD_USER_MAX_MSG_LENGTH*4] ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2937,7 +2937,7 @@ void FecAccess::waitForAnyCcuAlarms ( keyType index, tscType8 frame[DD_USER_MAX_
  * to 0 then all PIA channels will be enabled.
  */
 void FecAccess::setPiaInterruptEnable ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2952,7 +2952,7 @@ void FecAccess::setPiaInterruptEnable ( keyType index )
  * to 0 then all PIA channels will be enabled.
  */
 void FecAccess::setPiaClearInterrupts ( keyType index ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -2972,7 +2972,7 @@ void FecAccess::setPiaClearInterrupts ( keyType index )
  * \param enable - enable or disable the channel (bool)
  * \exception FecExceptionHandler
  */
-void FecAccess::setChannelEnable ( keyType index, bool enable ) throw ( FecExceptionHandler ) {
+void FecAccess::setChannelEnable ( keyType index, bool enable ) noexcept(false) {
 
   // Retreive the access
   i2cAccess *i2c = (i2cAccess *)checkIndex (index) ;
@@ -3003,7 +3003,7 @@ keyType FecAccess::addPiaAccess ( tscType8 fecSlot,
                                   tscType8 ringSlot,
                                   tscType8 ccuAddress,
                                   tscType8 piaChannel,
-                                  enumAccessModeType accessMask ) throw ( FecExceptionHandler ) {
+                                  enumAccessModeType accessMask ) noexcept(false) {
 
 
   return (addPiaAccess ( buildCompleteKey ( fecSlot, ringSlot, ccuAddress, piaChannel, PIAADDRESSNUMBER ), accessMask)) ;
@@ -3023,7 +3023,7 @@ keyType FecAccess::addPiaAccess ( tscType8 fecSlot,
  */
 keyType FecAccess::addPiaAccess ( keyType index,
                                   enumAccessModeType accessMask ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Find or create the corresponding FecDevice
   FecRingDevice *fec = setFecRingDevice ( index ) ;
@@ -3102,7 +3102,7 @@ keyType FecAccess::addPiaAccess ( keyType index,
  * </ul>
  */
 void FecAccess::removePiaAccess ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Retreive the information in the map both device and channel
   keyType keyChannel = buildChannelKey (index) ;
@@ -3160,7 +3160,7 @@ void FecAccess::removePiaAccess ( keyType index )
  * \param index - key of the corresponding channel
  * \exception FecExceptionHandler
  */
-void FecAccess::piaChannelReset ( keyType index ) throw ( FecExceptionHandler ) {
+void FecAccess::piaChannelReset ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3174,7 +3174,7 @@ void FecAccess::piaChannelReset ( keyType index ) throw ( FecExceptionHandler ) 
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3189,7 +3189,7 @@ void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value ) throw ( FecEx
  * \param op - operation to be done (TSC_FECSERVER_OR, TSC_FECSERVER_AND, TSC_FECSERVER_XOR, TSC_FECSERVER_EQUAL)
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value, logicalOperationType op ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3203,7 +3203,7 @@ void FecAccess::setPiaChannelGCR ( keyType index, tscType8 value, logicalOperati
  * \return value read
  * \exception FecExceptionHandler
  */   
-tscType8 FecAccess::getPiaChannelGCR ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getPiaChannelGCR ( keyType index ) noexcept(false) {
  
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3217,7 +3217,7 @@ tscType8 FecAccess::getPiaChannelGCR ( keyType index ) throw ( FecExceptionHandl
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::getPiaChannelStatus ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getPiaChannelStatus ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3231,7 +3231,7 @@ tscType8 FecAccess::getPiaChannelStatus ( keyType index ) throw ( FecExceptionHa
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3246,7 +3246,7 @@ void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value ) throw ( FecEx
  * \param op - operation to be done (CMD_OR, CMD_AND, CMD_XOR, CMD_EQUAL)
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value, logicalOperationType op ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3260,7 +3260,7 @@ void FecAccess::setPiaChannelDDR ( keyType index, tscType8 value, logicalOperati
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::getPiaChannelDDR ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getPiaChannelDDR ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3274,7 +3274,7 @@ tscType8 FecAccess::getPiaChannelDDR ( keyType index ) throw ( FecExceptionHandl
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3289,7 +3289,7 @@ void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value ) throw ( F
  * \param op - operation to be done (TSC_FECSERVER_OR, TSC_FECSERVER_AND, TSC_FECSERVER_XOR, TSC_FECSERVER_EQUAL)
  * \exception FecExceptionHandler
  */
-void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value, logicalOperationType op ) throw ( FecExceptionHandler ) {
+void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3303,7 +3303,7 @@ void FecAccess::setPiaChannelDataReg ( keyType index, tscType8 value, logicalOpe
  * \return value read
  * \exception FecExceptionHandler
  */   
-tscType8 FecAccess::getPiaChannelDataReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getPiaChannelDataReg ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3344,7 +3344,7 @@ keyType FecAccess::addi2cAccess ( tscType8 fecSlot,
                                   tscType8 i2cChannel,
                                   tscType8 i2cAddress,
                                   enumDeviceType deviceType,
-                                  enumAccessModeType accessMask ) throw ( FecExceptionHandler ) {
+                                  enumAccessModeType accessMask ) noexcept(false) {
 
   return (addi2cAccess (buildCompleteKey ( fecSlot, ringSlot, ccuAddress, i2cChannel, i2cAddress ), deviceType, accessMask)) ;
 
@@ -3365,7 +3365,7 @@ keyType FecAccess::addi2cAccess ( tscType8 fecSlot,
 keyType FecAccess::addi2cAccess ( keyType index, 
                                   enumDeviceType deviceType,
                                   enumAccessModeType accessMask ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   char msg2000[80] ;
@@ -3448,7 +3448,7 @@ keyType FecAccess::addi2cAccess ( keyType index,
  * \param index - key of corresponding device
  * \exception FecExceptionHandler
  */
-void FecAccess::removei2cAccess ( keyType index ) throw ( FecExceptionHandler ) {
+void FecAccess::removei2cAccess ( keyType index ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   char msg2000[80] ;
@@ -3512,7 +3512,7 @@ void FecAccess::removei2cAccess ( keyType index ) throw ( FecExceptionHandler ) 
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::seti2cChannelCRA ( keyType index, tscType8 value) throw ( FecExceptionHandler ) {
+void FecAccess::seti2cChannelCRA ( keyType index, tscType8 value) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3526,7 +3526,7 @@ void FecAccess::seti2cChannelCRA ( keyType index, tscType8 value) throw ( FecExc
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::seti2cChannelCRA( keyType index, tscType8 value,logicalOperationType op) throw ( FecExceptionHandler ) {
+void FecAccess::seti2cChannelCRA( keyType index, tscType8 value,logicalOperationType op) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3540,7 +3540,7 @@ void FecAccess::seti2cChannelCRA( keyType index, tscType8 value,logicalOperation
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::geti2cChannelCRA ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::geti2cChannelCRA ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3554,7 +3554,7 @@ tscType8 FecAccess::geti2cChannelCRA ( keyType index ) throw ( FecExceptionHandl
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::geti2cChannelSRA ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::geti2cChannelSRA ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3568,7 +3568,7 @@ tscType8 FecAccess::geti2cChannelSRA ( keyType index ) throw ( FecExceptionHandl
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::geti2cChannelSRB ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::geti2cChannelSRB ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3582,7 +3582,7 @@ tscType8 FecAccess::geti2cChannelSRB ( keyType index ) throw ( FecExceptionHandl
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::geti2cChannelSRC ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::geti2cChannelSRC ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3596,7 +3596,7 @@ tscType8 FecAccess::geti2cChannelSRC ( keyType index ) throw ( FecExceptionHandl
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::geti2cChannelSRD ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::geti2cChannelSRD ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3609,7 +3609,7 @@ tscType8 FecAccess::geti2cChannelSRD ( keyType index ) throw ( FecExceptionHandl
  * \param index - key of the corresponding channel
  * \exception FecExceptionHandler
  */
-void FecAccess::i2cChannelReset ( keyType index ) throw ( FecExceptionHandler ) {
+void FecAccess::i2cChannelReset ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3635,7 +3635,7 @@ std::list<keyType> *FecAccess::scanRingForI2CDevice ( keyType  *deviceValues,
 						      tscType32 sizeDevices,
 						      bool noBroadcast,
 						      bool display)
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::list<keyType> *listDevice = NULL ;
 
@@ -3692,7 +3692,7 @@ std::list<keyType> *FecAccess::scanRingForI2CDevice ( keyType index,
 						      tscType32 sizeDevices,
 						      bool noBroadcast,
 						      bool display)
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::list<keyType> *listDevice = NULL ;
 
@@ -3746,7 +3746,7 @@ keyType FecAccess::addMemoryAccess ( tscType8 fecSlot,
                                      tscType8 ringSlot,
                                      tscType8 ccuAddress,
                                      tscType8 memoryChannel,
-                                     enumAccessModeType accessMask ) throw ( FecExceptionHandler ) {
+                                     enumAccessModeType accessMask ) noexcept(false) {
 
 
   return (addMemoryAccess ( buildCompleteKey ( fecSlot, ringSlot, ccuAddress, memoryChannel, MEMORYADDRESSNUMBER ), accessMask)) ;
@@ -3766,7 +3766,7 @@ keyType FecAccess::addMemoryAccess ( tscType8 fecSlot,
  */
 keyType FecAccess::addMemoryAccess ( keyType index,
                                      enumAccessModeType accessMask ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // Check the different values and reject if not correct
   
@@ -3838,7 +3838,7 @@ keyType FecAccess::addMemoryAccess ( keyType index,
  * </ul>
  */
 void FecAccess::removeMemoryAccess ( keyType index ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   /** Retreive the information in the map both device and channel */
   keyType keyChannel = buildChannelKey (index) ;
@@ -3897,7 +3897,7 @@ void FecAccess::removeMemoryAccess ( keyType index )
  * \param index - key of the corresponding channel
  * \exception FecExceptionHandler
  */
-void FecAccess::memoryChannelReset ( keyType index ) throw ( FecExceptionHandler ) {
+void FecAccess::memoryChannelReset ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3911,7 +3911,7 @@ void FecAccess::memoryChannelReset ( keyType index ) throw ( FecExceptionHandler
  * \param value - value to be written
  * \exception FecExceptionHandler
  */
-void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3926,7 +3926,7 @@ void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value ) throw ( Fe
  * \param op - operation to be done (TSC_FECSERVER_OR, TSC_FECSERVER_AND, TSC_FECSERVER_XOR, TSC_FECSERVER_EQUAL)
  * \exception FecExceptionHandler
  */
-void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value, logicalOperationType op ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value, logicalOperationType op ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3940,7 +3940,7 @@ void FecAccess::setMemoryChannelCRA ( keyType index, tscType8 value, logicalOper
  * \return value read
  * \exception FecExceptionHandler
  */   
-tscType8 FecAccess::getMemoryChannelCRA ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getMemoryChannelCRA ( keyType index ) noexcept(false) {
  
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3954,7 +3954,7 @@ tscType8 FecAccess::getMemoryChannelCRA ( keyType index ) throw ( FecExceptionHa
  * \return value read
  * \exception FecExceptionHandler
  */ 
-tscType8 FecAccess::getMemoryChannelStatus ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getMemoryChannelStatus ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3968,7 +3968,7 @@ tscType8 FecAccess::getMemoryChannelStatus ( keyType index ) throw ( FecExceptio
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecAccess::setMemoryChannelWin1LReg ( keyType index, tscType16 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelWin1LReg ( keyType index, tscType16 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3980,7 +3980,7 @@ void FecAccess::setMemoryChannelWin1LReg ( keyType index, tscType16 value ) thro
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecAccess::setMemoryChannelWin1HReg ( keyType index, tscType16 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelWin1HReg ( keyType index, tscType16 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -3992,7 +3992,7 @@ void FecAccess::setMemoryChannelWin1HReg ( keyType index, tscType16 value ) thro
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecAccess::setMemoryChannelWin2LReg ( keyType index, tscType16 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelWin2LReg ( keyType index, tscType16 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4004,7 +4004,7 @@ void FecAccess::setMemoryChannelWin2LReg ( keyType index, tscType16 value ) thro
  * \param index - key of the corresponding channel
  * \param value - value to be written
  */
-void FecAccess::setMemoryChannelWin2HReg ( keyType index, tscType16 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelWin2HReg ( keyType index, tscType16 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4017,7 +4017,7 @@ void FecAccess::setMemoryChannelWin2HReg ( keyType index, tscType16 value ) thro
  * \param value - value used during a RMW operation (see below)
  * \param op - logical operation (and / or / xor)
  */
-void FecAccess::setMemoryChannelMaskReg ( keyType index, tscType8 value ) throw ( FecExceptionHandler ) {
+void FecAccess::setMemoryChannelMaskReg ( keyType index, tscType8 value ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4029,7 +4029,7 @@ void FecAccess::setMemoryChannelMaskReg ( keyType index, tscType8 value ) throw 
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType8 FecAccess::getMemoryChannelMaskReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getMemoryChannelMaskReg ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4041,7 +4041,7 @@ tscType8 FecAccess::getMemoryChannelMaskReg ( keyType index ) throw ( FecExcepti
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType16 FecAccess::getMemoryChannelWin1LReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType16 FecAccess::getMemoryChannelWin1LReg ( keyType index ) noexcept(false) {
 
 
   // Retreive the corresponding FecRingDevice
@@ -4054,7 +4054,7 @@ tscType16 FecAccess::getMemoryChannelWin1LReg ( keyType index ) throw ( FecExcep
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType16 FecAccess::getMemoryChannelWin1HReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType16 FecAccess::getMemoryChannelWin1HReg ( keyType index ) noexcept(false) {
 
 
   // Retreive the corresponding FecRingDevice
@@ -4067,7 +4067,7 @@ tscType16 FecAccess::getMemoryChannelWin1HReg ( keyType index ) throw ( FecExcep
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType16 FecAccess::getMemoryChannelWin2LReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType16 FecAccess::getMemoryChannelWin2LReg ( keyType index ) noexcept(false) {
 
 
   // Retreive the corresponding FecRingDevice
@@ -4080,7 +4080,7 @@ tscType16 FecAccess::getMemoryChannelWin2LReg ( keyType index ) throw ( FecExcep
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType16 FecAccess::getMemoryChannelWin2HReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType16 FecAccess::getMemoryChannelWin2HReg ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4092,7 +4092,7 @@ tscType16 FecAccess::getMemoryChannelWin2HReg ( keyType index ) throw ( FecExcep
  * \param index - key of the corresponding channel
  * \return value read
  */   
-tscType8 FecAccess::getMemoryChanneMaskReg ( keyType index ) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::getMemoryChanneMaskReg ( keyType index ) noexcept(false) {
 
   // Retreive the corresponding FecRingDevice
   FecRingDevice *fec = getFecRingDevice ( index ) ;
@@ -4112,7 +4112,7 @@ tscType8 FecAccess::getMemoryChanneMaskReg ( keyType index ) throw ( FecExceptio
  * \param piaChannel - by default false, used to set to false the force acknowledge
  * \param errorList - list of exceptions, please note the exceptions insert in the list must be deleted by the remote methods
  */
-unsigned int FecAccess::setBlockDevices ( keyType index, accessDeviceTypeList &vAccessDevices, std::list<FecExceptionHandler *> &errorList, bool piaChannel, bool debugMessageDisplay ) throw (FecExceptionHandler) {
+unsigned int FecAccess::setBlockDevices ( keyType index, accessDeviceTypeList &vAccessDevices, std::list<FecExceptionHandler *> &errorList, bool piaChannel, bool debugMessageDisplay ) noexcept(false) {
 
   unsigned int error = 0 ;
 
@@ -4516,7 +4516,7 @@ unsigned int FecAccess::setBlockDevicesParallel ( accessDeviceTypeListMap &hAcce
  * \return the value read
  * \warning PIA/I2C channels
  */
-tscType8 FecAccess::read (keyType index) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::read (keyType index) noexcept(false) {
 
   // Device found and read a value
   ccuChannelAccess *device = checkIndex (index) ;
@@ -4532,7 +4532,7 @@ tscType8 FecAccess::read (keyType index) throw ( FecExceptionHandler ) {
  * \return the value read
  * \warning only I2C channels
  */
-tscType8 FecAccess::readOffset (keyType index, tscType8 offset) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::readOffset (keyType index, tscType8 offset) noexcept(false) {
   return (readOffset (index, offset, 0)) ;
 }
 
@@ -4545,7 +4545,7 @@ tscType8 FecAccess::readOffset (keyType index, tscType8 offset) throw ( FecExcep
  */
 tscType8 FecAccess::readOffset (keyType index, 
 				 tscType8 offset, 
-				 tscType8 decal) throw ( FecExceptionHandler ) {
+				 tscType8 decal) noexcept(false) {
   // Retreive the access
   i2cAccess *i2c = (i2cAccess *)checkIndex (index) ;
 
@@ -4561,7 +4561,7 @@ tscType8 FecAccess::readOffset (keyType index,
  * \return the value read
  * \warning only I2C channels
  */
-tscType8 FecAccess::read (keyType index, tscType8 offset) throw ( FecExceptionHandler ) {
+tscType8 FecAccess::read (keyType index, tscType8 offset) noexcept(false) {
 
   // Device found and write the value
   i2cAccess *i2c = (i2cAccess *)checkIndex (index) ;
@@ -4579,7 +4579,7 @@ tscType8 FecAccess::read (keyType index, tscType8 offset) throw ( FecExceptionHa
  */
 tscType8 FecAccess::read (keyType index, 
 			  tscType8 AH, 
-			  tscType8 AL ) throw ( FecExceptionHandler ) {
+			  tscType8 AL ) noexcept(false) {
 
   // Device found and write the value
   memoryAccess *memory = (memoryAccess *)checkIndex (index) ;
@@ -4599,7 +4599,7 @@ tscType8 FecAccess::read (keyType index,
 void FecAccess::read (keyType index, 
                       tscType8 AH, tscType8 AL,
                       unsigned size,
-                      tscType8 *values ) throw ( FecExceptionHandler ) {
+                      tscType8 *values ) noexcept(false) {
 
   // Device found and write the value
   memoryAccess *memory = (memoryAccess *)checkIndex (index) ;
@@ -4612,7 +4612,7 @@ void FecAccess::read (keyType index,
  * \param value - value to be written
  * \warning PIA/I2C channels
  */
-void FecAccess::write (keyType index, tscType8 value) throw ( FecExceptionHandler ) {
+void FecAccess::write (keyType index, tscType8 value) noexcept(false) {
 
   // Device found and read a value
   ccuChannelAccess *device = checkIndex (index) ;
@@ -4626,7 +4626,7 @@ void FecAccess::write (keyType index, tscType8 value) throw ( FecExceptionHandle
  * \param value - value to be written
  * \warning only I2C channels
  */
-void FecAccess::writeOffset (keyType index, tscType8 offset, tscType8 value) throw ( FecExceptionHandler ) {
+void FecAccess::writeOffset (keyType index, tscType8 offset, tscType8 value) noexcept(false) {
   writeOffset (index, offset, 0, value) ;
 }
 
@@ -4639,7 +4639,7 @@ void FecAccess::writeOffset (keyType index, tscType8 offset, tscType8 value) thr
  */
 void FecAccess::writeOffset (keyType index, 
                              tscType8 offset, tscType8 decal, 
-                             tscType8 value) throw ( FecExceptionHandler ) {
+                             tscType8 value) noexcept(false) {
 
   // Device found and write the value
   i2cAccess *i2c = (i2cAccess *)checkIndex (index) ;
@@ -4652,7 +4652,7 @@ void FecAccess::writeOffset (keyType index,
  * \param value - value to be written
  * \warning only I2C channels
  */
-void FecAccess::write (keyType index, tscType8 offset, tscType8 value) throw ( FecExceptionHandler ) {
+void FecAccess::write (keyType index, tscType8 offset, tscType8 value) noexcept(false) {
 
   // Device found and write the value
   i2cAccess *i2c = (i2cAccess *)checkIndex (index) ;
@@ -4668,7 +4668,7 @@ void FecAccess::write (keyType index, tscType8 offset, tscType8 value) throw ( F
  */
 void FecAccess::write (keyType index, 
                        tscType8 AH, tscType8 AL, 
-                       tscType8 value) throw ( FecExceptionHandler ) {
+                       tscType8 value) noexcept(false) {
 
   // Device found and write the value
   memoryAccess *memory = (memoryAccess *)checkIndex (index) ;
@@ -4686,7 +4686,7 @@ void FecAccess::write (keyType index,
 void FecAccess::write (keyType index, 
                        tscType8 AH, tscType8 AL, 
                        tscType8 *values,
-                       unsigned size) throw ( FecExceptionHandler ) {
+                       unsigned size) noexcept(false) {
 
   // Device found and write the value
   memoryAccess *memory = (memoryAccess *)checkIndex (index) ;
@@ -4703,7 +4703,7 @@ void FecAccess::write (keyType index,
 void FecAccess::write ( keyType index, 
                         tscType8 AH, tscType8 AL, 
                         logicalOperationType op, 
-                        tscType8 mask ) throw ( FecExceptionHandler ) {
+                        tscType8 mask ) noexcept(false) {
 
   // Device found and write the value
   memoryAccess *memory = (memoryAccess *)checkIndex (index) ;
@@ -4869,7 +4869,7 @@ PlugNPlayConfigure.dat and FecHardwareIdList.dat are existing in the directories
  * </lu>
  * \return FecAccess created
  */
-FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool init ) throw (FecExceptionHandler) {
+FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool init ) noexcept(false) {
 
   bool forceAck = true ; 
   unsigned int i2cSpeed = 100 ;

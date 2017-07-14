@@ -44,52 +44,52 @@ class DbConnectionsAccess : public DbAccess {
   //
   /** \brief Default constructor
    */
-  DbConnectionsAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbConnectionsAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbConnectionsAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbConnectionsAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbConnectionsAccess ( ) throw (oracle::occi::SQLException);
+  ~DbConnectionsAccess ( ) noexcept(false);
 
   /** \brief Retreive the version for each partition in the current state
    */
-  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException);
+  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) noexcept(false);
 
   /** \brief Retrieves the next minor version with major version = majorId for database upload
    */
-  unsigned int getNextMinorVersion(unsigned int majorId) throw (FecExceptionHandler);
+  unsigned int getNextMinorVersion(unsigned int majorId) noexcept(false);
  
   /** \brief Retrives the next major version for database upload
    */
-  unsigned int getNextMajorVersion() throw (FecExceptionHandler);
+  unsigned int getNextMajorVersion() noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob (std::string partitionName) noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) ;
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) ;
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getApvNotConnectedWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) ;
+  oracle::occi::Clob *getApvNotConnectedWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) ;
 
   /** \brief Upload a Clob to the database
    */
-  void setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException);
+  void setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
 
   /** \brief Upload a Clob to the database
    */
-  void setXMLClob (std::string buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob (std::string buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false);
 
   /** \brief Deprecated method not used and not need, an exception is raised on a call on this method
    * \exception FecExceptionHandler
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) {
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
     RAISEFECEXCEPTIONHANDLER( CODECONSISTENCYERROR, 
 			      "deprecated, no version is available for a partition and an FEC hard ID", 
 			      FATALERRORCODE) ;
@@ -99,7 +99,7 @@ class DbConnectionsAccess : public DbAccess {
   /** \brief Deprecated method not used and not need, an exception is raised on a call on this method
    * \exception FecExceptionHandler
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string hardId) throw (oracle::occi::SQLException) {
+  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string hardId) noexcept(false) {
     RAISEFECEXCEPTIONHANDLER( CODECONSISTENCYERROR, 
 			      "deprecated, no version is available for a partition and an FEC hard ID", 
 			      FATALERRORCODE) ;

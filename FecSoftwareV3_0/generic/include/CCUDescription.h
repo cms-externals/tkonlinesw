@@ -162,7 +162,7 @@ class CCUDescription {
    * <li>TSCFEC_FECPARAMETERNOTMANAGED: wrong CCU alarm
    * </ul>
    */
-  bool isCcuAlarmEnable ( tscType16 ccuAlarm ) throw (FecExceptionHandler) ;
+  bool isCcuAlarmEnable ( tscType16 ccuAlarm ) noexcept(false) ;
 
   /** \brief Store that a channel is enable or disable
    * \param channel - CCU channel number
@@ -282,14 +282,14 @@ class CCUDescription {
    *          and Dummy CCU output B not connected
    */
 
-  static void setCcuTrackerUsage ( std::list<CCUDescription *> &listCcu ) throw (FecExceptionHandler) ;
+  static void setCcuTrackerUsage ( std::list<CCUDescription *> &listCcu ) noexcept(false) ;
 
   /** \brief Set the parameter usage in the CCUDescription
    * \param list of CCUDescription
    * \warning this method include the dummy CCU on ring A
    */
 
-  static void setCcuUsage ( std::list<CCUDescription *> &listCcu ) throw (FecExceptionHandler) ;
+  static void setCcuUsage ( std::list<CCUDescription *> &listCcu ) noexcept(false) ;
 
 #endif
 

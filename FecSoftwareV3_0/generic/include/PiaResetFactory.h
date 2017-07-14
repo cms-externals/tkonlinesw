@@ -58,13 +58,13 @@ class PiaResetFactory: public DeviceFactoryInterface {
   /** \brief retreive the information from the input for one of the following parameters
    */
   void getPiaResetDescriptions ( bool fileUsed, std::string partitionName, std::string fecHardwareId, piaResetVector &outVector, bool allDevices = false, bool forceDbReload = false ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 #ifdef DATABASE
   /** \brief retreive information concerning the partition versus the version
    */
   std::list<unsigned int *> getPartitionVersion ( std::string partitionName ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
  public:
@@ -78,7 +78,7 @@ class PiaResetFactory: public DeviceFactoryInterface {
   /** \brief Buid a FEC factory for database
    */
   PiaResetFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Buid a FEC factory for FEC database
    */
@@ -127,12 +127,12 @@ class PiaResetFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -147,7 +147,7 @@ class PiaResetFactory: public DeviceFactoryInterface {
   /** \brief Create new PIA reset descriptions
    */
   void createPartition ( piaResetVector devices, std::string partitionName = "" )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
 #endif
 
@@ -159,20 +159,20 @@ class PiaResetFactory: public DeviceFactoryInterface {
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
-  void getPiaResetDescriptions ( std::string partitionName, std::string fecHardwareId, piaResetVector &outVector, bool allDevices = false, bool forceDbReload = false ) throw ( FecExceptionHandler ) ;
+  void getPiaResetDescriptions ( std::string partitionName, std::string fecHardwareId, piaResetVector &outVector, bool allDevices = false, bool forceDbReload = false ) noexcept(false) ;
 
     /** \brief Retreive the descriptions for the given devices from the input
    */
-  void getPiaResetDescriptions ( std::string partitionName, piaResetVector &outVector, bool allDevices = false, bool forceDbReload = false ) throw ( FecExceptionHandler ) ;
+  void getPiaResetDescriptions ( std::string partitionName, piaResetVector &outVector, bool allDevices = false, bool forceDbReload = false ) noexcept(false) ;
 
   /** \brief Retreive the descriptions for the given devices from a file
    */
-  void getPiaResetDescriptions ( piaResetVector &outVector, bool allDevices = false ) throw ( FecExceptionHandler ) ;
+  void getPiaResetDescriptions ( piaResetVector &outVector, bool allDevices = false ) noexcept(false) ;
 
   /** \brief Upload the description in the output
    */
   void setPiaResetDescriptions ( piaResetVector devices, std::string partitionName = "nil" ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 } ;
 
 #endif

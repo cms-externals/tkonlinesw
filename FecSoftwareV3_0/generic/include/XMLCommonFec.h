@@ -105,22 +105,22 @@ class XMLCommonFec {
   /**
    * \brief Initialize Xerces XMLPlatformUtils and create a parser
    */
-  void init() throw (FecExceptionHandler);
+  void init() noexcept(false);
 
   /**
    * \brief Reads the parameter values from an XML buffer
    */
-  void readXMLBuffer(const XMLByte* buffer) throw (FecExceptionHandler);
+  void readXMLBuffer(const XMLByte* buffer) noexcept(false);
 
   /**
    * \brief Reads the parameter values from an XML file
    */
-  void readXMLFile(std::string xmlFileName) throw (FecExceptionHandler);
+  void readXMLFile(std::string xmlFileName) noexcept(false);
 
   /**
    * \brief Creates a SAX parser
    */
-  void createParser() throw (FecExceptionHandler);
+  void createParser() noexcept(false);
   
 #ifdef DATABASE
   /**
@@ -142,11 +142,11 @@ class XMLCommonFec {
 
   /** \brief Constructor with xml buffer
    */
-  XMLCommonFec ( const XMLByte* buffer, bool toBeDeleted = true ) throw (FecExceptionHandler);
+  XMLCommonFec ( const XMLByte* buffer, bool toBeDeleted = true ) noexcept(false);
 
   /** \brief Constructor with file access
    */
-  XMLCommonFec ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLCommonFec ( std::string xmlFileName ) noexcept(false);
 
   /** \brief Deletes the device vector private attribute
    */
@@ -162,15 +162,15 @@ class XMLCommonFec {
   
   /** \brief Parses the xml Buffer using the SAX interface
    */
-  void parseXMLBuffer( ) throw (FecExceptionHandler);
+  void parseXMLBuffer( ) noexcept(false);
 
   /** \brief Return the non fatal parsing error number
    */
-  int getParseErrorCount( ) throw (FecExceptionHandler);
+  int getParseErrorCount( ) noexcept(false);
 
   /** \brief Return the non fatal parsing error messages
    */
-  std::vector<std::string> *getParseErrorMessages( ) throw (FecExceptionHandler);
+  std::vector<std::string> *getParseErrorMessages( ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Sets the database access attribute
@@ -183,7 +183,7 @@ class XMLCommonFec {
 
   /** \brief This method sends a request to the database and parse the input source retrieved from database
    */
-  void parseDatabaseResponse ( ) throw (FecExceptionHandler);
+  void parseDatabaseResponse ( ) noexcept(false);
 
   /** \brief Sets the SQL request
    */
@@ -208,7 +208,7 @@ class XMLCommonFec {
 
   /** \brief Writes the parameter values into an XML file
    */
-  static void writeXMLFile(std::string xmlBuffer, std::string xmlFileName) throw (FecExceptionHandler);
+  static void writeXMLFile(std::string xmlBuffer, std::string xmlFileName) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Display an XML clob buffer

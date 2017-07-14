@@ -103,8 +103,8 @@ public:
    * of the exception. The user is only allowed to read
    * the text returned by this function. 
    */
-  virtual const char* what() const throw();
-  virtual ~ICException() throw() {}
+  virtual const char* what() const noexcept;
+  virtual ~ICException() noexcept {}
   ICException & setLocation(const char * file, long line, const char * func = "") {
     _file = file; _line = line; _func = func; return *this;
   }

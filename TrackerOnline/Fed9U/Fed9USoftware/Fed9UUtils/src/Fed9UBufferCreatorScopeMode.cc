@@ -13,7 +13,7 @@ namespace Fed9U {
   }
   
 
-  void Fed9UBufferCreatorScopeMode::generateBuffer( Fed9UBufferDescription *bufDesc ) throw (ICException) {
+  void Fed9UBufferCreatorScopeMode::generateBuffer( Fed9UBufferDescription *bufDesc ) noexcept(false) {
   
     try {      
       

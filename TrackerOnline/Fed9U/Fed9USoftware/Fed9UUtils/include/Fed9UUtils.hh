@@ -6634,22 +6634,22 @@ class Fed9UXMLDescription
 
 public:
   /**Constructor. This takes as arguments the XML file name and the Fed9UDescription to be modified.*/
-  Fed9UXMLDescription(const std::string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) throw (Fed9UXMLDescriptionException);
+  Fed9UXMLDescription(const std::string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) noexcept(false);
 
   /**Constructor. This takes in the Fed9UDescription to be modified. This is the constructor that should be used by derived classes.*/
-  Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription , std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) throw (Fed9UXMLDescriptionException);
+  Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription , std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) noexcept(false);
 
   /**Destructor. This does some clean up.*/
   virtual ~Fed9UXMLDescription();
 
   /**Method which performs the Fed9UDescription override. It modifies the object member reference to the Fed9UDescription. 
      This method should only be used if the user has used the constructor which takes in a file name.*/
-  std::vector<Fed9UDescription*>* makeNewFed9UDescription(void) throw (Fed9UXMLDescriptionException);
+  std::vector<Fed9UDescription*>* makeNewFed9UDescription(void) noexcept(false);
 
   /**Method which performs the Fed9UDescription overide. 
      It takes in a istream, containing the XML buffer, and modifies the object member reference to the Fed9UDescription.
      This method should be used by derived classes which use the stream interface to this class.*/
-  std::vector<Fed9UDescription*>* makeNewFed9UDescriptionFromStream(std::istream &is) throw (Fed9UXMLDescriptionException);
+  std::vector<Fed9UDescription*>* makeNewFed9UDescriptionFromStream(std::istream &is) noexcept(false);
 
   /**Method to get the value of usingStrips_*/
   bool getUsingStrips();
@@ -6662,49 +6662,49 @@ public:
 
 protected:
   /**Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.*/
-  void initializeXerces(void) throw (Fed9UXMLDescriptionException);
+  void initializeXerces(void) noexcept(false);
 
   /**Method which will construct and initialize the DOMBuilder.*/
-  void makeDOMBuilder(void) throw (Fed9UXMLDescriptionException);
+  void makeDOMBuilder(void) noexcept(false);
 
   /**Method to recursively find the child elements under the given Node.*/
-  void traverseChildElements(xercesc::DOMNode *n) throw (Fed9UXMLDescriptionException);
+  void traverseChildElements(xercesc::DOMNode *n) noexcept(false);
 
   /**Method which reads in a node, finds if it has attributes and sets these in the Fed9UDescription.*/
-  void setFed9UDescription(xercesc::DOMNode *n) throw (Fed9UXMLDescriptionException);
+  void setFed9UDescription(xercesc::DOMNode *n) noexcept(false);
 
   /**Method which will set the attributes for the fed9U node.*/
-  void setFed9UAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setFed9UAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method which will set the attributes for the feFpga node.*/
-  void setFeFpgaAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setFeFpgaAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
  
   /**Method which will set the attributes for the channel pair node.*/
-  void setChannelPairAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setChannelPairAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
  
   /**Method which will set the attributes for the channel node.*/
-  void setChannelAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setChannelAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
   
   /**Method which will set the attributes for the channel node.*/
-  void setApvAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setApvAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method which will set the attributes for the strip node.*/
-  void setStripAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setStripAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
   
   /**Method which will set the attributes for the strips node.*/
-  void setStripsAttribute(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setStripsAttribute(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method to get the integer node value from a DOMNamedNodeMap*/
-  unsigned long getIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  unsigned long getIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the signed integer node value from a DOMNamedNodeMap*/
-  int getSignedIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap,  std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  int getSignedIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap,  std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the float node value from a DOMNamedNodeMap*/
-  float getFloatNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  float getFloatNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the string node value from a DOMNamedNodeMap*/
-  std::string getStringNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  std::string getStringNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
   
   
   xercesc::DOMDocument *doc;
@@ -6761,7 +6761,7 @@ namespace Fed9U {
 
     /**Method which modifies the Fed9UDescription. 
      It modifies the object member reference to the Fed9UDescription.*/
-    //    vector<Fed9UDescription*>*  makeNewFed9UDescription(void) throw (Fed9U::Fed9UXMLDescriptionException);
+    //    vector<Fed9UDescription*>*  makeNewFed9UDescription(void) noexcept(false);
 
   private:
     std::string theXMLFileName;
@@ -6828,7 +6828,7 @@ namespace Fed9U {
      *
      * This constructor can be used to directly create an XML file.
      */
-    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. Takes a Fed9UDescription object to write to the database.
@@ -6840,7 +6840,7 @@ namespace Fed9U {
      *
      * As no file name is set during construction this cannot be used to make an XML file directly and is for use with the database.
      */
-    Fed9UDescriptionToXml(Fed9UDescription &Fed9UDescriptionToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(Fed9UDescription &Fed9UDescriptionToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. This takes a vector of Fed9UDescription pointers from which to make the XML file.
@@ -6855,7 +6855,7 @@ namespace Fed9U {
      * All the Fed9UDescription objects pointed to by the elements of the Fed9UDescription vector will be written to the single file specified
      * by targetXMLFileName. Sufficient information is given to this constructor to produce an XML file.
      */
-    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. This takes a vector of Fed9UDescription pointers to write to the database.
@@ -6869,7 +6869,7 @@ namespace Fed9U {
      * Insufficient information is passed to the constructor to create an XML file, no file name is given. It is instead used to writing the  
      * to the database. All objects pointed to by the Fed9UDescription vector will be written to the database.
      */
-    Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Destructor.
@@ -6886,7 +6886,7 @@ namespace Fed9U {
      *
      * This must be called after using the constructor to this class which only takes in a reference to a Fed9UDescription and not an XML file name.
      */
-    void streamOutDescription(std::ostream * os) throw (Fed9UXMLDescriptionException);
+    void streamOutDescription(std::ostream * os) noexcept(false);
 
     /**
      * \brief Method which converts the Fed9UDescription to an XML file.
@@ -6895,7 +6895,7 @@ namespace Fed9U {
      *
      * This must be called after using the file based constructor to this class.
      */
-    void writeXmlFile(void) throw (Fed9UXMLDescriptionException);
+    void writeXmlFile(void) noexcept(false);
 
     /**
      * \brief  Whether to write the strip data into the  XML or not.
@@ -6936,14 +6936,14 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    virtual void constuctDOMDocument(void) throw (Fed9UXMLDescriptionException);
+    virtual void constuctDOMDocument(void) noexcept(false);
 
     /**
      * \brief Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void initializeXerces(void) throw (Fed9UXMLDescriptionException);
+    void initializeXerces(void) noexcept(false);
 
     /**
      * \brief Method which adds elements to a DOMDocument using the Fed9UDescription to get the attribute values.
@@ -6951,7 +6951,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    virtual void addDOMElements(xercesc::DOMElement *rootElement) throw (Fed9UXMLDescriptionException);
+    virtual void addDOMElements(xercesc::DOMElement *rootElement) noexcept(false);
 
     /**
      * \brief Method which extracts the FED parameters from the Fed9UDescription and add them as element attributes.
@@ -6959,7 +6959,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addFedAttributes(xercesc::DOMElement* childElement) throw (Fed9UXMLDescriptionException);
+    void addFedAttributes(xercesc::DOMElement* childElement) noexcept(false);
 
     /**
      * \brief Method which extracts the FE unit parameters from the Fed9UDescription and adds them as element attributes.
@@ -6968,7 +6968,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addFeFpgaAttributes(xercesc::DOMElement* childElement, unsigned short feId=0) throw (Fed9UXMLDescriptionException);
+    void addFeFpgaAttributes(xercesc::DOMElement* childElement, unsigned short feId=0) noexcept(false);
 
 
     /**
@@ -6978,7 +6978,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addChannelPairAttributes(xercesc::DOMElement* childElement, unsigned short channelPairId) throw (Fed9UXMLDescriptionException);
+    void addChannelPairAttributes(xercesc::DOMElement* childElement, unsigned short channelPairId) noexcept(false);
 
     /**
      * \brief Method which extracts the channel parameters from the Fed9UDescription and add them as element attributes.
@@ -6987,7 +6987,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addChannelAttributes(xercesc::DOMElement* childElement, unsigned short channelId=0) throw (Fed9UXMLDescriptionException);
+    void addChannelAttributes(xercesc::DOMElement* childElement, unsigned short channelId=0) noexcept(false);
 
     /**
      * \brief Method which extracts the APV parameters from the Fed9UDescription and add them as element attributes.
@@ -6996,7 +6996,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addApvAttributes(xercesc::DOMElement* childElement, unsigned short apvId=0) throw (Fed9UXMLDescriptionException);
+    void addApvAttributes(xercesc::DOMElement* childElement, unsigned short apvId=0) noexcept(false);
 
     /**
      * \brief Method which extracts the strip parameters from the Fed9UDescription and adds them as element attributes.
@@ -7005,21 +7005,21 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addStripAttributes(xercesc::DOMElement* childElement, unsigned short stripId=0) throw (Fed9UXMLDescriptionException);
+    void addStripAttributes(xercesc::DOMElement* childElement, unsigned short stripId=0) noexcept(false);
   
     /**
      * \brief Method which extracts all the APV strip parameters from the Fed9UDescription and adds them as a single element attribute.
      * \param childElement Pointer to the element, which is a subset of the root element that will be added to the DOM document. Contains strip parameters.
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      */
-    void addStripsAttribute(xercesc::DOMElement* childElement) throw (Fed9UXMLDescriptionException);
+    void addStripsAttribute(xercesc::DOMElement* childElement) noexcept(false);
 
     /**
      * \brief All the strip data on an APV can be encoded as a single chunk of binary data. This is in a non human readable form.
      *        This is used to return it in a human readable form.
      * \param stripsBuf A character point that will be filled with the strip data in a human readable form.
      */
-    void getStripDataBuffer(char * stripsBuf) throw (Fed9UXMLDescriptionException);
+    void getStripDataBuffer(char * stripsBuf) noexcept(false);
 
     xercesc::DOMDocument *doc;                                    //!< DOM document where the XML data is to be stored.
     xercesc::DOMLSSerializer *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.
@@ -9818,7 +9818,7 @@ namespace Fed9U {
      * \param  bufferData Each element contains the reading from a strip, there must be one element for each strip on a FED. Size:24,576.
      * \return Self reference
      */
-    Fed9UBufferDescription & setFed9UBufferData(const std::vector<unsigned short> &bufferData) throw (ICException);
+    Fed9UBufferDescription & setFed9UBufferData(const std::vector<unsigned short> &bufferData) noexcept(false);
 
     /**
      * \brief  Method to set the channel length vector.
@@ -9826,7 +9826,7 @@ namespace Fed9U {
      *         on the FED. Size:96.
      * \return Self reference
      */
-    Fed9UBufferDescription & setChannelLengths(const std::vector<unsigned short> &channelLengths) throw (ICException);
+    Fed9UBufferDescription & setChannelLengths(const std::vector<unsigned short> &channelLengths) noexcept(false);
 
     /**
      * \brief  Method to set the FE length vector.
@@ -9834,7 +9834,7 @@ namespace Fed9U {
      *         FE unit on the FED. Size:8.
      * \return Self reference
      */
-    Fed9UBufferDescription & setFeLengths(const std::vector<unsigned short> &feLengths) throw (ICException);
+    Fed9UBufferDescription & setFeLengths(const std::vector<unsigned short> &feLengths) noexcept(false);
 
     /**
      * \brief  Method to set the packet code.
@@ -9850,7 +9850,7 @@ namespace Fed9U {
      * \param  cmMedians Common mode median value recorded by each APV. There must be one element for each APV on the FED. Size:192.
      * \return Self reference
      */
-    Fed9UBufferDescription & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICException);
+    Fed9UBufferDescription & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false);
 
    /**
      * \brief  Method to 32-bit swap data into slink format. Should only be performed AFTER buffer generation.
@@ -9997,7 +9997,7 @@ namespace Fed9U {
      * \param theBufDesc Pointer to the buffer description that is to be updated.
      * \throw ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    void generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) throw (ICException);
+    void generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
   };
 
@@ -10038,7 +10038,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9URawData(Fed9UBufferDescription *bufDesc ) throw (ICException);
+    void generateFed9URawData(Fed9UBufferDescription *bufDesc ) noexcept(false);
 
     /**
      * \brief Method which puts channel data in the Fed9U data buffer in a zero suppressed DAQ format.
@@ -10047,7 +10047,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9UZSData(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateFed9UZSData(Fed9UBufferDescription *bufDesc) noexcept(false);
 
     /**
      * \brief Method which puts channel data in the Fed9U data buffer in a scope mode DAQ format.
@@ -10058,7 +10058,7 @@ namespace Fed9U {
      * Inside the Fed9UBufferDescription must be the vector of data, which contains the ADC values for each strip (in channel and strip order order). 
      * Fed9UBufferDescriptions internal buffer will be updated to contain the whole event.
      */
-    void generateFed9UScopeModeData( Fed9UBufferDescription *bufDesc, unsigned short scope_mode_length ) throw (ICException);
+    void generateFed9UScopeModeData( Fed9UBufferDescription *bufDesc, unsigned short scope_mode_length ) noexcept(false);
 
   private:
     /**
@@ -10069,7 +10069,7 @@ namespace Fed9U {
      *
      * The ends of the FE data blocks in the FED buffer are padded out with zeros until the start of the next 64-bit words.
      */
-    void paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) throw (ICException);
+    void paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) noexcept(false);
 
     Fed9UEventInfo mFed9UEventInfo; //!< See Fed9UEventInfo for more details on this class.
 
@@ -10108,7 +10108,7 @@ namespace Fed9U {
      *
      * This is 8 bytes, which contains the bunch crossing number and FED mode.
      */
-    void generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
     /**
      * \brief This constructs the Fed9U Tracker Special DAQ header in the 2nd 64-bit word of the Fed9U buffer.
@@ -10117,7 +10117,7 @@ namespace Fed9U {
      *
      * This is another 8 bytes which contain FED debug information.
      */
-    void generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
     /**
      * \brief This adds the FE header information to the Fed9U buffer. 
@@ -10128,7 +10128,7 @@ namespace Fed9U {
      * the 8 FE lengths in bytes for all channel info for that FE (including channel header and packet code).
      * They do not include the length of the FE header itself.
      */
-    void generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException);
+    void generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) noexcept(false);
 
   private:
 
@@ -10210,7 +10210,7 @@ namespace Fed9U {
      *
      * In virgin raw data mode the data is left untouch and is exactly as it comes from the FED.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
     
   private:
   
@@ -10222,7 +10222,7 @@ namespace Fed9U {
      *
      * \todo - method very inefficient. Improve!
      */
-    void disOrderData(std::vector<unsigned short> &bufferData) const throw (ICException);
+    void disOrderData(std::vector<unsigned short> &bufferData) const noexcept(false);
       
     Fed9UEventInfo mFed9UEventInfo; //!< See the Fed9UEventInfo documentation for more information about this class.
 
@@ -10260,7 +10260,7 @@ namespace Fed9U {
      *
      * In processed raw data mode the FED will perform strip reodering and pedestal subtraction.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
 
   private:
 
@@ -10304,7 +10304,7 @@ namespace Fed9U {
      *
      * In zero suppression mode full data processing is performed. Strip re-odering, pedestal subtraction, common mode median subtraction and cluster finding.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
 
   private:
 
@@ -10320,7 +10320,7 @@ namespace Fed9U {
      */
     void findDataLengths(const std::vector<unsigned short> &bufferData, 
 			 std::vector<unsigned short> &feLengths, 
-			 std::vector<unsigned short> &channelLengths) throw (ICException);
+			 std::vector<unsigned short> &channelLengths) noexcept(false);
       
     Fed9UEventInfo mFed9UEventInfo; //!< See the Fed9UEventInfo documentation for more information about this class.
 
@@ -10364,7 +10364,7 @@ namespace Fed9U {
      *
      * In scope mode the full APV frames are recorded upon receipt of a trigger. A scope lengths worth of 23 bit words of the frame is recorded.
      */
-    void generateBuffer( Fed9UBufferDescription *bufDesc ) throw (ICException);
+    void generateBuffer( Fed9UBufferDescription *bufDesc ) noexcept(false);
     
   private:
     
@@ -10420,7 +10420,7 @@ namespace Fed9U {
      * The first element of the vector corresponds to strip 1, channel 96 in the external numbering or strip 0 or channel 0 internal numbering.
      * The strip order should then follow in physical strip ordering and not APV-MUX order.
      */
-    void generateFed9UBuffer(const std::vector<unsigned short> &bufferData) throw (ICUtils::ICException);
+    void generateFed9UBuffer(const std::vector<unsigned short> &bufferData) noexcept(false);
 
     /**
      * \name Buffer getters.
@@ -10433,14 +10433,14 @@ namespace Fed9U {
      * \param fedBuffer Area to copy memory to.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    void getBuffer(unsigned int *fedBuffer) const throw (ICUtils::ICException);
+    void getBuffer(unsigned int *fedBuffer) const noexcept(false);
 
     /**
      * \brief  Method to return copy of Fed9U buffer.
      * \return vector<unsigned char> A vector containing a copy of all the data in the internal buffer.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    std::vector<unsigned char> getBuffer() throw (ICUtils::ICException);
+    std::vector<unsigned char> getBuffer() noexcept(false);
     //@}
 
     /**
@@ -10454,14 +10454,14 @@ namespace Fed9U {
      * \return unsigned long Number of 32-bit words in the buffer.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    unsigned long getBufferSize(void) const throw (ICUtils::ICException);
+    unsigned long getBufferSize(void) const noexcept(false);
 
     /**
      * \brief  Method to get the bunch crossing number.
      * \return unsigned long Bunch crossing number for which the event was recorded.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    unsigned long getBunchCrossing(void) const throw (ICUtils::ICException);
+    unsigned long getBunchCrossing(void) const noexcept(false);
 
     //@}
 
@@ -10478,7 +10478,7 @@ namespace Fed9U {
      * \return Self reference.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    Fed9UBufferGenerator & setBunchCrossing(unsigned long bunchCrossing) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setBunchCrossing(unsigned long bunchCrossing) noexcept(false);
 
     /**
      * \brief  Method to set the tracker header to full debug mode.
@@ -10488,7 +10488,7 @@ namespace Fed9U {
      * The method provides no way to undo this once it has been done. The default mode for an event buffer is APV error mode
      * and no change should be made if this mode is required.
      */
-    Fed9UBufferGenerator & setHeaderToFullDebug(void) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setHeaderToFullDebug(void) noexcept(false);
 
     /**
      * \brief  Method to set the buffer creator pointer. This allows the user to change mode between generating events.
@@ -10505,9 +10505,9 @@ namespace Fed9U {
      *         a base of zero. Size:192.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    Fed9UBufferGenerator & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false);
 
-    Fed9UBufferGenerator & setSlink64() throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setSlink64() noexcept(false);
 
     //@}
  
@@ -12054,14 +12054,14 @@ namespace Fed9U {
      * \throw  Fed9USpyApvDataException index is out of range.
      * \return The value of the sample in ADC counts. 
      */
-    u16 getSample(u16 index) const throw (Fed9USpyApvDataException);
+    u16 getSample(u16 index) const noexcept(false);
     /**
      * \brief  Set a sample from the spy data.
      * \param  index Index of sample in spy data (not apv data frame).
      * \throw  Fed9USpyApvDataException index is out of range.
      * \return The value of the sample in ADC counts.
      */
-    Fed9USpyApvData& setSample(u16 index, i16 value) throw (Fed9USpyApvDataException);
+    Fed9USpyApvData& setSample(u16 index, i16 value) noexcept(false);
     
     //member functions to extract values from the APV header
     /**
@@ -12070,14 +12070,14 @@ namespace Fed9U {
      * \throw  Fed9USpyApvDataException Tick mark isn't found.
      * \return Number of samples before the start of the tick mark.
      */
-    u8 getTickOffset(i16 threshold) const throw (Fed9USpyApvDataException);
+    u8 getTickOffset(i16 threshold) const noexcept(false);
     /*
      * \brief  Get the pipeline address APV header.
      * \param  threshold The threshold for a high value in the APV header.
      * \throw  Fed9USpyApvDataException Tick mark isn't found.
      * \return Pipeline address from the APV header.
      */
-    u8 getPipelineAddress(i16 threshold) const throw (Fed9USpyApvDataException);
+    u8 getPipelineAddress(i16 threshold) const noexcept(false);
     /**
      * \brief  Get APV header error bit.
      * \param  threshold The threshold for a high value in the APV header.
@@ -12085,7 +12085,7 @@ namespace Fed9U {
      * \return True if the error bit was high (ie no error) or 
      *         false if it was low (ie there was an error).
      */
-    bool getErrorBit(i16 threshold) const throw (Fed9USpyApvDataException);
+    bool getErrorBit(i16 threshold) const noexcept(false);
     
     
     /**

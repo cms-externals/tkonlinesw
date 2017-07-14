@@ -110,7 +110,7 @@ void laserdriverAccess::setDescription ( laserdriverDescription laserdriverValue
  * \param laserdriverValues - all the values for a laserdriver
  * \exception FecExceptionHandler
  */
-void laserdriverAccess::setValues ( laserdriverDescription laserdriverValues ) throw (FecExceptionHandler) {
+void laserdriverAccess::setValues ( laserdriverDescription laserdriverValues ) noexcept(false) {
 
   tscType8 bias[MAXLASERDRIVERCHANNELS] ;
 
@@ -130,7 +130,7 @@ void laserdriverAccess::setValues ( laserdriverDescription laserdriverValues ) t
  * \warning a new object reference is dynamically defined. Do not
  * forget to delete it.
  */
-laserdriverDescription *laserdriverAccess::getValues ( ) throw (FecExceptionHandler) {
+laserdriverDescription *laserdriverAccess::getValues ( ) noexcept(false) {
 
   // Retreive the bias value for all the channels
   tscType8 bias[MAXLASERDRIVERCHANNELS] ;
@@ -149,7 +149,7 @@ laserdriverDescription *laserdriverAccess::getValues ( ) throw (FecExceptionHand
  * \param Value to be set
  * \exception FecExceptionHandler
  */
-void laserdriverAccess::setGain ( tscType8 gain ) throw (FecExceptionHandler) {
+void laserdriverAccess::setGain ( tscType8 gain ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 
@@ -168,7 +168,7 @@ void laserdriverAccess::setGain ( tscType8 gain ) throw (FecExceptionHandler) {
  * \return return the value read
  * \exception FecExceptionHandler
  */
-tscType8 laserdriverAccess::getGain ( ) throw (FecExceptionHandler) {
+tscType8 laserdriverAccess::getGain ( ) noexcept(false) {
 
   return (accessToFec_->readOffset ( accessKey_, GAINSELECTION ) ) ;
 }
@@ -177,7 +177,7 @@ tscType8 laserdriverAccess::getGain ( ) throw (FecExceptionHandler) {
  * \param Value to be set
  * \exception FecExceptionHandler
  */
-void laserdriverAccess::setBias ( tscType8 *bias ) throw (FecExceptionHandler) {
+void laserdriverAccess::setBias ( tscType8 *bias ) noexcept(false) {
 
   // Write it
   for (tscType8 i = 0 ; i < MAXLASERDRIVERCHANNELS ; i ++) {
@@ -196,7 +196,7 @@ void laserdriverAccess::setBias ( tscType8 *bias ) throw (FecExceptionHandler) {
  * \param bias - pointer to an array of values
  * \exception FecExceptionHandler
  */
-void laserdriverAccess::getBias ( tscType8 *bias ) throw (FecExceptionHandler) {
+void laserdriverAccess::getBias ( tscType8 *bias ) noexcept(false) {
 
   for (tscType8 i = 0 ; i < MAXLASERDRIVERCHANNELS ; i ++) {
 
@@ -206,7 +206,7 @@ void laserdriverAccess::getBias ( tscType8 *bias ) throw (FecExceptionHandler) {
 
 /** \return true if as SEU is detected ( bit 8 of gainReg = 1 )
  */
-bool laserdriverAccess::getSeuStatus() throw (FecExceptionHandler) { 
+bool laserdriverAccess::getSeuStatus() noexcept(false) { 
 
   return ((bool) ( getGain() & LASERDRIVERSEUDETECTED )) ;
 }
@@ -242,7 +242,7 @@ void laserdriverAccess::getBlockWriteValues ( laserdriverDescription laserdriver
  * \warning if a problem occurs in one channel then 0 is set in the corresponding registers
  */
 unsigned int laserdriverAccess::getLaserdriverValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, laserdriverAccess *> &laserdriverSet, deviceVector &laserdriverVector,
-								      std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) {
+								      std::list<FecExceptionHandler *> &errorList ) noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, laserdriverDescription * > deviceDescriptionsMap ;

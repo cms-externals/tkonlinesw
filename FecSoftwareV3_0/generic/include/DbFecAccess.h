@@ -44,95 +44,95 @@ class DbFecAccess : public DbAccess {
   //
   /** \brief Default constructor
    */
-  DbFecAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbFecAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbFecAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbFecAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbFecAccess ( ) throw (oracle::occi::SQLException);
+  ~DbFecAccess ( ) noexcept(false);
 
   /** \brief Retreive the version, in the current state, for the given partition name
    */
-  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException) ;
+  std::list<unsigned int*> getDatabaseVersion (std::string partitionName) noexcept(false) ;
 
   /** \brief Create a new current state with a set of partitions-versions
    */
-  void setDatabaseVersion(std::list<unsigned int*> partitionVersionsList) throw (FecExceptionHandler);
+  void setDatabaseVersion(std::list<unsigned int*> partitionVersionsList) noexcept(false);
  
   /** \brief Retrives the next minor version with major version = majorId for database upload
    */
-  unsigned int getNextMinorVersion(unsigned int majorId) throw (oracle::occi::SQLException);
+  unsigned int getNextMinorVersion(unsigned int majorId) noexcept(false);
  
   /** \brief Retrives the next major version for database upload
    */
-  unsigned int getNextMajorVersion() throw (oracle::occi::SQLException);
+  unsigned int getNextMajorVersion() noexcept(false);
  
   /** \brief Creates a new state
    */
-  unsigned int createNewStateHistory(std::string partitionName, unsigned int *partitionId, unsigned int *fecVersionMajorId) throw (FecExceptionHandler);
+  unsigned int createNewStateHistory(std::string partitionName, unsigned int *partitionId, unsigned int *fecVersionMajorId) noexcept(false);
  
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob (std::string partitionName) noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false);
 
   /** \brief Download parameters from the database
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string id) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string id) noexcept(false);
 
   /** \brief Download parameters from the database
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string id, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
 
 
   /** \brief Download CCU parameters from the database for a given partition
    */
   oracle::occi::Clob *getCcuXMLClob(std::string partitionName)
-    throw (oracle::occi::SQLException);  
+    noexcept(false);  
 
   /** \brief Download CCU parameters from the database for a given Fec/Ring
    */
   oracle::occi::Clob *getCcuXMLClob(std::string partitionName, std::string fecId, unsigned int ring)
-    throw (oracle::occi::SQLException);
+    noexcept(false);
 
   /** \brief Download CCU parameters from the database for a given Fec/Ring
    */
   oracle::occi::Clob *getCcuXMLClob(std::string fecHardId, unsigned int ringSlot) 
-    throw (oracle::occi::SQLException) ;
+    noexcept(false) ;
 
   /** \brief Upload a Clob to the database to configure the CCUs
    */
-  void setCcuXMLClob(std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  void setCcuXMLClob(std::string buffer, std::string partitionName) noexcept(false) ;
 
   /** \brief Upload a Clob to the database to configure a ring containing CCUs
    */
-  void setRingCcuXMLClob(std::string ringBuffer, std::string ccuBuffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  void setRingCcuXMLClob(std::string ringBuffer, std::string ccuBuffer, std::string partitionName) noexcept(false) ;
 
   /** \brief Upload a Clob to the database for configuration
    */
-  unsigned int setXMLClob(std::string* buffer, std::string partitionName, boolean newPartition) throw (oracle::occi::SQLException, FecExceptionHandler);
+  unsigned int setXMLClob(std::string* buffer, std::string partitionName, boolean newPartition) noexcept(false);
 
   /** \brief Upload a Clob from the database
    */
-  void setXMLClobWithVersion (std::string* buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClobWithVersion (std::string* buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false);
 
   /** \brief Upload a Clob to the database for configuration
    */
-  void setXMLClob (std::string* buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob (std::string* buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false);
 
   /** \brief Upload a Clob to the database for configuration
    */
-  void setXMLClob(std::string stringRequest, std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob(std::string stringRequest, std::string buffer, std::string partitionName) noexcept(false);
 
   /** \brief Upload two Clobs at a time to the database for configuration
    */
-  void setXMLClob(std::string stringRequest, std::string bufferOne, std::string bufferTwo, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob(std::string stringRequest, std::string bufferOne, std::string bufferTwo, std::string partitionName) noexcept(false);
 
 };
 

@@ -99,7 +99,7 @@ public:
   * @brief Buid a Commissioning Analysis factory for database
   */
   CommissioningAnalysisFactory( std::string login, std::string password, std::string path, bool threaded = false )
-				throw ( oracle::occi::SQLException );
+				noexcept(false);
 
  /** 
   * @brief Buid a Commissioning Analysis factory
@@ -156,12 +156,12 @@ public:
    * @brief Create the database access
    */
   void setDatabaseAccess( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException );
+    noexcept(false);
 
   /** 
    * @brief Create the database access with the configuration given by the env. variable CONFDB
    */
-  void setDatabaseAccess() throw ( oracle::occi::SQLException );
+  void setDatabaseAccess() noexcept(false);
 
   /** 
    * @brief Set the database access
@@ -196,7 +196,7 @@ public:
   uint32_t uploadAnalysis( uint32_t runNumber, std::string partitionName,
 			  CommissioningAnalysisDescription::commissioningType type,
 			  std::vector<CommissioningAnalysisDescription*> &descriptions,
-			  bool updateCurrentState ) throw ( FecExceptionHandler );
+			  bool updateCurrentState ) noexcept(false);
 
 
 
@@ -206,7 +206,7 @@ public:
    * The uploadedVersion integer is the value returned by @uploadAnalysis method. 
    * @param uploadedVersion - resulting uploaded version (major version related to partition state)
    */
-  void uploadAnalysisState( uint32_t uploadedVersion ) throw ( FecExceptionHandler );
+  void uploadAnalysisState( uint32_t uploadedVersion ) noexcept(false);
 
 
 
@@ -231,7 +231,7 @@ public:
    * @param descriptions - vector of analysis descriptions
    */
   std::vector<CommissioningAnalysisDescription*> getCalibrationData( uint32_t runNumber,
-			  std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+			  std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
 
@@ -255,7 +255,7 @@ public:
    * @return Vector of pair <run/ <versionMajor/versionMinor> > associated to the partition
    */
   HashMapRunVersion getAnalysisHistory( std::string partitionName,
-			  CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+			  CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
 
@@ -271,7 +271,7 @@ public:
    * @return Vector of analysis descriptions
    */
   std::vector<CommissioningAnalysisDescription*> getAnalysisHistory( std::string partitionName,
-			  uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+			  uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
 
@@ -281,7 +281,7 @@ public:
    * @param globalAnalsysVersion - global version from which retreiving versions
    * @return Map of analysis type / analysis versions
    */
-  HashMapAnalysisVersions getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( FecExceptionHandler );
+  HashMapAnalysisVersions getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false);
 
 
 };

@@ -66,7 +66,7 @@ TkDcuInfoFactory::TkDcuInfoFactory ( ):
  * \param path - URL to acess the database
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
-TkDcuInfoFactory::TkDcuInfoFactory ( std::string login, std::string password, std::string path, bool threaded ) throw ( oracle::occi::SQLException ): 
+TkDcuInfoFactory::TkDcuInfoFactory ( std::string login, std::string password, std::string path, bool threaded ) noexcept(false): 
   
   DeviceFactoryInterface ( login, password, path, threaded ), 
   initDbVersion_(false), partitionName_("NONE"), versionMajor_(0), versionMinor_(0) {
@@ -183,7 +183,7 @@ void TkDcuInfoFactory::setInputFileName ( std::string inputFileName ) {
  * \warning in the destructor of TkDcuInfoFactory, the dbAccess is deleted
  */
 void TkDcuInfoFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -208,7 +208,7 @@ void TkDcuInfoFactory::setDatabaseAccess ( std::string login, std::string passwo
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void TkDcuInfoFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -245,7 +245,7 @@ void TkDcuInfoFactory::setDatabaseAccess ( DbTkDcuInfoAccess *dbAccess ) {
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 void TkDcuInfoFactory::getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   if (dbAccess_ == NULL) {
     RAISEFECEXCEPTIONHANDLER(DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE ) ;
@@ -291,7 +291,7 @@ void TkDcuInfoFactory::getPartitionVersion ( std::string partitionName, unsigned
 
 /** \brief Update the channel delays (coarse and fine) according to the fibre length between detector and FED
 */
-void TkDcuInfoFactory::updateChannelDelays (std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler){
+void TkDcuInfoFactory::updateChannelDelays (std::string partitionName) noexcept(false){
 
   if (getDbConnected()) {
     ((DbTkDcuInfoAccess *)dbAccess_)->updateChannelDelays(partitionName);
@@ -303,7 +303,7 @@ void TkDcuInfoFactory::updateChannelDelays (std::string partitionName) throw (or
 /** \brief Get all the current states
  *  \return An array of TkState. Do not delete the vector returned, it is managed by the current class
  */
-tkStateVector &TkDcuInfoFactory::getCurrentStates () throw (FecExceptionHandler){
+tkStateVector &TkDcuInfoFactory::getCurrentStates () noexcept(false){
 
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
@@ -325,7 +325,7 @@ tkStateVector &TkDcuInfoFactory::getCurrentStates () throw (FecExceptionHandler)
  *  \param stateName the reference state for the partition
  *  \return The new currentStateId
  */
-unsigned int TkDcuInfoFactory::setCurrentState(std::string partitionName, std::string stateName) throw (FecExceptionHandler){
+unsigned int TkDcuInfoFactory::setCurrentState(std::string partitionName, std::string stateName) noexcept(false){
 
   unsigned int updatedStateId;
 
@@ -355,7 +355,7 @@ unsigned int TkDcuInfoFactory::setCurrentState(std::string partitionName, std::s
  *  \param states A list of state
  *  \return The new currentStateId
  */
-unsigned int TkDcuInfoFactory::setCurrentState(tkStateVector states) throw (FecExceptionHandler){
+unsigned int TkDcuInfoFactory::setCurrentState(tkStateVector states) noexcept(false){
   if (getDbConnected()) {
     try{
       unsigned int newStateId = dbAccess_->getNewStateHistoryId();
@@ -387,7 +387,7 @@ unsigned int TkDcuInfoFactory::setCurrentState(tkStateVector states) throw (FecE
  *  \param stateName The name of the chosen state
  *  \return The new current state ID
  */
-unsigned int TkDcuInfoFactory::setCurrentState(std::string stateName) throw (FecExceptionHandler){
+unsigned int TkDcuInfoFactory::setCurrentState(std::string stateName) noexcept(false){
   unsigned int updatedStateId;
   if (getDbConnected()) {
     try{
@@ -416,7 +416,7 @@ unsigned int TkDcuInfoFactory::setCurrentState(std::string stateName) throw (Fec
  * \return The new current state ID
  * \see DbCommonAccess::copyStateForRunNumber(unsigned int runNumber, bool allPartition)
  */
-unsigned int TkDcuInfoFactory::copyStateForRunNumber(unsigned int runNumber, bool allPartition) throw (FecExceptionHandler) {
+unsigned int TkDcuInfoFactory::copyStateForRunNumber(unsigned int runNumber, bool allPartition) noexcept(false) {
 
   if (getDbConnected()) {
     try{
@@ -442,7 +442,7 @@ unsigned int TkDcuInfoFactory::copyStateForRunNumber(unsigned int runNumber, boo
  *  \param partitionName The name of the chosen partition
  *  \return The list of dcuHardId to disable
  */  
-void TkDcuInfoFactory::disableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) throw (FecExceptionHandler){
+void TkDcuInfoFactory::disableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) noexcept(false){
   if (getDbConnected()) {
     try{
       dbAccess_->setDeviceState(partitionName, dcuHardId, 0);//0-> disable the devices
@@ -467,7 +467,7 @@ void TkDcuInfoFactory::disableDevice(std::string partitionName, std::vector<unsi
  *  \param partitionName The name of the chosen partition
  *  \return The list of dcuHardId to disable
  */  
-void TkDcuInfoFactory::enableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) throw (FecExceptionHandler){
+void TkDcuInfoFactory::enableDevice(std::string partitionName, std::vector<unsigned int> dcuHardId) noexcept(false){
   if (getDbConnected()) {
     try{
       dbAccess_->setDeviceState(partitionName, dcuHardId, 1);//1-> enable the devices
@@ -493,7 +493,7 @@ void TkDcuInfoFactory::enableDevice(std::string partitionName, std::vector<unsig
  *  \param runMode The mode of the run
  */
 
-void TkDcuInfoFactory::setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) throw (FecExceptionHandler){
+void TkDcuInfoFactory::setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) noexcept(false){
   if (getDbConnected()) {
     try{
       dbAccess_->setRun(partitionName, runNumber, runMode, local, comment);
@@ -518,7 +518,7 @@ void TkDcuInfoFactory::setRun(std::string partitionName, unsigned int runNumber,
    *  \param partitionName The partition used for the run
    *  \param comment Modify the comment on the run if filled
    */
-void TkDcuInfoFactory::stopRun(std::string partitionName, std::string comment) throw (FecExceptionHandler){
+void TkDcuInfoFactory::stopRun(std::string partitionName, std::string comment) noexcept(false){
 if (getDbConnected()) {
     try{
       dbAccess_->stopRun(partitionName, comment);
@@ -544,7 +544,7 @@ if (getDbConnected()) {
  *  \param runNumber The number of the run
  */
 
-void TkDcuInfoFactory::setO2ORun(std::string partitionName, unsigned int runNumber) throw (FecExceptionHandler) {
+void TkDcuInfoFactory::setO2ORun(std::string partitionName, unsigned int runNumber) noexcept(false) {
   if (getDbConnected()) {
     try{
       dbAccess_->setO2ORun(partitionName, runNumber);
@@ -566,7 +566,7 @@ void TkDcuInfoFactory::setO2ORun(std::string partitionName, unsigned int runNumb
 /** 
  * \return the database version
  */
-double TkDcuInfoFactory::getDbVersion ( ) throw (FecExceptionHandler) {
+double TkDcuInfoFactory::getDbVersion ( ) noexcept(false) {
 
   double dbversion = 0 ;
   if (getDbConnected()) {
@@ -587,7 +587,7 @@ double TkDcuInfoFactory::getDbVersion ( ) throw (FecExceptionHandler) {
 /** 
  * \return the database size in Mbytes
  */
-double TkDcuInfoFactory::getDbSize ( ) throw (FecExceptionHandler) {
+double TkDcuInfoFactory::getDbSize ( ) noexcept(false) {
 
   double dbSize = 0 ;
   if (getDbConnected()) {
@@ -610,7 +610,7 @@ double TkDcuInfoFactory::getDbSize ( ) throw (FecExceptionHandler) {
  * \param runNumber The number of the run
  * \param newComment - new comment in the database
  */
-void TkDcuInfoFactory::updateRunComment(std::string partitionName, unsigned int runNumber, std::string newComment) throw (FecExceptionHandler){
+void TkDcuInfoFactory::updateRunComment(std::string partitionName, unsigned int runNumber, std::string newComment) noexcept(false){
   if (getDbConnected()) {
     try{
       dbAccess_->setNewComment(partitionName, runNumber, newComment);
@@ -632,7 +632,7 @@ void TkDcuInfoFactory::updateRunComment(std::string partitionName, unsigned int 
 
 /** \brief Get the last run for the given partition
  */
-TkRun* TkDcuInfoFactory::getLastRun (std::string partitionName) throw (FecExceptionHandler){
+TkRun* TkDcuInfoFactory::getLastRun (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -651,7 +651,7 @@ TkRun* TkDcuInfoFactory::getLastRun (std::string partitionName) throw (FecExcept
 /** \brief Get the given run for the given partition
  *  \return a TkRun. YOU have to delete this object !
  */
-TkRun* TkDcuInfoFactory::getRun (std::string partitionName, int runNumber) throw (FecExceptionHandler){
+TkRun* TkDcuInfoFactory::getRun (std::string partitionName, int runNumber) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -669,7 +669,7 @@ TkRun* TkDcuInfoFactory::getRun (std::string partitionName, int runNumber) throw
 /** \brief Get all the runs from the DB.
  *  \return a tkRunVector. YOU have to delete this object !
  */
-tkRunVector TkDcuInfoFactory::getAllRuns () throw (FecExceptionHandler){
+tkRunVector TkDcuInfoFactory::getAllRuns () noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -686,7 +686,7 @@ tkRunVector TkDcuInfoFactory::getAllRuns () throw (FecExceptionHandler){
 /** \brief Get the last run used by O2O for the given partition
  *  \return a TkRun. YOU have to delete this object !
  */
-TkRun* TkDcuInfoFactory::getLastO2ORun (std::string partitionName) throw (FecExceptionHandler){
+TkRun* TkDcuInfoFactory::getLastO2ORun (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -704,7 +704,7 @@ TkRun* TkDcuInfoFactory::getLastO2ORun (std::string partitionName) throw (FecExc
 /** \brief Retrieve the partition names for a given run
  *  \return A list with all the partition names.
  */
-std::list<std::string> TkDcuInfoFactory::getAllPartitionNames( unsigned int runNumber ) throw (FecExceptionHandler) {
+std::list<std::string> TkDcuInfoFactory::getAllPartitionNames( unsigned int runNumber ) noexcept(false) {
 
   if (getDbConnected()) {
     try{
@@ -722,7 +722,7 @@ std::list<std::string> TkDcuInfoFactory::getAllPartitionNames( unsigned int runN
 /** \brief Retrieve the partition names from the current state
  *  \return A list with all the partition names.
  */
-std::list<std::string> TkDcuInfoFactory::getAllPartitionNamesFromCurrentState() throw (FecExceptionHandler){
+std::list<std::string> TkDcuInfoFactory::getAllPartitionNamesFromCurrentState() noexcept(false){
   if (getDbConnected()) {
     try{
       return dbAccess_->getAllPartitionNamesFromCurrentState();
@@ -739,7 +739,7 @@ std::list<std::string> TkDcuInfoFactory::getAllPartitionNamesFromCurrentState() 
 /** \brief Retrieve the state names
  *  \return A list with all the state names. YOU have to delete that list!
  */
-std::list<std::string> TkDcuInfoFactory::getAllStateHistoryNames() throw (FecExceptionHandler){
+std::list<std::string> TkDcuInfoFactory::getAllStateHistoryNames() noexcept(false){
   if (getDbConnected()) {
     try{
       return dbAccess_->getAllStateHistoryNames();
@@ -756,7 +756,7 @@ std::list<std::string> TkDcuInfoFactory::getAllStateHistoryNames() throw (FecExc
 /** \brief Retrieve the state names
  *  \return A list with all the state names. YOU have to delete that list!
  */
-unsigned int TkDcuInfoFactory::getCurrentStateHistoryId() throw (FecExceptionHandler){
+unsigned int TkDcuInfoFactory::getCurrentStateHistoryId() noexcept(false){
   if (getDbConnected()) {
     try{
       return dbAccess_->getCurrentStateHistoryId();
@@ -773,7 +773,7 @@ unsigned int TkDcuInfoFactory::getCurrentStateHistoryId() throw (FecExceptionHan
 /** \brief Retrieve the partition names
  *  \return A list with all the partition names.
  */
-std::list<std::string> TkDcuInfoFactory::getAllPartitionNames() throw (FecExceptionHandler){
+std::list<std::string> TkDcuInfoFactory::getAllPartitionNames() noexcept(false){
   if (getDbConnected()) {
     try{
       return dbAccess_->getAllPartitionNames();
@@ -790,7 +790,7 @@ std::list<std::string> TkDcuInfoFactory::getAllPartitionNames() throw (FecExcept
 /** \brief Get all the Fec versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllFecVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllFecVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -807,7 +807,7 @@ tkVersionVector &TkDcuInfoFactory::getAllFecVersions (std::string partitionName)
 /** \brief Get all the Fed versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllFedVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllFedVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -824,7 +824,7 @@ tkVersionVector &TkDcuInfoFactory::getAllFedVersions (std::string partitionName)
 /** \brief Get all the Dcu Info versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllDcuInfoVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllDcuInfoVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -841,7 +841,7 @@ tkVersionVector &TkDcuInfoFactory::getAllDcuInfoVersions (std::string partitionN
 /** \brief Get all the Connection versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllConnectionVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllConnectionVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -858,7 +858,7 @@ tkVersionVector &TkDcuInfoFactory::getAllConnectionVersions (std::string partiti
 /** \brief Get all the DcuPsuMap versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllDcuPsuMapVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllDcuPsuMapVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -876,7 +876,7 @@ tkVersionVector &TkDcuInfoFactory::getAllDcuPsuMapVersions (std::string partitio
 /** \brief Get all the Mask versions
  *  \return An array of TkVersion. 
  */
-tkVersionVector &TkDcuInfoFactory::getAllMaskVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector &TkDcuInfoFactory::getAllMaskVersions (std::string partitionName) noexcept(false){
   if (getDbConnected()) {
     XMLTkDcuInfo xmlTkDcuInfo;
     xmlTkDcuInfo.setDatabaseAccess(dbAccess_) ;
@@ -898,7 +898,7 @@ tkVersionVector &TkDcuInfoFactory::getAllMaskVersions (std::string partitionName
  * \param forceDbReload - force the reload of the database
  */
 void TkDcuInfoFactory::addDetIdPartition ( std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId, bool cleanCache, bool forceDbReload )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // check if the partition should be re-downloaded
   if (forceDbReload) initDbVersion_ = false ;
@@ -985,7 +985,7 @@ void TkDcuInfoFactory::addDetIdPartition ( std::string partitionName, unsigned i
  * \warning the attribut partition name is set to ALL in that call
  */
 void TkDcuInfoFactory::addAllDetId( unsigned int majorVersionId, unsigned int minorVersionId, bool cleanCache, bool forceDbReload )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string partitionName = "ALL" ;
 
@@ -1077,7 +1077,7 @@ void TkDcuInfoFactory::addAllDetId( unsigned int majorVersionId, unsigned int mi
  * \return The TkDcuInfo object containing the informations
  */
 TkDcuInfo *TkDcuInfoFactory::getTkDcuInfo ( unsigned long dcuHardId )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // No Dcu info exists in the map
   if (vDcuInfo_.find(dcuHardId) == vDcuInfo_.end()) { 
@@ -1092,7 +1092,7 @@ TkDcuInfo *TkDcuInfoFactory::getTkDcuInfo ( unsigned long dcuHardId )
  * \param dcuInfoVector - a vector of conversion factor
  */
 void TkDcuInfoFactory::setTkDcuInfo ( tkDcuInfoVector vDcuInfo ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -1126,7 +1126,7 @@ void TkDcuInfoFactory::setTkDcuInfo ( tkDcuInfoVector vDcuInfo )
 #ifdef DATABASE
 /** \brief Create a new version for the dcu infos
  */
-void TkDcuInfoFactory::createNewDcuInfoVersion() throw (FecExceptionHandler){
+void TkDcuInfoFactory::createNewDcuInfoVersion() noexcept(false){
   if (getDbConnected()) {
     try{
       dbAccess_->createNewDcuInfoVersion();
@@ -1151,7 +1151,7 @@ void TkDcuInfoFactory::createNewDcuInfoVersion() throw (FecExceptionHandler){
  * \param vInfo - a hash_map of conversion factors
  */
 void TkDcuInfoFactory::setTkDcuInfo ( Sgi::hash_map<unsigned long, TkDcuInfo *> vInfo ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   tkDcuInfoVector vDcuInfo ;
   for (Sgi::hash_map<unsigned long, TkDcuInfo *>::iterator itr = vInfo.begin() ; itr != vInfo.end() ; itr ++) {
@@ -1165,7 +1165,7 @@ void TkDcuInfoFactory::setTkDcuInfo ( Sgi::hash_map<unsigned long, TkDcuInfo *> 
 /** Upload the description in the output (database or file) with the hash_map attribut of the class
  */
 void TkDcuInfoFactory::setTkDcuInfo ( ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   setTkDcuInfo (vDcuInfo_) ;
 }

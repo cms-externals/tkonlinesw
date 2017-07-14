@@ -31,14 +31,14 @@
  */
 TkDiagErrorAnalyser::TkDiagErrorAnalyser ( std::string partitionName, std::string login, std::string password, std::string path ) 
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler) {
+  noexcept(false) {
 
   if (login == "nil") DbAccess::getDbConfiguration (login, password, path) ;
 
   buildDatabaseInformation (partitionName, login, password, path) ;
 }
 #else
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   RAISEFECEXCEPTIONHANDLER (CODECONSISTENCYERROR, "Database support is not compiled, cannot use this class", FATALERRORCODE) ;
 }
@@ -66,7 +66,7 @@ TkDiagErrorAnalyser::~TkDiagErrorAnalyser ( ) {
  * \warning the number of det id (detIdList_) and the number of modules (listModulesAsConnection_) should be the same
  */
 void TkDiagErrorAnalyser::buildDatabaseInformation ( std::string partitionName, std::string login, std::string password, std::string path ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   // -----------------------------------------------------------------
   // Database creation
@@ -313,7 +313,7 @@ void TkDiagErrorAnalyser::buildDatabaseInformation ( std::string partitionName, 
  * \param i2cAddress - i2c address (if NOLIFEINPARAMETER is set (default value) then just looking for the parameters before)
  * \exception a string saying the given hardware is not known
  */
-void TkDiagErrorAnalyser::setFecError ( std::string fecHardwareId, unsigned int ring, unsigned int ccu, unsigned int channel, unsigned int i2cAddress ) throw (std::string) {
+void TkDiagErrorAnalyser::setFecError ( std::string fecHardwareId, unsigned int ring, unsigned int ccu, unsigned int channel, unsigned int i2cAddress ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << __LINE__ << " " << __PRETTY_FUNCTION__ << ": set error on " 
@@ -490,7 +490,7 @@ void TkDiagErrorAnalyser::setFecError ( std::string fecHardwareId, unsigned int 
  * \param fedChannel - FED channel (if NOLIFEINPARAMETER is set (default value) then just looking for the parameters before)
  * \exception a string saying the given hardware is not known
  */
-void TkDiagErrorAnalyser::setFedSoftIdError ( unsigned int fedSoftId, unsigned int fedChannel ) throw (std::string) {
+void TkDiagErrorAnalyser::setFedSoftIdError ( unsigned int fedSoftId, unsigned int fedChannel ) noexcept(false) {
 
 #ifdef DEBUGTIMING
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
@@ -553,7 +553,7 @@ void TkDiagErrorAnalyser::setFedSoftIdError ( unsigned int fedSoftId, unsigned i
  * \param fedChannel - FED channel (if NOLIFEINPARAMETER is set (default value) then just looking for the parameters before)
  * \exception a string saying the given hardware is not known
  */
-void TkDiagErrorAnalyser::setFedCrateIdError ( unsigned int crateId, unsigned int slot, unsigned int fedChannel ) throw (std::string) {
+void TkDiagErrorAnalyser::setFedCrateIdError ( unsigned int crateId, unsigned int slot, unsigned int fedChannel ) noexcept(false) {
 
 #ifdef DEBUGTIMING
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
@@ -595,7 +595,7 @@ void TkDiagErrorAnalyser::setFedCrateIdError ( unsigned int crateId, unsigned in
  * \param psuName - PVSS name (or dp name or Psu name)
  * \see TkDcuPsuMapDescription for more details
  */
-void TkDiagErrorAnalyser::setPsuError ( std::string psuName ) throw (std::string) {
+void TkDiagErrorAnalyser::setPsuError ( std::string psuName ) noexcept(false) {
 
 #ifdef DEBUGTIMING
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
@@ -632,7 +632,7 @@ void TkDiagErrorAnalyser::setPsuError ( std::string psuName ) throw (std::string
 /** Set an error for a given DCU hard ID
  * \param dcuHardId - DCU hard ID
  */
-void TkDiagErrorAnalyser::setDcuHardIdError ( unsigned int dcuHardId ) throw (std::string) {
+void TkDiagErrorAnalyser::setDcuHardIdError ( unsigned int dcuHardId ) noexcept(false) {
 
 #ifdef DEBUGTIMING
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
@@ -657,7 +657,7 @@ void TkDiagErrorAnalyser::setDcuHardIdError ( unsigned int dcuHardId ) throw (st
 /** Set an error for given det id 
  * \param detId - detector ID 
  */
-void TkDiagErrorAnalyser::setDetIdError ( unsigned int detId ) throw (std::string) {
+void TkDiagErrorAnalyser::setDetIdError ( unsigned int detId ) noexcept(false) {
 
 #ifdef DEBUGTIMING
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();

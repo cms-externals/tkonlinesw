@@ -45,22 +45,22 @@ class Fed9UXMLDescription
 
 public:
   /**Constructor. This takes as arguments the XML file name and the Fed9UDescription to be modified.*/
-  Fed9UXMLDescription(const std::string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) throw (Fed9UXMLDescriptionException);
+  Fed9UXMLDescription(const std::string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) noexcept(false);
 
   /**Constructor. This takes in the Fed9UDescription to be modified. This is the constructor that should be used by derived classes.*/
-  Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription , std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) throw (Fed9UXMLDescriptionException);
+  Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription , std::vector<Fed9UDescription*>* desclist = NULL, bool usingStrips = true) noexcept(false);
 
   /**Destructor. This does some clean up.*/
   virtual ~Fed9UXMLDescription();
 
   /**Method which performs the Fed9UDescription override. It modifies the object member reference to the Fed9UDescription. 
      This method should only be used if the user has used the constructor which takes in a file name.*/
-  std::vector<Fed9UDescription*>* makeNewFed9UDescription(void) throw (Fed9UXMLDescriptionException);
+  std::vector<Fed9UDescription*>* makeNewFed9UDescription(void) noexcept(false);
 
   /**Method which performs the Fed9UDescription overide. 
      It takes in a istream, containing the XML buffer, and modifies the object member reference to the Fed9UDescription.
      This method should be used by derived classes which use the stream interface to this class.*/
-  std::vector<Fed9UDescription*>* makeNewFed9UDescriptionFromStream(std::istream &is) throw (Fed9UXMLDescriptionException);
+  std::vector<Fed9UDescription*>* makeNewFed9UDescriptionFromStream(std::istream &is) noexcept(false);
 
   /**Method to get the value of usingStrips_*/
   bool getUsingStrips();
@@ -73,49 +73,49 @@ public:
 
 protected:
   /**Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.*/
-  void initializeXerces(void) throw (Fed9UXMLDescriptionException);
+  void initializeXerces(void) noexcept(false);
 
   /**Method which will construct and initialize the DOMBuilder.*/
-  void makeDOMBuilder(void) throw (Fed9UXMLDescriptionException);
+  void makeDOMBuilder(void) noexcept(false);
 
   /**Method to recursively find the child elements under the given Node.*/
-  void traverseChildElements(xercesc::DOMNode *n) throw (Fed9UXMLDescriptionException);
+  void traverseChildElements(xercesc::DOMNode *n) noexcept(false);
 
   /**Method which reads in a node, finds if it has attributes and sets these in the Fed9UDescription.*/
-  void setFed9UDescription(xercesc::DOMNode *n) throw (Fed9UXMLDescriptionException);
+  void setFed9UDescription(xercesc::DOMNode *n) noexcept(false);
 
   /**Method which will set the attributes for the fed9U node.*/
-  void setFed9UAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setFed9UAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method which will set the attributes for the feFpga node.*/
-  void setFeFpgaAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setFeFpgaAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
  
   /**Method which will set the attributes for the channel pair node.*/
-  void setChannelPairAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setChannelPairAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
  
   /**Method which will set the attributes for the channel node.*/
-  void setChannelAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setChannelAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
   
   /**Method which will set the attributes for the channel node.*/
-  void setApvAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setApvAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method which will set the attributes for the strip node.*/
-  void setStripAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setStripAttributes(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
   
   /**Method which will set the attributes for the strips node.*/
-  void setStripsAttribute(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException);
+  void setStripsAttribute(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false);
 
   /**Method to get the integer node value from a DOMNamedNodeMap*/
-  unsigned long getIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  unsigned long getIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the signed integer node value from a DOMNamedNodeMap*/
-  int getSignedIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap,  std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  int getSignedIntNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap,  std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the float node value from a DOMNamedNodeMap*/
-  float getFloatNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  float getFloatNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
 
   /**Method to get the string node value from a DOMNamedNodeMap*/
-  std::string getStringNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException);
+  std::string getStringNodeValue(xercesc::DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false);
   
   
   xercesc::DOMDocument *doc;

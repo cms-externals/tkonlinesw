@@ -66,7 +66,7 @@ TkDcuConversionFactory::TkDcuConversionFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 TkDcuConversionFactory::TkDcuConversionFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   DeviceFactoryInterface ( login, password, path, threaded ) {
 
   setDatabaseAccess ( login, password, path ) ;
@@ -170,7 +170,7 @@ void TkDcuConversionFactory::setInputFileName ( std::string inputFileName ) {
  * \warning in the destructor of TkDcuConversionFactory, the dbAccess is deleted
  */
 void TkDcuConversionFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -195,7 +195,7 @@ void TkDcuConversionFactory::setDatabaseAccess ( std::string login, std::string 
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void TkDcuConversionFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -224,7 +224,7 @@ void TkDcuConversionFactory::setDatabaseAccess ( DbTkDcuConversionAccess *dbAcce
 /** \brief Add the descriptions of the devices from the partitionName
  */
 void TkDcuConversionFactory::addConversionPartition ( std::string partitionName )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // For conversion factors
   XMLTkDcuConversion xmlTkDcuConversion;
@@ -259,7 +259,7 @@ void TkDcuConversionFactory::addConversionPartition ( std::string partitionName 
  * \return return the conversion factors, do not delete the conversion factors returned
  */
 TkDcuConversionFactors *TkDcuConversionFactory::getTkDcuConversionFactors ( unsigned long dcuHardId, bool forceDbReload )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -334,7 +334,7 @@ TkDcuConversionFactors *TkDcuConversionFactory::getTkDcuConversionFactors ( unsi
  * \exception an exception is raised if the conversion factors is already present in the map
  */
 void TkDcuConversionFactory::setTkDcuConversionFactors ( TkDcuConversionFactors tkDcuConversionFactors ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   if (vConversionFactors_.find(tkDcuConversionFactors.getDcuHardId()) == vConversionFactors_.end()) 
     vConversionFactors_[tkDcuConversionFactors.getDcuHardId()] = tkDcuConversionFactors.clone() ;
@@ -350,7 +350,7 @@ void TkDcuConversionFactory::setTkDcuConversionFactors ( TkDcuConversionFactors 
  * \param dcuConversionVector - a vector of conversion factor
  */
 void TkDcuConversionFactory::setTkDcuConversionFactors ( dcuConversionVector vDcuConversion ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -384,7 +384,7 @@ void TkDcuConversionFactory::setTkDcuConversionFactors ( dcuConversionVector vDc
  * \param vConversionFactors - a hash_map of conversion factors
  */
 void TkDcuConversionFactory::setTkDcuConversionFactors ( Sgi::hash_map<unsigned long, TkDcuConversionFactors *> vConversionFactors ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   dcuConversionVector vDcuConversion ;
   for (Sgi::hash_map<unsigned long, TkDcuConversionFactors *>::iterator itr = vConversionFactors.begin() ; itr != vConversionFactors.end() ; itr ++) {
@@ -397,7 +397,7 @@ void TkDcuConversionFactory::setTkDcuConversionFactors ( Sgi::hash_map<unsigned 
 /** Upload the description in the output (database or file) with the hash_map attribut of the class
  */
 void TkDcuConversionFactory::setTkDcuConversionFactors ( ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
   setTkDcuConversionFactors (vConversionFactors_) ;
 }
 

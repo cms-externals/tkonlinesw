@@ -66,7 +66,7 @@ class DeviceFactory: public FecFactory,
   /** \brief Buid a FEC factory for database
    */
   DeviceFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) 
+    noexcept(false) 
     ;
 #endif
 
@@ -81,12 +81,12 @@ class DeviceFactory: public FecFactory,
   /** \brief Retreive from the database the next run number
    */
   unsigned int getNextRunNumber ( )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Retreive from the database the current run number
    */
   unsigned int getCurrentRunNumber ( )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set this file as the new output
    */
@@ -94,67 +94,67 @@ class DeviceFactory: public FecFactory,
 
   /** \brief Set a file as the new input
    */
-  void setFecInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setFecInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addFecFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addFecFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setFedInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setFedInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addFedFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addFedFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setFedFecConnectionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setFedFecConnectionInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addFedFecConnectionFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addFedFecConnectionFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setConnectionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setConnectionInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addConnectionFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addConnectionFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setDcuConversionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setDcuConversionInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addDcuConversionFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addDcuConversionFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setTkDcuInfoInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setTkDcuInfoInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addTkDcuInfoFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addTkDcuInfoFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setTkDcuPsuMapFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setTkDcuPsuMapFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addTkDcuPsuMapFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addTkDcuPsuMapFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Set a file as the new input
    */
-  void setTkIdVsHostnameInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setTkIdVsHostnameInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Add a new file name and parse it to retreive the information needed
    */
-  void addTkIdVsHostnameFileName ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  void addTkIdVsHostnameFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Use file
    */
@@ -169,7 +169,7 @@ class DeviceFactory: public FecFactory,
 #ifdef DATABASE
   /** \brief use database
    */
-  void setUsingDb ( bool useIt = true ) throw (std::string) ;
+  void setUsingDb ( bool useIt = true ) noexcept(false) ;
 
   /** \brief All databases used for FEC, FED, PIA and connection
    */
@@ -181,28 +181,28 @@ class DeviceFactory: public FecFactory,
 
   /** \brief create the database access for default environement variable
    */
-  void setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) ;
+  void setDatabaseAccess ( ) noexcept(false) ;
 
   /** \brief create database access
    */
-  void setDatabaseAccess ( std::string login, std::string password, std::string path ) throw ( oracle::occi::SQLException ) ;
+  void setDatabaseAccess ( std::string login, std::string password, std::string path ) noexcept(false) ;
 
   /** \brief return the partition name
    */
-  std::string getPartitionName ( unsigned int partitionId )  throw (oracle::occi::SQLException) ;
+  std::string getPartitionName ( unsigned int partitionId )  noexcept(false) ;
 
   /** \brief Refresh the cache of the connection, fec and fed
    */
-  void refreshCacheXMLClob ( int deleteValues = 1, bool withStrips = true ) throw (oracle::occi::SQLException) ;
+  void refreshCacheXMLClob ( int deleteValues = 1, bool withStrips = true ) noexcept(false) ;
 
   /** \brief disable a set of DCus
    */
   void setEnableModules(std::string partitionName, std::vector<unsigned int> dcuHardIdList, bool enabled) 
-    throw (FecExceptionHandler, oracle::occi::SQLException, Fed9U::Fed9UDeviceFactoryException, ICUtils::ICException) ;
+    noexcept(false) ;
 
   /** \brief download the connections and identify the det id 
    */
-  unsigned int getConnectionDescriptionDetId ( std::string partitionName, ConnectionVector &connectionVector, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, unsigned int maskVersionMajor = 0, unsigned int maskVersionMinor = 0, bool allConnections = false, bool forceDbReload = false ) throw (FecExceptionHandler, oracle::occi::SQLException) ;
+  unsigned int getConnectionDescriptionDetId ( std::string partitionName, ConnectionVector &connectionVector, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, unsigned int maskVersionMajor = 0, unsigned int maskVersionMinor = 0, bool allConnections = false, bool forceDbReload = false ) noexcept(false) ;
 
   /** \brief return the error message coming from oracle exception
    */
@@ -210,11 +210,11 @@ class DeviceFactory: public FecFactory,
 
   /** \brief insert an o2o operation
    */
-  void setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int runNumber ) throw (FecExceptionHandler) ;
+  void setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int runNumber ) noexcept(false) ;
 
   /** \brief crosscheck the last o2o operation
    */
-  bool getO2OXchecked ( std::string partitionName ) throw (FecExceptionHandler) ;
+  bool getO2OXchecked ( std::string partitionName ) noexcept(false) ;
 
   /** \brief return a database access from any factory class (first found)
    * \return dbAccess - database access (NULL if not found)

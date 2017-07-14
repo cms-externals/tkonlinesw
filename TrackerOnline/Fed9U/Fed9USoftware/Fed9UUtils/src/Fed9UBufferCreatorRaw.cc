@@ -6,7 +6,7 @@ namespace Fed9U {
 
   //using std::exception;
 
-  void Fed9UBufferCreatorRaw::generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException) {
+  void Fed9UBufferCreatorRaw::generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false) {
     try {
 
       //Make vectors of the data sizes for each FE and each channel.
@@ -47,7 +47,7 @@ namespace Fed9U {
     }
   }
   
-  void Fed9UBufferCreatorRaw::disOrderData(std::vector<unsigned short> &bufferData) const throw (ICException) {
+  void Fed9UBufferCreatorRaw::disOrderData(std::vector<unsigned short> &bufferData) const noexcept(false) {
     try {
       unsigned short stripsPerApv = mFed9UEventInfo.getStripsPerApv();
       unsigned short stripsPerChannel = stripsPerApv * mFed9UEventInfo.getApvsPerFedChannel();

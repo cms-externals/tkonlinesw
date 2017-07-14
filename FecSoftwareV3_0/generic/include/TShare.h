@@ -88,20 +88,20 @@ public:
      @param mode TShare_CREATE or TShare_OPEN (see TShare.h)
      @param size Share memory size
    */
-  TShare(char* name,int mode,int size) throw (std::string);
-  ~TShare() throw (std::string);
+  TShare(char* name,int mode,int size) noexcept(false);
+  ~TShare() noexcept(false);
   /** Lock the Semaphore to access safely the Share memory */
-  void Lock() throw (std::string);
+  void Lock() noexcept(false);
   /** Unlock the Semaphore  */
-  void Unlock() throw (std::string);
+  void Unlock() noexcept(false);
   /** Attach the Share memory 
       @return pointer to the Share memory
    */ 
-  void* Attach() throw (std::string);
+  void* Attach() noexcept(false);
   /** Detach the Share memory 
       @param ad  pointer to the Share memory
    */
-  void Detach(const void* ad) throw (std::string);
+  void Detach(const void* ad) noexcept(false);
   /** Return Share memory name */
   inline const char* GetName() { return fName;}
 };

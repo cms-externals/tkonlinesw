@@ -60,11 +60,11 @@ class FecPciRingDevice: public FecRingDevice {
    * \param ringSlot - ring slot on the corresponding FEC
    * \param init - initialise or not the FEC ring
    */
-  FecPciRingDevice ( tscType8 fecSlot, tscType8 ringSlot, bool init = true, bool invertClockPolarity = false ) throw ( FecExceptionHandler ) ;
+  FecPciRingDevice ( tscType8 fecSlot, tscType8 ringSlot, bool init = true, bool invertClockPolarity = false ) noexcept(false) ;
 
  /** \brief Close the device driver
   */
-  virtual ~FecPciRingDevice ( ) throw ( FecExceptionHandler ) ;
+  virtual ~FecPciRingDevice ( ) noexcept(false) ;
 
 
   /******************************************************
@@ -73,36 +73,36 @@ class FecPciRingDevice: public FecRingDevice {
 
   /** \brief Set the control register 0  the FEC
    */ 
-  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false )  throw ( FecExceptionHandler ) ;
+  void setFecRingCR0 ( tscType16 ctrl0Value, bool force = false )  noexcept(false) ;
 
   /** \brief Get the control register 0  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR0( ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecRingCR0( ) noexcept(false) ;
 
   /** \brief Set the control register 1  the FEC
    * \param ctrl1Value - value to be set
    */ 
-  void setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler ) ;
+  void setFecRingCR1( tscType16 ctrl1Value ) noexcept(false) ;
 
   /** \brief Get the control register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingCR1( ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecRingCR1( ) noexcept(false) ;
 
   /** \brief Get the status register 0  the FEC
    * \return value read
    */
-  tscType32 getFecRingSR0( ) throw ( FecExceptionHandler ) ;
+  tscType32 getFecRingSR0( ) noexcept(false) ;
 
   /** \brief Get the status register 1  the FEC
    * \return value read
    */
-  tscType16 getFecRingSR1( ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecRingSR1( ) noexcept(false) ;
 	
   /** \brief return the firmware version of the FEC
    */
-  tscType16 getFecFirmwareVersion( ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecFirmwareVersion( ) noexcept(false) ;
 
   /******************************************************
 	FIFO ACCESS - NATIVE 32 BITS FORMAT
@@ -111,30 +111,30 @@ class FecPciRingDevice: public FecRingDevice {
 
   /** \brief return a word from the FIFO receive
    */
-  tscType32 getFifoReceive( ) throw ( FecExceptionHandler ) ;
+  tscType32 getFifoReceive( ) noexcept(false) ;
 	
   /** \brief write a word in the FIFO receive
    * \param value - value to be written
    */
-  void setFifoReceive( tscType32 value ) throw ( FecExceptionHandler ) ;
+  void setFifoReceive( tscType32 value ) noexcept(false) ;
   
   /** \brief return a word from the FIFO return
    */
-  tscType8 getFifoReturn( )  throw ( FecExceptionHandler ) ;
+  tscType8 getFifoReturn( )  noexcept(false) ;
 
   /** \brief write a word in the FIFO return
    * \param value - value to be written
    */
-  void setFifoReturn( tscType8 value )  throw ( FecExceptionHandler ) ;
+  void setFifoReturn( tscType8 value )  noexcept(false) ;
   
   /** \brief return a word from the FIFO transmit
    */
-  tscType32 getFifoTransmit( )  throw ( FecExceptionHandler ) ;
+  tscType32 getFifoTransmit( )  noexcept(false) ;
 
   /** \brief write a word in the FIFO transmit
    * \param value - value to be written
    */
-  void setFifoTransmit( tscType32 value )  throw ( FecExceptionHandler ) ;
+  void setFifoTransmit( tscType32 value )  noexcept(false) ;
 
 
    /******************************************************
@@ -143,7 +143,7 @@ class FecPciRingDevice: public FecRingDevice {
 
   /** \brief issue a PLX reset
    */
-  void fecHardReset ( )  throw ( FecExceptionHandler ) ;
+  void fecHardReset ( )  noexcept(false) ;
 
   /******************************************************
 		IRQ enable / disable
@@ -151,7 +151,7 @@ class FecPciRingDevice: public FecRingDevice {
 
   /** \brief Enable or disable the PLX irq (level is not used)
    */
-  void setIRQ ( bool enable, tscType8 level=1 ) throw ( FecExceptionHandler ) ;
+  void setIRQ ( bool enable, tscType8 level=1 ) noexcept(false) ;
 } ;
 
 #endif

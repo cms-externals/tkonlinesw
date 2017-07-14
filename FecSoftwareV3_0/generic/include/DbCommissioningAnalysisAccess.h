@@ -49,13 +49,13 @@ class DbCommissioningAnalysisAccess : public DbCommonAccess {
 
 
 	/** @brief Default constructor */
-	DbCommissioningAnalysisAccess(bool threaded = false) throw ( oracle::occi::SQLException );
+	DbCommissioningAnalysisAccess(bool threaded = false) noexcept(false);
 
 	/** @brief Constructor with connection parameters */
-	DbCommissioningAnalysisAccess(std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw ( oracle::occi::SQLException );
+	DbCommissioningAnalysisAccess(std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
 	/** @brief Destructor */
-	~DbCommissioningAnalysisAccess() throw ( oracle::occi::SQLException );
+	~DbCommissioningAnalysisAccess() noexcept(false);
 
 
 
@@ -67,36 +67,36 @@ class DbCommissioningAnalysisAccess : public DbCommonAccess {
 	 * @param buffer - XML content
 	 * @param updateCurrentState - Indicates whether current partition state has to be updated or not
 	 */
-	void setXMLClob( std::string buffer, bool updateCurrentState, unsigned int &partitionStateVersionId ) throw ( oracle::occi::SQLException, FecExceptionHandler );
+	void setXMLClob( std::string buffer, bool updateCurrentState, unsigned int &partitionStateVersionId ) noexcept(false);
 
 	/**
 	 * @brief Update the current partition state in order to set the last analysis state get
 	 * @param uploadedVersion - The last global analysis state get
 	 */
-	void setPartitionState( uint32_t uploadedVersion ) throw ( oracle::occi::SQLException );
+	void setPartitionState( uint32_t uploadedVersion ) noexcept(false);
 
 	/**
 	 * Retrieves analysis result descriptions (of the specified type) for a given runNumber and one of its associated partition
 	 */
 	oracle::occi::Clob* getCalibrationData( uint32_t runNumber,
-				std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException );
+				std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 	/**
 	 * @brief Retrieves all analysis result pair of run/version of the specified type and for a given partition
 	 */
-	oracle::occi::Clob* getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException );
+	oracle::occi::Clob* getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 	/**
 	 * @brief Retrieves an analysis result by its partition, type and version
 	 */
-	oracle::occi::Clob* getAnalysisHistory( std::string partitionName, uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException );
+	oracle::occi::Clob* getAnalysisHistory( std::string partitionName, uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 	/**
 	 * @brief Retrieves local analysis versions associated to a global version number
 	 * @param globalAnalsysVersion - global version from which retreiving versions
 	 * @return clob corresponding to the map of analysis type / analysis versions
 	 */
-	oracle::occi::Clob* getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( oracle::occi::SQLException );
+	oracle::occi::Clob* getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false);
 
 };
 

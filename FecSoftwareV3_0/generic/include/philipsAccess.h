@@ -91,7 +91,7 @@ class philipsAccess: public deviceAccess {
    */
   static unsigned int getPhilipsValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, philipsAccess *> &philipsSet, deviceVector &philipsVector,
 						       std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 };
 

@@ -59,7 +59,7 @@ TkMaskModulesFactory::TkMaskModulesFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 TkMaskModulesFactory::TkMaskModulesFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   DeviceFactoryInterface ( login, password, path, threaded ) {
   setDatabaseAccess ( login, password, path ) ;
 }
@@ -119,7 +119,7 @@ void TkMaskModulesFactory::setInputFileName ( std::string inputFileName ) {
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 void TkMaskModulesFactory::getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -133,7 +133,7 @@ void TkMaskModulesFactory::getPartitionVersion ( std::string partitionName, unsi
  * \warning in the destructor of TkMaskModulesFactory, the dbAccess is deleted
  */
 void TkMaskModulesFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -158,7 +158,7 @@ void TkMaskModulesFactory::setDatabaseAccess ( std::string login, std::string pa
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void TkMaskModulesFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -194,7 +194,7 @@ void TkMaskModulesFactory::setDatabaseAccess ( DbTkMaskModulesAccess *dbAccess )
  * \param pVersionMinor - mask version minor ID
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  */
-void TkMaskModulesFactory::getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void TkMaskModulesFactory::getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor ) noexcept(false) {
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -207,7 +207,7 @@ void TkMaskModulesFactory::getCurrentMaskVersion ( std::string pPartitionName, u
  * \param pVersionMinor - mask version minor ID
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::copyMask
  */
-void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -219,7 +219,7 @@ void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int p
  * \param pPartitionName - partition name*
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::copyMask
  */
-void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -231,7 +231,7 @@ void TkMaskModulesFactory::copyMask ( std::string pPartitionName, unsigned int *
  * \param pPartitionName - partition name
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::resetMask
  */
-void TkMaskModulesFactory::resetMask ( std::string pPartitionName) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::resetMask ( std::string pPartitionName) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -244,7 +244,7 @@ void TkMaskModulesFactory::resetMask ( std::string pPartitionName) throw (oracle
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -258,7 +258,7 @@ void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -273,7 +273,7 @@ void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -287,7 +287,7 @@ void TkMaskModulesFactory::maskFedModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -301,7 +301,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -316,7 +316,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::str
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -331,7 +331,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -347,7 +347,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::str
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -363,7 +363,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -380,7 +380,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::str
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -397,7 +397,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -415,7 +415,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::str
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -433,7 +433,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, unsigned
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -448,7 +448,7 @@ void TkMaskModulesFactory::maskFecModules ( std::string pPartitionName, std::str
  * \see maskFecModules ( std::string pPartitionName, pFecHardId, pRing, pCcuAddress, pChannel, unsigned int newMajorVersion )
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -463,7 +463,7 @@ void TkMaskModulesFactory::maskDcuModule ( std::string pPartitionName, unsigned 
  * \see maskDcuModule ( std::string pPartitionName, dcuHardId, unsigned int newMajorVersion);
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) { 
+void TkMaskModulesFactory::maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -478,7 +478,7 @@ void TkMaskModulesFactory::maskDetIdModule ( std::string pPartitionName, unsigne
  * \see maskDcuModule ( std::string pPartitionName, dcuHardId, unsigned int newMajorVersion);
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void TkMaskModulesFactory::maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void TkMaskModulesFactory::maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) {
   
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
   

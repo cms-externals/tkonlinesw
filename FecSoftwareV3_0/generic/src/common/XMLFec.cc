@@ -63,7 +63,7 @@ XMLFec::XMLFec () :
  * @see init()
  * @exception FecExceptionHandler
  */
-XMLFec::XMLFec (DbAccess *dbAccess) throw (FecExceptionHandler) :
+XMLFec::XMLFec (DbAccess *dbAccess) noexcept(false) :
   XMLCommonFec((DbCommonAccess *)dbAccess),
   countPLL(0), countAPV25(0), countDCUCCU(0), countDCUFEH(0), countAPVMUX(0), countPIA(0), countAOH(0), countDOH(0)
 {
@@ -78,7 +78,7 @@ XMLFec::XMLFec (DbAccess *dbAccess) throw (FecExceptionHandler) :
  * @see init()
  * @exception FecExceptionHandler
  */
-XMLFec::XMLFec (const XMLByte* buffer) throw (FecExceptionHandler) :
+XMLFec::XMLFec (const XMLByte* buffer) noexcept(false) :
   XMLCommonFec(buffer),countPLL(0), countAPV25(0), countDCUCCU(0), countDCUFEH(0), countAPVMUX(0), countPIA(0), countAOH(0), countDOH(0)
 {
 }
@@ -91,7 +91,7 @@ XMLFec::XMLFec (const XMLByte* buffer) throw (FecExceptionHandler) :
  * @see init()
  * @exception FecExceptionHandler
  */
-XMLFec::XMLFec (std::string xmlFileName) throw (FecExceptionHandler) :
+XMLFec::XMLFec (std::string xmlFileName) noexcept(false) :
   XMLCommonFec(xmlFileName),
   countPLL(0), countAPV25(0), countDCUCCU(0), countDCUFEH(0), countAPVMUX(0), countPIA(0), countAOH(0), countDOH(0)
 {
@@ -115,7 +115,7 @@ XMLFec::~XMLFec () {
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLFec::parseDatabaseResponse ( std::string partitionName ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
@@ -185,7 +185,7 @@ void XMLFec::parseDatabaseResponse ( std::string partitionName )
  *    - the dataBaseAccess has not been intialized
  */
 void XMLFec::parseDatabaseResponse ( std::string partitionName, std::string fecHardId ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromFecHardId";
 
 #ifdef DATABASEDEBUG
@@ -248,7 +248,7 @@ void XMLFec::parseDatabaseResponse ( std::string partitionName, std::string fecH
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLFec::parseDatabaseResponse (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionNameVersion";
 
@@ -319,7 +319,7 @@ void XMLFec::parseDatabaseResponse (std::string partitionName, unsigned int vers
  *    - the dataBaseAccess has not been intialized
  */
 void XMLFec::parseDatabaseResponse ( std::string partitionName, std::string fecHardId, unsigned int versionMajor, unsigned int versionMinor ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromIpNumberXdaqInstanceClassName";
 
 #ifdef DATABASEDEBUG

@@ -217,7 +217,7 @@ class deltaAccess : public deviceAccess {
    */
   static unsigned int getDeltaValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, deltaAccess *> &deltaSet, deviceVector &deltaVector,
 								  std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
   
 } ;
 

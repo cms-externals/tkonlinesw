@@ -42,39 +42,39 @@ class DbTkIdVsHostnameAccess : public DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbTkIdVsHostnameAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkIdVsHostnameAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbTkIdVsHostnameAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbTkIdVsHostnameAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbTkIdVsHostnameAccess ( ) throw (oracle::occi::SQLException);
+  ~DbTkIdVsHostnameAccess ( ) noexcept(false);
 
   /** \brief Download a Clob with all the Id VS hostname from database
    */
-  oracle::occi::Clob *getXMLClob( unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob( unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false);
 
   /** \brief Download a Clob with all the Id VS hostname from database
    */
-  oracle::occi::Clob *getXMLClobFromHostname ( std::string hostname, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClobFromHostname ( std::string hostname, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false);
 
   /** \brief Download a Clob with all the Id VS hostname from database
    */
-  oracle::occi::Clob *getXMLClobFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClobFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false);
 
   /** \brief Retreive the sub-detector for a given version
    */
-  void getSubDetectorCrateNumber ( std::string hostname, std::string &subDetector, unsigned int &crateNumber, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) throw (oracle::occi::SQLException) ;
+  void getSubDetectorCrateNumber ( std::string hostname, std::string &subDetector, unsigned int &crateNumber, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0 ) noexcept(false) ;
 
   /** \brief retreive the version for the ID versus hostname in the "current state"
    */
-  void getTkIdVsHostnameVersion ( unsigned int &versionMajorId, unsigned int &versionMinorId ) throw (oracle::occi::SQLException) ;
+  void getTkIdVsHostnameVersion ( unsigned int &versionMajorId, unsigned int &versionMinorId ) noexcept(false) ;
 
   /** \brief Upload a Clob to the database for configuration
    */
-  void setXMLClob (std::string buffer, bool major) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob (std::string buffer, bool major) noexcept(false);
 
 };
 

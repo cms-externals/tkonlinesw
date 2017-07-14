@@ -21,14 +21,14 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @exception FecExceptionHandler
  * @see <I>XMLFecDevice:XMLFecDevice()</I>
  */
-XMLFecDcu::XMLFecDcu () throw (FecExceptionHandler) : XMLFecDevice () { }
+XMLFecDcu::XMLFecDcu () noexcept(false) : XMLFecDevice () { }
 
 #ifdef DATABASE
 
 /**Creates a XMLFecDcu with access to the database<BR>
  * Call the <I>XMLFecDevice::XMLFecDevice( DbFecAccess * )</I><BR>
  */
-XMLFecDcu::XMLFecDcu ( DbFecAccess *dbAccess )  throw (FecExceptionHandler) : XMLFecDevice(dbAccess) { }
+XMLFecDcu::XMLFecDcu ( DbFecAccess *dbAccess )  noexcept(false) : XMLFecDevice(dbAccess) { }
 
 #endif
 
@@ -38,7 +38,7 @@ XMLFecDcu::XMLFecDcu ( DbFecAccess *dbAccess )  throw (FecExceptionHandler) : XM
  * @exception FecExceptionHandler
  * @see <I>XMLFecDevice::XMLFecDevice(const XMLByte* xmlBuffer)</I>
  */
-XMLFecDcu::XMLFecDcu ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLFecDevice( xmlBuffer ){ }
+XMLFecDcu::XMLFecDcu ( const XMLByte* xmlBuffer ) noexcept(false) : XMLFecDevice( xmlBuffer ){ }
 
 /**Creates a XMLFecDcu from a file<BR>
  * Call the <I>XMLFecDevice::XMLFecDevice(std::string xmlFileName)</I> constructor<BR>
@@ -46,7 +46,7 @@ XMLFecDcu::XMLFecDcu ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : 
  * @exception FecExceptionHandler
  * @see <I>XMLFecDevice::XMLFecDevice(std::string xmlFileName)</I>
  */
-XMLFecDcu::XMLFecDcu ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLFecDevice( xmlFileName ) { }
+XMLFecDcu::XMLFecDcu ( std::string xmlFileName ) noexcept(false) : XMLFecDevice( xmlFileName ) { }
 
 
 /**Delete the <I>handler_</I> attribute<BR>
@@ -67,7 +67,7 @@ XMLFecDcu::~XMLFecDcu (){ }
  * @see <I>XMLFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDcu::getDevices (std::string partitionName, unsigned long timeStampStart, unsigned long timeStampStop) throw (FecExceptionHandler) {
+deviceVector XMLFecDcu::getDevices (std::string partitionName, unsigned long timeStampStart, unsigned long timeStampStop) noexcept(false) {
 
   unsigned long min = timeStampStart > timeStampStop ? timeStampStop : timeStampStart ;
   unsigned long max = timeStampStart > timeStampStop ? timeStampStart : timeStampStop ;
@@ -92,7 +92,7 @@ deviceVector XMLFecDcu::getDevices (std::string partitionName, unsigned long tim
  * @see <I>XMLCommonFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDcu::getDevices (unsigned long dcuHardId, unsigned long timeStampStart, unsigned long timeStampStop) throw (FecExceptionHandler) {
+deviceVector XMLFecDcu::getDevices (unsigned long dcuHardId, unsigned long timeStampStart, unsigned long timeStampStop) noexcept(false) {
 
   unsigned long min = timeStampStart > timeStampStop ? timeStampStop : timeStampStart ;
   unsigned long max = timeStampStart > timeStampStop ? timeStampStart : timeStampStop ;
@@ -116,7 +116,7 @@ deviceVector XMLFecDcu::getDevices (unsigned long dcuHardId, unsigned long timeS
  * @see <I>XMLCommonFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-deviceVector XMLFecDcu::getDevices (unsigned long timeStampStart, unsigned long timeStampStop) throw (FecExceptionHandler) {
+deviceVector XMLFecDcu::getDevices (unsigned long timeStampStart, unsigned long timeStampStop) noexcept(false) {
 
   unsigned long min = timeStampStart > timeStampStop ? timeStampStop : timeStampStart ;
   unsigned long max = timeStampStart > timeStampStop ? timeStampStart : timeStampStop ;
@@ -151,7 +151,7 @@ unsigned int XMLFecDcu::parseAttributes(XERCES_CPP_NAMESPACE::DOMNode *n) {
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  * The upload is done for a timestamp > 0 in the version 0.0
  */
-void XMLFecDcu::setDcuValues (deviceVector dVector, std::string partitionName)  throw (FecExceptionHandler) {
+void XMLFecDcu::setDcuValues (deviceVector dVector, std::string partitionName)  noexcept(false) {
 
   MemBufOutputSource memBufOS (dVector, true);
   try {

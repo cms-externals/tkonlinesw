@@ -155,7 +155,7 @@ void muxAccess::getBlockWriteValues ( muxDescription muxValues, std::list<access
  */
 unsigned int muxAccess::getMuxValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, muxAccess *> &muxSet, deviceVector &muxVector,
 						     std::list<FecExceptionHandler *> &errorList ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, muxDescription * > deviceDescriptionsMap ;

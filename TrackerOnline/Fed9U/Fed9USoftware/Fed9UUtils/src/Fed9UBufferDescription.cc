@@ -51,7 +51,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferDescription & Fed9UBufferDescription::setFed9UBufferData(const std::vector<unsigned short> &bufferData) throw (ICException) {
+  Fed9UBufferDescription & Fed9UBufferDescription::setFed9UBufferData(const std::vector<unsigned short> &bufferData) noexcept(false) {
    
 //     ICUTILS_VERIFY( bufferData.size() == static_cast<unsigned int>( mFed9UEventInfo.getStripsPerApv() * 
 // 							    mFed9UEventInfo.getApvsPerFedChannel() * 
@@ -62,14 +62,14 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferDescription & Fed9UBufferDescription::setChannelLengths(const std::vector<unsigned short> &channelLengths) throw (ICException) {
+  Fed9UBufferDescription & Fed9UBufferDescription::setChannelLengths(const std::vector<unsigned short> &channelLengths) noexcept(false) {
     ICUTILS_VERIFY(channelLengths.size()==static_cast<unsigned int>(mFed9UEventInfo.getChannelsPerFeUnit() * mFed9UEventInfo.getFeUnitsPerFed()))(channelLengths.size()).error();
     mChannelLengths = channelLengths;
     return *this;
   }
 
 
-  Fed9UBufferDescription & Fed9UBufferDescription::setFeLengths(const std::vector<unsigned short> &feLengths) throw (ICException) {
+  Fed9UBufferDescription & Fed9UBufferDescription::setFeLengths(const std::vector<unsigned short> &feLengths) noexcept(false) {
     ICUTILS_VERIFY(feLengths.size()==mFed9UEventInfo.getFeUnitsPerFed())(feLengths.size()).error();
     mFeLengths = feLengths;
     return *this;
@@ -82,7 +82,7 @@ namespace Fed9U {
   }
 
 
-  Fed9UBufferDescription & Fed9UBufferDescription::setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICException) {
+  Fed9UBufferDescription & Fed9UBufferDescription::setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false) {
     ICUTILS_VERIFY(cmMedians.size()==static_cast<unsigned int>(mFed9UEventInfo.getChannelsPerFeUnit() * mFed9UEventInfo.getFeUnitsPerFed() * mFed9UEventInfo.getApvsPerFedChannel()))(cmMedians.size()).error();
     mCMMedians = cmMedians;
     return *this;

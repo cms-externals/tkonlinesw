@@ -26,7 +26,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbTkDcuInfoAccess::DbTkDcuInfoAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {
+DbTkDcuInfoAccess::DbTkDcuInfoAccess ( bool threaded ) noexcept(false) : DbCommonAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -37,14 +37,14 @@ DbTkDcuInfoAccess::DbTkDcuInfoAccess ( bool threaded ) throw (oracle::occi::SQLE
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbTkDcuInfoAccess::DbTkDcuInfoAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbCommonAccess (user, passwd, dbPath, threaded) {
+DbTkDcuInfoAccess::DbTkDcuInfoAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbTkDcuInfoAccess::~DbTkDcuInfoAccess ()  throw (oracle::occi::SQLException) {
+DbTkDcuInfoAccess::~DbTkDcuInfoAccess ()  noexcept(false) {
 }
 
 /**Get the current version for a given partition name
@@ -54,7 +54,7 @@ DbTkDcuInfoAccess::~DbTkDcuInfoAccess ()  throw (oracle::occi::SQLException) {
  * @see DbAccess::getDatabaseVersion (std::string sqlQuery)
  * @todo use a callable statement to execute a PL/SQL function with bind variable to avoid the query parsing at every call 
  */
-std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException){
+std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion (std::string partitionName) noexcept(false){
 
   static std::string sqlQuery = "SELECT DISTINCT StateHistory.partitionId, StateHistory.dcuInfoVersionMajorId, StateHistory.dcuInfoVersionMinorId, 0, 0 FROM CurrentState, StateHistory, Partition  WHERE StateHistory.stateHistoryId = CurrentState.stateHistoryId AND StateHistory.partitionId=Partition.partitionId AND Partition.partitionName = :partitionName" ;
 
@@ -67,7 +67,7 @@ std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion (std::string part
  * @exception oracle::occi::SQLException
  * @todo use a callable statement to execute a PL/SQL function with bind variable to avoid the query parsing at every call 
  */
-std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion ( ) throw (oracle::occi::SQLException, FecExceptionHandler){
+std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion ( ) noexcept(false){
 
   static std::string writeString = "BEGIN PkgDcuInfo.getLastVersion(:versionMajor, :versionMinor);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -115,7 +115,7 @@ std::list<unsigned int*> DbTkDcuInfoAccess::getDatabaseVersion ( ) throw (oracle
  * @see DbAccess::getXMLClob(std::string readString, std::string supervisorIp, unsigned int xdaqInstance, std::string xdaqClassName)
  * @see PkgFecXML.getAllFecFromPartitionAndIp ( pcIpNumber IN VARCHAR2, xdaqInstanceNb IN NUMBER, xdaqClassName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob( std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob( std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgDcuInfoXML.getDcuInfoFromPartition(:partitionName,:versionMajor,:versionMinor);END;";
   oracle::occi::Statement *stmt = NULL ;
   
@@ -162,7 +162,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob( std::string partitionName, un
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob() throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob() noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgDcuInfoXML.getAllDcuInfo();END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -205,7 +205,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob() throw (oracle::occi::SQLExce
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob(unsigned int majorVersionId, unsigned int minorVersionId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob(unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgDcuInfoXML.getAllDcuInfo(:majorId, :minorId);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -249,7 +249,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getXMLClob(unsigned int majorVersionId, u
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getCurrentStatesXMLClob( ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getCurrentStatesXMLClob( ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgStateHistoryXML.getStates;END;";
   oracle::occi::Statement *stmt = NULL ;
 
@@ -288,7 +288,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getCurrentStatesXMLClob( ) throw (oracle:
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getFecVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getFecVersionsXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllFecVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -330,7 +330,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getFecVersionsXMLClob(std::string partiti
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getFedVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getFedVersionsXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllFedVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -371,7 +371,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getFedVersionsXMLClob(std::string partiti
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getDcuInfoVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getDcuInfoVersionsXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllDcuInfoVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -413,7 +413,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getDcuInfoVersionsXMLClob(std::string par
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getConnectionVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getConnectionVersionsXMLClob(std::string partitionName ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllConnectionVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
 
@@ -454,7 +454,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getConnectionVersionsXMLClob(std::string 
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getDcuPsuMapVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getDcuPsuMapVersionsXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllDcuPsuMapVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -496,7 +496,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getDcuPsuMapVersionsXMLClob(std::string p
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getMaskVersionsXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getMaskVersionsXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgVersionXML.getAllMaskVersions(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -538,7 +538,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getMaskVersionsXMLClob(std::string partit
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getLastRunXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getLastRunXMLClob(std::string partitionName ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgRunXML.getRun(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
 
@@ -579,7 +579,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getLastRunXMLClob(std::string partitionNa
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getAllRunsXMLClob( ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getAllRunsXMLClob( ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgRunXML.getAllRuns();END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -621,7 +621,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getAllRunsXMLClob( ) throw (oracle::occi:
  * @exception oracle::occi::SQLException
  */
 
-oracle::occi::Clob *DbTkDcuInfoAccess::getRunXMLClob(std::string partitionName, int runNumber ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getRunXMLClob(std::string partitionName, int runNumber ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgRunXML.getRunWithNumber(:partitionName, :runNumber);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -663,7 +663,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getRunXMLClob(std::string partitionName, 
  * @return a pointer on a Clob containing the data about the last run used for O2O for this partition in the database.
  * @exception oracle::occi::SQLException
  */
-oracle::occi::Clob *DbTkDcuInfoAccess::getLastO2ORunXMLClob(std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuInfoAccess::getLastO2ORunXMLClob(std::string partitionName ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgRunXML.getLastO2ORun(:partitionName);END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -708,7 +708,7 @@ oracle::occi::Clob *DbTkDcuInfoAccess::getLastO2ORunXMLClob(std::string partitio
  * @exception FecExceptionHandler
  * @see PkgFecXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  */
-void DbTkDcuInfoAccess::setXMLClob(std::string buffer) throw (oracle::occi::SQLException, FecExceptionHandler) 
+void DbTkDcuInfoAccess::setXMLClob(std::string buffer) noexcept(false) 
 {
   static std::string writeString = "BEGIN PkgDcuInfoXML.uploadClob(:buffer); END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -759,7 +759,7 @@ void DbTkDcuInfoAccess::setXMLClob(std::string buffer) throw (oracle::occi::SQLE
  * @exception SQLException
  * @exception FecExceptionHandler
  */
-void DbTkDcuInfoAccess::updateChannelDelays (std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler){
+void DbTkDcuInfoAccess::updateChannelDelays (std::string partitionName) noexcept(false){
   static std::string writeString = "BEGIN PkgDcuInfo.updateChannelDelays(:paramPartitionName); END;";
   oracle::occi::Statement *stmt = NULL ;
 
@@ -780,7 +780,7 @@ void DbTkDcuInfoAccess::updateChannelDelays (std::string partitionName) throw (o
 /** Upload XML clob to database for diagnotic system
  * \param buffer - CLOB to be uploaded
  */
-void DbTkDcuInfoAccess::uploadDiagnoticXMLClob ( std::string buffer ) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbTkDcuInfoAccess::uploadDiagnoticXMLClob ( std::string buffer ) noexcept(false) {
 
   static std::string writeString = "BEGIN PkgDiagnosticXML.uploadDiagnosticXMLClob(:buffer); END;";
   oracle::occi::Statement *stmt = NULL ;

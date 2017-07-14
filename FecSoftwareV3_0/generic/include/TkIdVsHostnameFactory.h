@@ -78,7 +78,7 @@ class TkIdVsHostnameFactory: public DeviceFactoryInterface {
   /** \brief Build a TkIdVsHostname factory for database
    */
   TkIdVsHostnameFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Build a TkIdVsHostname factory for database
    */
@@ -117,11 +117,11 @@ class TkIdVsHostnameFactory: public DeviceFactoryInterface {
 
   /** \brief Add a new file name in the descriptions
    */
-  void addFileName ( std::string fileName ) throw (FecExceptionHandler) ;
+  void addFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief set a new input file
    */
-  void setInputFileName ( std::string inputFileName ) throw (FecExceptionHandler) ;
+  void setInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   // ------------------------------------------------------------------------------------------------------
   // 
@@ -134,12 +134,12 @@ class TkIdVsHostnameFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -157,53 +157,53 @@ class TkIdVsHostnameFactory: public DeviceFactoryInterface {
    */
   TkIdVsHostnameVector getAllTkIdVsHostname ( unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, bool forceDbReload = false ) 
 #ifdef DATABASE
-    throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+    noexcept(false) ;
 #else
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
   TkIdVsHostnameVector getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, bool forceDbReload = false ) 
 #ifdef DATABASE
-    throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+    noexcept(false) ;
 #else
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
   TkIdVsHostnameDescription *getAllTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, bool forceDbReload = false ) 
 #ifdef DATABASE
-    throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+    noexcept(false) ;
 #else
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
   void getSubDetectorCrateNumberFromHostname ( std::string hostname, std::string &subDetector, unsigned int &crateNumber, unsigned int versionMajorId = 0, unsigned int versionMinorId = 0, bool forceDbReload = false ) 
 #ifdef DATABASE
-    throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+    noexcept(false) ;
 #else
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Upload a new version of TkIdVsHostnameDescriptions
    */
-  void setTkIdVsHostnameDescription ( TkIdVsHostnameVector tkDcuConversionFactors, bool major = false) throw ( FecExceptionHandler ) ;
+  void setTkIdVsHostnameDescription ( TkIdVsHostnameVector tkDcuConversionFactors, bool major = false) noexcept(false) ;
 
   /** \brief upload the hash_map (attribut of the class) in the output
    */
-  void setTkIdVsHostnameDescription ( bool major = false ) throw ( FecExceptionHandler ) ;
+  void setTkIdVsHostnameDescription ( bool major = false ) noexcept(false) ;
 
   /** \brief return the crate ID
    */
-  unsigned int getFedCrate ( unsigned int fedId ) throw ( FecExceptionHandler ) ;
+  unsigned int getFedCrate ( unsigned int fedId ) noexcept(false) ;
 
   /** \brief return the crate slot
    */
-  unsigned int getFedSlot ( unsigned int fedId ) throw ( FecExceptionHandler ) ;
+  unsigned int getFedSlot ( unsigned int fedId ) noexcept(false) ;
 
   /** \brief delete a vector of TkIdVsHostnameDescription
    */

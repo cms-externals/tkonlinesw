@@ -21,7 +21,7 @@ ICException::ICException(const string & name, const ICAssert & ass) :
   _more(ass.getDesc()), _name(name), _error("Assertion Failed")
 { }
 
-const char* ICException::what() const throw() {
+const char* ICException::what() const noexcept {
   try {
     if (_text.empty()) {
       std::ostringstream str;

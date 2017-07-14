@@ -118,24 +118,24 @@ public:
 	/** 
 	 * @brief Default constructor
 	 */
-	XMLCommissioningAnalysis() throw ( FecExceptionHandler );
+	XMLCommissioningAnalysis() noexcept(false);
 
 	/** 
 	 * @brief Constructor with xml buffer
 	 */
-	XMLCommissioningAnalysis( const XMLByte* xmlBuffer ) throw ( FecExceptionHandler );
+	XMLCommissioningAnalysis( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
 	/** 
 	 * @brief Constructor with database access
 	 */
-	XMLCommissioningAnalysis( DbCommissioningAnalysisAccess *dbAccess ) throw ( FecExceptionHandler ) ;
+	XMLCommissioningAnalysis( DbCommissioningAnalysisAccess *dbAccess ) noexcept(false) ;
 #endif
 
 	/** 
 	 * @brief Constructor with file access
 	 */
-	XMLCommissioningAnalysis( std::string xmlFileName ) throw ( FecExceptionHandler );
+	XMLCommissioningAnalysis( std::string xmlFileName ) noexcept(false);
 
 	/** 
 	 * @brief Deletes the XMLCommissioningAnalysis
@@ -180,14 +180,14 @@ public:
 	/** 
 	 * @brief Sets the vector of descriptions
 	 */
-	void setDescriptions( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+	void setDescriptions( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
 	/**
 	 * @brief Uploads analysis into a ASCII XML file
 	 * @param outputFileName - Ouput filename to be filled
 	 */
-	void uploadAnalysis( std::string outputFileName ) throw ( FecExceptionHandler );
+	void uploadAnalysis( std::string outputFileName ) noexcept(false);
 
 
 	/**
@@ -198,7 +198,7 @@ public:
 	 * @param updateCurrentState - Indicates whether partition state has to be updated or not
 	 * @return The global state analysis version to be associated to the current state
 	 */
-	uint32_t uploadAnalysis( bool updateCurrentState ) throw ( FecExceptionHandler );
+	uint32_t uploadAnalysis( bool updateCurrentState ) noexcept(false);
 
 	/**
 	 * @brief This method has to be called by the device factory user whenever @uploadAnalysis has 
@@ -208,7 +208,7 @@ public:
 	void uploadAnalysisState( uint32_t uploadedVersion );
 
 	std::vector<CommissioningAnalysisDescription*> getCalibrationData( uint32_t runNumber,
-			std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+			std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
   /**
@@ -220,7 +220,7 @@ public:
    * @param type - analysis type
    * @return Vector of pair <run/ <versionMajor/versionMinor> > associated to the partition
    */
-  HashMapRunVersion getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+  HashMapRunVersion getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
   /**
    * @brief Retrieves analysis result descriptions (of the specified type) associated to a given run and partition
@@ -233,7 +233,7 @@ public:
    * @return Vector of analysis descriptions
    */
   std::vector<CommissioningAnalysisDescription*> getAnalysisHistory( std::string partitionName,
-			  uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) throw ( FecExceptionHandler );
+			  uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) noexcept(false);
 
 
 
@@ -242,7 +242,7 @@ public:
    * @param globalAnalsysVersion - global version from which retreiving versions
    * @return Map of analysis type / analysis versions
    */
-  HashMapAnalysisVersions getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( FecExceptionHandler );
+  HashMapAnalysisVersions getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false);
 
 
 

@@ -48,32 +48,32 @@ class DbPiaResetAccess : public DbAccess {
   //
   /** \brief Default constructor
    */
-  DbPiaResetAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbPiaResetAccess(bool threaded = false) noexcept(false);
 
   /** \brief Constructor with connection parameters
    */
-  DbPiaResetAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbPiaResetAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
   /** \brief Destructor
    */
-  ~DbPiaResetAccess ( ) throw (oracle::occi::SQLException);
+  ~DbPiaResetAccess ( ) noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob (std::string partitionName) noexcept(false);
 
   /** \brief Download a Clob from the database
    */
-  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string fecHardId) throw (oracle::occi::SQLException);
+  oracle::occi::Clob *getXMLClob (std::string partitionName, std::string fecHardId) noexcept(false);
 
   /** \brief Upload a Clob from the database
    */
-  void setXMLClob (std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler);
+  void setXMLClob (std::string buffer, std::string partitionName) noexcept(false);
 
   /** \brief Deprecated method not used and not need, an exception is raised on a call on this method
    * \exception FecExceptionHandler
    */
-  virtual std::list<unsigned int*> getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException) {
+  virtual std::list<unsigned int*> getDatabaseVersion (std::string partitionName) noexcept(false) {
     RAISEFECEXCEPTIONHANDLER( CODECONSISTENCYERROR, 
 			       "deprecated, no version is available for PIA reset",
 			       FATALERRORCODE ) ;
@@ -82,7 +82,7 @@ class DbPiaResetAccess : public DbAccess {
   /** \brief Deprecated method not used and not need, an exception is raised on a call on this method
    * \exception FecExceptionHandler
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskMajorVersion, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskMajorVersion, unsigned int maskVersionMinor) noexcept(false) {
     RAISEFECEXCEPTIONHANDLER( CODECONSISTENCYERROR, 
 			       "deprecated, no version is available for PIA reset",
 			       FATALERRORCODE ) ;
@@ -92,7 +92,7 @@ class DbPiaResetAccess : public DbAccess {
   /** \brief Deprecated method not used and not need, an exception is raised on a call on this method
    * \exception FecExceptionHandler
    */
-  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) {
+  oracle::occi::Clob *getXMLClobWithVersion (std::string partitionName, std::string hardId, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
     RAISEFECEXCEPTIONHANDLER( CODECONSISTENCYERROR, 
 			       "deprecated, no version is available for PIA reset",
 			       FATALERRORCODE ) ;

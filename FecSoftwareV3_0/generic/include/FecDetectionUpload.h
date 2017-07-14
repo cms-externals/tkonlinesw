@@ -720,7 +720,7 @@ class FecDetectionUpload {
    */
   static void getCrateFecSupervisorInstance ( FecAccess &fecAccess, keyType fecInstance[MAX_NUMBER_OF_SLOTS], 
 					      std::string partitionName = "", std::ofstream *instanceStream = NULL )
-    throw (FecExceptionHandler) {
+    noexcept(false) {
 
     // Initialise the list of instance
     for (int i = 0 ; i < MAX_NUMBER_OF_SLOTS ; i ++) fecInstance[i] = NOFECRING ;
@@ -806,7 +806,7 @@ class FecDetectionUpload {
 				 keyType fecRingSlotStart = NOFECRING,
 				 keyType fecRingSlotStop = NOFECRING,
 				 unsigned int crateId = 1 ) 
-    throw (FecExceptionHandler) {
+    noexcept(false) {
 
     // Get the FEC list or get the index of the corresponding FEC
     std::list<keyType> *fecSlotList = NULL ;

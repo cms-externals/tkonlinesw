@@ -76,7 +76,7 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
   /** \brief Build a FEC factory for database
    */
   TkDcuPsuMapFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Buid a FEC factory for FEC database
    */
@@ -92,7 +92,7 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   void getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief return the Dcu-Psu mapping for control group
@@ -146,7 +146,7 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
 
   /** \brief parse a text file to produce the datapoints and pvss name
    */
-  void setInputTextFile ( std::string inputFileName ) throw (FecExceptionHandler) ;
+  void setInputTextFile ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief Produce a file for PVSS
    */
@@ -163,12 +163,12 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -176,27 +176,27 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
 
   /** \brief Retreive the data from the database
    */
-  void getDcuPsuMapPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) throw (FecExceptionHandler);
+  void getDcuPsuMapPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) noexcept(false);
 
   /** \brief Retreive the data from the database
    */
-  void getPsuNotConnectedPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) throw (FecExceptionHandler);
+  void getPsuNotConnectedPartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) noexcept(false);
 
   /** \brief Retreive the data from the database
    */
-  void getPsuNamePartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) throw (FecExceptionHandler);
+  void getPsuNamePartition ( std::string partitionName, unsigned int majorVersionId = 0, unsigned int minorVersionId = 0 ) noexcept(false);
 
 #endif
 
   /** \brief Upload the description in the output
    */
   void setTkDcuPsuMap ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName = "", unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Upload only the psu names in the output for the current version
    */
   void setTkPsuNames ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName = "", unsigned int *versionMajorId = NULL, unsigned int *versionMinorId = NULL ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   // --------------------------------------------------------------------------------------------------------
   //
@@ -207,7 +207,7 @@ class TkDcuPsuMapFactory: public DeviceFactoryInterface {
 #ifdef DATABASE
   /** \brief This method calls trhe validation of the cooling loops
    */
-  bool checkTKCCCoolingLoop ( std::string partitionName, std::vector<std::pair<std::string, bool> > &coolingLoopResult ) throw ( FecExceptionHandler, oracle::occi::SQLException, std::string ) ;
+  bool checkTKCCCoolingLoop ( std::string partitionName, std::vector<std::pair<std::string, bool> > &coolingLoopResult ) noexcept(false) ;
 #endif
 
   /** delete the contents of a vector of PSU map

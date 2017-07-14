@@ -52,16 +52,16 @@ class XMLFecCcu: public XMLCommonFec {
 
   /** \brief Parse the inputSource and gets a pointer on the ccu vector private attribute
    */
-  ccuVector getCcusFromBuffer ( ) throw (FecExceptionHandler);
+  ccuVector getCcusFromBuffer ( ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Gets a pointer on the ccu vector private attribute from database
    */
-  ccuVector getCcusFromDb (std::string partitionName ) throw (FecExceptionHandler);
+  ccuVector getCcusFromDb (std::string partitionName ) noexcept(false);
 
   /** \brief Gets a pointer on the ccu vector private attribute from database
    */
-  ccuVector getCcusFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler);
+  ccuVector getCcusFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot ) noexcept(false);
 #endif
 
   /** \brief clear the temporary CCU vector
@@ -88,25 +88,25 @@ class XMLFecCcu: public XMLCommonFec {
   //
   /** \brief Default constructor
    */
-  XMLFecCcu () throw (FecExceptionHandler);
+  XMLFecCcu () noexcept(false);
 
   /** \brief Constructor with xml buffer
    */
-  XMLFecCcu ( const XMLByte* xmlBuffer, bool toBeDeleted = true ) throw (FecExceptionHandler);
+  XMLFecCcu ( const XMLByte* xmlBuffer, bool toBeDeleted = true ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor whith database access
    */
-  XMLFecCcu ( DbFecAccess *dbAccess ) throw (FecExceptionHandler) ;
+  XMLFecCcu ( DbFecAccess *dbAccess ) noexcept(false) ;
 
   /** \brief Constructor whith database access
    */
-  XMLFecCcu ( DbFecAccess *dbAccess, std::string partitionName, std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler);
+  XMLFecCcu ( DbFecAccess *dbAccess, std::string partitionName, std::string fecHardId, unsigned int ringSlot ) noexcept(false);
 #endif
 
   /** \brief Constructor with file access
    */
-  XMLFecCcu ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLFecCcu ( std::string xmlFileName ) noexcept(false);
 
   /** \brief Deletes the XMLFecCcu
    */
@@ -122,7 +122,7 @@ class XMLFecCcu: public XMLCommonFec {
 
   /** \brief Sets the ccu vector private attribute
    */
-  //  void setCcuVector (ccuVector *cVector) throw (FecExceptionHandler);
+  //  void setCcuVector (ccuVector *cVector) noexcept(false);
 
   /** \brief parse the buffer
    */
@@ -135,84 +135,84 @@ class XMLFecCcu: public XMLCommonFec {
 #ifdef DATABASE
   /** \brief Gets a pointer on a new TkRingDescription object from database (with its CCUs inside)
    */
-  tkringVector getRingFromDb (std::string partitionName ) throw (FecExceptionHandler);
+  tkringVector getRingFromDb (std::string partitionName ) noexcept(false);
 
   /** \brief Gets a pointer on a new TkRingDescription object from construction database (with its CCUs inside)
    */
-  TkRingDescription *getRingFromDb (std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler);
+  TkRingDescription *getRingFromDb (std::string fecHardId, unsigned int ringSlot ) noexcept(false);
 
   /** \brief Gets a pointer on a new TkRingDescription object from database (with its CCUs inside)
    */
-  TkRingDescription *getRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler);
+  TkRingDescription *getRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot ) noexcept(false);
 
   /** \brief called to get all the rings for partition or partition/fec/ring
    */
-  void getVectorRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) throw (FecExceptionHandler) ;
+  void getVectorRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) noexcept(false) ;
 
 #endif
 
   /** \brief Returns a pointer on the <I>ringDescription_</I> private attribute
    */
-  TkRingDescription *getRing () throw (FecExceptionHandler);
+  TkRingDescription *getRing () noexcept(false);
 
   /** \brief Parse the inputSource and gets a pointer on the <I>ringDescription_</I> private attribute
    */
-  TkRingDescription *getRingFromBuffer (std::string fecHardwareId, unsigned int ringSlot) throw (FecExceptionHandler);
+  TkRingDescription *getRingFromBuffer (std::string fecHardwareId, unsigned int ringSlot) noexcept(false);
 
   /** \brief Parse the inputSource and gets a pointer on the <I>ringDescription_</I> private attribute
    */
-  tkringVector getRingFromBuffer () throw (FecExceptionHandler);
+  tkringVector getRingFromBuffer () noexcept(false);
 
   /** \brief Writes the ccu vector parameter in an ASCII file
    */
-  //  void setCcusToFile ( ccuVector *cVector, std::string outputFileName ) throw (FecExceptionHandler);
+  //  void setCcusToFile ( ccuVector *cVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the <I>ringDescription_</I> attribute in an ASCII file
    */
-  void setRingToFile ( std::string outputFileName) throw (FecExceptionHandler);
+  void setRingToFile ( std::string outputFileName) noexcept(false);
 
   /** \brief Writes the tkring vector parameter in an ASCII file
    */
-  void setRingToFile ( TkRingDescription ringD, std::string outputFileName) throw (FecExceptionHandler);
+  void setRingToFile ( TkRingDescription ringD, std::string outputFileName) noexcept(false);
 
   /** \brief Writes the ccu vector attribute in an ASCII file
    *  It should be used only for DEBUG purposes
    */
-  //  void setCcusToFile ( std::string outputFileName ) throw (FecExceptionHandler);
+  //  void setCcusToFile ( std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the tkring vector attribute in an ASCII file
    *  It should be used only for DEBUG purposes
    */
-  void setRingsToFile ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setRingsToFile ( std::string outputFileName ) noexcept(false);
 
 #ifdef DATABASE
    /* \brief Sends the parameter value from ccu vector to the database
     */ 
-  //  void setCcusToDb ( std::string partitionName, ccuVector *dVector ) throw (FecExceptionHandler);
+  //  void setCcusToDb ( std::string partitionName, ccuVector *dVector ) noexcept(false);
 
 /*   /\** \brief Sends the parameter value from ccu vector to the database */
 /*    *\/ */
-//  void setCcus ( std::string partitionName ) throw (FecExceptionHandler);
+//  void setCcus ( std::string partitionName ) noexcept(false);
 
   /** \brief Sends the parameter value from TkRingDescription to the database
    */
-  void setRingToDb (std::string partitionName, TkRingDescription ringD )  throw (FecExceptionHandler) ;
+  void setRingToDb (std::string partitionName, TkRingDescription ringD )  noexcept(false) ;
 
   /** \brief Configures the database 
    */
-  void dbConfigure(std::string partitionName, boolean newPartition = true) throw (FecExceptionHandler); 
+  void dbConfigure(std::string partitionName, boolean newPartition = true) noexcept(false); 
 
   /** \brief Configures the database 
    */
-  void dbConfigure(std::string partitionName, TkRingDescription ringD, boolean newPartition = true) throw (FecExceptionHandler); 
+  void dbConfigure(std::string partitionName, TkRingDescription ringD, boolean newPartition = true) noexcept(false); 
 
   /** \brief retreive XML Clob from database
    */
-  void parseDatabaseResponse ( std::string partitionName, std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler) ;
+  void parseDatabaseResponse ( std::string partitionName, std::string fecHardId, unsigned int ringSlot ) noexcept(false) ;
 
   /** \brief retreive XML Clob from TKCC database
    */
-  void parseDatabaseResponse ( std::string fecHardId, unsigned int ringSlot ) throw (FecExceptionHandler) ;
+  void parseDatabaseResponse ( std::string fecHardId, unsigned int ringSlot ) noexcept(false) ;
 
 #endif
 

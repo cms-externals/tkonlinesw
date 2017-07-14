@@ -6,7 +6,7 @@ namespace Fed9U {
   //using std::exception;
 
 
-  void Fed9UBufferHeader::generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException) {
+  void Fed9UBufferHeader::generateFed9UDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false) {
     try {
       theBufDesc->getBuffer()[theBufDesc->getBufferSize()] = ((0x5000 | ((theBufDesc->getMode() & 0xf) << 8)) << 16) + 0x0000; //The 0x5 is the start of the buffer.
       theBufDesc->incrementBufferIndex();
@@ -22,7 +22,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferHeader::generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException) {
+  void Fed9UBufferHeader::generateFed9UTrackerSpecialDaqHeader(Fed9UBufferDescription *theBufDesc) noexcept(false) {
     try {
       theBufDesc->getBuffer()[theBufDesc->getBufferSize()] = 
 	(0xED << 24) | // Temporary label to indicate that new tracker-specific header is being used
@@ -44,7 +44,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferHeader::generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) throw (ICUtils::ICException) {
+  void Fed9UBufferHeader::generateFed9UFEHeader(Fed9UBufferDescription *theBufDesc) noexcept(false) {
     try {
       //Check that the feLengths vector has 8 elements
       const std::vector<unsigned short> feLengths = theBufDesc->getFeLengths();

@@ -42,7 +42,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLFec::XMLFec()</I>
  * @see <I>XMLFecCcu::init()</I>
  */
-XMLFecCcu::XMLFecCcu () throw (FecExceptionHandler) :
+XMLFecCcu::XMLFecCcu () noexcept(false) :
   XMLCommonFec () 
 {
   countCCU_ = 0 ;
@@ -59,7 +59,7 @@ XMLFecCcu::XMLFecCcu () throw (FecExceptionHandler) :
  * @exception FecExceptionHandler
  * @see <I>XMLFecCcu::init()</I>
  */
-XMLFecCcu::XMLFecCcu ( DbFecAccess *dbAccess ) throw (FecExceptionHandler)  : XMLCommonFec((DbCommonAccess *)dbAccess) {
+XMLFecCcu::XMLFecCcu ( DbFecAccess *dbAccess ) noexcept(false)  : XMLCommonFec((DbCommonAccess *)dbAccess) {
   countCCU_ = 0 ;
   countRing_ = 0 ;
   parameterCCUNames_  = CCUDescription::getParameterNames() ;
@@ -75,7 +75,7 @@ XMLFecCcu::XMLFecCcu ( DbFecAccess *dbAccess ) throw (FecExceptionHandler)  : XM
  * @see <I>XMLFec::XMLFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLFecCcu::init()</I>
  */
-XMLFecCcu::XMLFecCcu (const XMLByte *xmlBuffer, bool toBeDeleted) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer, toBeDeleted ) {
+XMLFecCcu::XMLFecCcu (const XMLByte *xmlBuffer, bool toBeDeleted) noexcept(false) : XMLCommonFec( xmlBuffer, toBeDeleted ) {
   
   countCCU_ = 0 ;
   countRing_ = 0 ;
@@ -91,7 +91,7 @@ XMLFecCcu::XMLFecCcu (const XMLByte *xmlBuffer, bool toBeDeleted) throw (FecExce
  * @see <I>XMLFec::XMLFec(std::string xmlFileName)</I>
  * @see <I>XMLFecCcu::init()</I>
  */
-XMLFecCcu::XMLFecCcu ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLFecCcu::XMLFecCcu ( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
   countCCU_ = 0 ;
   countRing_ = 0 ;
   parameterCCUNames_  = CCUDescription::getParameterNames() ;
@@ -212,7 +212,7 @@ unsigned int XMLFecCcu::parseAttributes ( XERCES_CPP_NAMESPACE::DOMNode *n ) {
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLFecCcu::parseXMLBuffer()
  */
-ccuVector XMLFecCcu::getCcusFromBuffer () throw (FecExceptionHandler) {
+ccuVector XMLFecCcu::getCcusFromBuffer () noexcept(false) {
 
   parseXMLBuffer();
   return cVector_;
@@ -229,7 +229,7 @@ ccuVector XMLFecCcu::getCcusFromBuffer () throw (FecExceptionHandler) {
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-ccuVector XMLFecCcu::getCcusFromDb (std::string partitionName) throw (FecExceptionHandler) {
+ccuVector XMLFecCcu::getCcusFromDb (std::string partitionName) noexcept(false) {
 
   parseDatabaseResponse(partitionName, "", 0);
   parseXMLBuffer();
@@ -248,7 +248,7 @@ ccuVector XMLFecCcu::getCcusFromDb (std::string partitionName) throw (FecExcepti
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-ccuVector XMLFecCcu::getCcusFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) throw (FecExceptionHandler) {
+ccuVector XMLFecCcu::getCcusFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) noexcept(false) {
 
   parseDatabaseResponse(partitionName, fecHardId, ringSlot);
   parseXMLBuffer();
@@ -300,7 +300,7 @@ int XMLFecCcu::storeCcusIntoRings() {
 
 /** Returns a pointer on the <I>ringDescription_</I> private attribute
  */
-TkRingDescription *XMLFecCcu::getRing () throw (FecExceptionHandler) {
+TkRingDescription *XMLFecCcu::getRing () noexcept(false) {
 
   TkRingDescription *ring = NULL ;
 
@@ -317,7 +317,7 @@ TkRingDescription *XMLFecCcu::getRing () throw (FecExceptionHandler) {
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-tkringVector XMLFecCcu::getRingFromDb (std::string partitionName) throw (FecExceptionHandler) {
+tkringVector XMLFecCcu::getRingFromDb (std::string partitionName) noexcept(false) {
 
   getVectorRingFromDb (partitionName,"",0) ;
   return rVector_ ;
@@ -330,7 +330,7 @@ tkringVector XMLFecCcu::getRingFromDb (std::string partitionName) throw (FecExce
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-TkRingDescription *XMLFecCcu::getRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) throw (FecExceptionHandler) {
+TkRingDescription *XMLFecCcu::getRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) noexcept(false) {
 
   TkRingDescription* resultRing = NULL;
 
@@ -357,7 +357,7 @@ TkRingDescription *XMLFecCcu::getRingFromDb (std::string partitionName, std::str
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
- TkRingDescription *XMLFecCcu::getRingFromDb (std::string fecHardId, unsigned int ringSlot) throw (FecExceptionHandler) {
+ TkRingDescription *XMLFecCcu::getRingFromDb (std::string fecHardId, unsigned int ringSlot) noexcept(false) {
 
   TkRingDescription* resultRing = NULL;  
 
@@ -407,7 +407,7 @@ TkRingDescription *XMLFecCcu::getRingFromDb (std::string partitionName, std::str
  * @see <I>XMLFec::parseDatabaseResponse(unsigned int fecHardId)</I>
  * @see <I>XMLFec::parseXMLBuffer()</I>
  */
-void XMLFecCcu::getVectorRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) throw (FecExceptionHandler) {
+void XMLFecCcu::getVectorRingFromDb (std::string partitionName, std::string fecHardId, unsigned int ringSlot) noexcept(false) {
   
   // We clear both cVector and rVector
   clearCcuVector();
@@ -444,7 +444,7 @@ void XMLFecCcu::getVectorRingFromDb (std::string partitionName, std::string fecH
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLFecCcu::parseXMLBuffer()
  */
-TkRingDescription* XMLFecCcu::getRingFromBuffer (std::string fecHardwareId, unsigned int ringSlot) throw (FecExceptionHandler) {
+TkRingDescription* XMLFecCcu::getRingFromBuffer (std::string fecHardwareId, unsigned int ringSlot) noexcept(false) {
 
   TkRingDescription* resultRing = NULL;
 
@@ -495,7 +495,7 @@ TkRingDescription* XMLFecCcu::getRingFromBuffer (std::string fecHardwareId, unsi
  * @see XMLFecCcu::parseXMLBuffer()
  */
 
-tkringVector XMLFecCcu::getRingFromBuffer ( ) throw (FecExceptionHandler) {
+tkringVector XMLFecCcu::getRingFromBuffer ( ) noexcept(false) {
 
   // We clear both cVector and rVector
   clearCcuVector();
@@ -522,7 +522,7 @@ tkringVector XMLFecCcu::getRingFromBuffer ( ) throw (FecExceptionHandler) {
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
 /*
-void XMLFecCcu::setCcusToFile ( ccuVector *cVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLFecCcu::setCcusToFile ( ccuVector *cVector, std::string outputFileName) noexcept(false) {
 
   if (cVector->size()!=0) {
     MemBufOutputSource memBufOS (cVector,false);
@@ -542,7 +542,7 @@ void XMLFecCcu::setCcusToFile ( ccuVector *cVector, std::string outputFileName) 
  *     - the MemBufOutputSource created from the parameter <I>rVector</I> is not initialized 
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLFecCcu::setRingToFile ( TkRingDescription ringD, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLFecCcu::setRingToFile ( TkRingDescription ringD, std::string outputFileName) noexcept(false) {
 
   MemBufOutputSource memBufOS (ringD, false, true);
   XMLCommonFec::writeXMLFile(memBufOS.getOutputBuffer()->str(), outputFileName);
@@ -554,7 +554,7 @@ void XMLFecCcu::setRingToFile ( TkRingDescription ringD, std::string outputFileN
  * @see XMLFecCcu::setCcusToFile ( ccuVector *cVector, std::string outputFileName)
  */
 /*
-void XMLFecCcu::setCcusToFile ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLFecCcu::setCcusToFile ( std::string outputFileName ) noexcept(false) {
 
   setCcusToFile( cVector_, outputFileName);
 }
@@ -565,7 +565,7 @@ void XMLFecCcu::setCcusToFile ( std::string outputFileName ) throw (FecException
  * @exception FecExceptionHandler
  * @see XMLFecCcu::setRingToFile ( tkringVector *rVector, std::string outputFileName)
  */
-void XMLFecCcu::setRingToFile ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLFecCcu::setRingToFile ( std::string outputFileName ) noexcept(false) {
 
   TkRingDescription *ringD = getRing() ;
 
@@ -586,7 +586,7 @@ void XMLFecCcu::setRingToFile ( std::string outputFileName ) throw (FecException
 //  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
 //  */
 /*
-void XMLFecCcu::setCcusToDb(std::string partitionName, ccuVector *cVector)  throw (FecExceptionHandler) {
+void XMLFecCcu::setCcusToDb(std::string partitionName, ccuVector *cVector)  noexcept(false) {
 
   this->setCcuVector (cVector);  
   this->dbConfigure (partitionName, false);
@@ -602,7 +602,7 @@ void XMLFecCcu::setCcusToDb(std::string partitionName, ccuVector *cVector)  thro
 //  *     - a SQLException is thrown during the PL/SQL statement creation or execution
 //  * @see DbAccess::setXMLClob(std::string xmlBuffer);
 //  */
-void XMLFecCcu::setRingToDb (std::string partitionName, TkRingDescription ringD )  throw (FecExceptionHandler) {
+void XMLFecCcu::setRingToDb (std::string partitionName, TkRingDescription ringD )  noexcept(false) {
 
   this->dbConfigure (partitionName, ringD, false);
 }
@@ -614,7 +614,7 @@ void XMLFecCcu::setRingToDb (std::string partitionName, TkRingDescription ringD 
 //  * @exception FecExceptionHandler
 //  * @see XMLFecCcu::setCcus (ccuVector *cVector, unsigned int versionMajorId, unsigned int versionMinorId)
 //  */
-// void XMLFecCcu::setCcus(std::string partitionName) throw (FecExceptionHandler) {
+// void XMLFecCcu::setCcus(std::string partitionName) noexcept(false) {
 //   this->dbConfigure (partitionName, false);
 // }
 
@@ -627,7 +627,7 @@ void XMLFecCcu::setRingToDb (std::string partitionName, TkRingDescription ringD 
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  */
-void XMLFecCcu::dbConfigure(std::string partitionName, boolean newPartition ) throw (FecExceptionHandler) {
+void XMLFecCcu::dbConfigure(std::string partitionName, boolean newPartition ) noexcept(false) {
 
   TkRingDescription *ringD = getRing() ;
   dbConfigure(partitionName,*ringD,newPartition) ;
@@ -643,7 +643,7 @@ void XMLFecCcu::dbConfigure(std::string partitionName, boolean newPartition ) th
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  */
-void XMLFecCcu::dbConfigure(std::string partitionName, TkRingDescription ringD, boolean newPartition ) throw (FecExceptionHandler) {
+void XMLFecCcu::dbConfigure(std::string partitionName, TkRingDescription ringD, boolean newPartition ) noexcept(false) {
 
   MemBufOutputSource memBufOSRing (ringD, true, false);
   MemBufOutputSource memBufOSCcu  (*(ringD.getCcuVector()), true );
@@ -675,7 +675,7 @@ void XMLFecCcu::dbConfigure(std::string partitionName, TkRingDescription ringD, 
  *    - the dataBaseAccess has not been intialized
  */
 void XMLFecCcu::parseDatabaseResponse ( std::string partitionName, std::string fecHardId, unsigned int ringSlot ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromFecHardId";
 
   if (dataBaseAccess_ != NULL) {
@@ -740,7 +740,7 @@ void XMLFecCcu::parseDatabaseResponse ( std::string partitionName, std::string f
  *    - the dataBaseAccess has not been intialized
  */
 void XMLFecCcu::parseDatabaseResponse ( std::string fecHardId, unsigned int ringSlot ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromFecHardId";
 
   if (dataBaseAccess_ != NULL) {

@@ -58,7 +58,7 @@ uhal::HwInterface *FecUtcaRingDevice::hwBoard=NULL;
  * \param ring - ring slot
  * \param init - initialise the FEC (with reset at the starting)
  */
-FecUtcaRingDevice::FecUtcaRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity ) throw ( FecExceptionHandler ) :
+FecUtcaRingDevice::FecUtcaRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool init, bool invertClockPolarity ) noexcept(false) :
   FecRingDevice ( fecSlot, ringSlot, FECUTCA ) {
   //try{
   //} catch(){
@@ -90,7 +90,7 @@ FecUtcaRingDevice::FecUtcaRingDevice (tscType8 fecSlot, tscType8 ringSlot, bool 
 
 /** Close the uHal connection
  */
-FecUtcaRingDevice::~FecUtcaRingDevice ( ) throw ( FecExceptionHandler )
+FecUtcaRingDevice::~FecUtcaRingDevice ( ) noexcept(false)
 {
     //delete hwBoard;
 }
@@ -119,7 +119,7 @@ void FecUtcaRingDevice::releaseUhal (){
  * \param ctrl0Value - value of the CR0
  * \param force - if force is set then the value is applied blindly. if force is not set then the invert clock polarity is managed following the parameter in the class.
  */
-void FecUtcaRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) noexcept(false) {
 
   if (!force) {
     if (invertClockPolarity_) ctrl0Value |= FEC_CR0_POLARITY ;
@@ -145,7 +145,7 @@ void FecUtcaRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw
 /** Reads a value from FEC ctrl0 
  *\return the value read
  */
-tscType16 FecUtcaRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
+tscType16 FecUtcaRingDevice::getFecRingCR0( ) noexcept(false) {
 
   tscType32 ctrl0Value = readRegisterValue('C','0');
 
@@ -167,7 +167,7 @@ tscType16 FecUtcaRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
 /** Write the value given as parameter in FEC control 1 register 
  * \param value to be written
  */
-void FecUtcaRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::setFecRingCR1( tscType16 ctrl1Value ) noexcept(false) {
 
   setControlRegister('1', ctrl1Value);
   /*if (sendCommand(REG_CONTROL1, ctrl1Value, NULL)) {
@@ -187,7 +187,7 @@ void FecUtcaRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExcepti
 /** Reads a value from FEC ctrl1 
  * \return value of the FEC CR1 for that ring
  */
-tscType16 FecUtcaRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecUtcaRingDevice::getFecRingCR1( ) noexcept(false) {
 
   tscType32 ctrl1Value=readRegisterValue('C','1');
 
@@ -209,7 +209,7 @@ tscType16 FecUtcaRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
 /** Reads a value from FEC SR0
  * \return the value of the FEC SR0
  */
-tscType32 FecUtcaRingDevice::getFecRingSR0(unsigned long sleeptime) throw ( FecExceptionHandler ) {
+tscType32 FecUtcaRingDevice::getFecRingSR0(unsigned long sleeptime) noexcept(false) {
 
   tscType32 sr0Value = readRegisterValue('S','0');
   
@@ -230,7 +230,7 @@ tscType32 FecUtcaRingDevice::getFecRingSR0(unsigned long sleeptime) throw ( FecE
 /** Reads a value from FEC SR1
  * \return the value of the FEC SR1
  */
-tscType16 FecUtcaRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecUtcaRingDevice::getFecRingSR1( ) noexcept(false) {
 
   tscType32 sr1Value = readRegisterValue('S','1');
 
@@ -249,7 +249,7 @@ tscType16 FecUtcaRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
 /** Return the version of the firmware
  * \return Firmware version
  */
-tscType16 FecUtcaRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandler ) {
+tscType16 FecUtcaRingDevice::getFecFirmwareVersion( ) noexcept(false) {
 
 /*  tscType32 fecVersion ;
 
@@ -277,7 +277,7 @@ tscType16 FecUtcaRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandle
 /** Return a word from the FIFO receive
  * \param return a word from the FIFO receive
  */
-tscType32 FecUtcaRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
+tscType32 FecUtcaRingDevice::getFifoReceive( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fiforec_value=readRegisterValue('R','R');
 
@@ -300,7 +300,7 @@ tscType32 FecUtcaRingDevice::getFifoReceive( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO receive
  * \param fiforecValue - word to be set
  */
-void FecUtcaRingDevice::setFifoReceive( tscType32 fiforec_value )throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::setFifoReceive( tscType32 fiforec_value )noexcept(false) {
 
   //if (sendCommand(REG_REC_FIFO, fiforec_value, NULL)) {
     RAISEFECEXCEPTIONHANDLER_HARDPOSITION (WRITE_ERROR,
@@ -317,7 +317,7 @@ void FecUtcaRingDevice::setFifoReceive( tscType32 fiforec_value )throw ( FecExce
 /** Return a word from the FIFO return
  * \param return a word from the FIFO return
  */
-tscType8 FecUtcaRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
+tscType8 FecUtcaRingDevice::getFifoReturn( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fiforet_value;
 
@@ -340,7 +340,7 @@ tscType8 FecUtcaRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO return
  * \param fiforet_value - word to be set
  */
-void FecUtcaRingDevice::setFifoReturn( tscType8 fiforet_value )throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::setFifoReturn( tscType8 fiforet_value )noexcept(false) {
 
   if (sendCommand(REG_RET_FIFO, fiforet_value, NULL)) {
     RAISEFECEXCEPTIONHANDLER_HARDPOSITION (WRITE_ERROR,
@@ -359,7 +359,7 @@ void FecUtcaRingDevice::setFifoReturn( tscType8 fiforet_value )throw ( FecExcept
 /** Return a word from the FIFO transmit
  * \param return a word from the FIFO transmit
  */
-tscType32 FecUtcaRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
+tscType32 FecUtcaRingDevice::getFifoTransmit( ) noexcept(false) {
 
   DD_FEC_FIFO_DATA_32 fifotra_value;
 
@@ -381,7 +381,7 @@ tscType32 FecUtcaRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO transmit
  * \param fifotra_value - word to be set
  */
-void FecUtcaRingDevice::setFifoTransmit( tscType32 fifotra_value )throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::setFifoTransmit( tscType32 fifotra_value )noexcept(false) {
 
 /*
   if (sendCommand(REG_TRA_FIFO, fifotra_value, NULL)) {
@@ -414,7 +414,7 @@ void FecUtcaRingDevice::setFifoTransmit( tscType32 fifotra_value )throw ( FecExc
 
 /** Hard reset of the FEC board or the ring board => PLX reset is issued
  */
-void FecUtcaRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
+void FecUtcaRingDevice::fecHardReset ( ) noexcept(false) {
 #ifdef FECUTCARINGDEVICE_DEBUG
   std::cout << "DEBUG: Hard reset"<< std::endl ;
 #endif
@@ -454,7 +454,7 @@ void FecUtcaRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
  * \param enable - enable or disable the IRQ on the PLX
  * \param level - not used, only for code consistent
  */
-void FecUtcaRingDevice::setIRQ ( bool enable, tscType8 level ) throw (FecExceptionHandler) {
+void FecUtcaRingDevice::setIRQ ( bool enable, tscType8 level ) noexcept(false) {
 
 #ifdef IRQMANAGER
 #endif

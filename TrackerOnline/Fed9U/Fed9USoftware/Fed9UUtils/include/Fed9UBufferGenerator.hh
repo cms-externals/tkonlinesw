@@ -39,7 +39,7 @@ namespace Fed9U {
      * The first element of the vector corresponds to strip 1, channel 96 in the external numbering or strip 0 or channel 0 internal numbering.
      * The strip order should then follow in physical strip ordering and not APV-MUX order.
      */
-    void generateFed9UBuffer(const std::vector<unsigned short> &bufferData) throw (ICUtils::ICException);
+    void generateFed9UBuffer(const std::vector<unsigned short> &bufferData) noexcept(false);
 
     /**
      * \name Buffer getters.
@@ -52,14 +52,14 @@ namespace Fed9U {
      * \param fedBuffer Area to copy memory to.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    void getBuffer(unsigned int *fedBuffer) const throw (ICUtils::ICException);
+    void getBuffer(unsigned int *fedBuffer) const noexcept(false);
 
     /**
      * \brief  Method to return copy of Fed9U buffer.
      * \return vector<unsigned char> A vector containing a copy of all the data in the internal buffer.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    std::vector<unsigned char> getBuffer() throw (ICUtils::ICException);
+    std::vector<unsigned char> getBuffer() noexcept(false);
     //@}
 
     /**
@@ -73,14 +73,14 @@ namespace Fed9U {
      * \return unsigned long Number of 32-bit words in the buffer.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    unsigned long getBufferSize(void) const throw (ICUtils::ICException);
+    unsigned long getBufferSize(void) const noexcept(false);
 
     /**
      * \brief  Method to get the bunch crossing number.
      * \return unsigned long Bunch crossing number for which the event was recorded.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    unsigned long getBunchCrossing(void) const throw (ICUtils::ICException);
+    unsigned long getBunchCrossing(void) const noexcept(false);
 
     //@}
 
@@ -97,7 +97,7 @@ namespace Fed9U {
      * \return Self reference.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    Fed9UBufferGenerator & setBunchCrossing(unsigned long bunchCrossing) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setBunchCrossing(unsigned long bunchCrossing) noexcept(false);
 
     /**
      * \brief  Method to set the tracker header to full debug mode.
@@ -107,7 +107,7 @@ namespace Fed9U {
      * The method provides no way to undo this once it has been done. The default mode for an event buffer is APV error mode
      * and no change should be made if this mode is required.
      */
-    Fed9UBufferGenerator & setHeaderToFullDebug(void) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setHeaderToFullDebug(void) noexcept(false);
 
     /**
      * \brief  Method to set the buffer creator pointer. This allows the user to change mode between generating events.
@@ -124,9 +124,9 @@ namespace Fed9U {
      *         a base of zero. Size:192.
      * \throw  ICException Throws this exception for all error and catches all errors and rethrows as this exception type.
      */
-    Fed9UBufferGenerator & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setCommonModeMedians(const std::vector<unsigned short> &cmMedians) noexcept(false);
 
-    Fed9UBufferGenerator & setSlink64() throw (ICUtils::ICException);
+    Fed9UBufferGenerator & setSlink64() noexcept(false);
 
     //@}
  

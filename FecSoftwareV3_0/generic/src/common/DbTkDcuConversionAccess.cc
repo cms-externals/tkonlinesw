@@ -26,7 +26,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbTkDcuConversionAccess::DbTkDcuConversionAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {
+DbTkDcuConversionAccess::DbTkDcuConversionAccess ( bool threaded ) noexcept(false) : DbCommonAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -37,14 +37,14 @@ DbTkDcuConversionAccess::DbTkDcuConversionAccess ( bool threaded ) throw (oracle
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbTkDcuConversionAccess::DbTkDcuConversionAccess (std::string user, std::string passwd, std::string dbPath, bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (user, passwd, dbPath, threaded) {
+DbTkDcuConversionAccess::DbTkDcuConversionAccess (std::string user, std::string passwd, std::string dbPath, bool threaded ) noexcept(false) : DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbTkDcuConversionAccess::~DbTkDcuConversionAccess ()  throw (oracle::occi::SQLException) {
+DbTkDcuConversionAccess::~DbTkDcuConversionAccess ()  noexcept(false) {
 }
 
 /**Sends a request to the database to execute a PL/SQL stored procedure in order to get a Clob containing the data from the database.<BR>
@@ -56,7 +56,7 @@ DbTkDcuConversionAccess::~DbTkDcuConversionAccess ()  throw (oracle::occi::SQLEx
  * @see DbAccess::getXMLClob(std::string readString, std::string supervisorIp, unsigned int xdaqInstance, std::string xdaqClassName)
  * @see PkgFecXML.getAllFecFromPartitionAndIp ( pcIpNumber IN VARCHAR2, xdaqInstanceNb IN NUMBER, xdaqClassName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob(tscType32 dcuHardId ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob(tscType32 dcuHardId ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgDcuConversionXML.getDcuConversionFromDcuHardId(:dcuHardId);END;";
 #ifdef DATABASEDEBUG
   std::cerr << "readString " << readString << std::endl;
@@ -100,7 +100,7 @@ oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob(tscType32 dcuHardId ) th
  * @see DbAccess::getXMLClob(std::string readString, std::string supervisorIp, unsigned int xdaqInstance, std::string xdaqClassName)
  * @see PkgFecXML.getAllFecFromPartitionAndIp ( pcIpNumber IN VARCHAR2, xdaqInstanceNb IN NUMBER, xdaqClassName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob( std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob( std::string partitionName ) noexcept(false) {
 
   static std::string readString("BEGIN :xmlClob := PkgDcuConversionXML.getDcuConversionFromPartition(:partitionName);END;") ;
   oracle::occi::Statement *stmt = NULL ;
@@ -143,7 +143,7 @@ oracle::occi::Clob *DbTkDcuConversionAccess::getXMLClob( std::string partitionNa
  * @exception FecExceptionHandler
  * @see PkgFecXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  */
-void DbTkDcuConversionAccess::setXMLClob(std::string buffer) throw (oracle::occi::SQLException, FecExceptionHandler) 
+void DbTkDcuConversionAccess::setXMLClob(std::string buffer) noexcept(false) 
 {
   //std::cout<<buffer<<std::endl;
   static std::string writeString = "BEGIN PkgDcuConversionXML.uploadClob(:buffer); END;";

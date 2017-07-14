@@ -128,7 +128,7 @@ void pllAccess::setValues ( pllDescription pllValues ) {
  * \warning a new object reference is dynamically defined. Do not
  * forget to delete it.
  */
-pllDescription *pllAccess::getValues ( ) throw (FecExceptionHandler) {
+pllDescription *pllAccess::getValues ( ) noexcept(false) {
 
   pllDescription *pllValues = 
     new pllDescription (accessKey_,
@@ -157,7 +157,7 @@ tscType8 pllAccess::getPllDac ( ) { return pllDac_ ; }
  * \warning see the source for more explanation
  * \warning setDelayFine
  */
-void pllAccess::setClockPhase ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void pllAccess::setClockPhase ( tscType8 delay_step ) noexcept(false) {
 
   // Convert delay step
   tscType8 delay_val = getClockPhaseMap ( delay_step ) ;
@@ -183,7 +183,7 @@ void pllAccess::setClockPhase ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning see the source for more explanation
  * \warning setDelayCoarse
  */
-void pllAccess::setTriggerDelay ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void pllAccess::setTriggerDelay ( tscType8 delay_step ) noexcept(false) {
 
   // Convert delay step
   tscType8 delay_val = getTriggerDelayMap ( delay_step ) ;
@@ -222,7 +222,7 @@ void pllAccess::setTriggerDelay ( tscType8 delay_step ) throw (FecExceptionHandl
  * <li>TSCFEC_FECPARAMETERNOTMANAGED
  * </ul>
  */
-tscType8 pllAccess::getClockPhase ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getClockPhase ( ) noexcept(false) {
 
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_2 ) ; // Read CTR2
   tscType8 delay_val = i2cdata & PLL_CLOCKPHASE_READ ; // Read CRT2<4:0>
@@ -260,7 +260,7 @@ tscType8 pllAccess::getClockPhase ( ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler
  */
-tscType8 pllAccess::getTriggerDelay ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getTriggerDelay ( ) noexcept(false) {
 
   // Read CTR2
   tscType8 cntrl2Orig = accessToFec_->readOffset ( accessKey_, CNTRL_2 ) ;
@@ -302,7 +302,7 @@ tscType8 pllAccess::getTriggerDelay ( ) throw (FecExceptionHandler) {
  * \param coldReset - issue a cold reset if it is true else issue a PLL reset (default false)
  * \see pllReset and pllInit
  */
-void pllAccess::setPllCheckGoingBit ( bool noCheck, bool coldReset ) throw (FecExceptionHandler) {
+void pllAccess::setPllCheckGoingBit ( bool noCheck, bool coldReset ) noexcept(false) {
 
   bool resetPll = true ;
   if (! noCheck) 
@@ -323,7 +323,7 @@ void pllAccess::setPllCheckGoingBit ( bool noCheck, bool coldReset ) throw (FecE
  * \warning Original code was: bool tsc_pll_check_status(tsc_descriptor_index  pll)
  * \warning PLL control: comment: update to match the Official Fec Driver library and new Pll 
  */
-tscType8 pllAccess::pllReset ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::pllReset ( ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "pllAccess::pllReset: Write CNTRL_1(0x" << std::hex << (int)CNTRL_1 << "<3>) = RST_ON (0x" << std::hex << (int)PLL_RESET_ON << ")" << std::endl ;
@@ -399,7 +399,7 @@ tscType8 pllAccess::pllReset ( ) throw (FecExceptionHandler) {
  *       => Low gain (If high gain was to be used than the code would be 0xC0 instead of 0x80) 
  * Implementation of V6 is done here
  */
-tscType8 pllAccess::pllInit ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::pllInit ( ) noexcept(false) {
 
 #ifdef PLLCOLDINITVERSION3
   std::cout << "Version 3 of the PLL reset mono frame" << std::endl ;
@@ -514,7 +514,7 @@ tscType8 pllAccess::getClockPhaseMapBack ( tscType8 k ) {
  * </ul>
  * \warning Original code was: unsigned short tsc_pll_fine_delay_map(tscType8 k)
  */
-tscType8 pllAccess::getClockPhaseMap ( tscType8 k ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getClockPhaseMap ( tscType8 k ) noexcept(false) {
   
   tscType8 dly[] = {0x00,0x01,0x02,0x03,0x04,0x05,
 		    0x06,0x07,0x08,0x09,0x0a,0x0b,            
@@ -540,7 +540,7 @@ tscType8 pllAccess::getClockPhaseMap ( tscType8 k ) throw (FecExceptionHandler) 
  * </ul>
  * \warning Original code was: unsigned short tsc_pll_coarse_delay_map(tscType8 k)
  */
-tscType8 pllAccess::getTriggerDelayMap ( tscType8 k ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getTriggerDelayMap ( tscType8 k ) noexcept(false) {
 	
   tscType8 dly[]={0x00,0x01,0x02,0x03,0x04,0x05,
 		  0x06,0x07,0x08,0x09,0x0a,0x0b,            
@@ -564,7 +564,7 @@ tscType8 pllAccess::getTriggerDelayMap ( tscType8 k ) throw (FecExceptionHandler
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 pllAccess::getCNTRL1 ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getCNTRL1 ( ) noexcept(false) {
 
   // Read CTR1
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_1 ) ;
@@ -576,7 +576,7 @@ tscType8 pllAccess::getCNTRL1 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 pllAccess::getCNTRL2 ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getCNTRL2 ( ) noexcept(false) {
 
   // Read CTR2
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_2 ) ;
@@ -588,7 +588,7 @@ tscType8 pllAccess::getCNTRL2 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 pllAccess::getCNTRL3 ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getCNTRL3 ( ) noexcept(false) {
 
   // Read CTR3
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_3 ) ;
@@ -601,7 +601,7 @@ tscType8 pllAccess::getCNTRL3 ( ) throw (FecExceptionHandler) {
  * Thanks to Wim Beaumont
  * \warning the register should be set before getting this register (PLL_CTRL2_RSEL should be set in the CTRL2)
  */
-tscType8 pllAccess::getCNTRL4 ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getCNTRL4 ( ) noexcept(false) {
 
   // Force the RSEL in CTRL2 to 0
   tscType8 ctrl2 = getCNTRL2() ;
@@ -622,7 +622,7 @@ tscType8 pllAccess::getCNTRL4 ( ) throw (FecExceptionHandler) {
  * Thanks to Wim Beaumont
  * \warning the register should be set before getting this register (PLL_CTRL2_RSEL should be set in the CTRL2)
  */
-tscType8 pllAccess::getCNTRL5 ( ) throw (FecExceptionHandler) {
+tscType8 pllAccess::getCNTRL5 ( ) noexcept(false) {
 
   // Force the RSEL in CTRL2 to 0
   tscType8 ctrl2 = getCNTRL2() ;
@@ -642,7 +642,7 @@ tscType8 pllAccess::getCNTRL5 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void pllAccess::setCNTRL1 ( tscType8 value ) throw (FecExceptionHandler) {
+void pllAccess::setCNTRL1 ( tscType8 value ) noexcept(false) {
 
   // Write CTR1
   accessToFec_->writeOffset ( accessKey_, CNTRL_1, value ) ;
@@ -653,7 +653,7 @@ void pllAccess::setCNTRL1 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void pllAccess::setCNTRL2 ( tscType8 value ) throw (FecExceptionHandler) {
+void pllAccess::setCNTRL2 ( tscType8 value ) noexcept(false) {
 
   // Write CTR2
   accessToFec_->writeOffset ( accessKey_, CNTRL_2, value ) ;
@@ -664,7 +664,7 @@ void pllAccess::setCNTRL2 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void pllAccess::setCNTRL3 ( tscType8 value ) throw (FecExceptionHandler) {
+void pllAccess::setCNTRL3 ( tscType8 value ) noexcept(false) {
 
   // Write CTR3
   accessToFec_->writeOffset ( accessKey_, CNTRL_3, value ) ;
@@ -677,7 +677,7 @@ void pllAccess::setCNTRL3 ( tscType8 value ) throw (FecExceptionHandler) {
  * \warning the register should be set before getting this register (PLL_CTRL2_RSEL should be set in the CTRL2)
  * \warning this method change the value of the CTRL2 but put the original back
  */
-void pllAccess::setCNTRL4 ( tscType8 value ) throw (FecExceptionHandler) {
+void pllAccess::setCNTRL4 ( tscType8 value ) noexcept(false) {
 
   // Force the RSEL in CTRL2
   tscType8 ctrl2 = getCNTRL2() ;
@@ -697,7 +697,7 @@ void pllAccess::setCNTRL4 ( tscType8 value ) throw (FecExceptionHandler) {
  * \warning the register should be set before getting this register (PLL_CTRL2_RSEL should be set in the CTRL2)
  * \warning this method change the value of the CTRL2 but put the original back
  */
-void pllAccess::setCNTRL5 ( tscType8 value ) throw (FecExceptionHandler) {
+void pllAccess::setCNTRL5 ( tscType8 value ) noexcept(false) {
 
   // Force the RSEL in CTRL2
   tscType8 ctrl2 = getCNTRL2() ;
@@ -716,7 +716,7 @@ void pllAccess::setCNTRL5 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-bool  pllAccess::getGoingStatus ( ) throw (FecExceptionHandler) {
+bool  pllAccess::getGoingStatus ( ) noexcept(false) {
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_1 ) ;
   return ( (i2cdata & GOING_BIT)  != 0);
 }
@@ -726,7 +726,7 @@ bool  pllAccess::getGoingStatus ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-bool  pllAccess::getSeuStatus ( ) throw (FecExceptionHandler) {
+bool  pllAccess::getSeuStatus ( ) noexcept(false) {
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CNTRL_1 ) ;
   return ( (i2cdata & SEU_BIT)  != 0);
 }
@@ -745,7 +745,7 @@ bool  pllAccess::getSeuStatus ( ) throw (FecExceptionHandler) {
 unsigned int pllAccess::setPllCheckGoingBitMultipleFrames ( FecAccess &fecAccess, std::list<FecExceptionHandler *> &errorList,
 							    Sgi::hash_map<keyType, pllAccess *> &pllSet, bool *errorGoingBit, 
 							    std::list<keyType> &pllErrorBefore, std::list<keyType> &pllErrorAfter, 
-							    bool noCheck, bool coldReset ) throw (FecExceptionHandler) {
+							    bool noCheck, bool coldReset ) noexcept(false) {
 
   // no error for the time being
   *errorGoingBit = false ;
@@ -1040,7 +1040,7 @@ void pllAccess::displayPllRegisters ( ) {
  * \param pllValues - all the values for an laserdriver
  * \param vAccess - block of frames
  */
-void pllAccess::getBlockWriteValues ( pllDescription pllValues, accessDeviceTypeList &vAccess ) throw (FecExceptionHandler) {
+void pllAccess::getBlockWriteValues ( pllDescription pllValues, accessDeviceTypeList &vAccess ) noexcept(false) {
 
   tscType8 delay_fine_val   = getClockPhaseMap   ( pllValues.getClockPhase() ) ;
   tscType8 delay_coarse_val = getTriggerDelayMap ( pllValues.getTriggerDelay() ) ;
@@ -1076,7 +1076,7 @@ void pllAccess::getBlockWriteValues ( pllDescription pllValues, accessDeviceType
  */
 unsigned int pllAccess::getPllValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, pllAccess *> &pllSet, deviceVector &pllVector,
 						      std::list<FecExceptionHandler *> &errorList ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, pllDescription * > deviceDescriptionsMap ;

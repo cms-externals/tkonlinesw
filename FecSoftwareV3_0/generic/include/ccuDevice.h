@@ -257,7 +257,7 @@ class ccuDevice {
    * <li>TSCFEC_FECPARAMETERNOTMANAGED: wrong CCU input (ring A/B) value
    * </ul>
    */
-  void setInput ( tscType16 input ) throw (FecExceptionHandler) {
+  void setInput ( tscType16 input ) noexcept(false) {
 
 #ifdef T3TDLEVELCHECK
     if ( (input == 0) || (input == 1) )
@@ -281,7 +281,7 @@ class ccuDevice {
    * <li>TSCFEC_FECPARAMETERNOTMANAGED: wrong CCU output (ring A/B) value
    * </ul>
    */
-  void setOutput ( tscType16 output ) throw (FecExceptionHandler) {
+  void setOutput ( tscType16 output ) noexcept(false) {
     if ( (output == 0) || (output == 1) )
       ccuOutput_    = output   ;
     else {
@@ -315,7 +315,7 @@ class ccuDevice {
    * <li>TSCFEC_FECPARAMETERNOTMANAGED: wrong CCU alarm
    * </ul>
    */
-  bool isCcuAlarmEnable ( tscType16 ccuAlarm ) throw (FecExceptionHandler) {
+  bool isCcuAlarmEnable ( tscType16 ccuAlarm ) noexcept(false) {
 
     if (ccuAlarm > 3) {
       RAISEFECEXCEPTIONHANDLER_INFOSUP (TSCFEC_FECPARAMETERNOTMANAGED,

@@ -147,7 +147,7 @@ void TkDcuInfo::display ( ) {
 /** \brief return the corresponding subdetector from the det id
  * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
  */
-std::string TkDcuInfo::getSubDetectorFromDetId ( ) throw (std::string) {
+std::string TkDcuInfo::getSubDetectorFromDetId ( ) noexcept(false) {
 
   return TkDcuInfo::getSubDetectorFromDetId ( detId_ ) ;
 }
@@ -156,7 +156,7 @@ std::string TkDcuInfo::getSubDetectorFromDetId ( ) throw (std::string) {
  * \param detId - detector ID
  * \return the string with TIB, TIB, TOB, TEC+, TEC- and an exception if the det id is not recognized
  */
-std::string TkDcuInfo::getSubDetectorFromDetId ( unsigned int detId ) throw (std::string) {
+std::string TkDcuInfo::getSubDetectorFromDetId ( unsigned int detId ) noexcept(false) {
 
   if (ISTOB(detId)) return "TOB" ;
   if (ISTIB(detId)) return "TIB" ;

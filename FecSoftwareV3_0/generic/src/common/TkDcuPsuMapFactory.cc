@@ -70,7 +70,7 @@ TkDcuPsuMapFactory::TkDcuPsuMapFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 TkDcuPsuMapFactory::TkDcuPsuMapFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   DeviceFactoryInterface ( login, password, path, threaded ) {
   setDatabaseAccess ( login, password, path ) ;
 }
@@ -186,7 +186,7 @@ void TkDcuPsuMapFactory::setInputFileName ( std::string inputFileName ) {
  *
  * \exception a FecExceptionHanlder is raised in two cases, the file is invalid or the PSU name is invalid.
 */
-void TkDcuPsuMapFactory::setInputTextFile ( std::string inputFileName ) throw (FecExceptionHandler) {
+void TkDcuPsuMapFactory::setInputTextFile ( std::string inputFileName ) noexcept(false) {
 
 #define CONTROLCHANNELSSTART "CONTROL CHANNELS"
 #define POWERGROUPSSTART     "POWER GROUPS"
@@ -353,7 +353,7 @@ void TkDcuPsuMapFactory::setOutputPVSSFile ( tkDcuPsuMapVector dcuPsuMapResult, 
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 void TkDcuPsuMapFactory::getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   if (dbAccess_ == NULL) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -397,7 +397,7 @@ void TkDcuPsuMapFactory::getPartitionVersion ( std::string partitionName, unsign
  * \warning in the destructor of TkDcuPsuMapFactory, the dbAccess is deleted
  */
 void TkDcuPsuMapFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -422,7 +422,7 @@ void TkDcuPsuMapFactory::setDatabaseAccess ( std::string login, std::string pass
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void TkDcuPsuMapFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -455,7 +455,7 @@ void TkDcuPsuMapFactory::setDatabaseAccess ( DbTkDcuPsuMapAccess *dbAccess ) {
  * \param versionMajorId - version major
  * \param versionMinorId - version minor
  */
-void TkDcuPsuMapFactory::getDcuPsuMapPartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+void TkDcuPsuMapFactory::getDcuPsuMapPartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
 
   // Empty the lists
   deleteVectorI (vCGDcuPsuMap_) ;
@@ -490,7 +490,7 @@ void TkDcuPsuMapFactory::getDcuPsuMapPartition (std::string partitionName, unsig
  * \param versionMajorId - version major
  * \param versionMinorId - version minor
  */
-void TkDcuPsuMapFactory::getPsuNotConnectedPartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+void TkDcuPsuMapFactory::getPsuNotConnectedPartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
 
   // Empty the list 
   deleteVectorI (vCGPsuNotConnected_) ;
@@ -523,7 +523,7 @@ void TkDcuPsuMapFactory::getPsuNotConnectedPartition (std::string partitionName,
  * \param versionMajorId - version major
  * \param versionMinorId - version minor
  */
-void TkDcuPsuMapFactory::getPsuNamePartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+void TkDcuPsuMapFactory::getPsuNamePartition (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
 
   bool error = false ;
   std::stringstream psuNameInError ;
@@ -554,7 +554,7 @@ void TkDcuPsuMapFactory::getPsuNamePartition (std::string partitionName, unsigne
  * \param versionMajor - output version major (only for database purpose)
  * \param versionMinor - output version minor (only for database purpose)
  */
-void TkDcuPsuMapFactory::setTkDcuPsuMap ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) throw ( FecExceptionHandler ) {
+void TkDcuPsuMapFactory::setTkDcuPsuMap ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -586,7 +586,7 @@ void TkDcuPsuMapFactory::setTkDcuPsuMap ( tkDcuPsuMapVector dcuPsuMap, std::stri
  * \param versionMajor - output version major (only for database purpose)
  * \param versionMinor - output version minor (only for database purpose)
  */
-void TkDcuPsuMapFactory::setTkPsuNames ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) throw ( FecExceptionHandler ) {
+void TkDcuPsuMapFactory::setTkPsuNames ( tkDcuPsuMapVector dcuPsuMap, std::string partitionName, unsigned int *versionMajorId, unsigned int *versionMinorId ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -621,7 +621,7 @@ void TkDcuPsuMapFactory::setTkPsuNames ( tkDcuPsuMapVector dcuPsuMap, std::strin
  * \param coolingLoopResult - result of cooling loops (pair with the name and the result (true = ok, false = not ok)
  * \return true if ok, false if not
  */
-bool TkDcuPsuMapFactory::checkTKCCCoolingLoop ( std::string partitionName, std::vector<std::pair<std::string, bool> > &coolingLoopResult ) throw ( FecExceptionHandler, oracle::occi::SQLException, std::string ) {
+bool TkDcuPsuMapFactory::checkTKCCCoolingLoop ( std::string partitionName, std::vector<std::pair<std::string, bool> > &coolingLoopResult ) noexcept(false) {
 
   DbTkDcuPsuMapAccess *dbAccess = (DbTkDcuPsuMapAccess *)this->getDatabaseAccess() ;
   bool result = true ;

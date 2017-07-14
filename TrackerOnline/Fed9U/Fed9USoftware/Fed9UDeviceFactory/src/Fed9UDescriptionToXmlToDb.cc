@@ -66,14 +66,14 @@ namespace Fed9U {
 //This constructor takes the file name of the XML file to be written, and a reference to the 
 //Fed9UDescription from which to make the XML file.
   Fed9UDescriptionToXmlToDb::Fed9UDescriptionToXmlToDb(Fed9UDescription &Fed9UDescriptionToWrite, 
-						       DbFedAccess * dbFedAccess) throw (Fed9UXMLDescriptionException) : Fed9UDescriptionToXml(Fed9UDescriptionToWrite),
+						       DbFedAccess * dbFedAccess) noexcept(false) : Fed9UDescriptionToXml(Fed9UDescriptionToWrite),
 										    dbFedAccess_(dbFedAccess) {
     
   }
 
   
   Fed9UDescriptionToXmlToDb::Fed9UDescriptionToXmlToDb(std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite, 
-						       DbFedAccess * dbFedAccess ) throw (Fed9UXMLDescriptionException) : Fed9UDescriptionToXml( Fed9UDescriptionsToWrite ), 
+						       DbFedAccess * dbFedAccess ) noexcept(false) : Fed9UDescriptionToXml( Fed9UDescriptionsToWrite ), 
 															  dbFedAccess_(dbFedAccess) {
 															  
     
@@ -172,7 +172,7 @@ namespace Fed9U {
     }
   }
 
-  void Fed9UDescriptionToXmlToDb::streamOutFastDescription(std::string * buf) throw(Fed9U::Fed9UXMLDescriptionException) {
+  void Fed9UDescriptionToXmlToDb::streamOutFastDescription(std::string * buf) noexcept(false) {
     try {
       std::stringstream tempBuf0, tempBuf1,  tempBuf2, tempBuf3, tempBuf4, tempBuf5, tempBuf6, tempBuf7;
       
@@ -508,7 +508,7 @@ namespace Fed9U {
   }
 
   /**Method which constructs the DOM document.*/
-  void Fed9UDescriptionToXmlToDb::constuctDOMDocument(void) throw(Fed9U::Fed9UXMLDescriptionException){
+  void Fed9UDescriptionToXmlToDb::constuctDOMDocument(void) noexcept(false){
        //Get a DOM Core implementation.
     xercesc::DOMImplementation* impl =  xercesc::DOMImplementationRegistry::getDOMImplementation(X("Core"));
 
@@ -561,7 +561,7 @@ namespace Fed9U {
   //***************************************************************************************************
   //Method which adds elements to a DOMDocument using the Fed9UDescription to get the attribute values.
   // this method has been overridden so that we can write the strips in a different way for the database
-  void Fed9UDescriptionToXmlToDb::addDOMElements(xercesc::DOMElement *rootElement) throw (Fed9UXMLDescriptionException)
+  void Fed9UDescriptionToXmlToDb::addDOMElements(xercesc::DOMElement *rootElement) noexcept(false)
   {
     //    xercesc::DOMElement* rootElement = doc->getDocumentElement();
 

@@ -37,7 +37,7 @@ ccuChannelAccess::ccuChannelAccess ( keyType index,
                                      enumDeviceType deviceType,
                                      enumAccessModeType accessMask,
                                      FecRingDevice *fec) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
     
   /** Build the key for the device */
   accessKey_ = index ;

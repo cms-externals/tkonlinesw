@@ -143,7 +143,7 @@ class DbInterface {
   /** \brief Retreive the FED version for the partition specified
    */
   void getFedPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskVersionMajor, unsigned int *maskVersionMinor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /* ********************************************************************************************** */
   /*                                                                                                */

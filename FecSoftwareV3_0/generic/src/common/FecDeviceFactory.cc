@@ -85,7 +85,7 @@ FecDeviceFactory::FecDeviceFactory ( ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 FecDeviceFactory::FecDeviceFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-    throw ( oracle::occi::SQLException ): 
+    noexcept(false): 
   DeviceFactoryInterface ( login, password, path, threaded ) {
 
   setDatabaseAccess ( login, password, path ) ;
@@ -233,7 +233,7 @@ void FecDeviceFactory::setInputFileName ( std::string inputFileName, std::string
  * \warning in the destructor of FecDeviceFactory, the dbAccess is deleted
  */
 void FecDeviceFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -262,7 +262,7 @@ void FecDeviceFactory::setDatabaseAccess ( std::string login, std::string passwo
  * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
  */
 void FecDeviceFactory::setDatabaseAccess ( ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // Retreive the parameters
   std::string login, password, path ;
@@ -300,7 +300,7 @@ void FecDeviceFactory::setDatabaseAccess ( DbFecAccess *dbAccess ) {
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 std::list<unsigned int *> FecDeviceFactory::getPartitionVersion ( std::string partitionName ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "Retreive the current version for the partition " << partitionName << std::endl ;
@@ -352,7 +352,7 @@ std::list<unsigned int *> FecDeviceFactory::getPartitionVersion ( std::string pa
  * Note that the method returns always a pointer allocated but the list can be empty
  */
 void FecDeviceFactory::getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskMajor, unsigned int *maskMinor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "Retreive the current version for the partition " << partitionName << std::endl ;
@@ -396,7 +396,7 @@ void FecDeviceFactory::getPartitionVersion ( std::string partitionName, unsigned
  * </ul>
  */
 void FecDeviceFactory::setPartitionVersion ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   if (dbAccess_ != NULL) {
 
@@ -470,7 +470,7 @@ void FecDeviceFactory::setPartitionVersion ( std::string partitionName, unsigned
  * \see XMLFecDevice::dbConfigure ( std::string, std::string )
  */
 void FecDeviceFactory::createPartition ( deviceVector devices, unsigned int *versionMajor, unsigned int *versionMinor, std::string partitionName, bool createPartitionFlag ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "FecDeviceFactory::createPartition" << std::endl ;
@@ -580,9 +580,9 @@ std::string FecDeviceFactory::setDeviceCorrection ( deviceVector &devices, std::
  */ 
 void FecDeviceFactory::getFecDeviceDescriptions ( bool fileUsed, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor, std::string partitionName, std::string fecHardwareId, deviceVector &outVector, bool allDevices, bool forceDbReload ) 
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 #else
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
 #ifdef DEBUGMSGERROR
@@ -724,9 +724,9 @@ void FecDeviceFactory::getFecDeviceDescriptions ( bool fileUsed, unsigned int ve
  */ 
   void FecDeviceFactory::getFecDeviceDescriptions ( std::string partitionName, std::string fecHardwareId, deviceVector &outVector, unsigned int versionMajor, unsigned int versionMinor, bool allDevices, bool forceDbReload  ) 
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 #else
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
     getFecDeviceDescriptions ( false, versionMajor, versionMinor, 0, 0, partitionName, fecHardwareId, outVector, allDevices, forceDbReload ) ;
@@ -748,9 +748,9 @@ void FecDeviceFactory::getFecDeviceDescriptions ( bool fileUsed, unsigned int ve
  */ 
   void FecDeviceFactory::getFecDeviceDescriptions ( std::string partitionName, deviceVector &outVector, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajor, unsigned int pMaskVersionMinor, bool allDevices, bool forceDbReload ) 
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 #else
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
     getFecDeviceDescriptions ( false, versionMajor, versionMinor, pMaskVersionMajor, pMaskVersionMinor, partitionName, "0", outVector, allDevices, forceDbReload ) ;
@@ -762,9 +762,9 @@ void FecDeviceFactory::getFecDeviceDescriptions ( bool fileUsed, unsigned int ve
  */
 void FecDeviceFactory::getFecDeviceDescriptions ( deviceVector &outVector, bool allDevices )
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 #else
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
     getFecDeviceDescriptions ( true, 0, 0, 0, 0, "nil", "0", outVector, allDevices ) ;
@@ -787,9 +787,9 @@ void FecDeviceFactory::getFecDeviceDescriptions ( deviceVector &outVector, bool 
  */
 void FecDeviceFactory::setFecDeviceDescriptions ( deviceVector devices, std::string partitionName, unsigned int *versionMajor, unsigned int *versionMinor, bool majorVersion, bool uploadVersion )
 #ifdef DATABASE
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 #else
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
 #ifdef DEBUGMSGERROR
@@ -884,7 +884,7 @@ void FecDeviceFactory::getDcuValuesDescriptions ( std::string partitionName,
 						  unsigned long dcuHardId,
 						  unsigned long timeStampStart, unsigned long timeStampStop, 
 						  deviceVector &outVector ) 
-  throw (FecExceptionHandler ) {
+  noexcept(false) {
 
   // Contrarily for the DCU coming from the files, the DCU values are not 
   // retrieve from the database, a specific method is implemented for it
@@ -969,7 +969,7 @@ void FecDeviceFactory::getDcuValuesDescriptions ( std::string partitionName,
  */
 void FecDeviceFactory::getDcuValuesDescriptions ( std::string partitionName, deviceVector &outVector, 
 						  unsigned long timeStampStart, unsigned long timeStampStop ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getDcuValuesDescriptions ( partitionName, 0, timeStampStart, timeStampStop, outVector ) ;
 }
@@ -983,7 +983,7 @@ void FecDeviceFactory::getDcuValuesDescriptions ( std::string partitionName, dev
  * \warning if the input if a file whatever the timestamps are, the device description is retreived from the input file.
  */
 void FecDeviceFactory::getDcuValuesDescriptions ( deviceVector &outVector, unsigned long timeStampStart, unsigned long timeStampStop ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getDcuValuesDescriptions ( "nil", 0, timeStampStart, timeStampStop, outVector ) ;
   
@@ -999,7 +999,7 @@ void FecDeviceFactory::getDcuValuesDescriptions ( deviceVector &outVector, unsig
  * \warning if the input if a file whatever the timestamps are, the device description is retreived from the input file.
  */
 void FecDeviceFactory::getDcuValuesDescriptions ( unsigned long dcuHardId, deviceVector &outVector, unsigned long timeStampStart, unsigned long timeStampStop ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   getDcuValuesDescriptions ( "nil", dcuHardId, timeStampStart, timeStampStop, outVector ) ;
 }
@@ -1009,7 +1009,7 @@ void FecDeviceFactory::getDcuValuesDescriptions ( unsigned long dcuHardId, devic
  * \param fileUpload - force the upload into a file
  */
 void FecDeviceFactory::setDcuValuesDescriptions ( std::string partitionName, deviceVector dcuDevices, bool fileUpload ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (dcuDevices.empty()) RAISEFECEXCEPTIONHANDLER (NODATAAVAILABLE, NODATAAVAILABLE_MSG + " to be uploaded", ERRORCODE) ;
 
@@ -1047,7 +1047,7 @@ void FecDeviceFactory::setDcuValuesDescriptions ( std::string partitionName, dev
  * \return the resulting TkRingDescription (the memory is kept in the factory)
  */
 tkringVector FecDeviceFactory::getDbRingDescription ( std::string partitionName ) 
-  throw ( FecExceptionHandler, oracle::occi::SQLException ) {
+  noexcept(false) {
  
   if (!getDbUsed()) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -1077,7 +1077,7 @@ tkringVector FecDeviceFactory::getDbRingDescription ( std::string partitionName 
  * \return the resulting TkRingDescription (the memory is kept in the factory)
  */
 TkRingDescription* FecDeviceFactory::getDbRingDescription ( std::string partitionName, std::string fecHardwareId, unsigned int ring ) 
-  throw ( FecExceptionHandler, oracle::occi::SQLException ) {
+  noexcept(false) {
  
   if (!getDbUsed()) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -1107,7 +1107,7 @@ TkRingDescription* FecDeviceFactory::getDbRingDescription ( std::string partitio
  * \warning if the views/tables from construction TKCC database does not exists then an exception is raised
  */
 TkRingDescription* FecDeviceFactory::getDbRingDescription ( std::string fecHardwareId, unsigned int ring ) 
-  throw ( FecExceptionHandler, oracle::occi::SQLException ) {
+  noexcept(false) {
  
   if (!getDbUsed()) RAISEFECEXCEPTIONHANDLER (DB_NOTCONNECTED, DB_NOTCONNECTED_MSG, FATALERRORCODE) ;
 
@@ -1132,7 +1132,7 @@ TkRingDescription* FecDeviceFactory::getDbRingDescription ( std::string fecHardw
  * \param partitionName - name of the partition in the database
  * \param ring - ring description
  */
-void FecDeviceFactory::setDbRingDescription  ( std::string partitionName, TkRingDescription ringD )  throw ( FecExceptionHandler, oracle::occi::SQLException ) {
+void FecDeviceFactory::setDbRingDescription  ( std::string partitionName, TkRingDescription ringD )  noexcept(false) {
 
   // Set in database
   if ( getDbUsed() && (partitionName != "") ) {
@@ -1168,7 +1168,7 @@ void FecDeviceFactory::setDbRingDescription  ( std::string partitionName, TkRing
  * \return the resulting TkRingDescription (the memory is kept in the factory)
  */
 TkRingDescription* FecDeviceFactory::getFileRingDescription ( std::string fileName, std::string fecHardwareId, unsigned int ring )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // delete the vector of ring descriptions
   FecFactory::deleteVectorI(tkRingDescription_) ;
@@ -1189,7 +1189,7 @@ TkRingDescription* FecDeviceFactory::getFileRingDescription ( std::string fileNa
  * \warning the upload is done only one ring at a time so only one ring will be returned here
  */
 tkringVector FecDeviceFactory::getFileRingDescription ( std::string fileName )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   // delete the vector of ring descriptions
   FecFactory::deleteVectorI(tkRingDescription_) ;
@@ -1206,7 +1206,7 @@ tkringVector FecDeviceFactory::getFileRingDescription ( std::string fileName )
  * \param inVector - the input vector
  */
 void FecDeviceFactory::setFileRingDescription ( std::string fileName, TkRingDescription ringD )
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   XMLFecCcu xmlFecCcu;
   // Upload to File

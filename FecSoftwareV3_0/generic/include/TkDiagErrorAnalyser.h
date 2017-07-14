@@ -148,7 +148,7 @@ class TkDiagErrorAnalyser {
 #ifdef DATABASE
   /** Build the PSU name to DCU hard ID
    */
-  void buildDatabaseInformation ( std::string partitionName, std::string login, std::string password, std::string path ) throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+  void buildDatabaseInformation ( std::string partitionName, std::string login, std::string password, std::string path ) noexcept(false) ;
 #endif
 
  public:
@@ -157,9 +157,9 @@ class TkDiagErrorAnalyser {
    */
   TkDiagErrorAnalyser ( std::string partitionName, std::string login = "nil", std::string password = "nil", std::string path = "nil" ) 
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler) ;
+    noexcept(false) ;
 #else 
-  throw (FecExceptionHandler) ;
+  noexcept(false) ;
 #endif
 
   /** \brief Destroy the database access
@@ -181,27 +181,27 @@ class TkDiagErrorAnalyser {
 
   /** \brief Set an error for a given FEC
    */
-  void setFecError ( std::string fecHardwareId, unsigned int ring = NOLIFEINPARAMETER, unsigned int ccu = NOLIFEINPARAMETER, unsigned int channel = NOLIFEINPARAMETER, unsigned int i2cAddress = NOLIFEINPARAMETER ) throw (std::string) ;
+  void setFecError ( std::string fecHardwareId, unsigned int ring = NOLIFEINPARAMETER, unsigned int ccu = NOLIFEINPARAMETER, unsigned int channel = NOLIFEINPARAMETER, unsigned int i2cAddress = NOLIFEINPARAMETER ) noexcept(false) ;
 
   /** \brief Set an error for a given FED
    */
-  void setFedSoftIdError ( unsigned int fedSoftId, unsigned int fedChannel = NOLIFEINPARAMETER ) throw (std::string) ;
+  void setFedSoftIdError ( unsigned int fedSoftId, unsigned int fedChannel = NOLIFEINPARAMETER ) noexcept(false) ;
 
   /** \brief Set an error for a given FED
    */
-  void setFedCrateIdError ( unsigned int crateId, unsigned int slot, unsigned int fedChannel = NOLIFEINPARAMETER ) throw (std::string) ;
+  void setFedCrateIdError ( unsigned int crateId, unsigned int slot, unsigned int fedChannel = NOLIFEINPARAMETER ) noexcept(false) ;
 
   /** \brief Set an error for a given PSU channel
    */
-  void setPsuError ( std::string psuName ) throw (std::string) ;
+  void setPsuError ( std::string psuName ) noexcept(false) ;
 
   /** \brief Set an error for a given DCU hard ID
    */
-  void setDcuHardIdError ( unsigned int dcuHardId ) throw (std::string) ;
+  void setDcuHardIdError ( unsigned int dcuHardId ) noexcept(false) ;
 
   /** \brief Set an error for given det id 
    */
-  void setDetIdError ( unsigned int detId ) throw (std::string) ;
+  void setDetIdError ( unsigned int detId ) noexcept(false) ;
 
   /** \brief Get the error counter by FEC
    */

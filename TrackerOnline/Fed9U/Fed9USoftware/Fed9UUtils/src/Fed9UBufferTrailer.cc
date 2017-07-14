@@ -6,7 +6,7 @@ namespace Fed9U {
   using std::exception;
 
 
-  void Fed9UBufferTrailer::generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) throw (ICException) {
+  void Fed9UBufferTrailer::generateFed9UDaqTrailer(Fed9UBufferDescription *theBufDesc) noexcept(false) {
     try {
       unsigned int totalLength = static_cast<unsigned int>(static_cast<float>(theBufDesc->getBufferSize() + 2) / 2.0); 
       

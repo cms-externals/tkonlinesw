@@ -115,7 +115,7 @@ UserCCFlags = ${FECSOFT_C++FLAGS} \
 	-DBT1003 \
 	-DLINUX \
 	-DCMS_TK_64BITS \
-	-fPIC -std=c++0x -Wno-deprecated -Werror 
+	-fPIC -Wno-deprecated -Werror 
 #	-DDATABASEDEBUG
 #	-DDATABASESTAT
 #	-DDATABASEDEBUG

@@ -54,7 +54,7 @@ TkIdVsHostnameFactory::TkIdVsHostnameFactory ( ): DeviceFactoryInterface(), vers
 /** Build a TkIdVsHostname factory from database
  */
 TkIdVsHostnameFactory::TkIdVsHostnameFactory ( std::string login, std::string password, std::string path, bool threaded )
-  throw ( oracle::occi::SQLException ): 
+  noexcept(false): 
   DeviceFactoryInterface ( login, password, path, threaded ), versionMajorId_(0), versionMinorId_(0), hostname_("") {
   
   setDatabaseAccess ( login, password, path ) ;
@@ -126,7 +126,7 @@ TkIdVsHostnameVector TkIdVsHostnameFactory::generateVectorFromHashMap ( HashMapT
 
 /** Add a new file name in the descriptions
  */
-void TkIdVsHostnameFactory::addFileName ( std::string fileName ) throw (FecExceptionHandler) {
+void TkIdVsHostnameFactory::addFileName ( std::string fileName ) noexcept(false) {
 
   // Parsing
   XMLTkIdVsHostname xmlTkIdVsHostname ( fileName ) ;
@@ -148,7 +148,7 @@ void TkIdVsHostnameFactory::addFileName ( std::string fileName ) throw (FecExcep
 
 /** set a new input file
  */
-void TkIdVsHostnameFactory::setInputFileName ( std::string inputFileName ) throw (FecExceptionHandler) {
+void TkIdVsHostnameFactory::setInputFileName ( std::string inputFileName ) noexcept(false) {
 
   // delete the old data
   deleteHashMapTkIdVsHostname() ;
@@ -168,7 +168,7 @@ void TkIdVsHostnameFactory::setInputFileName ( std::string inputFileName ) throw
 /** Create the database access
  */
 void TkIdVsHostnameFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-  throw ( oracle::occi::SQLException ) {
+  noexcept(false) {
 
   // For FEC database delete the old one if needed
   if (dbAccess_ != NULL)
@@ -190,7 +190,7 @@ void TkIdVsHostnameFactory::setDatabaseAccess ( std::string login, std::string p
   
 /** Create the database access with the configuration given by the env. variable CONFDB
  */
-void TkIdVsHostnameFactory::setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) {
+void TkIdVsHostnameFactory::setDatabaseAccess ( ) noexcept(false) {
 
   std::string login, password, path ;
   if (getDatabaseConfiguration(login, password, path)) {
@@ -221,9 +221,9 @@ void TkIdVsHostnameFactory::setDatabaseAccess ( DbTkIdVsHostnameAccess *dbAccess
  */
 TkIdVsHostnameVector TkIdVsHostnameFactory::getAllTkIdVsHostname ( unsigned int versionMajorId, unsigned int versionMinorId, bool forceDbReload ) 
 #ifdef DATABASE
-  throw ( FecExceptionHandler, oracle::occi::SQLException  ) {
+  noexcept(false) {
 #else
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
 #ifdef DEBUGMSGERROR
@@ -301,9 +301,9 @@ TkIdVsHostnameVector TkIdVsHostnameFactory::getAllTkIdVsHostname ( unsigned int 
  */
 TkIdVsHostnameVector TkIdVsHostnameFactory::getAllTkIdFromHostname ( std::string hostname, unsigned int versionMajorId, unsigned int versionMinorId, bool forceDbReload ) 
 #ifdef DATABASE
-  throw ( FecExceptionHandler, oracle::occi::SQLException  ) {
+  noexcept(false) {
 #else
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
   TkIdVsHostnameVector v ;
@@ -378,9 +378,9 @@ TkIdVsHostnameVector TkIdVsHostnameFactory::getAllTkIdFromHostname ( std::string
  */
 TkIdVsHostnameDescription *TkIdVsHostnameFactory::getAllTkIdFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajorId, unsigned int versionMinorId, bool forceDbReload ) 
 #ifdef DATABASE
-  throw ( FecExceptionHandler, oracle::occi::SQLException  ) {
+  noexcept(false) {
 #else
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
   TkIdVsHostnameDescription *tkIdVsHostnameDescription = NULL ;
@@ -426,9 +426,9 @@ TkIdVsHostnameDescription *TkIdVsHostnameFactory::getAllTkIdFromHostnameSlot ( s
  */
 void TkIdVsHostnameFactory::getSubDetectorCrateNumberFromHostname ( std::string hostname, std::string &subDetector, unsigned int &crateNumber, unsigned int versionMajorId, unsigned int versionMinorId, bool forceDbReload ) 
 #ifdef DATABASE
-  throw ( FecExceptionHandler, oracle::occi::SQLException  ) {
+  noexcept(false) {
 #else
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 #endif
 
   // We consider here that the subdetector cannot change between two uploads
@@ -452,7 +452,7 @@ void TkIdVsHostnameFactory::getSubDetectorCrateNumberFromHostname ( std::string 
 /** Upload a new version of TkIdVsHostnameDescriptions
  */
 void TkIdVsHostnameFactory::setTkIdVsHostnameDescription ( TkIdVsHostnameVector tkDcuConversionFactors, bool major ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
 #ifdef DEBUGMSGERROR
 #  ifdef DATABASE
@@ -485,7 +485,7 @@ void TkIdVsHostnameFactory::setTkIdVsHostnameDescription ( TkIdVsHostnameVector 
 /** upload the hash_map (attribut of the class) in the output
  */
 void TkIdVsHostnameFactory::setTkIdVsHostnameDescription ( bool major  ) 
-  throw ( FecExceptionHandler ) {
+  noexcept(false) {
 
   TkIdVsHostnameVector v = generateVectorFromHashMap ( vIdVsHostname_ ) ;
   TkIdVsHostnameFactory::setTkIdVsHostnameDescription ( v ) ;
@@ -496,7 +496,7 @@ void TkIdVsHostnameFactory::setTkIdVsHostnameDescription ( bool major  )
  * \return the FED crate
  * \warning the information should be present in the memory before calling it
  */
-unsigned int TkIdVsHostnameFactory::getFedCrate ( unsigned int fedId ) throw ( FecExceptionHandler ) {
+unsigned int TkIdVsHostnameFactory::getFedCrate ( unsigned int fedId ) noexcept(false) {
 
   unsigned int crateId = 0xFFFFFFFF ;
 
@@ -519,7 +519,7 @@ unsigned int TkIdVsHostnameFactory::getFedCrate ( unsigned int fedId ) throw ( F
  * \return the FED slot
  * \warning the information should be present in the memory before calling it
  */
-unsigned int TkIdVsHostnameFactory::getFedSlot ( unsigned int fedId ) throw ( FecExceptionHandler ) {
+unsigned int TkIdVsHostnameFactory::getFedSlot ( unsigned int fedId ) noexcept(false) {
 
   unsigned int crateSlot = 0xFFFFFFFF ;
 

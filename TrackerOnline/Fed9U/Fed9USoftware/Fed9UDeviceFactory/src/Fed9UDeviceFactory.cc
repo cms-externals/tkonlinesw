@@ -39,7 +39,7 @@ namespace Fed9U {
    */
 
   Fed9UDeviceFactory::Fed9UDeviceFactory ( ) 
-    throw () : DeviceFactoryInterface () , partition_("null"), debugOutput_(false) {
+    noexcept : DeviceFactoryInterface () , partition_("null"), debugOutput_(false) {
 
     // create the empty vector on the heap, this class owns the vector so we must delete it in the destructor
     // we need this vector whether we are using DB or not
@@ -73,7 +73,7 @@ namespace Fed9U {
 
 #ifdef DATABASE
 
-  Fed9UDeviceFactory::Fed9UDeviceFactory ( std::string login, std::string password, std::string path, bool threaded ) throw (): DeviceFactoryInterface ( login, password, path, threaded ) , partition_("null"), debugOutput_(false){
+  Fed9UDeviceFactory::Fed9UDeviceFactory ( std::string login, std::string password, std::string path, bool threaded ) noexcept: DeviceFactoryInterface ( login, password, path, threaded ) , partition_("null"), debugOutput_(false){
     try {
       // initially we set using strips to true, if the user wants to ignore strips he must explicity set it to false
       setUsingStrips ( true );
@@ -101,7 +101,7 @@ namespace Fed9U {
   /* deprecated
    * this method should be removed when all code that uses it has been updated.
    */
-  Fed9UDeviceFactory::Fed9UDeviceFactory ( std::string filename )  throw () : partition_("null") , debugOutput_(false)
+  Fed9UDeviceFactory::Fed9UDeviceFactory ( std::string filename )  noexcept : partition_("null") , debugOutput_(false)
   {
     std::stringstream errorOut;
     errorOut << "This method is deprocated please do not use.!!!" << filename << std::endl;
@@ -111,7 +111,7 @@ namespace Fed9U {
   /** Create an access to the FED database
    * \param dbFedAccess - database access
    */
-  Fed9UDeviceFactory::Fed9UDeviceFactory (DbFedAccess *dbFedAccess ) throw () : DeviceFactoryInterface ( dbFedAccess ), partition_("null"), debugOutput_(false){
+  Fed9UDeviceFactory::Fed9UDeviceFactory (DbFedAccess *dbFedAccess ) noexcept : DeviceFactoryInterface ( dbFedAccess ), partition_("null"), debugOutput_(false){
     try {   
       // initially we set using strips to true, if the user wants to ignore strips he must explicity set it to false
       setUsingStrips ( true );
@@ -167,7 +167,7 @@ namespace Fed9U {
     }
   }
   
-  void Fed9UDeviceFactory::clearDescriptions ( ) throw ( Fed9UDeviceFactoryException ) {
+  void Fed9UDeviceFactory::clearDescriptions ( ) noexcept(false) {
     for (Fed9UHashMapType::iterator p=fed9UDescriptions_.begin();p!=fed9UDescriptions_.end();p++)
 	delete p->second ;
     if (fed9UDescriptionList_ != NULL) {
@@ -184,7 +184,7 @@ namespace Fed9U {
   /** Set a file as the new input, same method than addFileName but the previous devices and pia are deleted
    * \param inputFileName - new input file
    */
-  void Fed9UDeviceFactory::setInputFileName ( std::string inputFileName ) throw ( Fed9UDeviceFactoryException ) {
+  void Fed9UDeviceFactory::setInputFileName ( std::string inputFileName ) noexcept(false) {
     try {
       // Remove all the FED description from the hash_map
       for (Fed9UHashMapType::iterator p=fed9UDescriptions_.begin();p!=fed9UDescriptions_.end();p++)
@@ -201,7 +201,7 @@ namespace Fed9U {
   /** Add a new file name and parse it to retreive the information needed
    * \param fileName - name of the XML file
    */
-  void Fed9UDeviceFactory::addFileName ( std::string fileName ) throw ( Fed9UDeviceFactoryException ) {
+  void Fed9UDeviceFactory::addFileName ( std::string fileName ) noexcept(false) {
     try {
       // Parse the file and create a FED description
       // Then add the description to the hash map
@@ -236,7 +236,7 @@ namespace Fed9U {
    * \warning in the destructor of Fed9UDeviceFactory, the dbFedAccess is deleted
    */
   void Fed9UDeviceFactory::setDatabaseAccess ( std::string login, std::string password, std::string path) 
-    throw ( std::exception )
+    noexcept(false)
   {
     
     // For FED database
@@ -270,12 +270,12 @@ namespace Fed9U {
    * \warning if this method is used, the access to the database must be deleted by the owner/creator of the dbAccess_
    */
   void Fed9UDeviceFactory::setDatabaseAccess ( DbFedAccess *dbFedAccess )
-    throw ( std::exception ) {
+    noexcept(false) {
     DeviceFactoryInterface::setDatabaseAccess ((DbAccess *)dbFedAccess) ; 
   }
 
   void Fed9UDeviceFactory::setDatabaseAccess ()
-    throw( std::exception ) {
+    noexcept(false) {
     std::string login="null", passwd="null", path="null" ;
     DbFedAccess::getDbConfiguration (login, passwd, path) ;
     std::cout << "got the configuration from dbFedAccess in " << login << "/" << passwd << "@" << path << "..." << std::endl;
@@ -287,14 +287,14 @@ namespace Fed9U {
   /**
    * \return FED database access, can be null
    */
-  DbFedAccess * Fed9UDeviceFactory::getDatabaseAccess ( ) throw (){
+  DbFedAccess * Fed9UDeviceFactory::getDatabaseAccess ( ) noexcept{
     return reinterpret_cast<DbFedAccess *>(dbAccess_) ;
   }
 
 #endif
   /** Get all descriptions for one partition. you can specify version if you like
    */
-  std::vector<Fed9UDescription*>* Fed9UDeviceFactory::getFed9UDescriptions(std::string partition, i16 major, i16 minor, int maskMajor, int maskMinor) throw (Fed9UDeviceFactoryException) {
+  std::vector<Fed9UDescription*>* Fed9UDeviceFactory::getFed9UDescriptions(std::string partition, i16 major, i16 minor, int maskMajor, int maskMinor) noexcept(false) {
     // here we must download all descriptions for one partition, this is handled by FedXMLDescriptionFromDb and we retrieve a vector of descriptions.
     if (useDatabase_) {
       if (fed9UDescriptionList_ != NULL) {
@@ -315,7 +315,7 @@ namespace Fed9U {
 
   /** Retreive information for the FED from a specific partition
    */
-  Fed9UDescription Fed9UDeviceFactory::getFed9UDescription ( i16 fedId, bool hardwareId, std::string partition, i16 versionMajor, i16 versionMinor, int maskMajor, int maskMinor ) throw ( Fed9UDeviceFactoryException )  {
+  Fed9UDescription Fed9UDeviceFactory::getFed9UDescription ( i16 fedId, bool hardwareId, std::string partition, i16 versionMajor, i16 versionMinor, int maskMajor, int maskMinor ) noexcept(false)  {
     partition_=partition;
     return getFed9UDescription ( fedId, hardwareId, versionMajor, versionMinor, maskMajor, maskMinor );
     partition_="null";
@@ -324,7 +324,7 @@ namespace Fed9U {
 
   /** Retreive information for the FED
    */
-  Fed9UDescription Fed9UDeviceFactory::getFed9UDescription ( i16 fedId, bool hardwareId, i16 versionMajor, i16 versionMinor, int maskMajor, int maskMinor ) throw ( Fed9UDeviceFactoryException )  {
+  Fed9UDescription Fed9UDeviceFactory::getFed9UDescription ( i16 fedId, bool hardwareId, i16 versionMajor, i16 versionMinor, int maskMajor, int maskMinor ) noexcept(false)  {
     if (debugOutput_)
       std::cout << " about to create description " << std::endl;
     Fed9UDescription fed9UDescription ;
@@ -391,7 +391,7 @@ namespace Fed9U {
      * \param vector<Fed9UDescription*> & - reference to vector of descriptions of the FED to be uploaded
      * \param partition - the partition into which to upload the description
      */
-  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescriptions(std::vector<Fed9UDescription*>  f, std::string partition, u16 *versionMajor , u16 *versionMinor , int updateVersion ) throw (Fed9UDeviceFactoryException) {
+  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescriptions(std::vector<Fed9UDescription*>  f, std::string partition, u16 *versionMajor , u16 *versionMinor , int updateVersion ) noexcept(false) {
     partition_ = partition;
 
     
@@ -479,7 +479,7 @@ namespace Fed9U {
    * \param Fed9UDescription - description of the FED to be uploaded
    * \param partition - the partition into which to upload the description
    */
-  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescription(Fed9UDescription & descriptionToUpload, std::string partition, u16 *versionMajor, u16 *versionMinor, int updateVersion ) throw (Fed9UDeviceFactoryException) {
+  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescription(Fed9UDescription & descriptionToUpload, std::string partition, u16 *versionMajor, u16 *versionMinor, int updateVersion ) noexcept(false) {
     partition_ = partition;
     setFed9UDescription(descriptionToUpload, versionMajor, versionMinor, updateVersion );
     partition_ = "null";
@@ -489,7 +489,7 @@ namespace Fed9U {
   /** Upload a FED9UDescription into the database or a file
    * \param Fed9UDescription - description of the FED to be uploaded
    */
-  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescription(Fed9UDescription & descriptionToUpload, u16 *versionMajor, u16 *versionMinor, int updateVersion ) throw (Fed9UDeviceFactoryException)
+  Fed9UDeviceFactory & Fed9UDeviceFactory::setFed9UDescription(Fed9UDescription & descriptionToUpload, u16 *versionMajor, u16 *versionMinor, int updateVersion ) noexcept(false)
        {
 
     ICUTILS_VERIFYX ( versionMajor != NULL && versionMinor != NULL , Fed9UDeviceFactoryException).code(Fed9UDeviceFactoryException::ERROR_NULL_POINTER).error(); 
@@ -571,14 +571,14 @@ namespace Fed9U {
   /**Set a flag which informs the fedDeviceFactory if we are to upload and download Strips, if this is set to false then no strips are uploaded or downloaded.
    */
   Fed9UDeviceFactory & Fed9UDeviceFactory::setUsingStrips(bool usingStrips) 
-    throw () {
+    noexcept {
     usingStrips_ = usingStrips;
     return * this;
   }
   
   /**Get a flag which informs the fedDeviceFactory if we are to upload and download Strips, if this is set to false then no strips are uploaded or downloaded.
    */
-  bool Fed9UDeviceFactory::getUsingStrips() throw () {
+  bool Fed9UDeviceFactory::getUsingStrips() noexcept {
     return usingStrips_;
   }
 
@@ -600,7 +600,7 @@ namespace Fed9U {
 
   /** \brief set instance
    */
-  //  void Fed9UDeviceFactory::setInstance( u16 instance) throw ( ) {
+  //  void Fed9UDeviceFactory::setInstance( u16 instance) noexcept {
   //  instance_ = instance;
   //}
 

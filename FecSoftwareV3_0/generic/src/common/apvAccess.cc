@@ -679,7 +679,7 @@ void apvAccess::getBlockWriteValues ( apvDescription apvValues, std::list<access
  */
 unsigned int apvAccess::getApvValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, apvAccess *> &apvSet, deviceVector &apvVector,
 						     std::list<FecExceptionHandler *> &errorList ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, apvDescription * > deviceDescriptionsMap ;

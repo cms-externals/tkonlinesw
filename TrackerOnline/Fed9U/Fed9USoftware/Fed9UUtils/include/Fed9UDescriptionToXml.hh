@@ -55,7 +55,7 @@ namespace Fed9U {
      *
      * This constructor can be used to directly create an XML file.
      */
-    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. Takes a Fed9UDescription object to write to the database.
@@ -67,7 +67,7 @@ namespace Fed9U {
      *
      * As no file name is set during construction this cannot be used to make an XML file directly and is for use with the database.
      */
-    Fed9UDescriptionToXml(Fed9UDescription &Fed9UDescriptionToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(Fed9UDescription &Fed9UDescriptionToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. This takes a vector of Fed9UDescription pointers from which to make the XML file.
@@ -82,7 +82,7 @@ namespace Fed9U {
      * All the Fed9UDescription objects pointed to by the elements of the Fed9UDescription vector will be written to the single file specified
      * by targetXMLFileName. Sufficient information is given to this constructor to produce an XML file.
      */
-    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Constructor. This takes a vector of Fed9UDescription pointers to write to the database.
@@ -96,7 +96,7 @@ namespace Fed9U {
      * Insufficient information is passed to the constructor to create an XML file, no file name is given. It is instead used to writing the  
      * to the database. All objects pointed to by the Fed9UDescription vector will be written to the database.
      */
-    Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) throw (Fed9UXMLDescriptionException);
+    Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips = true, bool usingBinaryStrips = true) noexcept(false);
 
     /**
      * \brief Destructor.
@@ -113,7 +113,7 @@ namespace Fed9U {
      *
      * This must be called after using the constructor to this class which only takes in a reference to a Fed9UDescription and not an XML file name.
      */
-    void streamOutDescription(std::ostream * os) throw (Fed9UXMLDescriptionException);
+    void streamOutDescription(std::ostream * os) noexcept(false);
 
     /**
      * \brief Method which converts the Fed9UDescription to an XML file.
@@ -122,7 +122,7 @@ namespace Fed9U {
      *
      * This must be called after using the file based constructor to this class.
      */
-    void writeXmlFile(void) throw (Fed9UXMLDescriptionException);
+    void writeXmlFile(void) noexcept(false);
 
     /**
      * \brief  Whether to write the strip data into the  XML or not.
@@ -163,14 +163,14 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    virtual void constuctDOMDocument(void) throw (Fed9UXMLDescriptionException);
+    virtual void constuctDOMDocument(void) noexcept(false);
 
     /**
      * \brief Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void initializeXerces(void) throw (Fed9UXMLDescriptionException);
+    void initializeXerces(void) noexcept(false);
 
     /**
      * \brief Method which adds elements to a DOMDocument using the Fed9UDescription to get the attribute values.
@@ -178,7 +178,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    virtual void addDOMElements(xercesc::DOMElement *rootElement) throw (Fed9UXMLDescriptionException);
+    virtual void addDOMElements(xercesc::DOMElement *rootElement) noexcept(false);
 
     /**
      * \brief Method which extracts the FED parameters from the Fed9UDescription and add them as element attributes.
@@ -186,7 +186,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addFedAttributes(xercesc::DOMElement* childElement) throw (Fed9UXMLDescriptionException);
+    void addFedAttributes(xercesc::DOMElement* childElement) noexcept(false);
 
     /**
      * \brief Method which extracts the FE unit parameters from the Fed9UDescription and adds them as element attributes.
@@ -195,7 +195,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addFeFpgaAttributes(xercesc::DOMElement* childElement, unsigned short feId=0) throw (Fed9UXMLDescriptionException);
+    void addFeFpgaAttributes(xercesc::DOMElement* childElement, unsigned short feId=0) noexcept(false);
 
 
     /**
@@ -205,7 +205,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addChannelPairAttributes(xercesc::DOMElement* childElement, unsigned short channelPairId) throw (Fed9UXMLDescriptionException);
+    void addChannelPairAttributes(xercesc::DOMElement* childElement, unsigned short channelPairId) noexcept(false);
 
     /**
      * \brief Method which extracts the channel parameters from the Fed9UDescription and add them as element attributes.
@@ -214,7 +214,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addChannelAttributes(xercesc::DOMElement* childElement, unsigned short channelId=0) throw (Fed9UXMLDescriptionException);
+    void addChannelAttributes(xercesc::DOMElement* childElement, unsigned short channelId=0) noexcept(false);
 
     /**
      * \brief Method which extracts the APV parameters from the Fed9UDescription and add them as element attributes.
@@ -223,7 +223,7 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addApvAttributes(xercesc::DOMElement* childElement, unsigned short apvId=0) throw (Fed9UXMLDescriptionException);
+    void addApvAttributes(xercesc::DOMElement* childElement, unsigned short apvId=0) noexcept(false);
 
     /**
      * \brief Method which extracts the strip parameters from the Fed9UDescription and adds them as element attributes.
@@ -232,21 +232,21 @@ namespace Fed9U {
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      *        by other functions during the construction call.
      */
-    void addStripAttributes(xercesc::DOMElement* childElement, unsigned short stripId=0) throw (Fed9UXMLDescriptionException);
+    void addStripAttributes(xercesc::DOMElement* childElement, unsigned short stripId=0) noexcept(false);
   
     /**
      * \brief Method which extracts all the APV strip parameters from the Fed9UDescription and adds them as a single element attribute.
      * \param childElement Pointer to the element, which is a subset of the root element that will be added to the DOM document. Contains strip parameters.
      * \throw Fed9UXMLDescriptionException Throw for any error conditions that occur during construction, also rethrows any errors thrown.
      */
-    void addStripsAttribute(xercesc::DOMElement* childElement) throw (Fed9UXMLDescriptionException);
+    void addStripsAttribute(xercesc::DOMElement* childElement) noexcept(false);
 
     /**
      * \brief All the strip data on an APV can be encoded as a single chunk of binary data. This is in a non human readable form.
      *        This is used to return it in a human readable form.
      * \param stripsBuf A character point that will be filled with the strip data in a human readable form.
      */
-    void getStripDataBuffer(char * stripsBuf) throw (Fed9UXMLDescriptionException);
+    void getStripDataBuffer(char * stripsBuf) noexcept(false);
 
     xercesc::DOMDocument *doc;                                    //!< DOM document where the XML data is to be stored.
     xercesc::DOMLSSerializer *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.

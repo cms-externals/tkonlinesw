@@ -184,7 +184,7 @@ class pllAccess: public deviceAccess {
 
   /** \brief Create a block of frames to be downloaded into the hardware
    */
-  void getBlockWriteValues ( pllDescription pllValues, std::list<accessDeviceType> &vAccess ) throw (FecExceptionHandler) ;
+  void getBlockWriteValues ( pllDescription pllValues, std::list<accessDeviceType> &vAccess ) noexcept(false) ;
 
   /** \brief Set a block of frames to be download into the hardware from a delay to be added regarding the previous values
    */
@@ -192,7 +192,7 @@ class pllAccess: public deviceAccess {
 
   /** \brief Get all values from a PLL
    */
-  pllDescription *getValues ( ) throw ( FecExceptionHandler ) ;
+  pllDescription *getValues ( ) noexcept(false) ;
 
   /** \brief set the PLL DAQ
    */
@@ -205,102 +205,102 @@ class pllAccess: public deviceAccess {
   /** \brief Set the value in the specified register
    * \deprecated use now the method setClockPhase()
    */
-  void setDelayFine ( tscType8 delay_step ) throw ( FecExceptionHandler ) { setClockPhase(delay_step) ; }
+  void setDelayFine ( tscType8 delay_step ) noexcept(false) { setClockPhase(delay_step) ; }
 
   /** \brief Set the clock phase
    */
-  void setClockPhase ( tscType8 delay_step ) throw ( FecExceptionHandler ) ;
+  void setClockPhase ( tscType8 delay_step ) noexcept(false) ;
 
   /** \brief Set the trigger delay
    * \deprecated use now the method setTriggerDelay()
    */
-  void setDelayCoarse ( tscType8 delay_step ) throw ( FecExceptionHandler ) { setTriggerDelay(delay_step) ; }
+  void setDelayCoarse ( tscType8 delay_step ) noexcept(false) { setTriggerDelay(delay_step) ; }
 
   /** \brief Set the trigger delay
    */
-  void setTriggerDelay ( tscType8 delay_step ) throw ( FecExceptionHandler ) ;
+  void setTriggerDelay ( tscType8 delay_step ) noexcept(false) ;
 
   /** \brief Get the clock phase
    * \deprecated use now getClockPhase () 
    */
-  tscType8 getDelayFine ( ) throw (FecExceptionHandler) { return (getClockPhase()) ; }
+  tscType8 getDelayFine ( ) noexcept(false) { return (getClockPhase()) ; }
 
   /** \brief Get the clock phase
    */
-  tscType8 getClockPhase ( ) throw (FecExceptionHandler) ;
+  tscType8 getClockPhase ( ) noexcept(false) ;
 
   /** \brief Get the trigger delay
    * \deprecated use now getTriggerDelay () 
    */
-  tscType8 getDelayCoarse ( ) throw (FecExceptionHandler) { return (getTriggerDelay()) ; }
+  tscType8 getDelayCoarse ( ) noexcept(false) { return (getTriggerDelay()) ; }
 
   /** \brief Get the trigger delay  
    */
-  tscType8 getTriggerDelay ( ) throw (FecExceptionHandler) ;
+  tscType8 getTriggerDelay ( ) noexcept(false) ;
 
   /** \brief check the going bit and make a PLL reset or a PLL init
    */
-  void setPllCheckGoingBit ( bool noCheck = false, bool coldReset = true ) throw (FecExceptionHandler) ;
+  void setPllCheckGoingBit ( bool noCheck = false, bool coldReset = true ) noexcept(false) ;
 
   /** \brief Specific function on the PLL: reset or initialise the PLL
    */
-  tscType8 pllReset ( ) throw (FecExceptionHandler) ; // Init ...
+  tscType8 pllReset ( ) noexcept(false) ; // Init ...
 
   /** \brief Specific function on the PLL for cold reset
    */
-  tscType8 pllInit  ( ) throw (FecExceptionHandler) ; // Init ...
+  tscType8 pllInit  ( ) noexcept(false) ; // Init ...
 
   /** \brief return the contents of the CTR1 register 
    */
-  tscType8 getCNTRL1()throw (FecExceptionHandler);
+  tscType8 getCNTRL1()noexcept(false);
 
   /** \brief return the contents of the CTR2 register 
    */
-  tscType8 getCNTRL2()throw (FecExceptionHandler);
+  tscType8 getCNTRL2()noexcept(false);
 
   /** \brief return the contents of the CTR3 register 
    */
-  tscType8 getCNTRL3()throw (FecExceptionHandler);
+  tscType8 getCNTRL3()noexcept(false);
 
   /** \brief return the contents of the CTR4 register 
    */
-  tscType8 getCNTRL4()throw (FecExceptionHandler);
+  tscType8 getCNTRL4()noexcept(false);
 
   /** \brief return the contents of the CTR4 register 
    */
-  tscType8 getCNTRL5()throw (FecExceptionHandler);
+  tscType8 getCNTRL5()noexcept(false);
 
   /** \brief set the register 1 of the PLL
    */
-  void setCNTRL1( tscType8 value )throw (FecExceptionHandler);
+  void setCNTRL1( tscType8 value )noexcept(false);
 
   /** \brief set the register 2 of the PLL
    */
-  void setCNTRL2( tscType8 value )throw (FecExceptionHandler);
+  void setCNTRL2( tscType8 value )noexcept(false);
 
   /** \brief set the register 3 of the PLL
    */
-  void setCNTRL3( tscType8 value )throw (FecExceptionHandler);
+  void setCNTRL3( tscType8 value )noexcept(false);
 
   /** \brief set the register 4 of the PLL
    */
-  void setCNTRL4( tscType8 value )throw (FecExceptionHandler);
+  void setCNTRL4( tscType8 value )noexcept(false);
 
   /** \brief set the register 5 of the PLL
    */
-  void setCNTRL5( tscType8 value )throw (FecExceptionHandler);
+  void setCNTRL5( tscType8 value )noexcept(false);
 
   /** \brief returns true if the PLL is running ( bit 0 of CNTRL1 =1)
    */
-  bool getGoingStatus()throw (FecExceptionHandler);
+  bool getGoingStatus()noexcept(false);
 
   /** \brief returns true if as SEU is detected ( bit 3 of CTNRL1=1)
    */
-  bool getSeuStatus()throw (FecExceptionHandler);
+  bool getSeuStatus()noexcept(false);
 
   /** Array to make a correspondance between the delay and the step to set
    */
-  static tscType8 getClockPhaseMap ( tscType8 k ) throw (FecExceptionHandler) ;
+  static tscType8 getClockPhaseMap ( tscType8 k ) noexcept(false) ;
 
   /** Array to make a correspondance between the delay and the step to set
    */
@@ -308,7 +308,7 @@ class pllAccess: public deviceAccess {
 
   /** Array to make a correspondance between the delay and the step to set
    */
-  static tscType8 getTriggerDelayMap ( tscType8 k ) throw (FecExceptionHandler) ;
+  static tscType8 getTriggerDelayMap ( tscType8 k ) noexcept(false) ;
 
   /** Array to make a correspondance between the delay and the step to set
    */
@@ -319,7 +319,7 @@ class pllAccess: public deviceAccess {
   static unsigned int setPllCheckGoingBitMultipleFrames ( FecAccess &fecAccess, std::list<FecExceptionHandler *> &errorList,
 							  Sgi::hash_map<keyType, pllAccess *> &pllSet, bool *errorGoingBit, 
 							  std::list<keyType> &pllErrorBefore, std::list<keyType> &pllErrorAfter, 
-							  bool noCheck = false, bool coldReset = true ) throw (FecExceptionHandler) ;
+							  bool noCheck = false, bool coldReset = true ) noexcept(false) ;
 
   /** \brief Display the register for a given set of PLL
    */
@@ -333,7 +333,7 @@ class pllAccess: public deviceAccess {
    */
   static unsigned int getPllValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, pllAccess *> &pllSet, deviceVector &pllVector,
 						   std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief return the version of the PLL cold init procedure
    */

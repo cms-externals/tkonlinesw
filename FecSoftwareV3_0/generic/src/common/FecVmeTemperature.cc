@@ -33,7 +33,7 @@
 
 /** Build a FecVmeTemperature and initalise the access
  */
-FecVmeTemperature::FecVmeTemperature (HAL::VME64xDevice *vmedevice, unsigned int fecSlot ) throw ( FecExceptionHandler ) {
+FecVmeTemperature::FecVmeTemperature (HAL::VME64xDevice *vmedevice, unsigned int fecSlot ) noexcept(false) {
   vmeBoard_ = vmedevice;
   fecSlot_ = fecSlot ;
   try {
@@ -121,12 +121,12 @@ FecVmeTemperature::FecVmeTemperature (HAL::VME64xDevice *vmedevice, unsigned int
   Destructor ::
   Standard implementation
 */
-FecVmeTemperature::~FecVmeTemperature ( ) throw ( FecExceptionHandler ) {
+FecVmeTemperature::~FecVmeTemperature ( ) noexcept(false) {
 }
 
 
 
-int FecVmeTemperature::getTemp(int tempSlot) throw ( FecExceptionHandler ) {
+int FecVmeTemperature::getTemp(int tempSlot) noexcept(false) {
 
   if(tempSlot<1 || tempSlot >2)
     RAISEFECEXCEPTIONHANDLER_INFOSUP (CODECONSISTENCYERROR,

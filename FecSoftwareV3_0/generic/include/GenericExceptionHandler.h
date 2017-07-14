@@ -64,7 +64,7 @@ class GenericExceptionHandler: public std::exception {
   /**
    * \brief Default constructor for inheritance
    */
-  GenericExceptionHandler ( ) throw ( ) {
+  GenericExceptionHandler ( ) noexcept {
 
     timestamp_ = time (NULL) ;
 
@@ -91,7 +91,7 @@ class GenericExceptionHandler: public std::exception {
                             errorType faultSeverity, 
                             errorType errorCode, 
                             std::string userMessage, 
-                            std::string developperMessage = "" ) throw ( ) {
+                            std::string developperMessage = "" ) noexcept {
 
     timestamp_ = time (NULL) ;
 
@@ -110,12 +110,12 @@ class GenericExceptionHandler: public std::exception {
   
   /** Nothing
    */
-  virtual ~GenericExceptionHandler ( ) throw ( ) { }
+  virtual ~GenericExceptionHandler ( ) noexcept { }
 
   /**
    * Display the last error
    */
-  virtual void displayError ( ) throw ( ) {    
+  virtual void displayError ( ) noexcept {    
 
     std::cout << "------------------ Exception error ---------------" << std::endl ;
     std::cout << what ( ) << std::endl ;
@@ -126,7 +126,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief Returned a message containing all the error
    * \return string - message
    */
-  virtual std::string what ( ) throw ( ) {
+  virtual std::string what ( ) noexcept {
 
     char msg[MAXCHARMSG] ;
 
@@ -143,7 +143,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief Returned the error code
    * \return error code value
    */
-  virtual errorType getErrorCode ( ) throw ( ) {
+  virtual errorType getErrorCode ( ) noexcept {
 
     return (errorCode_) ;
   }
@@ -153,7 +153,7 @@ class GenericExceptionHandler: public std::exception {
    * The values can be:
    * \return tscType8 - system number
    */
-  virtual unsigned int getSystemNumber ( ) throw ( ) {
+  virtual unsigned int getSystemNumber ( ) noexcept {
     
     return (systemNumber_) ;
   }
@@ -163,7 +163,7 @@ class GenericExceptionHandler: public std::exception {
    * \return tscType8 - subsystem number
    * \see getErrorCode method
    */
-  virtual unsigned int getSubSystemNumber (  ) throw ( ) {
+  virtual unsigned int getSubSystemNumber (  ) noexcept {
 
     return (subSystemNumber_) ;
   }
@@ -172,7 +172,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief Return the error severity 
    * \return the severity code error
    */
-  virtual errorType getSeverityError ( ) throw ( ) {
+  virtual errorType getSeverityError ( ) noexcept {
 
     return (faultSeverity_) ;
   }
@@ -181,7 +181,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief Return the timestamp
    * \return the timestamp
    */
-  virtual time_t getTimeStamp ( ) throw ( ) {
+  virtual time_t getTimeStamp ( ) noexcept {
 
     return (timestamp_) ;
   }
@@ -190,7 +190,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief return the user message
    * \return user message
    */
-  virtual std::string getErrorUserMessage ( ) throw ( ) {
+  virtual std::string getErrorUserMessage ( ) noexcept {
 
     return (userErrorMessage_) ;
   }
@@ -199,7 +199,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief return the developper message
    * \return developper message
    */
-  virtual std::string getErrorDevelopperMessage ( ) throw ( ){
+  virtual std::string getErrorDevelopperMessage ( ) noexcept{
 
     return (developperErrorMessage_) ;
   }
@@ -208,7 +208,7 @@ class GenericExceptionHandler: public std::exception {
    * \brief return the message from the exception
    * \return message
    */
-  virtual std::string getMessage ( ) throw ( ) {
+  virtual std::string getMessage ( ) noexcept {
 
     return (userErrorMessage_) ;
   }

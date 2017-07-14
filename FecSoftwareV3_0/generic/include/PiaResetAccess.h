@@ -84,7 +84,7 @@ class PiaResetAccess: public PiaChannelAccess {
   void setPiaReset ( tscType8 mask, 
                      unsigned long delayActiveReset,
                      unsigned long intervalDelayReset ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief get the value from the resistor register
    */
@@ -96,7 +96,7 @@ class PiaResetAccess: public PiaChannelAccess {
 						     unsigned int delayActiveReset, unsigned int intervalDelayReset,
 						     tscType8 initialValue,
 						     std::list<FecExceptionHandler *> &errorList ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 };
 

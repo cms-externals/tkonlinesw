@@ -30,21 +30,21 @@ class XMLFecDcu : public XMLFecDevice {
  public:
   /** \brief Default constructor
    */
-  XMLFecDcu ()  throw (FecExceptionHandler);
+  XMLFecDcu ()  noexcept(false);
 
 #ifdef DATABASE
   /** \brief Retreive an XML input source from database
    */
-  XMLFecDcu ( DbFecAccess *dbAccess )  throw (FecExceptionHandler) ;
+  XMLFecDcu ( DbFecAccess *dbAccess )  noexcept(false) ;
 #endif
 
   /** \brief Constructor with xml buffer
    */
-  XMLFecDcu (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) ;
+  XMLFecDcu (const XMLByte* xmlBuffer ) noexcept(false) ;
 
   /** \brief Constructor with file access
    */
-  XMLFecDcu ( std::string xmlFileName ) throw (FecExceptionHandler) ;
+  XMLFecDcu ( std::string xmlFileName ) noexcept(false) ;
 
   /** \brief XMLFecDevice destructor
    */
@@ -57,19 +57,19 @@ class XMLFecDcu : public XMLFecDevice {
 #ifdef DATABASE
   /** \brief retrieve the DCU from the database
    */
-  deviceVector getDevices ( std::string partitionName, unsigned long timeStampStart, unsigned long timeStampStop ) throw (FecExceptionHandler) ;
+  deviceVector getDevices ( std::string partitionName, unsigned long timeStampStart, unsigned long timeStampStop ) noexcept(false) ;
 
   /** \brief retrieve the DCU from the database
    */
-  deviceVector getDevices ( unsigned long dcuHardId, unsigned long timeStampStart, unsigned long timeStampStop ) throw (FecExceptionHandler) ;
+  deviceVector getDevices ( unsigned long dcuHardId, unsigned long timeStampStart, unsigned long timeStampStop ) noexcept(false) ;
 
   /** \brief retrieve the DCU from the database
    */
-  deviceVector getDevices ( unsigned long timeStampStart, unsigned long timeStampStop ) throw (FecExceptionHandler) ;
+  deviceVector getDevices ( unsigned long timeStampStart, unsigned long timeStampStop ) noexcept(false) ;
 
   /** \brief Store DCU values in the database
    */
-  void setDcuValues (deviceVector dVector, std::string partitionName)  throw (FecExceptionHandler) ;
+  void setDcuValues (deviceVector dVector, std::string partitionName)  noexcept(false) ;
 #endif
 } ;
 

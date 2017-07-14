@@ -285,7 +285,7 @@ tscType8 laserdriverDescription::getGain ( ) {
  * \return the value
  * \exception FecExceptionHandler in case of bad channel number
  */
-tscType8 laserdriverDescription::getGain ( tscType8 channel ) throw (FecExceptionHandler) {
+tscType8 laserdriverDescription::getGain ( tscType8 channel ) noexcept(false) {
 
   tscType8 gain = 0 ;
 
@@ -308,7 +308,7 @@ tscType8 laserdriverDescription::getGain ( tscType8 channel ) throw (FecExceptio
  * \param channel - channel value
  * \param gain - gain value
  */
-void laserdriverDescription::setGain ( tscType8 channel, tscType8 gain) throw (FecExceptionHandler) {
+void laserdriverDescription::setGain ( tscType8 channel, tscType8 gain) noexcept(false) {
 
   switch (channel) {
   case 0: gain0_ = gain ; break ;
@@ -376,7 +376,7 @@ tscType8 laserdriverDescription::getBias2 ( ) { return (bias2_) ; }
  * \return the value
  * \exception FecExceptionHandler in case of bad channel number
  */
-tscType8 laserdriverDescription::getBias ( tscType8 channel ) throw (FecExceptionHandler) {
+tscType8 laserdriverDescription::getBias ( tscType8 channel ) noexcept(false) {
 
   tscType8 bias = 0 ;
 
@@ -399,7 +399,7 @@ tscType8 laserdriverDescription::getBias ( tscType8 channel ) throw (FecExceptio
  * \param channel - channel value
  * \param bias - bias value
  */
-void laserdriverDescription::setBias ( tscType8 channel, tscType8 bias) throw (FecExceptionHandler) {
+void laserdriverDescription::setBias ( tscType8 channel, tscType8 bias) noexcept(false) {
 
   switch (channel) {
   case 0: bias0_ = bias ; break ;

@@ -126,21 +126,21 @@ class FecDeviceFactory: public DeviceFactoryInterface {
    */
   void getFecDeviceDescriptions ( bool fileUsed, unsigned int versionMajor, unsigned int versionMinor, unsigned int pMaskVersionMajorId, unsigned int pMaskVersionMinorId, std::string partitionName, std::string fecHardwareId, deviceVector &outVector, bool allDevices = false, bool forceDbReload = false ) 
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #else
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief return the DCU descriptions values
    */
   void getDcuValuesDescriptions ( std::string partitionName, unsigned long dcuHardId, unsigned long timeStampStart, unsigned long timeStampStop, deviceVector &outVector )
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 
 #ifdef DATABASE
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   std::list<unsigned int *> getPartitionVersion ( std::string partitionName ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
  public:
@@ -154,7 +154,7 @@ class FecDeviceFactory: public DeviceFactoryInterface {
   /** \brief Buid a FEC factory for database
    */
   FecDeviceFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Buid a FEC factory for FEC database
    */
@@ -162,7 +162,7 @@ class FecDeviceFactory: public DeviceFactoryInterface {
 
   /** \brief uploads the tkRing description to the datavase
     */
-  void setDbRingDescription ( std::string partitionName, TkRingDescription ringD )  throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+  void setDbRingDescription ( std::string partitionName, TkRingDescription ringD )  noexcept(false) ;
 
 #endif
 
@@ -212,12 +212,12 @@ class FecDeviceFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -232,17 +232,17 @@ class FecDeviceFactory: public DeviceFactoryInterface {
   /** \brief retreive information concerning the partition versus the version depending of the parameters passed 
    */
   void getPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskVersionMajor, unsigned int *maskVersionMinor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief set version for the partition retreive from database with partition name
    */
   void setPartitionVersion ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Upload the description in the output and create new partition
    */
   void createPartition ( deviceVector devices, unsigned int *versionMajor = NULL, unsigned int *versionMinor = NULL, std::string partitionName="", bool createPartitionFlag = true )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 #endif
 
@@ -266,86 +266,86 @@ class FecDeviceFactory: public DeviceFactoryInterface {
    */ 
   void getFecDeviceDescriptions ( std::string partitionName, std::string fecHardwareId, deviceVector &outVector, unsigned int versionMajor = 0, unsigned int versionMinor = 0, bool allDevices = false, bool forceDbReload = false )
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #else
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for all devices from the input for a given partition
    */ 
     void getFecDeviceDescriptions ( std::string partitionName, deviceVector &outVector, unsigned int versionMajor = 0, unsigned int versionMinor = 0, unsigned int pMaskVersionMajorId = 0, unsigned int pMaskVersionMinorId = 0, bool allDevices = false, bool forceDbReload = false )
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #else
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the descriptions for all devices from a file
    */
   void getFecDeviceDescriptions ( deviceVector &outVector, bool allDevices = false )
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #else
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Upload the description in the output
    */
   void setFecDeviceDescriptions ( deviceVector devices, std::string partitionName = "nil", unsigned int *versionMajor = NULL, unsigned int *versionMinor = NULL , bool majorVersion = false, bool uploadVersion = false ) 
 #ifdef DATABASE
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 #else
-    throw (FecExceptionHandler ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the DCU values for a given partition and timestamp
    */
   void getDcuValuesDescriptions ( std::string partitionName, deviceVector &outVector, unsigned long timeStampStart, unsigned long timeStampStop )   
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
    /** \brief Retreive the DCU values for a given timestamp
    */
   void getDcuValuesDescriptions ( deviceVector &outVector, unsigned long timeStampStart, unsigned long timeStampStop )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Retreive the descriptions for a given DCU hard id for a range of time
    */
   void getDcuValuesDescriptions ( unsigned long dcuHardId, deviceVector &outVector, unsigned long timeStampStart, unsigned long timeStampStop )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Upload the DCU descriptions to the output
    */
   void setDcuValuesDescriptions ( std::string partitionName, deviceVector dcuDevices, bool fileUpload = false ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   // ----------------------------- CCU descriptions
 
 #ifdef DATABASE
   /** \brief Retreive the tkRing description along with the corresponding CCU descriptions for a given partition name
    */
-  tkringVector getDbRingDescription ( std::string partitionName ) throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+  tkringVector getDbRingDescription ( std::string partitionName ) noexcept(false) ;
 
   /** \brief Retreive the tkRing description along with the corresponding CCU descriptions for a given partition name and given FEC hardware ID/ring
    */
-  TkRingDescription* getDbRingDescription ( std::string partitionName, std::string fecHardwareId, unsigned int ring ) throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+  TkRingDescription* getDbRingDescription ( std::string partitionName, std::string fecHardwareId, unsigned int ring ) noexcept(false) ;
 
   /** \brief Retreive the tkRing description along with the corresponding CCU descriptions for a given FEC hardware ID/ring from the construction database
    */
-  TkRingDescription* getDbRingDescription ( std::string fecHardwareId, unsigned int ring ) throw ( FecExceptionHandler, oracle::occi::SQLException ) ;
+  TkRingDescription* getDbRingDescription ( std::string fecHardwareId, unsigned int ring ) noexcept(false) ;
 #endif
 
   /** \brief Retreive the CCU descriptions from a file
    */
-  TkRingDescription* getFileRingDescription ( std::string fileName, std::string fecHardwareId, unsigned int ring ) throw ( FecExceptionHandler ) ;
+  TkRingDescription* getFileRingDescription ( std::string fileName, std::string fecHardwareId, unsigned int ring ) noexcept(false) ;
   
   /** \brief Retreive the CCU descriptions from a file
    */
-  tkringVector getFileRingDescription ( std::string fileName ) throw ( FecExceptionHandler ) ;
+  tkringVector getFileRingDescription ( std::string fileName ) noexcept(false) ;
   
   /** \brief Upload the tkring descriptions to a file
    */
   void setFileRingDescription ( std::string fileName, TkRingDescription ringD ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
   unsigned int getMinorVersion() { return versionMinor_;}
   unsigned int getMajorVersion() { return versionMajor_;}
 } ;

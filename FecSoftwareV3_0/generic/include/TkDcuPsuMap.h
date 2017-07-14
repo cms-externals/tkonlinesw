@@ -83,11 +83,11 @@ class TkDcuPsuMap {
   
   /** Constructor
    */
-  TkDcuPsuMap ( tscType32 dcuHardId, std::string psuName, std::string psuType, keyType fecIndex = 0, std::string dcuType = "NONE" ) throw (FecExceptionHandler) ;
+  TkDcuPsuMap ( tscType32 dcuHardId, std::string psuName, std::string psuType, keyType fecIndex = 0, std::string dcuType = "NONE" ) noexcept(false) ;
 
   /** Constructor with the parameter definition extracted from the database or XML file
    */
-  TkDcuPsuMap ( parameterDescriptionNameType parameterNames ) throw (FecExceptionHandler) ;
+  TkDcuPsuMap ( parameterDescriptionNameType parameterNames ) noexcept(false) ;
   
   /** Set the DCU hard ID
    */
@@ -99,7 +99,7 @@ class TkDcuPsuMap {
 
   /** Set the PSU Name
    */
-  void setPsuName ( std::string psuName ) throw (FecExceptionHandler) ;
+  void setPsuName ( std::string psuName ) noexcept(false) ;
 
   /** Get the PSU Name
    */

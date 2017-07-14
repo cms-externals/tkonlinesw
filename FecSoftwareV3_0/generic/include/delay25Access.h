@@ -64,107 +64,107 @@ class delay25Access: public deviceAccess {
 
   /** \brief Get all values from a DELAY25
    */
-  delay25Description *getValues ( ) throw (FecExceptionHandler) ;
+  delay25Description *getValues ( ) noexcept(false) ;
 
   /** \brief Set the value in the specified register
    */
-  void setDelay0 ( tscType8 delay_step ) throw (FecExceptionHandler) ;
+  void setDelay0 ( tscType8 delay_step ) noexcept(false) ;
 
   /** \brief Set the value in the specified register
    */
-  void setDelay1 ( tscType8 delay_step ) throw (FecExceptionHandler) ; 
+  void setDelay1 ( tscType8 delay_step ) noexcept(false) ; 
 
   /** \brief Set the value in the specified register
    */
-  void setDelay2 ( tscType8 delay_step ) throw (FecExceptionHandler) ; 
+  void setDelay2 ( tscType8 delay_step ) noexcept(false) ; 
 
   /** \brief Set the value in the specified register
    */
-  void setDelay3 ( tscType8 delay_step ) throw (FecExceptionHandler) ; 
+  void setDelay3 ( tscType8 delay_step ) noexcept(false) ; 
 
   /** \brief Set the value in the specified register
    */
-  void setDelay4 ( tscType8 delay_step ) throw (FecExceptionHandler) ;
+  void setDelay4 ( tscType8 delay_step ) noexcept(false) ;
  
   /** \brief Set the value in the specified register
    */
-  void set40HzFrequencyMode ( ) throw (FecExceptionHandler) ;
+  void set40HzFrequencyMode ( ) noexcept(false) ;
 
   /** \brief Get the delay
    */
-  tscType8 getDelay0 ( ) throw (FecExceptionHandler) ;
+  tscType8 getDelay0 ( ) noexcept(false) ;
 
   /** \brief Get the delay
    */
-  tscType8 getDelay1 ( ) throw (FecExceptionHandler) ;
+  tscType8 getDelay1 ( ) noexcept(false) ;
 
   /** \brief Get the delay
    */
-  tscType8 getDelay2 ( ) throw (FecExceptionHandler) ;
+  tscType8 getDelay2 ( ) noexcept(false) ;
 
   /** \brief Get the delay
    */
-  tscType8 getDelay3 ( ) throw (FecExceptionHandler) ;
+  tscType8 getDelay3 ( ) noexcept(false) ;
 
   /** \brief Get the delay
    */
-  tscType8 getDelay4 ( ) throw (FecExceptionHandler) ;
+  tscType8 getDelay4 ( ) noexcept(false) ;
 
   /** \brief Get the frequency mode (has to be 40Hz)
    */
-  tscType8 getFrequencyMode ( ) throw (FecExceptionHandler) ;
+  tscType8 getFrequencyMode ( ) noexcept(false) ;
 
   /** \brief return the contents of the CR0 register
    */
-  tscType8 getCR0 ( ) throw (FecExceptionHandler) ; 
+  tscType8 getCR0 ( ) noexcept(false) ; 
 
   /** \brief return the contents of the CR1 register
    */
-  tscType8 getCR1 ( ) throw (FecExceptionHandler) ; 
+  tscType8 getCR1 ( ) noexcept(false) ; 
 
   /** \brief return the contents of the CR2 register
    */
-  tscType8 getCR2 ( ) throw (FecExceptionHandler) ;
+  tscType8 getCR2 ( ) noexcept(false) ;
 
   /** \brief return the contents of the CR3 register
    */
-  tscType8 getCR3 ( ) throw (FecExceptionHandler) ; 
+  tscType8 getCR3 ( ) noexcept(false) ; 
 
   /** \brief return the contents of the CR4 register
    */
-  tscType8 getCR4 ( ) throw (FecExceptionHandler) ; 
+  tscType8 getCR4 ( ) noexcept(false) ; 
 
   /** \brief return the contents of the GCR register
    */
-  tscType8 getGCR ( ) throw (FecExceptionHandler) ;
+  tscType8 getGCR ( ) noexcept(false) ;
 
   /** \brief set the register 0 of the DELAY25
    */
-  void setCR0 ( tscType8 value ) throw (FecExceptionHandler) ; 
+  void setCR0 ( tscType8 value ) noexcept(false) ; 
 
   /** \brief set the register 1 of the DELAY25
    */
-  void setCR1 ( tscType8 value ) throw (FecExceptionHandler) ; 
+  void setCR1 ( tscType8 value ) noexcept(false) ; 
 
   /** \brief set the register 2 of the DELAY25
    */
-  void setCR2 ( tscType8 value ) throw (FecExceptionHandler) ; 
+  void setCR2 ( tscType8 value ) noexcept(false) ; 
 
   /** \brief set the register 3 of the DELAY25
    */
-  void setCR3 ( tscType8 value ) throw (FecExceptionHandler) ;
+  void setCR3 ( tscType8 value ) noexcept(false) ;
 
   /** \brief set the register 4 of the DELAY25
    */
-  void setCR4 ( tscType8 value ) throw (FecExceptionHandler) ; 
+  void setCR4 ( tscType8 value ) noexcept(false) ; 
 
   /** \brief set the register 5 of the DELAY25
    */
-  void setGCR ( tscType8 value ) throw (FecExceptionHandler) ;
+  void setGCR ( tscType8 value ) noexcept(false) ;
 
   /** Array to make a correspondance between the frequency and the mode to set
    */
-  tscType8 getFrequencyModeMap ( tscType8 k ) throw (FecExceptionHandler) ;
+  tscType8 getFrequencyModeMap ( tscType8 k ) noexcept(false) ;
 
   /** Array to make a correspondance between the frequency and the mode to set
    */
@@ -184,15 +184,15 @@ class delay25Access: public deviceAccess {
 
   /** \brief static method to upload from the hardware the devices
    */
-  unsigned int getDelay25ValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, delay25Access *> &delay25Set, deviceVector &delay25Vector, std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) ;
+  unsigned int getDelay25ValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, delay25Access *> &delay25Set, deviceVector &delay25Vector, std::list<FecExceptionHandler *> &errorList ) noexcept(false) ;
 
   /** \brief method for DLL resynchronisation
    */
-  void forceDLLResynchronisation ( ) throw (FecExceptionHandler) ; 
+  void forceDLLResynchronisation ( ) noexcept(false) ; 
 
   /** \brief method to reset IDLL bit
    */
-  void SetIDLLBitToZero ( ) throw (FecExceptionHandler) ;
+  void SetIDLLBitToZero ( ) noexcept(false) ;
 
 };
 

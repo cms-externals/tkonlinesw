@@ -32,7 +32,7 @@ namespace Fed9U {
      *
      * In virgin raw data mode the data is left untouch and is exactly as it comes from the FED.
      */
-    void generateBuffer(Fed9UBufferDescription *bufDesc) throw (ICException);
+    void generateBuffer(Fed9UBufferDescription *bufDesc) noexcept(false);
     
   private:
   
@@ -44,7 +44,7 @@ namespace Fed9U {
      *
      * \todo - method very inefficient. Improve!
      */
-    void disOrderData(std::vector<unsigned short> &bufferData) const throw (ICException);
+    void disOrderData(std::vector<unsigned short> &bufferData) const noexcept(false);
       
     Fed9UEventInfo mFed9UEventInfo; //!< See the Fed9UEventInfo documentation for more information about this class.
 

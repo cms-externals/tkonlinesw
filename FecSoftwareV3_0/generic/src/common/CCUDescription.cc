@@ -317,7 +317,7 @@ void CCUDescription::setCcuAlarmsEnable ( bool enable1, bool enable2, bool enabl
  * <li>TSCFEC_FECPARAMETERNOTMANAGED: wrong CCU alarm
  * </ul>
  */
-bool CCUDescription::isCcuAlarmEnable ( tscType16 ccuAlarm ) throw (FecExceptionHandler) {
+bool CCUDescription::isCcuAlarmEnable ( tscType16 ccuAlarm ) noexcept(false) {
 
   if (ccuAlarm > 3) {
     RAISEFECEXCEPTIONHANDLER_INFOSUP ( TSCFEC_FECPARAMETERNOTMANAGED, 
@@ -607,7 +607,7 @@ void CCUDescription::deleteParameterNames(parameterDescriptionNameType *paramete
  *          and Dummy CCU output B not connected
  */
 
-void CCUDescription::setCcuTrackerUsage ( std::list<CCUDescription *> &listCcu ) throw (FecExceptionHandler) {
+void CCUDescription::setCcuTrackerUsage ( std::list<CCUDescription *> &listCcu ) noexcept(false) {
 
   // Array with the order of the CCU
   unsigned int ccuNumber = 0 ;
@@ -676,7 +676,7 @@ void CCUDescription::setCcuTrackerUsage ( std::list<CCUDescription *> &listCcu )
  * \warning this method include the dummy CCU on ring A
  */
 
-void CCUDescription::setCcuUsage ( std::list<CCUDescription *> &listCcu ) throw (FecExceptionHandler) {
+void CCUDescription::setCcuUsage ( std::list<CCUDescription *> &listCcu ) noexcept(false) {
 
   // Array with the order of the CCU
   unsigned int ccuNumber = 0 ;

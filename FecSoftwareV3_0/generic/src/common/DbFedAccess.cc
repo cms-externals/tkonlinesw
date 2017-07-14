@@ -28,7 +28,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbFedAccess::DbFedAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbAccess (threaded) {
+DbFedAccess::DbFedAccess ( bool threaded ) noexcept(false) : DbAccess (threaded) {
 #ifdef DATABASESTAT
   this->traceSql(true);
 #endif
@@ -42,14 +42,14 @@ DbFedAccess::DbFedAccess ( bool threaded ) throw (oracle::occi::SQLException) : 
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbFedAccess::DbFedAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbAccess (user, passwd, dbPath, threaded) {
+DbFedAccess::DbFedAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbFedAccess::~DbFedAccess ()  throw (oracle::occi::SQLException){
+DbFedAccess::~DbFedAccess ()  noexcept(false){
 #ifdef DATABASESTAT
   this->traceSql(false);
 #endif
@@ -62,7 +62,7 @@ DbFedAccess::~DbFedAccess ()  throw (oracle::occi::SQLException){
  * @see DbAccess::getDatabaseVersion (std::string sqlQuery)
  * @todo use a callable statement to execute a PL/SQL function with bind variable to avoid the query parsing at every call 
  */
-std::list<unsigned int*> DbFedAccess::getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException)
+std::list<unsigned int*> DbFedAccess::getDatabaseVersion (std::string partitionName) noexcept(false)
 {
   static std::string sqlQuery ;
   sqlQuery = "SELECT DISTINCT StateHistory.partitionId, StateHistory.fedVersionMajorId, StateHistory.fedVersionMinorId, StateHistory.maskVersionMajorId, StateHistory.maskVersionMinorId FROM CurrentState, StateHistory, Partition  WHERE StateHistory.stateHistoryId = CurrentState.stateHistoryId AND StateHistory.partitionId = Partition.partitionId AND Partition.partitionName= :partitionName" ;
@@ -79,7 +79,7 @@ std::list<unsigned int*> DbFedAccess::getDatabaseVersion (std::string partitionN
  * @exception FecExceptionHandler : an exception is raised in case of trouble in statement creation or execution
  * @see PkgState.createNewCurrentState RETURN NUMBER;
  */
-void DbFedAccess::setDatabaseVersion(std::list<unsigned int*> partitionVersionsListe) throw (FecExceptionHandler){
+void DbFedAccess::setDatabaseVersion(std::list<unsigned int*> partitionVersionsListe) noexcept(false){
 
   oracle::occi::Statement *stmt = NULL ;
   oracle::occi::ResultSet *rset = NULL ;
@@ -161,7 +161,7 @@ void DbFedAccess::setDatabaseVersion(std::list<unsigned int*> partitionVersionsL
  * @exception SQLException
  * @see DbAccess::getVersion(std::string sqlQuery)
  */
-unsigned int DbFedAccess::getNextMajorVersion() throw (FecExceptionHandler)
+unsigned int DbFedAccess::getNextMajorVersion() noexcept(false)
 {
   static std::string sqlQuery = "SELECT MAX(versionMajorId)+1 FROM FedVersion";
   return (unsigned int)DbAccess::getVersion(sqlQuery);
@@ -173,7 +173,7 @@ unsigned int DbFedAccess::getNextMajorVersion() throw (FecExceptionHandler)
  * @exception SQLException
  * @see DbAccess::getVersion(std::string sqlQuery)
  */
-unsigned int DbFedAccess::getNextMinorVersion(unsigned int majorId) throw (FecExceptionHandler)
+unsigned int DbFedAccess::getNextMinorVersion(unsigned int majorId) noexcept(false)
 {
   static std::string sqlQuery ;
   sqlQuery = "SELECT MAX(versionMinorId)+1 FROM FedVersion where versionMajorId =" + toString(majorId);
@@ -193,7 +193,7 @@ unsigned int DbFedAccess::getNextMinorVersion(unsigned int majorId) throw (FecEx
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartition ( partitionName IN VARCHAR2, versionMajor IN NUMBER, versionMinor IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, boolean withStrip) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, boolean withStrip) noexcept(false) {
   static std::string readString;
   if (withStrip) {
     readString = "BEGIN :xmlClob := PkgFedXML.getAllFedFromPartitionVersion(:partitionName, :versionMajorId, :versionMinorId, :maskMajor, :maskMinor, 1);END;";
@@ -225,7 +225,7 @@ unsigned long endMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMill
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartition ( partitionName IN VARCHAR2, versionMajor IN NUMBER, versionMinor IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   return DbFedAccess::getXMLClobWithVersion(partitionName, versionMajor, versionMinor, maskVersionMajor, maskVersionMinor, true);  
 }
 
@@ -237,7 +237,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName
  * @see DbAccess::getXMLClob(std::string partitionName)
  * @see DbFedAccess::getXMLClob(std::string partitionName, boolean withStrip)
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName) noexcept(false) {
   return DbFedAccess::getXMLClob(partitionName, true);  
 }
 
@@ -250,7 +250,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName) throw (or
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName)
  * @see PkgFedXML.getAllFedFromPartition ( partitionName IN VARCHAR2, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, boolean withStrip ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, boolean withStrip ) noexcept(false) {
   static std::string readString;
   if (withStrip) {
     readString = "BEGIN :xmlClob := PkgFedXML.getAllFedFromPartition(:partitionName);END;";
@@ -269,7 +269,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, boolean w
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int id)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId) noexcept(false) {
   return DbFedAccess::getXMLClob(partitionName, fedId, true, true);
 }
 
@@ -282,7 +282,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned 
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int id)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, std::string fedId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, std::string fedId) noexcept(false) {
   return DbFedAccess::getXMLClob(partitionName, fromString<unsigned int>(((const std::string)fedId)));
 }
 
@@ -296,7 +296,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, std::stri
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int id)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId, boolean hardId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId, boolean hardId) noexcept(false) {
   return DbFedAccess::getXMLClob(partitionName, fedId, hardId, true);
 }
 
@@ -311,7 +311,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned 
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName, unsigned int id)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId, boolean hardId, boolean withStrip) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned int fedId, boolean hardId, boolean withStrip) noexcept(false) {
   static std::string readString;
   if (hardId && withStrip) {
     readString = "BEGIN :xmlClob := PkgFedXML.getAllFedFromPartitionAndId(:partitionName, :fedId, 1, 1);END;";
@@ -338,7 +338,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClob(std::string partitionName, unsigned 
  * @see DbAccess::getXMLClob(std::string readString,  std::string partitionName, unsigned int fedId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, versionMajor IN NUMBER, versionMinor IN NUMBER, pMaskMajorVersion IN NUMBER, pMaskMinorVersion IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, std::string fedId, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, std::string fedId, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   return DbFedAccess::getXMLClobWithVersion(partitionName, fromString<unsigned int>(((const std::string&)fedId)), versionMajorId, versionMinorId, maskVersionMajor, maskVersionMinor);
 }
 
@@ -355,7 +355,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName
  * @see DbAccess::getXMLClob(std::string readString,  std::string partitionName, unsigned int fedId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, versionMajor IN NUMBER, versionMinor IN NUMBER, pMaskMajorVersion IN NUMBER, pMaskMinorVersion IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   return DbFedAccess::getXMLClobWithVersion( partitionName, fedId, true, versionMajorId, versionMinorId, maskVersionMajor, maskVersionMinor, true);  
 }
 
@@ -374,7 +374,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName
  * @see DbAccess::getXMLClob(std::string readString,  std::string partitionName, unsigned int fedId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, versionMajor IN NUMBER, versionMinor IN NUMBER, pMaskMajorVersion IN NUMBER, pMaskMinorVersion IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, boolean hardId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, boolean withStrip ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, boolean hardId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor, boolean withStrip ) noexcept(false) {
   static std::string readString;
   if (hardId && withStrip) {
     readString = "BEGIN :xmlClob := PkgFedXML.getAllFedFromPartitionIdAndId(:partitionId, :fedId, 1, :versionMajorId, :versionMinorId, :maskMajor, :maskMinor, 1);END;";
@@ -444,7 +444,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName
  * @see DbAccess::getXMLClob(std::string readString,  std::string partitionName, unsigned int fedId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor)
  * @see PkgFedXML.getAllFedFromPartitionAndId ( partitionName IN VARCHAR2, fedNumber IN NUMBER, fedHardId IN BOOLEAN := true, versionMajor IN NUMBER, versionMinor IN NUMBER, pMaskVersionMajor IN NUMBER, pMaskVersionMinor IN NUMBER, withStrip IN BOOLEAN := true ) RETURN CLOB;
  */
-oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, boolean hardId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName, unsigned int fedId, boolean hardId, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   return DbFedAccess::getXMLClobWithVersion( partitionName, fedId, hardId, versionMajor, versionMinor, maskVersionMajor, maskVersionMinor, true);  
 }
 
@@ -460,7 +460,7 @@ oracle::occi::Clob *DbFedAccess::getXMLClobWithVersion(std::string partitionName
  * @see DbAccess::setXMLClob(std::string writeString, std::string buffer, unsigned int versionMajor, unsigned int versionMinor)
  * @see PkgFedXML.uploadXMLClob ( xmlClob IN CLOB, versionMajor IN NUMBER, versionMinor IN NUMBER);
  */
-void DbFedAccess::setXMLClobWithVersion(std::string buffer, std::string partitionName, unsigned int versionMajor, unsigned int versionMinor) throw (oracle::occi::SQLException, FecExceptionHandler) 
+void DbFedAccess::setXMLClobWithVersion(std::string buffer, std::string partitionName, unsigned int versionMajor, unsigned int versionMinor) noexcept(false) 
 {
   static std::string writeString = "BEGIN PkgFedXML.uploadXMLClob(:buffer, :partitionName, :versionMajorId, :versionMinorId);END;";
   DbAccess::setXMLClobFromQuery (writeString, buffer, partitionName, versionMajor, versionMinor);
@@ -481,7 +481,7 @@ void DbFedAccess::setXMLClobWithVersion(std::string buffer, std::string partitio
  * @see DbAccess::setXMLClob(std::string writeString, std::string buffer, boolean versionUpdate)  
  * @see PkgFedXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  */
-void DbFedAccess::setXMLClob(std::string buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbFedAccess::setXMLClob(std::string buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false) {
   static std::string writeString("BEGIN PkgFedXML.uploadXMLClob(:buffer, :partitionName, :versionUpdate);END;");
   DbAccess::setXMLClobFromQuery (writeString, buffer, partitionName, versionUpdate);
 }
@@ -501,7 +501,7 @@ void DbFedAccess::setXMLClob(std::string buffer, std::string partitionName, unsi
  * @see DbAccess::setXMLClob(std::string writeString, std::string buffer, boolean versionUpdate)  
  * @see PkgFecXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  */
-void DbFedAccess::setXMLClob(std::string* buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbFedAccess::setXMLClob(std::string* buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false) {
   static std::string writeString("BEGIN PkgFedXML.uploadXMLClob(:bufferFed, :bufferTtcrx, :bufferVoltageMonitor, :bufferFeFpga, :bufferChannelPair, :bufferChannel, :bufferApvFed, :bufferStrip, :partitionName, :versionUpdate); END;");
   oracle::occi::Statement *stmt = NULL ;
 

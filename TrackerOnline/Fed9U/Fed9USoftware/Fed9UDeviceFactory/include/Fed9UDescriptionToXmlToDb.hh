@@ -35,10 +35,10 @@ namespace Fed9U {
   public:
     /**Constructor takes a reference to the Fed9UDescription to be uploaded, also the DbFedAccess which is the accessor to the database, the IP of the supervisor making the upload. */
     Fed9UDescriptionToXmlToDb(Fed9UDescription &Fed9UDescriptionToWrite, 
-			      DbFedAccess * dbFedAccess) throw (Fed9UXMLDescriptionException);
+			      DbFedAccess * dbFedAccess) noexcept(false);
 
     Fed9UDescriptionToXmlToDb(std::vector<Fed9UDescription*> Fed9UDescriptionsToWrite, 
-			      DbFedAccess * dbFedAccess ) throw (Fed9UXMLDescriptionException);
+			      DbFedAccess * dbFedAccess ) noexcept(false);
 
     /**Method which writes the XML to the db. */
     void upload(u16,u16, std::string partition="null");
@@ -52,14 +52,14 @@ namespace Fed9U {
    
   private:
     /**Method which constructs the DOM document.*/
-    virtual void constuctDOMDocument(void) throw(Fed9U::Fed9UXMLDescriptionException);
+    virtual void constuctDOMDocument(void) noexcept(false);
 
     /**Method which streams out the fast style description to a stream pointer
      * this is only required for the database upload so is implemented in this derived class
      */
-    void streamOutFastDescription(std::string * buf) throw(Fed9U::Fed9UXMLDescriptionException);
+    void streamOutFastDescription(std::string * buf) noexcept(false);
 
-    virtual void addDOMElements(xercesc::DOMElement *rootElement) throw (Fed9UXMLDescriptionException);
+    virtual void addDOMElements(xercesc::DOMElement *rootElement) noexcept(false);
 
     DbFedAccess*  dbFedAccess_;
       

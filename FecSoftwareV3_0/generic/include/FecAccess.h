@@ -213,24 +213,24 @@ class FecAccess {
 
   /** \brief Check the index and retreive the channel access
    */
-  ccuChannelAccess *checkIndex ( keyType index ) throw (FecExceptionHandler) ;
+  ccuChannelAccess *checkIndex ( keyType index ) noexcept(false) ;
 
   /** \brief Method for the VME plug and play configuration
    */
   void configurePlugAndPlay ( unsigned adapterSlot, std::string configurationFile, std::string mapFile, std::string strBusAdapter ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Method for the base address specification
    */
   void configureBaseAddresses ( unsigned adapterSlot, std::string configurationFile, const uint32_t *baseAddresses, std::string strBusAdapter ) 
-  throw ( FecExceptionHandler ) ;
+  noexcept(false) ;
 
   /** \brief initialise the FEC access 
    */
   void setInitFecAccess ( bool forceAck, bool initFec, bool scanFECs, bool scanCCUs, tscType16 i2cSpeed, 
 			  tscType8 fecSlotMin, tscType8 fecSlotMax, tscType8 ringMin, tscType8 ringMax,
 			  bool invertClockPolarity ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
  public:
 
@@ -239,14 +239,14 @@ class FecAccess {
   /** \brief constructor for the PCI FEC Access
    */
   FecAccess ( bool forceAck = false, bool initFec = true, bool scanFECs = false, bool scanCCUs = false, tscType16 i2cSpeed = 100, bool invertClockPolarity = false )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Constructor with VME plug and play, force acknowledge and scan at the beginning
    */
   FecAccess (hashMapVMEDevice hashMapVMEDevice, 
 	     bool forceAck = false, bool initFec = true, bool scanFECs = false, bool scanCCUs = false, tscType16 i2cSpeed = 100, 
 	     bool blockMode = false, tscType8 numberOfRing = 8, bool invertClockPolarity = false )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Constructor with VME plug and play, force acknowledge and scan at the beginning
    */
@@ -254,7 +254,7 @@ class FecAccess {
               std::string configurationFile, std::string mapFile,
               bool forceAck = false, bool initFec = true, bool scanFECs = false, bool scanCCUs = false, tscType16 i2cSpeed = 100,
 	      std::string strBusAdapter = "SBS620x86LinuxBusAdapter", bool blockMode = false, tscType8 numberOfRing = 8, bool invertClockPolarity = false )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Constructor with the specification of the base address for each slot, force acknowledge and scan at the beginning
    */
@@ -262,19 +262,19 @@ class FecAccess {
               const uint32_t *baseAddresses,
 	      bool forceAck = false, bool initFec = true, bool scanFECs = false, bool scanCCUs = false, tscType16 i2cSpeed = 100,
 	      std::string strBusAdapter = "SBS620x86LinuxBusAdapter", bool blockMode = false, tscType8 numberOfRing = 8, bool invertClockPolarity = false )
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
    /** \brief constructor for the USB FEC Access
     */
    FecAccess ( hashMapFecUsbSerial fecUsbSerials, bool forceAck = false, bool initFec = true,
 	       bool scanFECs = false, bool scanCCUs = false,
-	       tscType16 i2cSpeed = 100, bool invertClockPolarity = false ) throw (FecExceptionHandler ); 
+	       tscType16 i2cSpeed = 100, bool invertClockPolarity = false ) noexcept(false); 
 
 /** \brief constructor for the uTCA FEC Access
     */
    FecAccess ( const std::string& strFilename, const std::string& strBoardId, bool forceAck, bool initFec, 
                        bool scanFECs, bool scanCCUs,
-		       tscType16 i2cSpeed, bool invertClockPolarity ) throw (FecExceptionHandler );
+		       tscType16 i2cSpeed, bool invertClockPolarity ) noexcept(false);
 
    /** \brief Remove all the accesses and close all the device driver and
     * disable all the channels
@@ -338,7 +338,7 @@ class FecAccess {
   /** \brief Return the FecRingDevice corresponding to the slot
    */
   FecRingDevice *getFecRingDevice ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief restrieve all the FECs already connected
    */
@@ -367,67 +367,67 @@ class FecAccess {
   /**
    * \brief return transmit fifo size (depth) in D32 words 
    */
-  unsigned int getTransmitFifoDepth ( keyType index ) throw (FecExceptionHandler) ;
+  unsigned int getTransmitFifoDepth ( keyType index ) noexcept(false) ;
 
   /**
    * \brief receive fifo size (depth) in D32 words 
    */
-  unsigned int getReceiveFifoDepth ( keyType index ) throw (FecExceptionHandler) ;
+  unsigned int getReceiveFifoDepth ( keyType index ) noexcept(false) ;
 
   /** 
    * \brief return fifo size (depth) in D32 words 
    */
-  unsigned int getReturnFifoDepth ( keyType index ) throw (FecExceptionHandler) ;
+  unsigned int getReturnFifoDepth ( keyType index ) noexcept(false) ;
 
   /** \brief empty the FIFO receive
    */
-  void emptyFifoReceive ( keyType index ) throw (FecExceptionHandler) ;
+  void emptyFifoReceive ( keyType index ) noexcept(false) ;
 
   /** \brief empty the FIFO return
    */
-  void emptyFifoReturn ( keyType index ) throw (FecExceptionHandler) ;
+  void emptyFifoReturn ( keyType index ) noexcept(false) ;
 
   /** \brief empty the FIFO transmit
    */
-  void emptyFifoTransmit ( keyType index ) throw (FecExceptionHandler) ;
+  void emptyFifoTransmit ( keyType index ) noexcept(false) ;
 
   /** \brief clear all errors for FEC and CCUs
    */
-  void clearFecCcuErrorRegisters ( keyType index, bool noBroadcast = false ) throw (FecExceptionHandler) ;
+  void clearFecCcuErrorRegisters ( keyType index, bool noBroadcast = false ) noexcept(false) ;
 
   // ----------------------------------------------- FEC methods
   /** \brief Return the corresponding CCS Trigger
    */
 #if defined(BUSVMECAENPCI) || defined(BUSVMECAENUSB) || defined (BUSVMESBS)
   CCSTrigger *getCCSTrigger ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the SSID in the CCSTrigger object, create it if the object is not created
    */
   CCSTrigger *setCCSTrigger ( keyType index, std::string SSID ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Retreive the FEC trigger control register 0
    */
-  uint32_t getCCSTriggerConfig0 ( keyType index ) throw (FecExceptionHandler) ;
+  uint32_t getCCSTriggerConfig0 ( keyType index ) noexcept(false) ;
 
   /** \brief set the trigger register 0 of the FEC/CCS
    */
-  void setCCSTriggerConfig0 ( keyType index, uint32_t value ) throw (FecExceptionHandler) ;
+  void setCCSTriggerConfig0 ( keyType index, uint32_t value ) noexcept(false) ;
 
   /** \brief Retreive the FEC trigger status register 0
    */
-  uint32_t getCCSTriggerStatus0 ( keyType index ) throw (FecExceptionHandler) ;
+  uint32_t getCCSTriggerStatus0 ( keyType index ) noexcept(false) ;
 
   /** \brief Retreive the FEC SSID
    */
-  std::string getSSID ( keyType index ) throw (FecExceptionHandler) ;
+  std::string getSSID ( keyType index ) noexcept(false) ;
 
   /** \brief return the temperature of the given VME FEC
    */
   void getFecTemperature ( keyType index, int &tempSensor1, int &tempSensor2 ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief scan the PCI/VME bus for FECs
    */
@@ -435,235 +435,235 @@ class FecAccess {
 				   tscType8 fecSlotMax,
 				   tscType8 ringMin,
 				   tscType8 ringMax ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief scan the VME bus for FECs for a given FEC
    */
-  keyType scanFecRing ( std::string fecHardwareId ) throw (FecExceptionHandler) ;
+  keyType scanFecRing ( std::string fecHardwareId ) noexcept(false) ;
 
   /**
    * \brief return firmware version
    */
-  tscType16 getFecFirmwareVersion( keyType index ) throw ( FecExceptionHandler ) ;
+  tscType16 getFecFirmwareVersion( keyType index ) noexcept(false) ;
 
   /** \brief return the FEC hardware ID for a give index
    */
-  std::string getFecHardwareId ( keyType index ) throw (FecExceptionHandler) ;
+  std::string getFecHardwareId ( keyType index ) noexcept(false) ;
 
   /** \brief return the FEC Trigger version
    */
-  tscType32 getTriggerVersion ( keyType index ) throw (FecExceptionHandler) ;
+  tscType32 getTriggerVersion ( keyType index ) noexcept(false) ;
 
   /** \brief return the FEC VME version
    */
-  tscType32 getVmeVersion ( keyType index ) throw (FecExceptionHandler) ;
+  tscType32 getVmeVersion ( keyType index ) noexcept(false) ;
 
   /** \brief return the index for a given FEC hardware ID
    */
-  keyType getFecIndex ( std::string fecHardwareId ) throw (FecExceptionHandler) ;
+  keyType getFecIndex ( std::string fecHardwareId ) noexcept(false) ;
 
   /** \brief set the input of the FEC
    */
-  void setFecInputB (  keyType index, bool inputB ) throw (FecExceptionHandler) ;
+  void setFecInputB (  keyType index, bool inputB ) noexcept(false) ;
 
   /** \brief set the output of the FEC
    */
-  void setFecOutputB (  keyType index, bool outputB ) throw (FecExceptionHandler) ;
+  void setFecOutputB (  keyType index, bool outputB ) noexcept(false) ;
 
   /** \brief invert the clock polarity
    */
-  void setInvertClockPolarity ( bool invertPolarity ) throw (FecExceptionHandler) ;
+  void setInvertClockPolarity ( bool invertPolarity ) noexcept(false) ;
 
   /** \brief invert the clock polarity
    */
-  void setInvertClockPolarity ( keyType index, bool invertPolarity ) throw (FecExceptionHandler) ;
+  void setInvertClockPolarity ( keyType index, bool invertPolarity ) noexcept(false) ;
 
   /** \brief use the internal clock
    */
-  void setInternalClock (  keyType index, bool internal ) throw (FecExceptionHandler) ;
+  void setInternalClock (  keyType index, bool internal ) noexcept(false) ;
 
   /** \brief Set the FEC, ring control register 0
    */
   void setFecRingCR0 ( keyType index, tscType16 value, bool force = false ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the FEC, ring control register 0
    */
   void setFecRingCR0 ( keyType index, tscType16 value, logicalOperationType op ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the FEC, ring control register 0
    */
   tscType16 getFecRingCR0 ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the FEC, ring control register 1
    */
   void setFecRingCR1 ( keyType index, tscType16 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Enable or disable the irq for the given FEC
    */
   void setIRQ ( keyType index, bool enable, tscType8 vmeLevel=1 ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Enable or disable the irq for the all the FECs
    */
   void setIRQ ( bool enable, tscType8 vmeLevel=1 ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /*----------- This method has no sense, the CR1 CANNOT BE READ ----------- 
   void setFecRingCR1 ( keyType index, 
 		       tscType16 value 
 		       logicalOperationType op )  ;
-  throw (FecExceptionHandler) ;
+  noexcept(false) ;
   ----------------------------------------------------------------------- */
 
   /** \brief Get the FEC, ring control register 1
    */
   tscType16 getFecRingCR1 ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the FEC, ring status register 0
    */
   tscType16 getFecRingSR0 ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the FEC, ring status register 1
    */
   tscType16 getFecRingSR1 ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Hard reset for all FEC, ring
    */
   void fecHardReset ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Hard reset for all FEC, ring
    */
   void fecHardReset ( keyType index, tscType8 value = 0 ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief only for VME crate, reset the crate
    */
   void crateReset ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief reset all FEC, ring FSM
    */
   void fecRingResetFSM ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief FEC, ring reset FSM
    */
   void fecRingResetFSM ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief reset all FEC, ring
    */
   void fecRingReset ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief FEC, ring reset
    */
   void fecRingReset ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Initialise the TTCRx
    */
   void initTTCRx ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Initialise the TTCRx
    */
   void initTTCRx ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Disable or enable the receive for a FEC (redundancy)
    */
   void setCR0Receive ( keyType index, bool enable ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief FEC, ring reset on ring B 
    */
   void fecRingResetB ( ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief FEC, ring reset on ring B 
    */
   void fecRingResetB ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief release the FEC so re-generate a token on the ring
    */
   void fecRingRelease ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Reconfiguration of the ring
    */
   tscType16 fecRingReconfigure ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Reconfiguration of the ring for a given set of data
    */
   tscType16 fecRingReconfigure ( keyType index, TkRingDescription &tkRing ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief retreive all status and control registers for a given FEC, ring
    */
   FecRingRegisters getFecRingRegisters ( keyType index )
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   // ----------------------------------------------- CCU methods
 
   /** \brief check if a channel is enabled
    */
-  bool isChannelEnabled ( keyType index )  throw (FecExceptionHandler) ;
+  bool isChannelEnabled ( keyType index )  noexcept(false) ;
 
   /** \brief Set the CCU register A
    */
   void setCcuCRA ( keyType index, tscType8 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU control register A
    */
   tscType8 getCcuCRA ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the CCU register B
    */
   void setCcuCRB ( keyType index, tscType8 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU control register B
    */
   tscType8 getCcuCRB ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the CCU register C
    */
   void setCcuCRC ( keyType index, tscType8 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU control register C
    */
   tscType8 getCcuCRC ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the CCU register D
    */
   void setCcuCRD ( keyType index, tscType8 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU control register D
    */
   tscType8 getCcuCRD ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the CCU register E
    */
   void setCcuCRE ( keyType index, tscType24 value ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the CCU register E
    */
@@ -673,86 +673,86 @@ class FecAccess {
                    tscType8 valueMemory,
                    tscType8 valueTrigger,
                    tscType8 valueJTAG) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU control register E
    */
   tscType24 getCcuCRE ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register A
    */
   tscType8 getCcuSRA ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register B
    */
   tscType8 getCcuSRB ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register C
    */
   tscType8 getCcuSRC ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register D
    */
   tscType8 getCcuSRD ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register E
    */
   tscType24 getCcuSRE ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register F
    */
   tscType16 getCcuSRF ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register G
    */
   tscType8 getCcuSRG ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the CCU status register H
    */
   tscType8 getCcuSRH ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief retreive the list of the CCU on that FEC, ring
    */
   std::list<keyType> *getCcuList ( keyType index, bool noBroadcast = false, bool scan = true) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   // ------------------------------- CCU Alarms
 
   /** \brief Enable or disable CCU alarms
    */
   void setCcuAlarmsEnable ( keyType index, bool enable1, bool enable2, bool enable3, bool enable4 ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Wait for any CCU alarms
    */ 
   void waitForAnyCcuAlarms ( keyType index, tscType8 frame[DD_USER_MAX_MSG_LENGTH*4] ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Enable the PIA interrupts
    */
   void setPiaInterruptEnable ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Clear the interrupt on PIA channels
    */
   void setPiaClearInterrupts ( keyType index ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   // ----------------------------------------------- Channel method
 
   /** \brief re-enable a channel
    */
   void setChannelEnable ( keyType index, bool enable ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   // --------------------------------------------- PIA channels
 
@@ -763,72 +763,72 @@ class FecAccess {
                          tscType8 ccuAddress,
                          tscType8 piaChannel,
                          enumAccessModeType accessMask ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Add a PIA access with the key
    */
   keyType addPiaAccess ( keyType index,
                          enumAccessModeType accessMask ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Remove a pia access
    */
-  void removePiaAccess ( keyType index) throw (FecExceptionHandler) ;
+  void removePiaAccess ( keyType index) noexcept(false) ;
 
   /** \brief Reset PIA channel
    */
   void piaChannelReset ( keyType index ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA general control register
    */
   void setPiaChannelGCR ( keyType index, tscType8 value ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA general control register
    */
   void setPiaChannelGCR ( keyType index, tscType8 value, logicalOperationType op ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Get the PIA general control register
    */
   tscType8 getPiaChannelGCR ( keyType index ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Get the PIA status register
    */
   tscType8 getPiaChannelStatus ( keyType index ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA data direction register
    */
   void setPiaChannelDDR ( keyType index, tscType8 value ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA data direction register
    */
   void setPiaChannelDDR ( keyType index, tscType8 value, logicalOperationType op ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Get the PIA data direction register
    */
   tscType8 getPiaChannelDDR ( keyType index ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA data register
    */
   void setPiaChannelDataReg ( keyType index, tscType8 value ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Set the PIA data register
    */
   void setPiaChannelDataReg ( keyType index, tscType8 value, logicalOperationType op ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Get the PIA data register
    */
   tscType8 getPiaChannelDataReg ( keyType index ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   // --------------------------------------------- I2C channels
 
@@ -841,59 +841,59 @@ class FecAccess {
                          tscType8 i2cAddress,
                          enumDeviceType deviceType,
                          enumAccessModeType accessMask ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Add an I2C access with a key
    */
   keyType addi2cAccess ( keyType index,
                          enumDeviceType deviceType,
                          enumAccessModeType accessMask ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief remove an I2C access
    */
   void removei2cAccess ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the I2C control register A
    */
   void seti2cChannelCRA ( keyType index, tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the I2C control register A with boolean operator
    */
   void seti2cChannelCRA ( keyType index, tscType8 value,logicalOperationType op)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Reset an I2C channel
    */
   void i2cChannelReset  ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
   
   /** \brief Get the I2C control register A
    */
   tscType8 geti2cChannelCRA ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the I2C status register A
    */
   tscType8 geti2cChannelSRA ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the I2C status register B
    */
   tscType8 geti2cChannelSRB ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the I2C status register C
    */
   tscType8 geti2cChannelSRC ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the I2C status register D
    */
   tscType8 geti2cChannelSRD ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief scan the ring for devices
    */
@@ -901,7 +901,7 @@ class FecAccess {
                                         tscType32 sizeDevices,
 					bool noBroadcast = false,
 					bool display = true) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief scan a ring for devices
    */
@@ -910,7 +910,7 @@ class FecAccess {
                                         tscType32 sizeDevices,
 					bool noBroadcast = false,
 					bool display = true) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 
   // --------------------------------------------- Memory channels
@@ -922,7 +922,7 @@ class FecAccess {
                             tscType8 ccuAddress,
                             tscType8 piaChannel,
                             enumAccessModeType accessMask )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
 
 
@@ -930,99 +930,99 @@ class FecAccess {
    */
   keyType addMemoryAccess ( keyType index,
                          enumAccessModeType accessMask ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Remove a memory access
    */
   void removeMemoryAccess ( keyType index) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Reset Memory channel
    */
   void memoryChannelReset ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Set the memory control register A
    */
   void setMemoryChannelCRA ( keyType index, tscType8 value )  
-    throw (FecExceptionHandler) ;;
+    noexcept(false) ;;
 
   /** \brief Set the PIA control register A
    */
   void setMemoryChannelCRA ( keyType index, tscType8 value, logicalOperationType op )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the Memory control register A
    */
   tscType8 getMemoryChannelCRA ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Get the memory status register
    */
   tscType8 getMemoryChannelStatus ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to set the memory WIN1L register
    */
   void setMemoryChannelWin1LReg ( keyType index, tscType16 value )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to set the memory WIN1H register
    */
   void setMemoryChannelWin1HReg ( keyType index, tscType16 value )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to set the memory WIN2L register
    */
   void setMemoryChannelWin2LReg ( keyType index, tscType16 value )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to set the memory WIN2H register
    */
   void setMemoryChannelWin2HReg ( keyType index, tscType16 value )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to set the memory mask register
    */
   void setMemoryChannelMaskReg ( keyType index, tscType8 value )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory mask register
    */
   tscType8 getMemoryChannelMaskReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory WIN1L register
    */
   tscType16 getMemoryChannelWin1LReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory WIN1H register
    */
   tscType16 getMemoryChannelWin1HReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory WIN2L register
    */
   tscType16 getMemoryChannelWin2LReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory WIN2H register
    */
   tscType16 getMemoryChannelWin2HReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Method in order to retreive memory mask register
    */
   tscType8 getMemoryChanneMaskReg ( keyType index )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   // ----------------------------------------------- Read / Write methods
 
   /** \brief Download a block of frames
    */
   unsigned int setBlockDevices ( keyType index, accessDeviceTypeList &vAccesses, std::list<FecExceptionHandler *> &errorList, bool piaChannel = false, bool debugMessageDisplay = false ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Download a block of frames to all rings (ring per ring)
    */
@@ -1035,68 +1035,68 @@ class FecAccess {
   /** \brief Read a value from the device specified in the key
    */
   tscType8 read (keyType index)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read a value from the device specified in the key
    */
   tscType8 readOffset (keyType index, tscType8 offset)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read a value from the device specified in the key
    */
   tscType8 readOffset (keyType index, tscType8 offset, tscType8 decal)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read a value from the device specified in the key
    */
   tscType8 read (keyType index, tscType8 offset)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read a value from the memory channel
    */
   tscType8 read (keyType index, tscType8 AH, tscType8 AL )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read a value from the memory channel
    */
   void read (keyType index, 
              tscType8 AH, tscType8 AL,
              unsigned size, tscType8 *values)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the device specified in the key
    */
   void write (keyType index, tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the device specified in the key
    */
   void writeOffset (keyType index, tscType8 offset, tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the device specified in the key
    */
   void writeOffset (keyType index, tscType8 offset, tscType8 decal, tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the device specified in the key
    */
   void write (keyType index, tscType8 offset, tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the memory channel
    */
   void write (keyType index, 
               tscType8 AH, tscType8 AL, 
               tscType8 value)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Write a value into the memory channel
    */
   void write (keyType index, 
               tscType8 AH, tscType8 AL, 
               tscType8 *values, unsigned size)  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Read modify write a value from the memory specified by the key in single byte
    */
@@ -1104,7 +1104,7 @@ class FecAccess {
                tscType8 AH, tscType8 AL, 
                logicalOperationType op, 
                tscType8 mask )  
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /* ---------------------------------------------------------------------------------- */
   /* ---------------------------------------------------------------------------------- */
@@ -1129,7 +1129,7 @@ class FecAccess {
 
   /** \brief create a FEC access with parameter
    */  
-  static FecAccess *createFecAccess ( int argc, char **argv, int *cnt, bool init = true ) throw (FecExceptionHandler) ;
+  static FecAccess *createFecAccess ( int argc, char **argv, int *cnt, bool init = true ) noexcept(false) ;
 
 };
 #endif

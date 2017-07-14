@@ -51,7 +51,7 @@ DeviceFactory::DeviceFactory ( ) :
 #ifdef DATABASE
 
 DeviceFactory::DeviceFactory ( std::string login, std::string password, std::string path, bool threaded )
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   FecFactory(login, password, path, threaded),
   Fed9U::Fed9UDeviceFactory(login, password, path, threaded),
   ConnectionFactory (login, password, path, threaded),
@@ -86,7 +86,7 @@ void DeviceFactory::setRunNumberFile ( std::string filename ) {
  * \warning, if the database is not set, a file must be set with the method setFileRunNumber and if this file is not set, an exception is thrown. The file for this method must read/writable at least for this method.
  */
 unsigned int DeviceFactory::getNextRunNumber ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   unsigned int runNumber ;
 
@@ -119,7 +119,7 @@ unsigned int DeviceFactory::getNextRunNumber ( )
  * \return the current run number
  */
 unsigned int DeviceFactory::getCurrentRunNumber ( ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   unsigned int runNumber ;
 
@@ -175,7 +175,7 @@ void DeviceFactory::setOutputFileName ( std::string outputFileName ) {
 /** 
  * \param inputFileName - new input file for the FEC
  */
-void DeviceFactory::setFecInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setFecInputFileName ( std::string inputFileName ) noexcept(false) {
 
   FecFactory::setInputFileName (inputFileName) ;
 }
@@ -183,7 +183,7 @@ void DeviceFactory::setFecInputFileName ( std::string inputFileName ) throw ( Fe
 /**
  * \param fileName - name of the XML file for the FEC
  */
-void DeviceFactory::addFecFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addFecFileName ( std::string fileName ) noexcept(false) {
 
   FecFactory::addFileName (fileName) ;
 }
@@ -191,7 +191,7 @@ void DeviceFactory::addFecFileName ( std::string fileName ) throw ( FecException
 /** 
  * \param inputFileName - new input file for the FED
  */ 
-void DeviceFactory::setFedInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setFedInputFileName ( std::string inputFileName ) noexcept(false) {
 
   Fed9U::Fed9UDeviceFactory::setInputFileName (inputFileName) ;
 }
@@ -199,7 +199,7 @@ void DeviceFactory::setFedInputFileName ( std::string inputFileName ) throw ( Fe
 /**
  * \param fileName - name of the XML file for the FED
  */
-void DeviceFactory::addFedFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addFedFileName ( std::string fileName ) noexcept(false) {
 
   Fed9U::Fed9UDeviceFactory::addFileName (fileName) ;
 }
@@ -207,7 +207,7 @@ void DeviceFactory::addFedFileName ( std::string fileName ) throw ( FecException
 /** 
  * \param inputFileName - new input file for the connections between FEC and FED
  */ 
-void DeviceFactory::setFedFecConnectionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setFedFecConnectionInputFileName ( std::string inputFileName ) noexcept(false) {
 
   ConnectionFactory::setInputFileName (inputFileName) ;
 }
@@ -215,7 +215,7 @@ void DeviceFactory::setFedFecConnectionInputFileName ( std::string inputFileName
 /** 
  * \param inputFileName - new input file for the connections between FEC and FED
  */ 
-void DeviceFactory::setConnectionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setConnectionInputFileName ( std::string inputFileName ) noexcept(false) {
 
   ConnectionFactory::setInputFileName (inputFileName) ;
 }
@@ -223,7 +223,7 @@ void DeviceFactory::setConnectionInputFileName ( std::string inputFileName ) thr
 /**
  * \param fileName - name of the XML file for the connections between FEC and FED
  */
-void DeviceFactory::addFedFecConnectionFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addFedFecConnectionFileName ( std::string fileName ) noexcept(false) {
 
   ConnectionFactory::addFileName (fileName) ;
 }
@@ -231,7 +231,7 @@ void DeviceFactory::addFedFecConnectionFileName ( std::string fileName ) throw (
 /**
  * \param fileName - name of the XML file for the connections between FEC and FED
  */
-void DeviceFactory::addConnectionFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addConnectionFileName ( std::string fileName ) noexcept(false) {
 
   ConnectionFactory::addFileName (fileName) ;
 }
@@ -239,7 +239,7 @@ void DeviceFactory::addConnectionFileName ( std::string fileName ) throw ( FecEx
 /** 
  * \param inputFileName - new input file for the DCU conversion factors
  */ 
-void DeviceFactory::setDcuConversionInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setDcuConversionInputFileName ( std::string inputFileName ) noexcept(false) {
 
   TkDcuConversionFactory::setInputFileName (inputFileName) ;
 }
@@ -247,7 +247,7 @@ void DeviceFactory::setDcuConversionInputFileName ( std::string inputFileName ) 
 /**
  * \param fileName - name of the XML file for the DCU conversion factors
  */
-void DeviceFactory::addDcuConversionFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addDcuConversionFileName ( std::string fileName ) noexcept(false) {
 
   TkDcuConversionFactory::addFileName (fileName) ;
 }
@@ -255,7 +255,7 @@ void DeviceFactory::addDcuConversionFileName ( std::string fileName ) throw ( Fe
 /** 
  * \param inputFileName - new input file for the DCU / det ID information
  */ 
-void DeviceFactory::setTkDcuInfoInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setTkDcuInfoInputFileName ( std::string inputFileName ) noexcept(false) {
 
   TkDcuInfoFactory::setInputFileName (inputFileName) ;
 }
@@ -264,7 +264,7 @@ void DeviceFactory::setTkDcuInfoInputFileName ( std::string inputFileName ) thro
 /**
  * \param fileName - name of the XML file for the DCU / det ID information
  */
-void DeviceFactory::addTkDcuInfoFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addTkDcuInfoFileName ( std::string fileName ) noexcept(false) {
 
   TkDcuInfoFactory::addFileName (fileName) ;
 }
@@ -272,7 +272,7 @@ void DeviceFactory::addTkDcuInfoFileName ( std::string fileName ) throw ( FecExc
 /** 
  * \param inputFileName - new input file for the DCU / det ID information
  */ 
-void DeviceFactory::setTkDcuPsuMapFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setTkDcuPsuMapFileName ( std::string inputFileName ) noexcept(false) {
 
   TkDcuPsuMapFactory::setInputFileName (inputFileName) ;
 }
@@ -280,7 +280,7 @@ void DeviceFactory::setTkDcuPsuMapFileName ( std::string inputFileName ) throw (
 /**
  * \param fileName - name of the XML file for the DCU / det ID information
  */
-void DeviceFactory::addTkDcuPsuMapFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addTkDcuPsuMapFileName ( std::string fileName ) noexcept(false) {
 
   TkDcuPsuMapFactory::addFileName (fileName) ;
 }
@@ -288,7 +288,7 @@ void DeviceFactory::addTkDcuPsuMapFileName ( std::string fileName ) throw ( FecE
 /** 
  * \param inputFileName - new input file for the DCU / det ID information
  */ 
-void DeviceFactory::setTkIdVsHostnameInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::setTkIdVsHostnameInputFileName ( std::string inputFileName ) noexcept(false) {
 
   TkIdVsHostnameFactory::setInputFileName (inputFileName) ;
 }
@@ -296,7 +296,7 @@ void DeviceFactory::setTkIdVsHostnameInputFileName ( std::string inputFileName )
 /**
  * \param fileName - name of the XML file for the DCU / det ID information
  */
-void DeviceFactory::addTkIdVsHostnameFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void DeviceFactory::addTkIdVsHostnameFileName ( std::string fileName ) noexcept(false) {
 
   TkIdVsHostnameFactory::addFileName (fileName) ;
 }
@@ -327,7 +327,7 @@ void DeviceFactory::setUsingFile ( bool useIt ) {
 /** 
  * \param useIt - use the database, the database must be created, if not an exception is raised
  */
-void DeviceFactory::setUsingDb ( bool useIt ) throw (std::string) {
+void DeviceFactory::setUsingDb ( bool useIt ) noexcept(false) {
   FecFactory::setUsingDb(useIt) ;
   Fed9U::Fed9UDeviceFactory::setUsingDb(useIt) ;
   ConnectionFactory::setUsingDb(useIt) ;
@@ -392,7 +392,7 @@ bool DeviceFactory::getDbConnected ( ) {
 
 /** 
  */
-void DeviceFactory::setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) {
+void DeviceFactory::setDatabaseAccess ( ) noexcept(false) {
 
   FecFactory::setDatabaseAccess () ;
   Fed9U::Fed9UDeviceFactory::setDatabaseAccess () ;
@@ -410,7 +410,7 @@ void DeviceFactory::setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) {
  * \param path - path to database
  * \warning in the destructor of FecFactory, the dbFecAccess is deleted
  */
-void DeviceFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) throw ( oracle::occi::SQLException ) {
+void DeviceFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) noexcept(false) {
 
   FecFactory::setDatabaseAccess (login, password, path ) ;
   Fed9U::Fed9UDeviceFactory::setDatabaseAccess (login, password, path ) ;
@@ -424,7 +424,7 @@ void DeviceFactory::setDatabaseAccess ( std::string login, std::string password,
 
 /** \return the partition name
  */
-std::string DeviceFactory::getPartitionName ( unsigned int partitionId )  throw (oracle::occi::SQLException) {
+std::string DeviceFactory::getPartitionName ( unsigned int partitionId )  noexcept(false) {
   
   return (FecFactory::getPartitionName (partitionId)) ;
 }
@@ -433,7 +433,7 @@ std::string DeviceFactory::getPartitionName ( unsigned int partitionId )  throw 
  * \param deleteValues - delete the values before doing the update: 0 do not delete, 1 delete the partitions which are not in the current state, 2 delete everything
  * \param withStrips - update the FED with strips
  */
-void DeviceFactory::refreshCacheXMLClob ( int deleteValues, bool withStrips ) throw (oracle::occi::SQLException) {
+void DeviceFactory::refreshCacheXMLClob ( int deleteValues, bool withStrips ) noexcept(false) {
 
   DbCommonAccess *dbAccess = getAnyDbAccess() ;
   if (dbAccess != NULL) dbAccess->refreshCacheXMLClob(deleteValues, withStrips) ;
@@ -452,7 +452,7 @@ void DeviceFactory::refreshCacheXMLClob ( int deleteValues, bool withStrips ) th
  * \param allConnections - enabled / disabled connections
  * \return unsigned integer which gives you how much connection were NOT identified with the det id (the det id is set to zero in that case, and if integer returned is zero then all connections have a corresponding det id)
  */
-unsigned int DeviceFactory::getConnectionDescriptionDetId ( std::string partitionName, ConnectionVector &connectionVector, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool allConnections, bool forceDbReload ) throw (FecExceptionHandler, oracle::occi::SQLException) {
+unsigned int DeviceFactory::getConnectionDescriptionDetId ( std::string partitionName, ConnectionVector &connectionVector, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool allConnections, bool forceDbReload ) noexcept(false) {
 
   unsigned int connectionNotIdentified = 0 ;
 
@@ -505,7 +505,7 @@ std::string DeviceFactory::what ( std::string message, oracle::occi::SQLExceptio
  * \warning this method create an new version of FEC/FED and connections so you should re-download everything afterwards
  */  
 void DeviceFactory::setEnableModules(std::string partitionName, std::vector<unsigned int> dcuHardIdList, bool enabled) 
-  throw (FecExceptionHandler, oracle::occi::SQLException, Fed9U::Fed9UDeviceFactoryException, ICUtils::ICException) {
+  noexcept(false) {
 
 #ifdef DEBUGTIMINGDISABLE
   unsigned long startMillis, endMillis ;
@@ -596,7 +596,7 @@ void DeviceFactory::setEnableModules(std::string partitionName, std::vector<unsi
  * \param o2oTimestamp - a given timestamp (o2o time operation)
  */
 void DeviceFactory::setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int runNumber ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   DbCommonAccess *dbAccess = getAnyDbAccess() ;
    
@@ -612,7 +612,7 @@ void DeviceFactory::setO2OOperation ( std::string partitionName, std::string sub
  * \param partitionName - partition name
  * \return true if the versions for the partition is coherent, false if it is not coherent
  */
-bool DeviceFactory::getO2OXchecked ( std::string partitionName ) throw (FecExceptionHandler) {
+bool DeviceFactory::getO2OXchecked ( std::string partitionName ) noexcept(false) {
 
   bool result = false ;
 

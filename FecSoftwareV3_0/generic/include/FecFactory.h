@@ -62,7 +62,7 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
   /** \brief Buid a FEC factory for database
    */
   FecFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 #endif
 
   /** \brief Disconnect the database (if it is set)
@@ -85,19 +85,19 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
 
   /** \brief set a new input file
    */
-  void setInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) ;
+  void setInputFileName ( std::string inputFileName ) noexcept(false) ;
 
   /** \brief set a new input file
    */
-  void setInputFileName ( std::string inputFileName, std::string fecHardwareId ) throw ( FecExceptionHandler ) ;
+  void setInputFileName ( std::string inputFileName, std::string fecHardwareId ) noexcept(false) ;
 
   /** \brief Add a new file name in the descriptions
    */
-  void addFileName ( std::string fileName ) throw (FecExceptionHandler) ;
+  void addFileName ( std::string fileName ) noexcept(false) ;
 
   /** \brief Add a new file name in the descriptions
    */
-  void addFileName ( std::string fileName, std::string fecHardwareId ) throw (FecExceptionHandler) ;
+  void addFileName ( std::string fileName, std::string fecHardwareId ) noexcept(false) ;
 
   /** \brief Use or not the file
    */
@@ -113,7 +113,7 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
 
   /** \brief Use or not the database access
    */
-  void setUsingDb ( bool useIt = true ) throw ( std::string ) ;
+  void setUsingDb ( bool useIt = true ) noexcept(false) ;
 
   /** \brief Check if the database is used
    */
@@ -126,12 +126,12 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
   /** \brief Set a database access
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set a database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief return the FEC database access
    */
@@ -139,7 +139,7 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
 
   /** \brief return the partition name
    */
-  std::string getPartitionName ( unsigned int partitionId )  throw (oracle::occi::SQLException) ;
+  std::string getPartitionName ( unsigned int partitionId )  noexcept(false) ;
 
 #endif
 
@@ -154,37 +154,37 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
   /** \brief retreive information concerning the partition versus the version for the FEC devices 
    */
   void getFecDevicePartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskMajor, unsigned int *maskMinor, unsigned int *partitionNumber ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief set version for the partition retreive from database with the couple 
    */
   void setFecDevicePartitionVersion ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor ) 
-    throw (oracle::occi::SQLException, FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief Upload a device description vector and a PIA description vector in the output and create new partition
    */
   void createPartition ( deviceVector devices, piaResetVector piadevices, unsigned int *deviceMajor = NULL, unsigned int *deviceMinor = NULL, std::string partitionName="", bool createPartitionFlag = true ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief In order to give the FecFactory to call the method FecDeviceFactory::createPartition ( ... ) ;
    */
   void createPartition ( deviceVector devices, unsigned int *versionMajor = NULL, unsigned int *versionMinor = NULL, std::string partitionName="", bool createPartitionFlag = true ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief In order to give the FecFactory to call the method PiaResetFactory::createPartition ( ... ) ;
    */
-  void createPartition ( piaResetVector devices, std::string partitionName="" ) throw (FecExceptionHandler) ;
+  void createPartition ( piaResetVector devices, std::string partitionName="" ) noexcept(false) ;
 
 #endif
 
   /** \brief Upload in file or database a device description vector and a PIA description vector in the output
    */
   void setFecDevicePiaDescriptions ( deviceVector devices, piaResetVector piaDevices, std::string partitionName, unsigned int *deviceMajor = NULL, unsigned int *deviceMinor = NULL ) 
-    throw (FecExceptionHandler) ;
+    noexcept(false) ;
 
   /** \brief Upload in file or database a device description vector and a PIA description vector in the output
    */
-  void setFecDevicePiaDescriptions ( deviceVector devices, piaResetVector piaDevices ) throw (FecExceptionHandler) ;
+  void setFecDevicePiaDescriptions ( deviceVector devices, piaResetVector piaDevices ) noexcept(false) ;
 
   // ------------------------------------------------------------------------------------------------------
   // 
@@ -308,7 +308,7 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
  /** \brief display a vector of devices
   * \param vDevice - vector of deviceAccess
   */
- static void display ( deviceVector vDevice ) throw (FecExceptionHandler) {
+ static void display ( deviceVector vDevice ) noexcept(false) {
     
    if (!vDevice.empty()) {
 
@@ -324,7 +324,7 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
  /** \brief display a vector of devices
   * \param vDevice - vector of deviceAccess
   */
- static void display ( piaResetVector vDevice ) throw (FecExceptionHandler) {
+ static void display ( piaResetVector vDevice ) noexcept(false) {
     
    if (!vDevice.empty()) {
 
@@ -520,11 +520,11 @@ class FecFactory: public FecDeviceFactory, public PiaResetFactory {
 
  /** \brief this method write into a memory to serialise it
   */
- static void *writeTo ( std::vector<TkRingDescription *> &rings, unsigned int &sizeOfAllocation ) throw (FecExceptionHandler) ;
+ static void *writeTo ( std::vector<TkRingDescription *> &rings, unsigned int &sizeOfAllocation ) noexcept(false) ;
  
  /** \brief this method read from a memory (deserialisation)
   */
- static std::vector<TkRingDescription *> readFrom ( const void *memory ) throw (FecExceptionHandler) ;
+ static std::vector<TkRingDescription *> readFrom ( const void *memory ) noexcept(false) ;
 
 } ;
 

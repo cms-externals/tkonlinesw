@@ -68,7 +68,7 @@ HAL::VMEAddressTable *FecVmeRingDevice::addressTable_ = NULL ;
  * \param init - initialise the FEC (with reset at the starting)
  * \warning note that the numbering schema comes from the file use for the creation of the bus adapter, see the configurePLugAndPlay and configureHardBaseAddress method from this class
  */
-FecVmeRingDevice::FecVmeRingDevice (HAL::VME64xDevice *vmeDevice, tscType8 fecSlot, tscType8 ringSlot, bool init, fecRingDeviceFifoAccessModeEnum blockMode, uint32_t adapterSlot, bool invertClockPolarity ) throw ( FecExceptionHandler ) :
+FecVmeRingDevice::FecVmeRingDevice (HAL::VME64xDevice *vmeDevice, tscType8 fecSlot, tscType8 ringSlot, bool init, fecRingDeviceFifoAccessModeEnum blockMode, uint32_t adapterSlot, bool invertClockPolarity ) noexcept(false) :
   FecRingDevice ( fecSlot, ringSlot, FECVME ) {
 
   // Raise an exception if the VME Device is incoherent
@@ -142,7 +142,7 @@ FecVmeRingDevice::FecVmeRingDevice (HAL::VME64xDevice *vmeDevice, tscType8 fecSl
 /** Nothing
  * \warning the VME device used must be destroy by the creator (ie. FecAccess class in the current implementation). If you don't use the FecAcess, you must delete it).
  */
-FecVmeRingDevice::~FecVmeRingDevice ( ) throw ( FecExceptionHandler ) {
+FecVmeRingDevice::~FecVmeRingDevice ( ) noexcept(false) {
 }
 
 /** \return the FEC hardware id
@@ -160,7 +160,7 @@ std::string FecVmeRingDevice::getFecHardwareId ( ) {
  * \param ctrl0Value - value of the CR0
  * \param force - if force is set then the value is applied blindly. if force is not set then the invert clock polarity is managed following the parameter in the class.
  */
-void FecVmeRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) noexcept(false) {
 
   if (!force) {
     if (invertClockPolarity_) ctrl0Value |= FEC_CR0_POLARITY ;
@@ -245,7 +245,7 @@ void FecVmeRingDevice::setFecRingCR0 ( tscType16 ctrl0Value, bool force ) throw 
 /** Reads a value from FEC ctrl0 
  *\return the value read
  */
-tscType16 FecVmeRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
+tscType16 FecVmeRingDevice::getFecRingCR0( ) noexcept(false) {
 
   uint32_t ctrl0Value;
   try {
@@ -331,7 +331,7 @@ tscType16 FecVmeRingDevice::getFecRingCR0( ) throw ( FecExceptionHandler ) {
 /** Write the value given as parameter in FEC control 1 register 
  * \param value to be written
  */
-void FecVmeRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFecRingCR1( tscType16 ctrl1Value ) noexcept(false) {
 
 #ifdef FECVMERINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << std::hex << ctrl1Value << " in CR1" << std::endl ;
@@ -412,7 +412,7 @@ void FecVmeRingDevice::setFecRingCR1( tscType16 ctrl1Value ) throw ( FecExceptio
 /** Reads a value from FEC ctrl1 
  * \return value of the FEC CR1 for that ring
  */
-tscType16 FecVmeRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecVmeRingDevice::getFecRingCR1( ) noexcept(false) {
 
   uint32_t ctrl1Value;
   
@@ -496,7 +496,7 @@ tscType16 FecVmeRingDevice::getFecRingCR1( ) throw ( FecExceptionHandler ) {
 /** Reads a value from FEC SR0 
  * \return the value of the FEC SR0
  */
-tscType32 FecVmeRingDevice::getFecRingSR0(unsigned long sleeptime) throw ( FecExceptionHandler ) {
+tscType32 FecVmeRingDevice::getFecRingSR0(unsigned long sleeptime) noexcept(false) {
 
   uint32_t sr0Value;
   
@@ -597,7 +597,7 @@ tscType32 FecVmeRingDevice::getFecRingSR0(unsigned long sleeptime) throw ( FecEx
 /** Reads a value from FEC SR1
  * \return the value of the FEC SR1
  */
-tscType16 FecVmeRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
+tscType16 FecVmeRingDevice::getFecRingSR1( ) noexcept(false) {
 
   uint32_t sr1Value;
 
@@ -681,7 +681,7 @@ tscType16 FecVmeRingDevice::getFecRingSR1( ) throw ( FecExceptionHandler ) {
  * \return Firmware version
  * \warning the value read is mask with (0xFF00 >> 16)
  */
-tscType16 FecVmeRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandler ) {
+tscType16 FecVmeRingDevice::getFecFirmwareVersion( ) noexcept(false) {
 
   //std::cout << fecHalItem_[FECHALVERSION_SRC] << " ring initialised " << getmFecInitialised() << std::endl ;
 
@@ -773,7 +773,7 @@ tscType16 FecVmeRingDevice::getFecFirmwareVersion( ) throw ( FecExceptionHandler
 /** Return a word from the FIFO receive
  * \param return a word from the FIFO receive
  */
-tscType32 FecVmeRingDevice::getFifoReceive ( ) throw ( FecExceptionHandler ) {
+tscType32 FecVmeRingDevice::getFifoReceive ( ) noexcept(false) {
 
   uint32_t fiforec_value;
 
@@ -856,7 +856,7 @@ tscType32 FecVmeRingDevice::getFifoReceive ( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO receive
  * \param fiforecValue - word to be set
  */
-void FecVmeRingDevice::setFifoReceive( tscType32 fiforecValue ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFifoReceive( tscType32 fiforecValue ) noexcept(false) {
 
   try {
     currentVmeBoard_->unmaskedWrite(fecHalItem_[FECHALREC_FIFO_W], (uint32_t)fiforecValue);
@@ -936,7 +936,7 @@ void FecVmeRingDevice::setFifoReceive( tscType32 fiforecValue ) throw ( FecExcep
 /** Return a word from the FIFO return
  * \param return a word from the FIFO return
  */
-tscType8 FecVmeRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
+tscType8 FecVmeRingDevice::getFifoReturn( ) noexcept(false) {
 
   uint32_t fiforet_value;
 
@@ -1019,7 +1019,7 @@ tscType8 FecVmeRingDevice::getFifoReturn( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO return
  * \param fiforetValue - word to be set
  */
-void FecVmeRingDevice::setFifoReturn( tscType8 fiforetValue ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFifoReturn( tscType8 fiforetValue ) noexcept(false) {
 
   try {
     currentVmeBoard_->unmaskedWrite(fecHalItem_[FECHALRET_FIFO_W], (uint32_t)fiforetValue);
@@ -1098,7 +1098,7 @@ void FecVmeRingDevice::setFifoReturn( tscType8 fiforetValue ) throw ( FecExcepti
 /** Return a word from the FIFO transmit
  * \param return a word from the FIFO transmit
  */
-tscType32 FecVmeRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
+tscType32 FecVmeRingDevice::getFifoTransmit( ) noexcept(false) {
 
   uint32_t fifotra_value;
 
@@ -1181,7 +1181,7 @@ tscType32 FecVmeRingDevice::getFifoTransmit( ) throw ( FecExceptionHandler ) {
 /** set a word in the FIFO transmit
  * \param fifotra_value - word to be set
  */
-void FecVmeRingDevice::setFifoTransmit ( tscType32 fifotraValue ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFifoTransmit ( tscType32 fifotraValue ) noexcept(false) {
 
 #ifdef FECVMERINGDEVICE_DEBUG
   std::cout << "DEBUG : writing value 0x" << std::hex << fifotraValue << " to fifo transmit" << std::endl ;
@@ -1262,7 +1262,7 @@ void FecVmeRingDevice::setFifoTransmit ( tscType32 fifotraValue ) throw ( FecExc
  * \param fifotra_value - word to be set
  * \warning if the block transfer is enabled and the version of the FEC VME firmware is correct and if the HAL version is correct then the block transfer is used
  */
-void FecVmeRingDevice::setFifoTransmit ( tscType32 *fifotraValue, int count ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFifoTransmit ( tscType32 *fifotraValue, int count ) noexcept(false) {
   
 #ifdef FECVMERINGDEVICE_DEBUG 
   {
@@ -1373,7 +1373,7 @@ void FecVmeRingDevice::setFifoTransmit ( tscType32 *fifotraValue, int count ) th
  * \param fiforecValue - array of words to be set
  * \warning if the block transfer is enabled and the version of the FEC VME firmware is correct and if the HAL version is correct then the block transfer is used
  */
-void FecVmeRingDevice::setFifoReceive ( tscType32 *fiforecValue, int count ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setFifoReceive ( tscType32 *fiforecValue, int count ) noexcept(false) {
   
 #ifdef FECVMERINGDEVICE_DEBUG 
   {
@@ -1507,7 +1507,7 @@ void FecVmeRingDevice::setFifoReceive ( tscType32 *fiforecValue, int count ) thr
  * \param fiforec_value - array word to be retrieved
  * \warning if the block transfer is enable and the version of the FEC VME firmware is correct and if the HAL version is correct then the block transfer is used
  */
-tscType32* FecVmeRingDevice::getFifoTransmit ( tscType32 *fifotraValue, int count ) throw ( FecExceptionHandler ) {
+tscType32* FecVmeRingDevice::getFifoTransmit ( tscType32 *fifotraValue, int count ) noexcept(false) {
 
   try {
     switch (getFifoAccessMode())  { 
@@ -1625,7 +1625,7 @@ tscType32* FecVmeRingDevice::getFifoTransmit ( tscType32 *fifotraValue, int coun
  * \param fiforec_value - array word to be retrieved
  * \warning if the block transfer is enable and the version of the FEC VME firmware is correct and if the HAL version is correct then the block transfer is used
  */
-tscType32* FecVmeRingDevice::getFifoReceive ( tscType32 *fiforecValue, int count ) throw ( FecExceptionHandler ) {
+tscType32* FecVmeRingDevice::getFifoReceive ( tscType32 *fiforecValue, int count ) noexcept(false) {
 
   try {
     switch (getFifoAccessMode())  { 
@@ -1752,7 +1752,7 @@ tscType32* FecVmeRingDevice::getFifoReceive ( tscType32 *fiforecValue, int count
  * \warning Only the mFECs
  * 
  */
-void FecVmeRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::fecHardReset ( ) noexcept(false) {
 
   // static method
   uFecsReload() ;
@@ -1780,7 +1780,7 @@ void FecVmeRingDevice::fecHardReset ( ) throw ( FecExceptionHandler ) {
  * 
  * \warning This method is not used until the IRQ will be managed by the VME FEC / software
  */
-void FecVmeRingDevice::setIRQ ( bool enable, tscType8 level ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::setIRQ ( bool enable, tscType8 level ) noexcept(false) {
 
   /* empty function: do nothing , USB is not interrupt driven, no risc of interrupt overflood */
 
@@ -1898,7 +1898,7 @@ void FecVmeRingDevice::setIRQ ( bool enable, tscType8 level ) throw ( FecExcepti
  * \param adapterSlot - where the adapter is
  * \param strBusAdapter - string with the bus adapter name. A static attributs exists FecVmeRingDevice::STR_BUSADAPTER_NAME together with an enumeration enumBusAdapter
  */
-HAL::VMEBusAdapterInterface *FecVmeRingDevice::createBusAdapter ( uint32_t adapterSlot, std::string strBusAdapter ) throw ( HAL::BusAdapterException, FecExceptionHandler ) {
+HAL::VMEBusAdapterInterface *FecVmeRingDevice::createBusAdapter ( uint32_t adapterSlot, std::string strBusAdapter ) noexcept(false) {
 
   HAL::VMEBusAdapterInterface *busAdapter = NULL ;
 
@@ -1948,12 +1948,7 @@ HAL::VMEBusAdapterInterface *FecVmeRingDevice::createBusAdapter ( uint32_t adapt
  * \param listOfVMEDevice - returns the list of devices detected
  */
 HAL::VME64xCrate *FecVmeRingDevice::configurePlugAndPlay( uint32_t adapterSlot, std::string addresstablefile, std::string maptable, std::string strBusAdapter, hashMapVMEDevice &hashMapVMEDevice )
-  throw (HAL::BusAdapterException,
-	 HAL::NoSuchFileException,
-	 HAL::IllegalValueException,
-	 HAL::XMLProcessingException,
-	 HAL::HardwareProblemException,
-	 HAL::UnsupportedException ) {
+	 noexcept(false) {
 
 #ifdef FECVMERINGDEVICE_DEBUG
   std::cout << "configurePlugAndPlay with file " << std::endl
@@ -2051,11 +2046,7 @@ HAL::VME64xCrate *FecVmeRingDevice::configurePlugAndPlay( uint32_t adapterSlot, 
  * \param strBusAdapter - PCI to VME link used see the method createBusAdapter
  */
 HAL::VME64xDevice * FecVmeRingDevice::configureHardBaseAddress( uint32_t adapterSlot, std::string addresstablefile, uint32_t baseaddress, uint32_t fecSlot, std::string strBusAdapter )
-  throw (HAL::BusAdapterException,
-	 HAL::NoSuchFileException,
-	 HAL::IllegalValueException,
-	 HAL::UnsupportedException,
-	 FecExceptionHandler) {
+	 noexcept(false) {
 
   // Mutex to avoid mutithread access
   pthread_mutex_lock(&mutexBusAdapter_) ;
@@ -2175,7 +2166,7 @@ void FecVmeRingDevice::autoNumberingSchema ( const HAL::AddressTableInterface& a
    board itself and not only the rings registers.
    The first mezzanine must be always plugged at the first place from the top of the FEC. This is mandatory for the load of the firmware
 */
-tscType16 FecVmeRingDevice::detectVmeBoard(HAL::VME64xDevice *vmedevice, tscType8 fecSlot) throw ( FecExceptionHandler ) {
+tscType16 FecVmeRingDevice::detectVmeBoard(HAL::VME64xDevice *vmedevice, tscType8 fecSlot) noexcept(false) {
 
   uint32_t confValue;
   
@@ -2271,7 +2262,7 @@ tscType16 FecVmeRingDevice::detectVmeBoard(HAL::VME64xDevice *vmedevice, tscType
 /** Delete all the statics value allowed for VME 64x or in automatic detection
  * Never call this method if you are multithreaded, the busAdapter_ is shared between the threads
  */
-void FecVmeRingDevice::closeFecVmeAccess ( ) throw (HAL::BusAdapterException) {
+void FecVmeRingDevice::closeFecVmeAccess ( ) noexcept(false) {
 
   if (busAdapter_.size() != 0) {
     for (Sgi::hash_map<uint32_t, HAL::VMEBusAdapterInterface *>::iterator vme = busAdapter_.begin() ; vme != busAdapter_.end() ; vme ++) {
@@ -2299,7 +2290,7 @@ void FecVmeRingDevice::closeFecVmeAccess ( ) throw (HAL::BusAdapterException) {
 
 /** Hard reset of the VME crate
  */
-void FecVmeRingDevice::crateReset ( uint32_t adapterSlot ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::crateReset ( uint32_t adapterSlot ) noexcept(false) {
   pthread_mutex_lock(&mutexCrateReset_);
   if (crateResetDone) {
     std::cerr << "Crate reset for adapterSlot "<<adapterSlot<< " already done !" << std::endl;
@@ -2351,7 +2342,7 @@ void FecVmeRingDevice::crateReset ( uint32_t adapterSlot ) throw ( FecExceptionH
 /** Read an hardware ID from a VME board
  * \param slot of the VME board
  */
-std::string FecVmeRingDevice::getSerialNumber ( uint32_t slot, uint32_t adapterSlot ) throw ( FecExceptionHandler ) {
+std::string FecVmeRingDevice::getSerialNumber ( uint32_t slot, uint32_t adapterSlot ) noexcept(false) {
 
   std::string serialNumber ;
 
@@ -2401,7 +2392,7 @@ std::string FecVmeRingDevice::getSerialNumber () {
 
 /**  \brief return trigger version number (firmware)
  */
-tscType32 FecVmeRingDevice::getTriggerVersion() throw ( FecExceptionHandler ) {
+tscType32 FecVmeRingDevice::getTriggerVersion() noexcept(false) {
   uint32_t triggerVersion, value;
   try {
 
@@ -2495,7 +2486,7 @@ tscType32 FecVmeRingDevice::getTriggerVersion() throw ( FecExceptionHandler ) {
 
 /**  \brief return VME slave version number
  */
-tscType32 FecVmeRingDevice::getVmeVersion() throw ( FecExceptionHandler ) {
+tscType32 FecVmeRingDevice::getVmeVersion() noexcept(false) {
   uint32_t VmeVersion;
   try {
     currentVmeBoard_->read("VME_VERSION_FW",(haltype *)&VmeVersion);
@@ -2581,7 +2572,7 @@ tscType32 FecVmeRingDevice::getVmeVersion() throw ( FecExceptionHandler ) {
 /**  \brief Reload all the uFECs on the board. Sleep about 1 sec after that.
  * \param value - 1 for mFECs (by default), 2 for trigger FPGA, 4 for VME FPGA
  */
-void FecVmeRingDevice::uFecsReload( tscType8 value ) throw ( FecExceptionHandler ) {
+void FecVmeRingDevice::uFecsReload( tscType8 value ) noexcept(false) {
 
   try {
     currentVmeBoard_->write("RELOAD_FW",value);

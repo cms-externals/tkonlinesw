@@ -31,7 +31,7 @@
  * \param threaded - create a dedicated access
  */
 DbTkIdVsHostnameAccess::DbTkIdVsHostnameAccess( bool threaded ) 
-  throw (oracle::occi::SQLException) : 
+  noexcept(false) : 
   DbCommonAccess (threaded) {
 }
 
@@ -42,13 +42,13 @@ DbTkIdVsHostnameAccess::DbTkIdVsHostnameAccess( bool threaded )
  * \param threaded - create a dedicated access
  */
 DbTkIdVsHostnameAccess::DbTkIdVsHostnameAccess ( std::string user, std::string passwd, std::string dbPath, bool threaded  ) 
-  throw (oracle::occi::SQLException): 
+  noexcept(false): 
   DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /** Nothing
  */
-DbTkIdVsHostnameAccess::~DbTkIdVsHostnameAccess ( ) throw (oracle::occi::SQLException) {
+DbTkIdVsHostnameAccess::~DbTkIdVsHostnameAccess ( ) noexcept(false) {
 }
 
 /** Download all the ID versus hostname for a given version (option)
@@ -57,7 +57,7 @@ DbTkIdVsHostnameAccess::~DbTkIdVsHostnameAccess ( ) throw (oracle::occi::SQLExce
  * \return a clob with the XML buffer
  */
 oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClob( unsigned int versionMajorId, unsigned int versionMinorId ) 
-  throw (oracle::occi::SQLException) {
+  noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgIdVsHostnameXML.getAllIdVsHostname(:versionMajor,:versionMinor);END;";
 
@@ -104,7 +104,7 @@ oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClob( unsigned int versionMajo
  * \return a clob with the XML buffer
  */
 oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClobFromHostname( std::string hostname, unsigned int versionMajorId, unsigned int versionMinorId ) 
-  throw (oracle::occi::SQLException) {
+  noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgIdVsHostnameXML.getAllIdFromHostname(:hostname,:versionMajor,:versionMinor);END;";
 
@@ -153,7 +153,7 @@ oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClobFromHostname( std::string 
  * \return a clob with the XML buffer
  */
 oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClobFromHostnameSlot ( std::string hostname, unsigned int slot, unsigned int versionMajorId, unsigned int versionMinorId ) 
-  throw (oracle::occi::SQLException) {
+  noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgIdVsHostnameXML.getIdFromHostnameSlot(:hostname,:slot,:versionMajor,:versionMinor);END;";
 
@@ -204,7 +204,7 @@ oracle::occi::Clob *DbTkIdVsHostnameAccess::getXMLClobFromHostnameSlot ( std::st
  * \param versionMinorId - version major ID, 0 for current state
  */
 void DbTkIdVsHostnameAccess::getSubDetectorCrateNumber ( std::string hostname, std::string &subDetector, unsigned int &crateNumber, unsigned int versionMajorId, unsigned int versionMinorId ) 
-  throw (oracle::occi::SQLException) {
+  noexcept(false) {
 
   static std::string writeString = "BEGIN PkgIdVsHostnameXML.getSubDetectorCrateNumber(:hostname,:subdetector,:crateNumber,:versionMajor,:versionMinor);END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -242,7 +242,7 @@ void DbTkIdVsHostnameAccess::getSubDetectorCrateNumber ( std::string hostname, s
  * \param versionMinorId - version major ID, output
  */
 void DbTkIdVsHostnameAccess::getTkIdVsHostnameVersion ( unsigned int &versionMajorId, unsigned int &versionMinorId ) 
-  throw (oracle::occi::SQLException) {
+  noexcept(false) {
 
   static std::string writeString = "BEGIN PkgIdVsHostnameXML.getCurrentVersion(:versionMajor,:versionMinor);END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -273,7 +273,7 @@ void DbTkIdVsHostnameAccess::getTkIdVsHostnameVersion ( unsigned int &versionMaj
 /** Upload a clob containing a XML buffer to database
  * \param buffer - XML buffer
  */
-void DbTkIdVsHostnameAccess::setXMLClob (std::string buffer, bool major) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbTkIdVsHostnameAccess::setXMLClob (std::string buffer, bool major) noexcept(false) {
 
   static std::string writeString = "BEGIN PkgIdVsHostnameXML.configureXMLClob(:buffer,:versionmajor,:versionminor,:major); END;";
   oracle::occi::Statement *stmt = NULL ;

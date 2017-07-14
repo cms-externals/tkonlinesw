@@ -26,7 +26,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbTkMaskModulesAccess::DbTkMaskModulesAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {
+DbTkMaskModulesAccess::DbTkMaskModulesAccess ( bool threaded ) noexcept(false) : DbCommonAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -37,14 +37,14 @@ DbTkMaskModulesAccess::DbTkMaskModulesAccess ( bool threaded ) throw (oracle::oc
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbTkMaskModulesAccess::DbTkMaskModulesAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbCommonAccess (user, passwd, dbPath, threaded) {
+DbTkMaskModulesAccess::DbTkMaskModulesAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbCommonAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbTkMaskModulesAccess::~DbTkMaskModulesAccess ()  throw (oracle::occi::SQLException) {
+DbTkMaskModulesAccess::~DbTkMaskModulesAccess ()  noexcept(false) {
 }
 
 /**
@@ -55,7 +55,7 @@ DbTkMaskModulesAccess::~DbTkMaskModulesAccess ()  throw (oracle::occi::SQLExcept
  * \param pVersionMinor - mask version minor ID
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  */
-void DbTkMaskModulesAccess::getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::getCurrentMaskVersion ( std::string pPartitionName, unsigned int *pPartitionId, unsigned int *pVersionMajor, unsigned int *pVersionMinor) noexcept(false) { 
 
   static std::string sqlQuery = "SELECT DISTINCT Partition.partitionId, StateHistory.maskVersionMajorId, StateHistory.maskVersionMinorId FROM CurrentState, StateHistory, Partition  WHERE StateHistory.stateHistoryId = CurrentState.stateHistoryId AND StateHistory.partitionId=Partition.partitionId AND Partition.partitionName = :partitionName" ;
 
@@ -92,7 +92,7 @@ void DbTkMaskModulesAccess::getCurrentMaskVersion ( std::string pPartitionName, 
  * \param pVersionMinor - mask version minor ID
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::copyMask
  */
-void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int pVersionMajor, unsigned int pVersionMinor, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.copyMask(:pPartitionName, :pVersionMajor, :pVersionMinor); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -124,7 +124,7 @@ void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int 
  * \param pPartitionName - partition name*
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::copyMask
  */
-void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.copyMask(:pPartitionName); END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -154,7 +154,7 @@ void DbTkMaskModulesAccess::copyMask ( std::string pPartitionName, unsigned int 
  * \param pPartitionName - partition name
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::resetMask
  */
-void DbTkMaskModulesAccess::resetMask ( std::string pPartitionName) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::resetMask ( std::string pPartitionName) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.resetMask(:pPartitionName); END;";
   oracle::occi::Statement *stmt = NULL ;
@@ -181,7 +181,7 @@ void DbTkMaskModulesAccess::resetMask ( std::string pPartitionName) throw (oracl
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFedModules(:pPartitionName, :pFedSoftId, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -215,7 +215,7 @@ void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFedModules(:pPartitionName, :pFedSoftId, :pFedChannel, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -251,7 +251,7 @@ void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFedModules
  */
-void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigned int pFedSoftId, unsigned int pFedChannel, unsigned int pApvFed, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFedModules(:pPartitionName, :pFedSoftId, :pFedChannel, :pApvFed, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -287,7 +287,7 @@ void DbTkMaskModulesAccess::maskFedModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecSlot, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -321,7 +321,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecHardId, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -356,7 +356,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::st
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecSlot, :pRing, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -392,7 +392,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecHardId, :pRing, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -429,7 +429,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::st
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecSlot, :pRing, :pCcuAddress, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -467,7 +467,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecHardId, :pRing, :pCcuAddress, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -506,7 +506,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::st
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecSlot, :pRing, :pCcuAddress, :pChannel, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -546,7 +546,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecHardId, :pRing, :pCcuAddress, :pChannel, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -587,7 +587,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::st
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigned int pFecSlot, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecSlot, :pRing, :pCcuAddress, :pChannel, :pAddress, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -629,7 +629,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, unsigne
  * \param newMajorVersion - 1 means that you create a new version, 0 means you add to the current state the devices to be disabled
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::string pFecHardId, unsigned int pRing, unsigned int pCcuAddress, unsigned int pChannel, unsigned int pAddress, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskFecModules(:pPartitionName, :pFecHardId, :pRing, :pCcuAddress, :pChannel, :pAddress, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -668,7 +668,7 @@ void DbTkMaskModulesAccess::maskFecModules ( std::string pPartitionName, std::st
  * \see maskFecModules ( std::string pPartitionName, pFecHardId, pRing, pCcuAddress, pChannel, unsigned int newMajorVersion )
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskDcuModule ( std::string pPartitionName, unsigned int pDcuHardId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskDcuModule(:pPartitionName, :pDcuHardId, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -703,7 +703,7 @@ void DbTkMaskModulesAccess::maskDcuModule ( std::string pPartitionName, unsigned
  * \see maskDcuModule ( std::string pPartitionName, dcuHardId, unsigned int newMajorVersion);
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskDetIdModule ( std::string pPartitionName, unsigned int pDetId, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskDetIdModule(:pPartitionName, :pDetId, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;
@@ -738,7 +738,7 @@ void DbTkMaskModulesAccess::maskDetIdModule ( std::string pPartitionName, unsign
  * \see maskDcuModule ( std::string pPartitionName, dcuHardId, unsigned int newMajorVersion);
  * \see Database/Packages/src/PkgMaskModules.sql, PkgMaskModules::maskFecModules
  */
-void DbTkMaskModulesAccess::maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) throw (oracle::occi::SQLException) { 
+void DbTkMaskModulesAccess::maskPsuNameModules ( std::string pPartitionName, std::string pPsuName, unsigned int newMajorVersion, unsigned int *outMaskVersionMajor, unsigned int *outMaskVersionMinor) noexcept(false) { 
 
   static std::string queryString = "BEGIN PkgMaskModules.maskPsuNameModules(:pPartitionName, :pPsuName, :newMajorVersion); END;" ;
   oracle::occi::Statement *stmt = NULL ;

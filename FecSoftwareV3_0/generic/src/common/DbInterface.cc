@@ -260,7 +260,7 @@ void DbInterface::clearDetIdDescriptions ( ) {
  * \param partitionNumber - output partition ID in the database
  */
 void DbInterface::getFedPartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskVersionMajor, unsigned int *maskVersionMinor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   tkStateVector dbStates = deviceFactory_->getCurrentStates () ;
   tkStateVector::iterator itState = dbStates.begin() ;

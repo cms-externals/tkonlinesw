@@ -35,7 +35,7 @@ namespace Fed9U {
 
     /**Method which modifies the Fed9UDescription. 
      It modifies the object member reference to the Fed9UDescription.*/
-    //    vector<Fed9UDescription*>*  makeNewFed9UDescription(void) throw (Fed9U::Fed9UXMLDescriptionException);
+    //    vector<Fed9UDescription*>*  makeNewFed9UDescription(void) noexcept(false);
 
   private:
     std::string theXMLFileName;

@@ -34,7 +34,7 @@ using namespace XERCES_CPP_NAMESPACE ;
  * @see <I>XMLCommonFec::XMLCommonFec()</I>
  * @see <I>XMLTkDcuInfo::init()</I>
  */
-XMLTkDcuInfo::XMLTkDcuInfo () throw (FecExceptionHandler) :
+XMLTkDcuInfo::XMLTkDcuInfo () noexcept(false) :
   XMLCommonFec ()  {
   countDCUInfo_ = countState_ = countRun_ = countVersion_ = 0 ;
   initParameterNames() ;
@@ -49,7 +49,7 @@ XMLTkDcuInfo::XMLTkDcuInfo () throw (FecExceptionHandler) :
  * @see <I>XMLCommonFec::XMLCommonFec(const XMLByte* xmlBuffer)</I>
  * @see <I>XMLTkDcuInfo::init()</I>
  */
-XMLTkDcuInfo::XMLTkDcuInfo (const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ){
+XMLTkDcuInfo::XMLTkDcuInfo (const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ){
 
   countDCUInfo_ = countState_ = countRun_ = countVersion_ = 0 ;
   initParameterNames() ;
@@ -64,7 +64,7 @@ XMLTkDcuInfo::XMLTkDcuInfo (const XMLByte* xmlBuffer ) throw (FecExceptionHandle
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuInfo::init()</I>
  */
-XMLTkDcuInfo::XMLTkDcuInfo ( DbTkDcuInfoAccess *dbAccess )throw (FecExceptionHandler) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
+XMLTkDcuInfo::XMLTkDcuInfo ( DbTkDcuInfoAccess *dbAccess )noexcept(false) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
 
   countDCUInfo_ = countState_ = countRun_ = countVersion_ = 0 ;
   initParameterNames() ;
@@ -79,7 +79,7 @@ XMLTkDcuInfo::XMLTkDcuInfo ( DbTkDcuInfoAccess *dbAccess )throw (FecExceptionHan
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLTkDcuInfo::init()</I>
  */
-XMLTkDcuInfo::XMLTkDcuInfo ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLTkDcuInfo::XMLTkDcuInfo ( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
 
   countDCUInfo_ = countState_ = countRun_ = countVersion_ = 0 ;
   initParameterNames() ;
@@ -224,7 +224,7 @@ unsigned int XMLTkDcuInfo::parseAttributes ( XERCES_CPP_NAMESPACE::DOMNode *n ) 
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLTkDcuInfo::parseXMLBuffer()
  */
-tkDcuInfoVector XMLTkDcuInfo::getDcuInfos () throw (FecExceptionHandler) {
+tkDcuInfoVector XMLTkDcuInfo::getDcuInfos () noexcept(false) {
 
   parseXMLBuffer();
 
@@ -244,7 +244,7 @@ tkDcuInfoVector XMLTkDcuInfo::getDcuInfos () throw (FecExceptionHandler) {
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLTkDcuInfo::parseDatabaseResponse(std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
@@ -305,7 +305,7 @@ void XMLTkDcuInfo::parseDatabaseResponse(std::string partitionName, unsigned int
  *    - the dataBaseAccess have not been intialized
  */
 void XMLTkDcuInfo::parseDatabaseResponse() 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
 #ifdef DATABASEDEBUG
@@ -366,7 +366,7 @@ void XMLTkDcuInfo::parseDatabaseResponse()
  *    - the dataBaseAccess have not been intialized
  */
 void XMLTkDcuInfo::parseDatabaseResponse(unsigned int majorVersionId, unsigned int minorVersionId) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
 
 #ifdef DATABASEDEBUG
@@ -423,7 +423,7 @@ void XMLTkDcuInfo::parseDatabaseResponse(unsigned int majorVersionId, unsigned i
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseStateDatabaseResponse() throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseStateDatabaseResponse() noexcept(false){
   std::string xmlBufferId = "theXMLBufferForState";
   
 #ifdef DATABASEDEBUG
@@ -480,7 +480,7 @@ void XMLTkDcuInfo::parseStateDatabaseResponse() throw (FecExceptionHandler){
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseFecVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseFecVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForFecVersion";
   
 #ifdef DATABASEDEBUG
@@ -537,7 +537,7 @@ void XMLTkDcuInfo::parseFecVersionsDatabaseResponse(std::string partitionName) t
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseFedVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseFedVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForFedVersion";
   
 #ifdef DATABASEDEBUG
@@ -594,7 +594,7 @@ void XMLTkDcuInfo::parseFedVersionsDatabaseResponse(std::string partitionName) t
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseDcuInfoVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseDcuInfoVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForDcuInfoVersion";
   
 #ifdef DATABASEDEBUG
@@ -651,7 +651,7 @@ void XMLTkDcuInfo::parseDcuInfoVersionsDatabaseResponse(std::string partitionNam
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseConnectionVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseConnectionVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForConnectionVersion";
   
 #ifdef DATABASEDEBUG
@@ -708,7 +708,7 @@ void XMLTkDcuInfo::parseConnectionVersionsDatabaseResponse(std::string partition
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseDcuPsuMapVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseDcuPsuMapVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForDcuPsuMapVersion";
   
 #ifdef DATABASEDEBUG
@@ -765,7 +765,7 @@ void XMLTkDcuInfo::parseDcuPsuMapVersionsDatabaseResponse(std::string partitionN
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseMaskVersionsDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseMaskVersionsDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForMaskVersion";
   
 #ifdef DATABASEDEBUG
@@ -823,7 +823,7 @@ void XMLTkDcuInfo::parseMaskVersionsDatabaseResponse(std::string partitionName) 
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForRun";
   
 #ifdef DATABASEDEBUG
@@ -880,7 +880,7 @@ void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName) throw (Fe
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseRunDatabaseResponse() throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseRunDatabaseResponse() noexcept(false){
   std::string xmlBufferId = "theXMLBufferForRun";
   
 #ifdef DATABASEDEBUG
@@ -938,7 +938,7 @@ void XMLTkDcuInfo::parseRunDatabaseResponse() throw (FecExceptionHandler){
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName, int runNumber) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName, int runNumber) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForRun";
   
 #ifdef DATABASEDEBUG
@@ -995,7 +995,7 @@ void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName, int runNu
  *    - the sql request throws a oracle::occi::SQLException
  *    - the dataBaseAccess have not been intialized
  */
-void XMLTkDcuInfo::parseLastRunO2ODatabaseResponse(std::string partitionName) throw (FecExceptionHandler){
+void XMLTkDcuInfo::parseLastRunO2ODatabaseResponse(std::string partitionName) noexcept(false){
   std::string xmlBufferId = "theXMLBufferForRun";
   
 #ifdef DATABASEDEBUG
@@ -1055,7 +1055,7 @@ void XMLTkDcuInfo::parseLastRunO2ODatabaseResponse(std::string partitionName) th
  * @see <I>XMLCommonFec::parseDatabaseResponse(std::string partitionName)</I>
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuInfoVector XMLTkDcuInfo::getDcuInfos (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+tkDcuInfoVector XMLTkDcuInfo::getDcuInfos (std::string partitionName, unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
 
   parseDatabaseResponse(partitionName, majorVersionId, minorVersionId);
   parseXMLBuffer();
@@ -1070,7 +1070,7 @@ tkDcuInfoVector XMLTkDcuInfo::getDcuInfos (std::string partitionName, unsigned i
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos (unsigned int majorVersionId, unsigned int minorVersionId) throw (FecExceptionHandler) {
+tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos (unsigned int majorVersionId, unsigned int minorVersionId) noexcept(false) {
   parseDatabaseResponse(majorVersionId, minorVersionId);
   parseXMLBuffer();
   return dVector_;
@@ -1084,7 +1084,7 @@ tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos (unsigned int majorVersionId, unsig
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos () throw (FecExceptionHandler) {
+tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos () noexcept(false) {
   parseDatabaseResponse();
   parseXMLBuffer();
   return dVector_;
@@ -1098,7 +1098,7 @@ tkDcuInfoVector XMLTkDcuInfo::getAllDcuInfos () throw (FecExceptionHandler) {
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkStateVector XMLTkDcuInfo::getAllCurrentStates () throw (FecExceptionHandler){
+tkStateVector XMLTkDcuInfo::getAllCurrentStates () noexcept(false){
   parseStateDatabaseResponse();
   parseXMLBuffer();
 
@@ -1113,7 +1113,7 @@ tkStateVector XMLTkDcuInfo::getAllCurrentStates () throw (FecExceptionHandler){
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllFecVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllFecVersions (std::string partitionName) noexcept(false){
   parseFecVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1128,7 +1128,7 @@ tkVersionVector XMLTkDcuInfo::getAllFecVersions (std::string partitionName) thro
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllDcuInfoVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllDcuInfoVersions (std::string partitionName) noexcept(false){
   parseDcuInfoVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1143,7 +1143,7 @@ tkVersionVector XMLTkDcuInfo::getAllDcuInfoVersions (std::string partitionName) 
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllConnectionVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllConnectionVersions (std::string partitionName) noexcept(false){
   parseConnectionVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1158,7 +1158,7 @@ tkVersionVector XMLTkDcuInfo::getAllConnectionVersions (std::string partitionNam
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllDcuPsuMapVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllDcuPsuMapVersions (std::string partitionName) noexcept(false){
   parseDcuPsuMapVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1173,7 +1173,7 @@ tkVersionVector XMLTkDcuInfo::getAllDcuPsuMapVersions (std::string partitionName
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllMaskVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllMaskVersions (std::string partitionName) noexcept(false){
   parseMaskVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1189,7 +1189,7 @@ tkVersionVector XMLTkDcuInfo::getAllMaskVersions (std::string partitionName) thr
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkVersionVector XMLTkDcuInfo::getAllFedVersions (std::string partitionName) throw (FecExceptionHandler){
+tkVersionVector XMLTkDcuInfo::getAllFedVersions (std::string partitionName) noexcept(false){
   parseFedVersionsDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1204,7 +1204,7 @@ tkVersionVector XMLTkDcuInfo::getAllFedVersions (std::string partitionName) thro
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-TkRun *XMLTkDcuInfo::getLastRun (std::string partitionName) throw (FecExceptionHandler){
+TkRun *XMLTkDcuInfo::getLastRun (std::string partitionName) noexcept(false){
   parseRunDatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1228,7 +1228,7 @@ TkRun *XMLTkDcuInfo::getLastRun (std::string partitionName) throw (FecExceptionH
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-TkRun *XMLTkDcuInfo::getRun (std::string partitionName, unsigned int runNumber) throw (FecExceptionHandler){
+TkRun *XMLTkDcuInfo::getRun (std::string partitionName, unsigned int runNumber) noexcept(false){
   parseRunDatabaseResponse(partitionName, runNumber);
   parseXMLBuffer();
 
@@ -1252,7 +1252,7 @@ TkRun *XMLTkDcuInfo::getRun (std::string partitionName, unsigned int runNumber) 
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-tkRunVector XMLTkDcuInfo::getAllRuns () throw (FecExceptionHandler){
+tkRunVector XMLTkDcuInfo::getAllRuns () noexcept(false){
   parseRunDatabaseResponse();
   parseXMLBuffer();
 
@@ -1267,7 +1267,7 @@ tkRunVector XMLTkDcuInfo::getAllRuns () throw (FecExceptionHandler){
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-TkRun *XMLTkDcuInfo::getLastO2ORun (std::string partitionName) throw (FecExceptionHandler){
+TkRun *XMLTkDcuInfo::getLastO2ORun (std::string partitionName) noexcept(false){
   parseLastRunO2ODatabaseResponse(partitionName);
   parseXMLBuffer();
 
@@ -1293,7 +1293,7 @@ TkRun *XMLTkDcuInfo::getLastO2ORun (std::string partitionName) throw (FecExcepti
  *     - the MemBufOutputSource created from the parameter <I>dVector</I> is not initialized 
  * @see XMLFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLTkDcuInfo::setDcuInfos ( tkDcuInfoVector dVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLTkDcuInfo::setDcuInfos ( tkDcuInfoVector dVector, std::string outputFileName) noexcept(false) {
 
   if (dVector.size()) {
     MemBufOutputSource memBufOS(dVector );
@@ -1309,7 +1309,7 @@ void XMLTkDcuInfo::setDcuInfos ( tkDcuInfoVector dVector, std::string outputFile
  * @exception FecExceptionHandler
  * @see XMLTkDcuInfo::setDevices ( tkDcuInfoVector dVector, std::string outputFileName)
  */
-void XMLTkDcuInfo::setDcuInfos ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLTkDcuInfo::setDcuInfos ( std::string outputFileName ) noexcept(false) {
   setDcuInfos( dVector_, outputFileName);
 }
 
@@ -1320,7 +1320,7 @@ void XMLTkDcuInfo::setDcuInfos ( std::string outputFileName ) throw (FecExceptio
  * Copy all elements from <I>dcuInfos</I> parameter to <I>pVector_</I> attribute
  * @exception FecExceptionHandler : a FecExceptionHandler is raised, if <I>pVector_</I> is NULL
  */
-void XMLTkDcuInfo::setDcuInfoVector (tkDcuInfoVector dcuInfos) throw (FecExceptionHandler) {
+void XMLTkDcuInfo::setDcuInfoVector (tkDcuInfoVector dcuInfos) noexcept(false) {
   // empty and delete previous dVector_
   // delete all elements
   if (dVector_.size()) {
@@ -1350,7 +1350,7 @@ void XMLTkDcuInfo::setDcuInfoVector (tkDcuInfoVector dcuInfos) throw (FecExcepti
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLTkDcuInfo::setDcuInfos (tkDcuInfoVector dVector)  throw (FecExceptionHandler) {
+void XMLTkDcuInfo::setDcuInfos (tkDcuInfoVector dVector)  noexcept(false) {
   MemBufOutputSource memBufOS(dVector, true);
   try {
     if (dataBaseAccess_){
@@ -1373,7 +1373,7 @@ void XMLTkDcuInfo::setDcuInfos (tkDcuInfoVector dVector)  throw (FecExceptionHan
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
  * @see DbAccess::setXMLClob(std::string xmlBuffer, unsigned int versionMajor, unsigned int versionMinor);
  */
-void XMLTkDcuInfo::setDcuInfos ()  throw (FecExceptionHandler) {
+void XMLTkDcuInfo::setDcuInfos ()  noexcept(false) {
   setDcuInfos(dVector_);
 }
 
@@ -1388,7 +1388,7 @@ void XMLTkDcuInfo::setDcuInfos ()  throw (FecExceptionHandler) {
  *     - the buffer to be sent <I>memBufOS</I> or <I>dataBaseAccess_</I> is not initialized
  *     - a SQLException is thrown during the PL/SQL statement creation or execution
 */
-void XMLTkDcuInfo::dbConfigure() throw (FecExceptionHandler) {
+void XMLTkDcuInfo::dbConfigure() noexcept(false) {
 
   MemBufOutputSource memBufOS(dVector_, true);
 

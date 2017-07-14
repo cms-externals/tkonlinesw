@@ -44,7 +44,7 @@ FecFactory::FecFactory (  ):
  * \param threaded - this parameter define if you want or not to share the connections between all applications (by default false)
  */
 FecFactory::FecFactory ( std::string login, std::string password, std::string path, bool threaded ) 
-  throw ( oracle::occi::SQLException ):
+  noexcept(false):
   FecDeviceFactory (login, password, path, threaded),
   PiaResetFactory (login, password, path, threaded) {
 }
@@ -74,7 +74,7 @@ void FecFactory::setOutputFileName ( std::string outputFileName ) {
 /** Set a file as the new input, same method than addFecFileName but the previous devices and pia are deleted
  * \param inputFileName - new input file
  */
-void FecFactory::setInputFileName ( std::string inputFileName ) throw ( FecExceptionHandler ) {
+void FecFactory::setInputFileName ( std::string inputFileName ) noexcept(false) {
 
   FecDeviceFactory::setInputFileName (inputFileName) ;
   PiaResetFactory::setInputFileName (inputFileName) ;
@@ -85,7 +85,7 @@ void FecFactory::setInputFileName ( std::string inputFileName ) throw ( FecExcep
  * \param inputFileName - new input file
  * \param fecHardwareId - FEC hardware ID
  */
-void FecFactory::setInputFileName ( std::string inputFileName, std::string fecHardwareId ) throw ( FecExceptionHandler ) {
+void FecFactory::setInputFileName ( std::string inputFileName, std::string fecHardwareId ) noexcept(false) {
 
   FecDeviceFactory::setInputFileName (inputFileName, fecHardwareId) ;
   PiaResetFactory::setInputFileName (inputFileName, fecHardwareId) ;
@@ -102,7 +102,7 @@ std::string FecFactory::getOutputFileName ( ) {
 /** Add a new file name and parse it to retreive the information needed
  * \param fileName - name of the XML file
  */
-void FecFactory::addFileName ( std::string fileName ) throw ( FecExceptionHandler ) {
+void FecFactory::addFileName ( std::string fileName ) noexcept(false) {
 
   FecDeviceFactory::addFileName (fileName) ;
   PiaResetFactory::addFileName (fileName) ;
@@ -111,7 +111,7 @@ void FecFactory::addFileName ( std::string fileName ) throw ( FecExceptionHandle
 /** Add a new file name and parse it to retreive the information needed
  * \param fileName - name of the XML file
  */
-void FecFactory::addFileName ( std::string fileName, std::string fecHardwareId ) throw ( FecExceptionHandler ) {
+void FecFactory::addFileName ( std::string fileName, std::string fecHardwareId ) noexcept(false) {
 
   FecDeviceFactory::addFileName (fileName, fecHardwareId) ;
   PiaResetFactory::addFileName (fileName, fecHardwareId) ;
@@ -136,7 +136,7 @@ void FecFactory::setUsingFile ( bool useIt ) {
 /** 
  * \param useIt - use the database, the database must be created, if not an exception is raised
  */
-void FecFactory::setUsingDb ( bool useIt ) throw (std::string) {
+void FecFactory::setUsingDb ( bool useIt ) noexcept(false) {
   FecDeviceFactory::setUsingDb(useIt) ;
   PiaResetFactory::setUsingDb(useIt) ;
 }
@@ -163,7 +163,7 @@ bool FecFactory::getDbConnected ( ) {
  * \param path - path to database
  * \warning in the destructor of FecFactory, the dbFecAccess is deleted
  */
-void FecFactory::setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) {
+void FecFactory::setDatabaseAccess ( ) noexcept(false) {
 
   FecDeviceFactory::setDatabaseAccess () ;
   PiaResetFactory::setDatabaseAccess () ;
@@ -175,7 +175,7 @@ void FecFactory::setDatabaseAccess ( ) throw ( oracle::occi::SQLException ) {
  * \param path - path to database
  * \warning in the destructor of FecFactory, the dbFecAccess is deleted
  */
-void FecFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) throw ( oracle::occi::SQLException ) {
+void FecFactory::setDatabaseAccess ( std::string login, std::string password, std::string path ) noexcept(false) {
 
   FecDeviceFactory::setDatabaseAccess (login, password, path ) ;
   PiaResetFactory::setDatabaseAccess (login, password, path ) ;
@@ -191,7 +191,7 @@ DbFecAccess *FecFactory::getDatabaseAccess ( ) {
 
 /** \return the partition name
  */
-std::string FecFactory::getPartitionName ( unsigned int partitionId )  throw (oracle::occi::SQLException) {
+std::string FecFactory::getPartitionName ( unsigned int partitionId )  noexcept(false) {
 
   return (FecDeviceFactory::getPartitionName (partitionId)) ;
 }
@@ -211,7 +211,7 @@ std::string FecFactory::getPartitionName ( unsigned int partitionId )  throw (or
  * \param partitionNumber - partition number returned
  */
 void FecFactory::getFecDevicePartitionVersion ( std::string partitionName, unsigned int *major, unsigned int *minor, unsigned int *maskMajor, unsigned int *maskMinor, unsigned int *partitionNumber ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
 
   return (FecDeviceFactory::getPartitionVersion ( partitionName, major, minor, maskMajor, maskMinor, partitionNumber )) ;
 }
@@ -220,7 +220,7 @@ void FecFactory::getFecDevicePartitionVersion ( std::string partitionName, unsig
  * \return the information about partition versus version
  */
 void FecFactory::setFecDevicePartitionVersion ( std::string partitionName, unsigned int versionMajor, unsigned int versionMinor ) 
-  throw (oracle::occi::SQLException, FecExceptionHandler ) {
+  noexcept(false) {
   
   FecDeviceFactory::setPartitionVersion ( partitionName, versionMajor, versionMinor ) ;
 }
@@ -236,7 +236,7 @@ void FecFactory::setFecDevicePartitionVersion ( std::string partitionName, unsig
  * \see XMLFecPiaReset::dbConfigure ( ) and XMLFecDevice::dbConfigure(std::string, std::string)
  */
 void FecFactory::createPartition ( deviceVector devices, piaResetVector piaDevices, unsigned int *deviceMajor, unsigned int *deviceMinor, std::string partitionName, bool createPartitionFlag ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if ( (FecDeviceFactory::getDatabaseAccess() != NULL) &&
        (PiaResetFactory::getDatabaseAccess() != NULL)  &&
@@ -264,7 +264,7 @@ void FecFactory::createPartition ( deviceVector devices, piaResetVector piaDevic
  * \param versionMinor - minor version created
  */
 void FecFactory::createPartition ( deviceVector devices, unsigned int *versionMajor, unsigned int *versionMinor, std::string partitionName, bool createPartitionFlag ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   FecDeviceFactory::createPartition (devices, versionMajor, versionMinor, partitionName, createPartitionFlag ) ;
 }
@@ -273,7 +273,7 @@ void FecFactory::createPartition ( deviceVector devices, unsigned int *versionMa
  * \param partitionName - partition name
  */
 void FecFactory::createPartition ( piaResetVector devices, std::string partitionName )
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   PiaResetFactory::createPartition (devices, partitionName ) ;
 }
@@ -294,7 +294,7 @@ void FecFactory::createPartition ( piaResetVector devices, std::string partition
  * \See creationPartition (deviceVector, piaResetVector, int *, int *, std::string, std::string)
  */
 void FecFactory::setFecDevicePiaDescriptions ( deviceVector devices, piaResetVector piaDevices, std::string partitionName, unsigned int *deviceMajor, unsigned int *deviceMinor ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
 #ifdef DATABASE
   if ( FecDeviceFactory::getDbUsed() && PiaResetFactory::getDbUsed() && deviceMajor != NULL && deviceMinor != NULL ) {
@@ -321,7 +321,7 @@ void FecFactory::setFecDevicePiaDescriptions ( deviceVector devices, piaResetVec
  * \param fecPiaDevices - a vector of pia reset
  */
 void FecFactory::setFecDevicePiaDescriptions ( deviceVector devices, piaResetVector piaDevices ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   if (!devices.empty() && !piaDevices.empty()) {
     
@@ -348,7 +348,7 @@ void FecFactory::setFecDevicePiaDescriptions ( deviceVector devices, piaResetVec
  * \return pointer to the memory (NULL in case of problem)
  * \warning this method simply produce a memory with an XML buffer. The pointer allocated with new (so use delete to delete it) should be deleted by the caller of this method.
  */
-void *FecFactory::writeTo ( std::vector<TkRingDescription *> &rings, unsigned int &sizeOfAllocation ) throw (FecExceptionHandler) {
+void *FecFactory::writeTo ( std::vector<TkRingDescription *> &rings, unsigned int &sizeOfAllocation ) noexcept(false) {
 
   std::stringstream buffer ;
 
@@ -380,7 +380,7 @@ void *FecFactory::writeTo ( std::vector<TkRingDescription *> &rings, unsigned in
  * \warning it is up the caller to delete the TkRingDescription returned
  * \warning this method is parsing the memory passed based on XML buffer
  */
-std::vector<TkRingDescription *> FecFactory::readFrom ( const void *memory ) throw (FecExceptionHandler) {
+std::vector<TkRingDescription *> FecFactory::readFrom ( const void *memory ) noexcept(false) {
 
   //XMLByte *xmlBuffer = new XMLByte[sizeOfAllocation];
   //memcpy((void *)xmlBuffer,memory,sizeOfAllocation) ;

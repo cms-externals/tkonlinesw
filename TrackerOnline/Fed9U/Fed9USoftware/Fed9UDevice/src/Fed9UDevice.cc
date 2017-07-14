@@ -865,7 +865,7 @@ namespace Fed9U {
     return static_cast<u16>(mean);
   }
   
-  u32 Fed9UDevice::purgeEvents() throw (Fed9UVmeDeviceException) {
+  u32 Fed9UDevice::purgeEvents() noexcept(false) {
      cout << "Entering Fed9UDevice::PurgeEvents() in FED ID : " << getFedId() << endl;
      try {
       std::ostringstream mess;
@@ -942,7 +942,7 @@ namespace Fed9U {
   boost::shared_array<u8> Fed9UDevice::readCompleteSpyEvent(const std::vector<bool>& delayChipsEnabled, const u32 lvl1ID, const uint32_t runNumber, 
                                                             const bool allowMixedEvent,
                                                             u32* pEventCountBeforeRead, u32* pL1ACountBeforeRead,
-                                                            const bool oneOverNMode) throw (Fed9UDeviceException)
+                                                            const bool oneOverNMode) noexcept(false)
   // </NAC>
   // </NAC>
   {

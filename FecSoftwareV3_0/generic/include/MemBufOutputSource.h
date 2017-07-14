@@ -93,35 +93,35 @@ class MemBufOutputSource {
 
   /**Write on <I>memBuffer_</I> attribute device information
    */
-  virtual void generateDeviceTag(deviceVector deviceParameters, bool forDb=false) throw (FecExceptionHandler);
+  virtual void generateDeviceTag(deviceVector deviceParameters, bool forDb=false) noexcept(false);
 
   /**Write on <I>memConnection_</I> attribut connection information
    */
-  void generateConnectionTag(ConnectionVector connections, bool forDb=false) throw (FecExceptionHandler);
+  void generateConnectionTag(ConnectionVector connections, bool forDb=false) noexcept(false);
 
   /**Write on <I>memBufferCcu_</I> attribute ccu information
    */
-  void generateCcuTag(ccuVector, bool forDb=false) throw (FecExceptionHandler);
+  void generateCcuTag(ccuVector, bool forDb=false) noexcept(false);
 
   /**Write on <I>memBufferTkRing_</I> attribute ring information
    */
-  void generateTkRingTag(TkRingDescription ringParameters, bool forDb ) throw (FecExceptionHandler);
+  void generateTkRingTag(TkRingDescription ringParameters, bool forDb ) noexcept(false);
 
   /**Write on <I>memBuffer_</I> attribute piaReset information
    */
-  void generatePiaResetTag(piaResetVector piaResetParameters, bool forDb=false) throw (FecExceptionHandler);
+  void generatePiaResetTag(piaResetVector piaResetParameters, bool forDb=false) noexcept(false);
 
   /**Write on <I>memBuffer_</I> attribute dcuConversion information
    */
-  void generateTkDcuConversionTag(dcuConversionVector dcuConversionParameters, bool forDb=false) throw (FecExceptionHandler);
+  void generateTkDcuConversionTag(dcuConversionVector dcuConversionParameters, bool forDb=false) noexcept(false);
 
   /**Write on <I>memBuffer_</I> attribute dcuConversion information
    */
-  void generateTkIdVsHostnameTag( TkIdVsHostnameVector tkIdVsHostnameVector, bool forDb=false) throw (FecExceptionHandler);
+  void generateTkIdVsHostnameTag( TkIdVsHostnameVector tkIdVsHostnameVector, bool forDb=false) noexcept(false);
 
   /**Write on <I>memBuffer_</I> attribute analysis information
    */
-  void generateAnalysisTag( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) throw (FecExceptionHandler);
+  void generateAnalysisTag( std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb ) noexcept(false);
 
   /**Generates a DcuConversion element
    */
@@ -137,7 +137,7 @@ class MemBufOutputSource {
 
   /**Write on <I>memBuffer_</I> attribute dcuInfo information
    */
-  void generateTkDcuInfoTag(tkDcuInfoVector dcuInfoParameters, bool forDb=false) throw (FecExceptionHandler);
+  void generateTkDcuInfoTag(tkDcuInfoVector dcuInfoParameters, bool forDb=false) noexcept(false);
 
   /**Generates a DcuInfo element
    */
@@ -145,7 +145,7 @@ class MemBufOutputSource {
 
   /**Write on <I>memBuffer_</I> attribute dcuPsuMap information
    */
-  void generateTkDcuPsuMapTag(tkDcuPsuMapVector dcuPsuMapParameters, bool forDb=false) throw (FecExceptionHandler);
+  void generateTkDcuPsuMapTag(tkDcuPsuMapVector dcuPsuMapParameters, bool forDb=false) noexcept(false);
 
   /**Generates a DcuPsuMap element
    */
@@ -239,53 +239,53 @@ class MemBufOutputSource {
 
   /** \brief Create a MemBufOuputSource object from a ccuVector
    */
-  MemBufOutputSource(ccuVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource(ccuVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a TkRingDescription
    *  \param withCcus bool parameter default value is false
    */
-  MemBufOutputSource (TkRingDescription, bool forDb, bool withCcus ) throw (FecExceptionHandler);
+  MemBufOutputSource (TkRingDescription, bool forDb, bool withCcus ) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a vector of TkRingDescription
    *  \param withCcus bool parameter default value is false
    */
-  MemBufOutputSource (tkringVector rings, bool forDb, bool withCcus) throw (FecExceptionHandler);
+  MemBufOutputSource (tkringVector rings, bool forDb, bool withCcus) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a deviceVector
    */
-  MemBufOutputSource(deviceVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource(deviceVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a deviceVector
    */
-  MemBufOutputSource(ConnectionVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource(ConnectionVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a piaResetVector
    */
-  MemBufOutputSource(piaResetVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource(piaResetVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a dcuConversionVector
    */
-  MemBufOutputSource (dcuConversionVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource (dcuConversionVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a dcuConversionVector
    */
-  MemBufOutputSource (TkIdVsHostnameVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource (TkIdVsHostnameVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a vector of commissioning analysis
    */
-  MemBufOutputSource (std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource (std::vector<CommissioningAnalysisDescription*> &inVector, CommissioningAnalysisDescription::commissioningType analysisType, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a tkDcuInfoVector
    */
-  MemBufOutputSource (tkDcuInfoVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource (tkDcuInfoVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a tkDcuPsuMapVector
    */
-  MemBufOutputSource (tkDcuPsuMapVector, bool forDb=false) throw (FecExceptionHandler);
+  MemBufOutputSource (tkDcuPsuMapVector, bool forDb=false) noexcept(false);
 
   /** \brief Create a MemBufOuputSource object from a deviceVector and a piaResetVector
    */
-  MemBufOutputSource(deviceVector, piaResetVector) throw (FecExceptionHandler);
+  MemBufOutputSource(deviceVector, piaResetVector) noexcept(false);
 
   /** \brief Destructor
    */

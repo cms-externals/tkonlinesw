@@ -9,7 +9,7 @@ namespace Fed9U {
 
 
   void Fed9UBufferData::generateFed9UScopeModeData( Fed9UBufferDescription *bufDesc, 
-						    unsigned short sm_length ) throw (ICException) {
+						    unsigned short sm_length ) noexcept(false) {
 
     try {
 
@@ -125,7 +125,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferData::generateFed9URawData(Fed9UBufferDescription *bufDesc) throw (ICException) {
+  void Fed9UBufferData::generateFed9URawData(Fed9UBufferDescription *bufDesc) noexcept(false) {
     try {
       //Getting the bufferData and the channelLengths vectors
       const std::vector<unsigned short> channelLengths = bufDesc->getChannelLengths();
@@ -231,7 +231,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferData::generateFed9UZSData(Fed9UBufferDescription *bufDesc) throw (ICException) {
+  void Fed9UBufferData::generateFed9UZSData(Fed9UBufferDescription *bufDesc) noexcept(false) {
     try {
       //Getting the bufferData and the channelLengths vectors
       const std::vector<unsigned short> channelLengths = bufDesc->getChannelLengths();
@@ -387,7 +387,7 @@ namespace Fed9U {
   }
 
 
-  void Fed9UBufferData::paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) throw (ICException) {
+  void Fed9UBufferData::paddToNext64BitWord(Fed9UBufferDescription *bufDesc, unsigned int cBytes) noexcept(false) {
     try {
       //Padd remaining 32-bit word
       switch(cBytes%4) {

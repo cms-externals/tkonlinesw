@@ -63,7 +63,7 @@ class TkDcuConversionFactory: public DeviceFactoryInterface {
   /** \brief Buid a FEC factory for database
    */
   TkDcuConversionFactory ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Buid a FEC factory for FEC database
    */
@@ -111,12 +111,12 @@ class TkDcuConversionFactory: public DeviceFactoryInterface {
   /** \brief Create the database access
    */
   void setDatabaseAccess ( std::string login, std::string password, std::string path ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
   
   /** \brief Create the database access with the configuration given by the env. variable CONFDB
    */
   void setDatabaseAccess ( ) 
-    throw ( oracle::occi::SQLException ) ;
+    noexcept(false) ;
 
   /** \brief Set the database access
    */
@@ -132,35 +132,35 @@ class TkDcuConversionFactory: public DeviceFactoryInterface {
 
   /** \brief Retreive the descriptions for the given devices from the input
    */
-  TkDcuConversionFactors *getTkDcuConversionFactors ( unsigned long dcuHardId, bool forceDbReload = false ) throw ( FecExceptionHandler ) ;
+  TkDcuConversionFactors *getTkDcuConversionFactors ( unsigned long dcuHardId, bool forceDbReload = false ) noexcept(false) ;
 
 #ifdef DATABASE
   /** \brief Add the descriptions of the devices from the partitionName
    */
-  void addConversionPartition ( std::string partitionName )  throw (FecExceptionHandler);
+  void addConversionPartition ( std::string partitionName )  noexcept(false);
 #endif
   /** \brief Retreive the descriptions for the given devices from the input
    */
-  //Sgi::hash_map<unsigned long, TkDcuConversionFactors *> getTkDcuConversionFactors ( std::string partitionName, bool forceDbReload = false ) throw ( FecExceptionHandler ) ;
+  //Sgi::hash_map<unsigned long, TkDcuConversionFactors *> getTkDcuConversionFactors ( std::string partitionName, bool forceDbReload = false ) noexcept(false) ;
 
   /** \brief Upload new conversion factors for a given DCU
    */
-  void setTkDcuConversionFactors ( TkDcuConversionFactors tkDcuConversionFactors ) throw ( FecExceptionHandler ) ;
+  void setTkDcuConversionFactors ( TkDcuConversionFactors tkDcuConversionFactors ) noexcept(false) ;
 
   /** \brief Upload the description in the output
    */
   void setTkDcuConversionFactors ( dcuConversionVector vConversionFactors ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief upload an hash_map in the output
    */
   void setTkDcuConversionFactors ( Sgi::hash_map<unsigned long, TkDcuConversionFactors *> vConversionFactors ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief upload the hash_map (attribut of the class) in the output
    */
   void setTkDcuConversionFactors ( ) 
-    throw ( FecExceptionHandler ) ;
+    noexcept(false) ;
 
   /** \brief delete a vector of DCU conversions
    */

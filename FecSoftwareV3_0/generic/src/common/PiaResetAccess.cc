@@ -155,7 +155,7 @@ tscType8 PiaResetAccess::getMask ( ) {
 void PiaResetAccess::setPiaReset ( tscType8 mask,
                                    unsigned long delayActiveReset,
                                    unsigned long intervalDelayReset) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // ?????????????????????????????????????????????
   // Semaphore ici
@@ -202,7 +202,7 @@ void PiaResetAccess::setPiaReset ( tscType8 mask,
 unsigned int PiaResetAccess::resetPiaModulesMultipleFrame ( FecAccess &fecAccess, piaResetVector vPiaReset, 
 							    unsigned int delayActiveReset, unsigned int intervalDelayReset,
 							    tscType8 initialValue,
-							    std::list<FecExceptionHandler *> &errorList ) throw (FecExceptionHandler) {
+							    std::list<FecExceptionHandler *> &errorList ) noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   typedef Sgi::hash_map< keyType, std::list<accessDeviceType> > accessPiaTypeListMap ;

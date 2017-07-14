@@ -29,7 +29,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbConnectionsAccess::DbConnectionsAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbAccess (threaded) {
+DbConnectionsAccess::DbConnectionsAccess ( bool threaded ) noexcept(false) : DbAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -37,14 +37,14 @@ DbConnectionsAccess::DbConnectionsAccess ( bool threaded ) throw (oracle::occi::
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbConnectionsAccess::DbConnectionsAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbAccess (user, passwd, dbPath, threaded) {
+DbConnectionsAccess::DbConnectionsAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbConnectionsAccess::~DbConnectionsAccess ()  throw (oracle::occi::SQLException) {
+DbConnectionsAccess::~DbConnectionsAccess ()  noexcept(false) {
 }
 
 /**Get the current version for a given partition name
@@ -54,7 +54,7 @@ DbConnectionsAccess::~DbConnectionsAccess ()  throw (oracle::occi::SQLException)
  * @see DbAccess::getDatabaseVersion (std::string sqlQuery)
  * @todo use a callable statement to execute a PL/SQL function with bind variable to avoid the query parsing at every call 
  */
-std::list<unsigned int*> DbConnectionsAccess::getDatabaseVersion (std::string partitionName) throw (oracle::occi::SQLException){
+std::list<unsigned int*> DbConnectionsAccess::getDatabaseVersion (std::string partitionName) noexcept(false){
 
   static std::string sqlQuery ;
   sqlQuery = "SELECT DISTINCT StateHistory.partitionId, StateHistory.connectionVersionMajorId, StateHistory.connectionVersionMinorId, StateHistory.maskVersionMajorId, StateHistory.maskVersionMinorId FROM CurrentState, StateHistory, Partition  WHERE StateHistory.stateHistoryId = CurrentState.stateHistoryId AND StateHistory.partitionId = Partition.partitionId AND Partition.partitionName= :paramPartitionName";
@@ -67,7 +67,7 @@ std::list<unsigned int*> DbConnectionsAccess::getDatabaseVersion (std::string pa
  * @exception SQLException
  * @see DbAccess::getVersion(std::string sqlQuery)
  */
-unsigned int DbConnectionsAccess::getNextMajorVersion() throw (FecExceptionHandler)
+unsigned int DbConnectionsAccess::getNextMajorVersion() noexcept(false)
 {
   static std::string sqlQuery = "SELECT MAX(versionMajorId)+1 FROM ConnectionVersion";
   return (unsigned int)DbAccess::getVersion(sqlQuery);
@@ -79,7 +79,7 @@ unsigned int DbConnectionsAccess::getNextMajorVersion() throw (FecExceptionHandl
  * @exception SQLException
  * @see DbAccess::getVersion(std::string sqlQuery)
  */
-unsigned int DbConnectionsAccess::getNextMinorVersion(unsigned int majorId) throw (FecExceptionHandler)
+unsigned int DbConnectionsAccess::getNextMinorVersion(unsigned int majorId) noexcept(false)
 {
   static std::string sqlQuery ;
   sqlQuery = "SELECT MAX(versionMinorId)+1 FROM ConnectionVersion where versionMajorId =" + toString(majorId);
@@ -95,7 +95,7 @@ unsigned int DbConnectionsAccess::getNextMinorVersion(unsigned int majorId) thro
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName)
  * @see PkgConnectionsXML.getAllConnections ( partitionName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbConnectionsAccess::getXMLClob( std::string partitionName ) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbConnectionsAccess::getXMLClob( std::string partitionName ) noexcept(false) {
   static std::string readString = "BEGIN :result := PkgConnectionsXML.getAllConnectionFromPartition(:partitionName);END;";
   return DbAccess::getXMLClobFromQuery(readString, partitionName);  
 }
@@ -114,7 +114,7 @@ oracle::occi::Clob *DbConnectionsAccess::getXMLClob( std::string partitionName )
  * @see PkgConnectionsXML.getAllConnections ( partitionName IN VARCHAR2, versionMajorId IN NUMBER, versionMinorId IN NUMBER ) RETURN CLOB;
  * @todo : implement this method... if connections versionning is requiered...
  */
-oracle::occi::Clob *DbConnectionsAccess::getXMLClobWithVersion (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbConnectionsAccess::getXMLClobWithVersion (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgConnectionsXML.getAllConnectionFromPartition(:partitionName, :versionMajorId, :versionMinorId, :maskMajor, :maskMinor);END;";
   return DbAccess::getXMLClobFromQuery(readString, partitionName, versionMajor, versionMinor, maskVersionMajor, maskVersionMinor);  
 }
@@ -131,7 +131,7 @@ oracle::occi::Clob *DbConnectionsAccess::getXMLClobWithVersion (std::string part
  * @see PkgConnectionsXML.getAllConnections ( partitionName IN VARCHAR2, versionMajorId IN NUMBER, versionMinorId IN NUMBER ) RETURN CLOB;
  * @todo : implement this method... if connections versionning is requiered...
  */
-oracle::occi::Clob *DbConnectionsAccess::getApvNotConnectedWithVersion (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbConnectionsAccess::getApvNotConnectedWithVersion (std::string partitionName, unsigned int versionMajor, unsigned int versionMinor) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgConnectionsXML.getAllApvNotConnected(:partitionName, :versionMajorId, :versionMinorId);END;";
   return DbAccess::getXMLClobFromQueryWithoutMask(readString, partitionName, versionMajor, versionMinor);  
 }
@@ -149,7 +149,7 @@ oracle::occi::Clob *DbConnectionsAccess::getApvNotConnectedWithVersion (std::str
  * @see PkgConnectionsXML.uploadXMLClob ( xmlClob IN CLOB, versionMajor IN NUMBER, versionMinor IN NUMBER);
  * @todo : connections versionning is not yet implemented
  */
-void DbConnectionsAccess::setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (oracle::occi::SQLException) 
+void DbConnectionsAccess::setXMLClobWithVersion (std::string buffer, std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) 
 {
   static std::string writeString = "BEGIN PkgConnectionsXML.uploadXMLClob(:buffer, :partitionName, :versionMajorId, :versionMinorId);END;";
   DbAccess::setXMLClobFromQuery  (writeString, buffer, partitionName, versionMajorId, versionMinorId);
@@ -171,7 +171,7 @@ void DbConnectionsAccess::setXMLClobWithVersion (std::string buffer, std::string
  * @see PkgConnectionsXML.uploadXMLClob(xmlClob IN CLOB, nextMajor IN NUMBER)
  * @todo : connections versionning is not yet implemented
  */
-void DbConnectionsAccess::setXMLClob(std::string buffer, std::string partitionName, unsigned int versionUpdate) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbConnectionsAccess::setXMLClob(std::string buffer, std::string partitionName, unsigned int versionUpdate) noexcept(false) {
   static std::string writeString = "BEGIN PkgConnectionsXML.uploadXMLClob(:buffer, :partitionName, :versionUpdate);END;";
   DbAccess::setXMLClobFromQuery (writeString, buffer, partitionName, versionUpdate);
 }

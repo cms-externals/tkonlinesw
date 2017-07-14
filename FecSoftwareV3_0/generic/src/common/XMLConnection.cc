@@ -42,7 +42,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::XMLCommonFec()</I>
  */
-XMLConnection::XMLConnection () throw (FecExceptionHandler) :
+XMLConnection::XMLConnection () noexcept(false) :
   XMLCommonFec () {
 
   countConnections_ = 0 ;
@@ -56,7 +56,7 @@ XMLConnection::XMLConnection () throw (FecExceptionHandler) :
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::XMLCommonFec(const XMLByte* xmlBuffer)</I>
  */
-XMLConnection::XMLConnection ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler) : XMLCommonFec( xmlBuffer ){
+XMLConnection::XMLConnection ( const XMLByte* xmlBuffer ) noexcept(false) : XMLCommonFec( xmlBuffer ){
 
   countConnections_ = 0 ;
   parameterNames_ = ConnectionDescription::getParameterNames() ;
@@ -71,7 +71,7 @@ XMLConnection::XMLConnection ( const XMLByte* xmlBuffer ) throw (FecExceptionHan
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLConnection::init()</I>
  */
-XMLConnection::XMLConnection ( DbConnectionsAccess *dbAccess ) throw (FecExceptionHandler) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
+XMLConnection::XMLConnection ( DbConnectionsAccess *dbAccess ) noexcept(false) : XMLCommonFec( (DbCommonAccess *)dbAccess ) {
 
   countConnections_ = 0 ;
   parameterNames_ = ConnectionDescription::getParameterNames() ;
@@ -86,7 +86,7 @@ XMLConnection::XMLConnection ( DbConnectionsAccess *dbAccess ) throw (FecExcepti
  * @see <I>XMLCommonFec::XMLCommonFec(std::string xmlFileName)</I>
  * @see <I>XMLConnection::init()</I>
  */
-XMLConnection::XMLConnection ( std::string xmlFileName ) throw (FecExceptionHandler) : XMLCommonFec( xmlFileName ) {
+XMLConnection::XMLConnection ( std::string xmlFileName ) noexcept(false) : XMLCommonFec( xmlFileName ) {
 
   countConnections_ = 0 ;
   parameterNames_ = ConnectionDescription::getParameterNames() ;
@@ -171,7 +171,7 @@ unsigned int XMLConnection::parseAttributes( XERCES_CPP_NAMESPACE::DOMNode *n ) 
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLConnection::parseDatabaseResponse(std::string partitionName) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
   
@@ -236,7 +236,7 @@ void XMLConnection::parseDatabaseResponse(std::string partitionName)
  *    - the dataBaseAccess or the partition name have not been intialized
  */
 void XMLConnection::parseDatabaseResponse(std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor, bool retrieveApvNotConnected) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
   
   std::string xmlBufferId = "theXMLBufferFromPartitionName";
   
@@ -302,7 +302,7 @@ void XMLConnection::parseDatabaseResponse(std::string partitionName, unsigned in
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-ConnectionVector XMLConnection::getConnections (std::string partitionName) throw (FecExceptionHandler) {
+ConnectionVector XMLConnection::getConnections (std::string partitionName) noexcept(false) {
 
 #ifdef DATABASEDEBUG
   unsigned long startMillis = XERCES_CPP_NAMESPACE::XMLPlatformUtils::getCurrentMillis();
@@ -333,7 +333,7 @@ ConnectionVector XMLConnection::getConnections (std::string partitionName) throw
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-ConnectionVector XMLConnection::getConnections (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) throw (FecExceptionHandler) {
+ConnectionVector XMLConnection::getConnections (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId, unsigned int maskVersionMajor, unsigned int maskVersionMinor) noexcept(false) {
   parseDatabaseResponse(partitionName,versionMajorId,versionMinorId,maskVersionMajor,maskVersionMinor,false);
   parseXMLBuffer();
   return connectionVector_;
@@ -348,7 +348,7 @@ ConnectionVector XMLConnection::getConnections (std::string partitionName, unsig
  * @exception FecExceptionHandler
  * @see <I>XMLCommonFec::parseXMLBuffer()</I>
  */
-ConnectionVector XMLConnection::getApvNotConnected (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) throw (FecExceptionHandler) {
+ConnectionVector XMLConnection::getApvNotConnected (std::string partitionName, unsigned int versionMajorId, unsigned int versionMinorId) noexcept(false) {
   parseDatabaseResponse(partitionName,versionMajorId,versionMinorId,0,0,true);
   parseXMLBuffer();
   return apvNotConnectedVector_;
@@ -360,7 +360,7 @@ ConnectionVector XMLConnection::getApvNotConnected (std::string partitionName, u
  * @exception FecExceptionHandler : a FecExceptionHandler is raised if the attribute <I>xmlInputSource_</I> is NULL
  * @see XMLConnection::parseXMLBuffer()
  */
-ConnectionVector XMLConnection::getConnections () throw (FecExceptionHandler) {
+ConnectionVector XMLConnection::getConnections () noexcept(false) {
 
   parseXMLBuffer();
   return connectionVector_;
@@ -374,7 +374,7 @@ ConnectionVector XMLConnection::getConnections () throw (FecExceptionHandler) {
  *     - the MemBufOutputSource created from the parameter <I>dVector</I> is not initialized 
  * @see XMLCommonFec::writeXMLFile(std::ostringstream *xmlBuffer,std::string xmlFileName);
  */
-void XMLConnection::setFileConnections ( ConnectionVector connectionVector, std::string outputFileName) throw (FecExceptionHandler) {
+void XMLConnection::setFileConnections ( ConnectionVector connectionVector, std::string outputFileName) noexcept(false) {
 
   MemBufOutputSource memBufOS (connectionVector, false) ;
 
@@ -385,7 +385,7 @@ void XMLConnection::setFileConnections ( ConnectionVector connectionVector, std:
  * @param outputFileName - name of the output xml file
  * @exception FecExceptionHandler
  */
-void XMLConnection::setFileConnections ( std::string outputFileName ) throw (FecExceptionHandler) {
+void XMLConnection::setFileConnections ( std::string outputFileName ) noexcept(false) {
   setFileConnections( connectionVector_, outputFileName);
 }
 
@@ -396,7 +396,7 @@ void XMLConnection::setFileConnections ( std::string outputFileName ) throw (Fec
  * \param cVector - connection vector
  * \param versionUpdate - 1 for a new major version, 0 for a new minor version
    */
-void XMLConnection::setDbConnectionDescription ( std::string partitionName, ConnectionVector connectionVector, unsigned int versionUpdate ) throw (FecExceptionHandler, oracle::occi::SQLException) {
+void XMLConnection::setDbConnectionDescription ( std::string partitionName, ConnectionVector connectionVector, unsigned int versionUpdate ) noexcept(false) {
 
   MemBufOutputSource memBufOS (connectionVector,true) ;
 
@@ -415,7 +415,7 @@ void XMLConnection::setDbConnectionDescription ( std::string partitionName, Conn
  * \param partitionName - partition name
  * \param versionUpdate - 1 for a new major version, 0 for a new minor version
  */
-void XMLConnection::setDbConnectionDescription ( std::string partitionName, unsigned int versionUpdate ) throw (FecExceptionHandler, oracle::occi::SQLException) {
+void XMLConnection::setDbConnectionDescription ( std::string partitionName, unsigned int versionUpdate ) noexcept(false) {
 
   setDbConnectionDescription ( partitionName, connectionVector_, versionUpdate ) ;
 }

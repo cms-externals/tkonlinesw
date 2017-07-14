@@ -64,10 +64,10 @@ class FecVmeTemperature {
   ******************************************************/
 
   //Constructor
-  FecVmeTemperature (HAL::VME64xDevice *vmedevice, unsigned int fecSlot = 0 ) throw ( FecExceptionHandler ) ;
+  FecVmeTemperature (HAL::VME64xDevice *vmedevice, unsigned int fecSlot = 0 ) noexcept(false) ;
 	
   //Destructor
-  virtual ~FecVmeTemperature () throw ( FecExceptionHandler );
+  virtual ~FecVmeTemperature () noexcept(false);
 
   /** return the FEC slot
    */
@@ -76,7 +76,7 @@ class FecVmeTemperature {
   /******************************************************
 		Temperature  ACCESS - NATIVE 32 BITS FORMAT
   ******************************************************/
-  int getTemp(int tempSlot) throw ( FecExceptionHandler );
+  int getTemp(int tempSlot) noexcept(false);
        
 } ;
 

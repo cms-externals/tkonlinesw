@@ -48,21 +48,21 @@ class XMLFecPiaReset : public XMLFec {
   //
   /** \brief Default constructor
    */
-  XMLFecPiaReset () throw (FecExceptionHandler);
+  XMLFecPiaReset () noexcept(false);
 
   /** \brief Constructor whith xml buffer
    */
-  XMLFecPiaReset ( const XMLByte* xmlBuffer ) throw (FecExceptionHandler);
+  XMLFecPiaReset ( const XMLByte* xmlBuffer ) noexcept(false);
 
 #ifdef DATABASE
   /** \brief Constructor whith database access
    */
-  XMLFecPiaReset ( DbPiaResetAccess *dbAccess ) throw (FecExceptionHandler);
+  XMLFecPiaReset ( DbPiaResetAccess *dbAccess ) noexcept(false);
 #endif
   
   /** \brief Constructor with file access
    */
-  XMLFecPiaReset ( std::string xmlFileName ) throw (FecExceptionHandler);
+  XMLFecPiaReset ( std::string xmlFileName ) noexcept(false);
   
   /** \brief Deletes the device vector private attribute 
    */
@@ -78,31 +78,31 @@ class XMLFecPiaReset : public XMLFec {
   
   /** \brief Sets a pointer on the device vector private attribute
    */
-  void setPiaResetVector (piaResetVector) throw (FecExceptionHandler);
+  void setPiaResetVector (piaResetVector) noexcept(false);
   
   /** \brief Parse the InputSource and Gets a pointer on the device vector private attribute
    */
-  piaResetVector getPiaResets ( ) throw (FecExceptionHandler);
+  piaResetVector getPiaResets ( ) noexcept(false);
 
   void clearVector();
 
 #ifdef DATABASE
   /** \brief Parse the InputSource and Gets a pointer on the device vector private attribute
    */
-  piaResetVector getPiaResets (std::string partitionName) throw (FecExceptionHandler);
+  piaResetVector getPiaResets (std::string partitionName) noexcept(false);
 
   /** \brief Gets a pointer on the device vector private attribute from database
    */
-  piaResetVector getPiaResets (std::string partitionName, std::string fecHardId ) throw (FecExceptionHandler);
+  piaResetVector getPiaResets (std::string partitionName, std::string fecHardId ) noexcept(false);
 #endif
 
   /** \brief Writes the pVector parameter in a ASCII file
    */
-  void setFilePiaResets ( piaResetVector pVector, std::string outputFileName ) throw (FecExceptionHandler);
+  void setFilePiaResets ( piaResetVector pVector, std::string outputFileName ) noexcept(false);
 
   /** \brief Writes the pVector_ attribute in a ASCII file
    */
-  void setFilePiaResets ( std::string outputFileName ) throw (FecExceptionHandler);
+  void setFilePiaResets ( std::string outputFileName ) noexcept(false);
 
   /** \brief Displays the contents of the vector of devices piaResetParameter
    */
@@ -111,11 +111,11 @@ class XMLFecPiaReset : public XMLFec {
 #ifdef DATABASE
   /** \brief Sends the parameter values to the database
    */
-  void setDbPiaResets ( piaResetVector pVector, std::string partitionName ) throw (FecExceptionHandler);
+  void setDbPiaResets ( piaResetVector pVector, std::string partitionName ) noexcept(false);
 
   /** \brief Sends the parameter values to the database
    */
-  void setDbPiaResets ( std::string partitionName ) throw (FecExceptionHandler);
+  void setDbPiaResets ( std::string partitionName ) noexcept(false);
 #endif
 
 } ;

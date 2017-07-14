@@ -435,7 +435,7 @@ void deltaAccess::getBlockWriteValues ( class deltaDescription& deltaValues, acc
  */
 unsigned int deltaAccess::getDeltaValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, deltaAccess *> &deltaSet, deviceVector &deltaVector,
 							 std::list<FecExceptionHandler *> &errorList ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, deltaDescription * > deviceDescriptionsMap ;

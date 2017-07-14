@@ -33,16 +33,16 @@
 
 //---------------------------------
 DbCommissioningAnalysisAccess::DbCommissioningAnalysisAccess(bool threaded) 
-  throw (oracle::occi::SQLException) : DbCommonAccess (threaded) {;}
+  noexcept(false) : DbCommonAccess (threaded) {;}
 
 
 //---------------------------------
 DbCommissioningAnalysisAccess::DbCommissioningAnalysisAccess(std::string user, std::string passwd, std::string dbPath, bool threaded) 
-  throw (oracle::occi::SQLException): DbCommonAccess (user, passwd, dbPath, threaded) {;}
+  noexcept(false): DbCommonAccess (user, passwd, dbPath, threaded) {;}
 
 
 //---------------------------------
-DbCommissioningAnalysisAccess::~DbCommissioningAnalysisAccess() throw (oracle::occi::SQLException) {;}
+DbCommissioningAnalysisAccess::~DbCommissioningAnalysisAccess() noexcept(false) {;}
 
 
 
@@ -50,7 +50,7 @@ DbCommissioningAnalysisAccess::~DbCommissioningAnalysisAccess() throw (oracle::o
 
 
 //---------------------------------
-void DbCommissioningAnalysisAccess::setXMLClob( std::string buffer, bool updateCurrentState, unsigned int &partitionStateVersionId ) throw ( oracle::occi::SQLException, FecExceptionHandler ) {
+void DbCommissioningAnalysisAccess::setXMLClob( std::string buffer, bool updateCurrentState, unsigned int &partitionStateVersionId ) noexcept(false) {
   //std::cout<<buffer<<std::endl;
   static std::string writeString = "BEGIN PkgAnalysisXML.configureXMLClob(:buffer,:updateState,:partitionStateVersion); END;";
   oracle::occi::Statement *stmt = NULL;
@@ -116,7 +116,7 @@ void DbCommissioningAnalysisAccess::setXMLClob( std::string buffer, bool updateC
 
 
 //---------------------------------
-void DbCommissioningAnalysisAccess::setPartitionState( uint32_t uploadedVersion ) throw ( oracle::occi::SQLException ) {
+void DbCommissioningAnalysisAccess::setPartitionState( uint32_t uploadedVersion ) noexcept(false) {
 
   static std::string writeString = "BEGIN PkgAnalysisXML.setPartitionState(:partitionStateVersion); END;";
   oracle::occi::Statement *stmt = NULL;
@@ -140,7 +140,7 @@ void DbCommissioningAnalysisAccess::setPartitionState( uint32_t uploadedVersion 
 
 //---------------------------------
 oracle::occi::Clob* DbCommissioningAnalysisAccess::getCalibrationData( uint32_t runNumber,
-								       std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException ) {
+								       std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgAnalysisXML.getDowloadAnalysisData(:runNumber, :partitionName, :analysisType); END;";
 
@@ -187,7 +187,7 @@ oracle::occi::Clob* DbCommissioningAnalysisAccess::getCalibrationData( uint32_t 
 }
 
 //---------------------------------
-oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException ) {
+oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::string partitionName, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgAnalysisXML.getDownloadAnalysisHistory(:partitionName,:analysisType); END;";
 
@@ -233,7 +233,7 @@ oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::stri
 }
 
 //---------------------------------
-oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::string partitionName, uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) throw ( oracle::occi::SQLException ) {
+oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::string partitionName, uint32_t versionMajorID, uint32_t versionMinorID, CommissioningAnalysisDescription::commissioningType type ) noexcept(false) {
 
   static std::string readString = "BEGIN :xmlClob := PkgAnalysisXML.getDownloadAnalysisHistory(:partitionName, :versionMajorID, :versionMinorID, :analysisType); END;";
 
@@ -282,7 +282,7 @@ oracle::occi::Clob* DbCommissioningAnalysisAccess::getAnalysisHistory( std::stri
 }
 
 //---------------------------------
-oracle::occi::Clob* DbCommissioningAnalysisAccess::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) throw ( oracle::occi::SQLException ) {
+oracle::occi::Clob* DbCommissioningAnalysisAccess::getLocalAnalysisVersions( uint32_t globalAnalysisVersion ) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgAnalysisXML.getLocalAnalysisVersions(:globalVersionID); END;";
 
 #ifdef DATABASEDEBUG

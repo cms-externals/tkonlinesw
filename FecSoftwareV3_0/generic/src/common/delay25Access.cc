@@ -118,7 +118,7 @@ void delay25Access::setValues ( delay25Description delay25Values ) {
  * \warning a new object reference is dynamically defined. Do not
  * forget to delete it.
  */
-delay25Description *delay25Access::getValues ( ) throw (FecExceptionHandler) {
+delay25Description *delay25Access::getValues ( ) noexcept(false) {
 
   delay25Description *delay25Values = 
     new delay25Description (accessKey_,
@@ -140,7 +140,7 @@ delay25Description *delay25Access::getValues ( ) throw (FecExceptionHandler) {
  * \warning see the source for more explanation
  * \warning setDelayFine
  */
-void delay25Access::setDelay0 ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void delay25Access::setDelay0 ( tscType8 delay_step ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "delay25Access::setDelay0: Write CR0(0x" << std::hex << (int)CR0 << "<7>) = 0x" << std::hex << (int)delay_step << ")" << std::endl ;
@@ -157,7 +157,7 @@ void delay25Access::setDelay0 ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning see the source for more explanation
  * \warning setDelayFine
  */
-void delay25Access::setDelay1 ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void delay25Access::setDelay1 ( tscType8 delay_step ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "delay25Access::setDelay1: Write CR1(0x" << std::hex << (int)CR1 << "<7>) = 0x" << std::hex << (int)delay_step << ")" << std::endl ;
@@ -174,7 +174,7 @@ void delay25Access::setDelay1 ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning setDelayFine
  */
 
-void delay25Access::setDelay2 ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void delay25Access::setDelay2 ( tscType8 delay_step ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "delay25Access::setDelay2: Write CR2(0x" << std::hex << (int)CR2 << "<7>) = 0x" << std::hex << (int)delay_step << ")" << std::endl ;
@@ -191,7 +191,7 @@ void delay25Access::setDelay2 ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning setDelayFine
  */
 
-void delay25Access::setDelay3 ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void delay25Access::setDelay3 ( tscType8 delay_step ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "delay25Access::setDelay3: Write CR3(0x" << std::hex << (int)CR3 << "<7>) = 0x" << std::hex << (int)delay_step << ")" << std::endl ;
@@ -208,7 +208,7 @@ void delay25Access::setDelay3 ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning setDelayFine
  */
 
-void delay25Access::setDelay4 ( tscType8 delay_step ) throw (FecExceptionHandler) {
+void delay25Access::setDelay4 ( tscType8 delay_step ) noexcept(false) {
 
 #ifdef DEBUGMSGERROR
   std::cout << "delay25Access::setDelay4: Write CR4(0x" << std::hex << (int)CR4 << "<7>) = 0x" << std::hex << (int)delay_step << ")" << std::endl ;
@@ -225,7 +225,7 @@ void delay25Access::setDelay4 ( tscType8 delay_step ) throw (FecExceptionHandler
  * \warning setDelayFine
  */
 
-void delay25Access::set40HzFrequencyMode ( ) throw (FecExceptionHandler) {
+void delay25Access::set40HzFrequencyMode ( ) noexcept(false) {
 
   // Convert delay step
   tscType8 mode_val = getFrequencyModeMap ( PixelDelay25FrequencyMode ) ;
@@ -245,7 +245,7 @@ void delay25Access::set40HzFrequencyMode ( ) throw (FecExceptionHandler) {
  * <li>TSCFEC_FECPARAMETERNOTMANAGED
  * </ul>
  */
-tscType8 delay25Access::getDelay0 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getDelay0 ( ) noexcept(false) {
 
   tscType8 i2cdata    = accessToFec_->readOffset ( accessKey_, CR0 ) ; // Read CR0
   tscType8 delay_step = i2cdata & DELAY25_DELAY ; // Read CR0<5:0>
@@ -266,7 +266,7 @@ tscType8 delay25Access::getDelay0 ( ) throw (FecExceptionHandler) {
  * </ul>
  */
 
-tscType8 delay25Access::getDelay1 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getDelay1 ( ) noexcept(false) {
 
   tscType8 i2cdata    = accessToFec_->readOffset ( accessKey_, CR1 ) ; // Read CR1
   tscType8 delay_step = i2cdata & DELAY25_DELAY ; // Read CR1<5:0>
@@ -287,7 +287,7 @@ tscType8 delay25Access::getDelay1 ( ) throw (FecExceptionHandler) {
  * </ul>
  */
 
-tscType8 delay25Access::getDelay2 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getDelay2 ( ) noexcept(false) {
 
   tscType8 i2cdata    = accessToFec_->readOffset ( accessKey_, CR2 ) ; // Read CR2
   tscType8 delay_step = i2cdata & DELAY25_DELAY ; // Read CR2<5:0>
@@ -308,7 +308,7 @@ tscType8 delay25Access::getDelay2 ( ) throw (FecExceptionHandler) {
  * </ul>
  */
 
-tscType8 delay25Access::getDelay3 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getDelay3 ( ) noexcept(false) {
 
   tscType8 i2cdata    = accessToFec_->readOffset ( accessKey_, CR3 ) ; // Read CR3
   tscType8 delay_step = i2cdata & DELAY25_DELAY ; // Read CR3<5:0>
@@ -329,7 +329,7 @@ tscType8 delay25Access::getDelay3 ( ) throw (FecExceptionHandler) {
  * </ul>
  */
 
-tscType8 delay25Access::getDelay4 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getDelay4 ( ) noexcept(false) {
 
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR4 ) ; // Read CR4
   tscType8 delay_step = i2cdata & DELAY25_DELAY ; // Read CR4<5:0>
@@ -347,7 +347,7 @@ tscType8 delay25Access::getDelay4 ( ) throw (FecExceptionHandler) {
  * \return the value read
  * \exception FecExceptionHandler
  */
-tscType8 delay25Access::getFrequencyMode ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getFrequencyMode ( ) noexcept(false) {
 
   tscType8 i2cdata  = accessToFec_->readOffset ( accessKey_, GCR ) ; // Read GCR
   tscType8 mode_val = i2cdata & DELAY25_CLOCKFREQUENCY ; //Read GCR<1:0> 
@@ -375,7 +375,7 @@ tscType8 delay25Access::getFrequencyMode ( ) throw (FecExceptionHandler) {
  * \warning Original code was: bool tsc_delay25_check_status(tsc_descriptor_index  delay25)
  * \warning DELAY25 control: comment: update to match the Official Fec Driver library and new Delay25 
  */
-/*tscType8 delay25Access::delay25Reset ( ) throw (FecExceptionHandler) {
+/*tscType8 delay25Access::delay25Reset ( ) noexcept(false) {
 
 
   tscType8 reset = 0;
@@ -405,7 +405,7 @@ tscType8 delay25Access::getFrequencyModeMapBack ( tscType8 k ) {
  * <li>TSCFEC_FECPARAMETERNOTMANAGED
  * </ul>
  */
-tscType8 delay25Access::getFrequencyModeMap ( tscType8 k ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getFrequencyModeMap ( tscType8 k ) noexcept(false) {
 
   tscType8 mode;
 	
@@ -426,7 +426,7 @@ tscType8 delay25Access::getFrequencyModeMap ( tscType8 k ) throw (FecExceptionHa
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getCR0 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getCR0 ( ) noexcept(false) {
 
   // Read CTR1
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR0 ) ;
@@ -438,7 +438,7 @@ tscType8 delay25Access::getCR0 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getCR1 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getCR1 ( ) noexcept(false) {
 
   // Read CTR1
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR1 ) ;
@@ -450,7 +450,7 @@ tscType8 delay25Access::getCR1 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getCR2 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getCR2 ( ) noexcept(false) {
 
   // Read CTR2
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR2 ) ;
@@ -462,7 +462,7 @@ tscType8 delay25Access::getCR2 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getCR3 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getCR3 ( ) noexcept(false) {
 
   // Read CTR3
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR3 ) ;
@@ -474,7 +474,7 @@ tscType8 delay25Access::getCR3 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getCR4 ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getCR4 ( ) noexcept(false) {
 
   // Read CTR1
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, CR4 ) ;
@@ -486,7 +486,7 @@ tscType8 delay25Access::getCR4 ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-tscType8 delay25Access::getGCR ( ) throw (FecExceptionHandler) {
+tscType8 delay25Access::getGCR ( ) noexcept(false) {
 
   // Read CTR1
   volatile tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, GCR ) ;
@@ -498,7 +498,7 @@ tscType8 delay25Access::getGCR ( ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setCR0 ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setCR0 ( tscType8 value ) noexcept(false) {
 
   // Write CR0
   accessToFec_->writeOffset ( accessKey_, CR0, value ) ;
@@ -509,7 +509,7 @@ void delay25Access::setCR0 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setCR1 ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setCR1 ( tscType8 value ) noexcept(false) {
 
   // Write CR1
   accessToFec_->writeOffset ( accessKey_, CR1, value ) ;
@@ -520,7 +520,7 @@ void delay25Access::setCR1 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setCR2 ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setCR2 ( tscType8 value ) noexcept(false) {
 
   // Write CR2
   accessToFec_->writeOffset ( accessKey_, CR2, value ) ;
@@ -531,7 +531,7 @@ void delay25Access::setCR2 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setCR3 ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setCR3 ( tscType8 value ) noexcept(false) {
 
   // Write CR3
   accessToFec_->writeOffset ( accessKey_, CR3, value ) ;
@@ -542,7 +542,7 @@ void delay25Access::setCR3 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setCR4 ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setCR4 ( tscType8 value ) noexcept(false) {
 
   // Write CR4
   accessToFec_->writeOffset ( accessKey_, CR4, value ) ;
@@ -553,7 +553,7 @@ void delay25Access::setCR4 ( tscType8 value ) throw (FecExceptionHandler) {
  * \exception FecExceptionHandler
  * Thanks to Wim Beaumont
  */
-void delay25Access::setGCR ( tscType8 value ) throw (FecExceptionHandler) {
+void delay25Access::setGCR ( tscType8 value ) noexcept(false) {
 
   // Write GCR
   accessToFec_->writeOffset ( accessKey_, GCR, value ) ;
@@ -652,7 +652,7 @@ void delay25Access::getBlockWriteValues ( delay25Description delay25Values, acce
  * \warning if a problem occurs in one channel then 0 is set in the corresponding registers
  */ 
 unsigned int delay25Access::getDelay25ValuesMultipleFrames ( FecAccess &fecAccess, Sgi::hash_map<keyType, delay25Access *> &delay25Set, deviceVector &delay25Vector, std::list<FecExceptionHandler *> &errorList ) 
-  throw (FecExceptionHandler) {
+  noexcept(false) {
 
   // hash_map with the classification of the devices per ring
   Sgi::hash_map< keyType, delay25Description * > deviceDescriptionsMap ;
@@ -817,7 +817,7 @@ unsigned int delay25Access::getDelay25ValuesMultipleFrames ( FecAccess &fecAcces
 }
 
 
-void delay25Access::forceDLLResynchronisation ( ) throw (FecExceptionHandler) {
+void delay25Access::forceDLLResynchronisation ( ) noexcept(false) {
  
   // Read GCR
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, GCR ) ; 
@@ -828,7 +828,7 @@ void delay25Access::forceDLLResynchronisation ( ) throw (FecExceptionHandler) {
   accessToFec_->writeOffset ( accessKey_, GCR, mode_val | DELAY25_GCR_IDLL ) ;
 }
 
-void delay25Access::SetIDLLBitToZero ( ) throw (FecExceptionHandler) {
+void delay25Access::SetIDLLBitToZero ( ) noexcept(false) {
  
   // Read GCR
   tscType8 i2cdata = accessToFec_->readOffset ( accessKey_, GCR ) ; 

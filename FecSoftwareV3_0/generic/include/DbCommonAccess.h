@@ -81,7 +81,7 @@ class DbCommonAccess {
 
   /** \brief Creates the access to the database
    */
-  virtual void dbConnect (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  virtual void dbConnect (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
 
  protected:
 
@@ -112,19 +112,19 @@ class DbCommonAccess {
   //
   /** \brief Default constructor
    */
-  DbCommonAccess(bool threaded = false) throw (oracle::occi::SQLException);
+  DbCommonAccess(bool threaded = false) noexcept(false);
 
   /** \brief Creates the access to the database
    */
-  DbCommonAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) throw (oracle::occi::SQLException);
+  DbCommonAccess (std::string user, std::string passwd, std::string dbPath, bool threaded = false) noexcept(false);
   
   /** \brief Closes the connection with the database
    */
-  virtual ~DbCommonAccess ( ) throw (oracle::occi::SQLException);
+  virtual ~DbCommonAccess ( ) noexcept(false);
 
   /** \brief Initialize a Clob 
    */
-  virtual oracle::occi::Clob initializeClob () throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob initializeClob () noexcept(false);
  
  /** \brief Retreive the login name of the connexion
    */
@@ -158,89 +158,89 @@ class DbCommonAccess {
 
   /** \brief Get the current run number
    */
-  virtual unsigned int getCurrentRunNumber() throw (FecExceptionHandler);
+  virtual unsigned int getCurrentRunNumber() noexcept(false);
   
   /** \brief Retreive the version for each partition in the current state
    */
-  std::list<unsigned int*> getDatabaseVersionFromQuery (std::string sqlQuery, std::string partitionName) throw (oracle::occi::SQLException);
+  std::list<unsigned int*> getDatabaseVersionFromQuery (std::string sqlQuery, std::string partitionName) noexcept(false);
 
   /** \brief Retreive all partition names
    */
-  std::list<std::string> getAllPartitionNames ()  throw (oracle::occi::SQLException);
+  std::list<std::string> getAllPartitionNames ()  noexcept(false);
 
   /** \brief Retreive all partition names for a given runnumber
    */
-  std::list<std::string> getAllPartitionNames ( unsigned int ruNumber )  throw (oracle::occi::SQLException);
+  std::list<std::string> getAllPartitionNames ( unsigned int ruNumber )  noexcept(false);
 
   /** \brief Retrieve all partition names from current state
    */
-  std::list<std::string> getAllPartitionNamesFromCurrentState ( )  throw (oracle::occi::SQLException) ;
+  std::list<std::string> getAllPartitionNamesFromCurrentState ( )  noexcept(false) ;
 
   /** \brief Retreive all state history names
    */
-  std::list<std::string> getAllStateHistoryNames ()  throw (oracle::occi::SQLException);
+  std::list<std::string> getAllStateHistoryNames ()  noexcept(false);
 
   /** \brief Retreive the state history ID for the current state from the database
    */
-  unsigned int getCurrentStateHistoryId() throw (oracle::occi::SQLException, FecExceptionHandler);
+  unsigned int getCurrentStateHistoryId() noexcept(false);
 
   /** \brief get a new history state name
    */
-  unsigned int getNewStateHistoryId() throw (oracle::occi::SQLException);
+  unsigned int getNewStateHistoryId() noexcept(false);
 
   /** \brief Get the state ID from the state name
    *  \param stateName The state name
    *  \return The ID of the given state   
    */
-  unsigned int getStateHistoryId(std::string stateHistoryName) throw (oracle::occi::SQLException, FecExceptionHandler);
+  unsigned int getStateHistoryId(std::string stateHistoryName) noexcept(false);
 
   /** \brief Retrive an old state
    */
-  unsigned int setCurrentState(unsigned int stateId) throw (oracle::occi::SQLException);
+  unsigned int setCurrentState(unsigned int stateId) noexcept(false);
 
   /** \brief update the current state based on the state coming from a run number
    */
-  unsigned int copyStateForRunNumber(unsigned int runNumber, bool allPartition) throw (oracle::occi::SQLException) ;
+  unsigned int copyStateForRunNumber(unsigned int runNumber, bool allPartition) noexcept(false) ;
 
   /** \brief Copy the current state and update the given partition with its value in the given state
    */
-  unsigned int setCurrentState(std::string partitionName, unsigned int stateHistoryId) throw (oracle::occi::SQLException);
+  unsigned int setCurrentState(std::string partitionName, unsigned int stateHistoryId) noexcept(false);
 
   /** \brief Change the state of the devices corresponding to the dcuHardId in the given partition 
    **/
-  void setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int state) throw (oracle::occi::SQLException);
+  void setDeviceState(std::string partitionName, std::vector<unsigned int> dcuHardId, int state) noexcept(false);
 
   /** \brief Register a run 
    */
-  void setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) throw (oracle::occi::SQLException,FecExceptionHandler);
+  void setRun(std::string partitionName, unsigned int runNumber, int runMode, int local, std::string comment) noexcept(false);
 
   /** \brief Stop a run 
    */
-  void stopRun(std::string partitionName, std::string comment) throw (oracle::occi::SQLException,FecExceptionHandler);
+  void stopRun(std::string partitionName, std::string comment) noexcept(false);
 
   /** \brief Toggle the flag for o2o operation performed
    */
-  void setO2ORun(std::string partitionName, unsigned int runNumber) throw (oracle::occi::SQLException,FecExceptionHandler);
+  void setO2ORun(std::string partitionName, unsigned int runNumber) noexcept(false);
 
   /** \brief Retreive the database version
    */
-  double getDbVersion( ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  double getDbVersion( ) noexcept(false) ;
 
   /** \brief Retreive the size of data in database
    */
-  double getDbSize( ) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  double getDbSize( ) noexcept(false) ;
 
   /** \brief Change the comment of the Run
    */
-  void setNewComment(std::string partitionName, unsigned int runNumber, std::string newComment) throw (oracle::occi::SQLException,FecExceptionHandler);
+  void setNewComment(std::string partitionName, unsigned int runNumber, std::string newComment) noexcept(false);
 
   /** \brief Create a new Version of dcu psu map
    */ 
-  void createNewDcuPsuMapVersion(unsigned int *majorVersion, unsigned int *minorVersion) throw (oracle::occi::SQLException,FecExceptionHandler) ;
+  void createNewDcuPsuMapVersion(unsigned int *majorVersion, unsigned int *minorVersion) noexcept(false) ;
 
   /** \brief Create a new Version of dcu infos 
    */
-  void createNewDcuInfoVersion() throw (oracle::occi::SQLException,FecExceptionHandler);
+  void createNewDcuInfoVersion() noexcept(false);
 
   /** \brief retreive the database version
    */
@@ -251,23 +251,23 @@ class DbCommonAccess {
 			  unsigned int dcuInfoVersionMajorId, unsigned int dcuInfoVersionMinorId, 
 			  unsigned int dcuPsuMapVersionMajorId, unsigned int dcuPsuMapVersionMinorId,
 			  unsigned int maskVersionMajorId, unsigned int maskVersionMinorId
-			  ) throw (oracle::occi::SQLException);
+			  ) noexcept(false);
   
   /** \brief Download parameters from the database
    */
-  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString) throw (oracle::occi::SQLException);
+  virtual oracle::occi::Clob *getXMLClobFromQuery (std::string readString) noexcept(false);
 
   /** \brief Refresh the cache of the connection, fec and fed
    */
-  virtual void refreshCacheXMLClob ( int deleteValues = 1, bool withStrips = true ) throw (oracle::occi::SQLException) ;
+  virtual void refreshCacheXMLClob ( int deleteValues = 1, bool withStrips = true ) noexcept(false) ;
 
   /** \brief Delete the cash
    */
-  virtual void deleteCacheXMLClob ( ) throw (oracle::occi::SQLException) ;
+  virtual void deleteCacheXMLClob ( ) noexcept(false) ;
   
   /** \brief Upload a Clob to the database
    */
-  //  virtual void setXMLClob (std::string buffer) throw (oracle::occi::SQLException, FecExceptionHandler);
+  //  virtual void setXMLClob (std::string buffer) noexcept(false);
 
   /** \brief Get the last error message
    */
@@ -275,7 +275,7 @@ class DbCommonAccess {
 
   /** \brief validate the DCU/PSU map and retreive the cooling loop with a flag
    */
-  virtual std::vector<std::pair<std::string, bool> > setTKCCDcuPsuMapValidation(std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  virtual std::vector<std::pair<std::string, bool> > setTKCCDcuPsuMapValidation(std::string partitionName) noexcept(false) ;
 
   /** Brief retreive login, password and path from env. variable CONFDB
    */
@@ -298,7 +298,7 @@ class DbCommonAccess {
 
   /** \brief send a XML buffer to the database to be parsed
    */
-  int setGenericXMLClob(std::string buffer, std::string tableName) throw (oracle::occi::SQLException, FecExceptionHandler) ;
+  int setGenericXMLClob(std::string buffer, std::string tableName) noexcept(false) ;
 
   /** \brief return the error message coming from oracle exception and get it if it exists the message set by the user exception in PL/SQL
    */
@@ -306,11 +306,11 @@ class DbCommonAccess {
 
   /** \brief insert an o2o operation
    */
-  void setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int o2oTimeStamp ) throw (FecExceptionHandler) ;
+  void setO2OOperation ( std::string partitionName, std::string subDetector, unsigned int o2oTimeStamp ) noexcept(false) ;
 
   /** \brief crosscheck the last o2o operation
    */
-  int getO2OXchecked ( std::string partitionName ) throw (FecExceptionHandler) ;
+  int getO2OXchecked ( std::string partitionName ) noexcept(false) ;
 
 };
 #endif

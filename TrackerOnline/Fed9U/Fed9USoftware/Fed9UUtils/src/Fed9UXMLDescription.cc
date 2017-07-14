@@ -80,7 +80,7 @@ namespace Fed9U {
   using std::stringstream;
   
   //Constructor. This takes as arguments the XML file name and the Fed9UDescriptions to be modified.
-  Fed9UXMLDescription::Fed9UXMLDescription(const string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist, bool usingStrips) throw (Fed9UXMLDescriptionException) 
+  Fed9UXMLDescription::Fed9UXMLDescription(const string &XMLOverideFile, Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist, bool usingStrips) noexcept(false) 
     : theXMLOverideFile(XMLOverideFile), 
       theFed9UDescription(defaultFed9UDescription), 
       theFed9UDescriptionList_(desclist),
@@ -113,7 +113,7 @@ namespace Fed9U {
 
 
   //Constructor. This takes in the Fed9UDescription to be modified.
-  Fed9UXMLDescription::Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist, bool usingStrips) throw (Fed9UXMLDescriptionException) : theFed9UDescription(defaultFed9UDescription), theFed9UDescriptionList_(desclist), 
+  Fed9UXMLDescription::Fed9UXMLDescription(Fed9UDescription &defaultFed9UDescription, std::vector<Fed9UDescription*>* desclist, bool usingStrips) noexcept(false) : theFed9UDescription(defaultFed9UDescription), theFed9UDescriptionList_(desclist), 
        numberOfFeds_(0), usingStrips_(usingStrips), debugOutput_(false) {
     try {
       makeDOMBuilder();
@@ -149,7 +149,7 @@ namespace Fed9U {
   
   //Method which performs the Fed9UDescription override. 
   //It modifies the object member reference to the Fed9UDescription.
-  std::vector<Fed9UDescription*> * Fed9UXMLDescription::makeNewFed9UDescription(void)  throw (Fed9UXMLDescriptionException) { 
+  std::vector<Fed9UDescription*> * Fed9UXMLDescription::makeNewFed9UDescription(void)  noexcept(false) { 
     try {    
       //reset document pool
       cout << "Reset the document Pool" << endl;
@@ -215,7 +215,7 @@ namespace Fed9U {
   
   //Method which performs the Fed9UDescription override. 
   //It takes in a istream, containing the XML buffer, and modifies the object member reference to the Fed9UDescription.
-  std::vector<Fed9UDescription*>* Fed9UXMLDescription::makeNewFed9UDescriptionFromStream(std::istream &is) throw (Fed9UXMLDescriptionException) {
+  std::vector<Fed9UDescription*>* Fed9UXMLDescription::makeNewFed9UDescriptionFromStream(std::istream &is) noexcept(false) {
 
     try {    
       //reset document pool
@@ -301,7 +301,7 @@ namespace Fed9U {
   //****************************************************************************************************
   
   //Method to initialize the Xerces XML parser. This method must be called before using any Xerces APIs.
-  void Fed9UXMLDescription::initializeXerces(void) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::initializeXerces(void) noexcept(false)
   {
     try {
 	//if (XMLPlatformUtils::fgTransService == NULL)
@@ -321,7 +321,7 @@ namespace Fed9U {
 
   //*******************************************************************
   //Method which will construct and initialize the DOMBuilder.
-  void Fed9UXMLDescription::makeDOMBuilder(void) throw (Fed9UXMLDescriptionException) {
+  void Fed9UXMLDescription::makeDOMBuilder(void) noexcept(false) {
     try {
       //Initialize the Xerces APIs
       initializeXerces();
@@ -363,7 +363,7 @@ namespace Fed9U {
   //*****************************************************************
   //Method to recursively find the child elements under the given Node.
   //This is based on code from the Xerces 2.3 library samples.
-  void Fed9UXMLDescription::traverseChildElements(DOMNode *n) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::traverseChildElements(DOMNode *n) noexcept(false)
   {
     char * name=NULL;
     try {
@@ -406,7 +406,7 @@ namespace Fed9U {
   
   //**********************************************************************************************
   //Method which reads in a node, finds if it has attributes and sets these in the Fed9UDescription.
-  void Fed9UXMLDescription::setFed9UDescription(DOMNode *n) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setFed9UDescription(DOMNode *n) noexcept(false)
   {
     try {
       //      cout << " we write the node into the description" << endl;
@@ -462,7 +462,7 @@ namespace Fed9U {
   
   //*******************************************************
   //Method which will set the attributes for the fed9U node.
-  void Fed9UXMLDescription::setFed9UAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setFed9UAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   { 
     try {
     //There are four possible type of node value, integer (signed and unsigned), float and string.
@@ -1488,7 +1488,7 @@ namespace Fed9U {
 
   //********************************************************
   //Method which will set the attributes for the feFpga node.
-  void Fed9UXMLDescription::setFeFpgaAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setFeFpgaAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     try {
     //There are two possible type of node value, integer and string.
@@ -1592,7 +1592,7 @@ namespace Fed9U {
 
   //*********************************************************
   //Method which will set the attributes for the channel pair node.
-  void Fed9UXMLDescription::setChannelPairAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setChannelPairAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     try {
       //There is one possible sort of node value u16 only
@@ -1643,7 +1643,7 @@ namespace Fed9U {
 
   //*********************************************************
   //Method which will set the attributes for the channel node.
-  void Fed9UXMLDescription::setChannelAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setChannelAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     try {
     //There are two possible type of node value, integer and string.
@@ -1791,7 +1791,7 @@ namespace Fed9U {
 
   //*********************************************************
   //Method which will set the attributes for the channel node.
-  void Fed9UXMLDescription::setApvAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setApvAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     try {
     //There are two possible type of node value, integer and string.
@@ -1872,7 +1872,7 @@ namespace Fed9U {
 
   //*************************************************************
   //Method which will set the attributes for the strip node.
-  void Fed9UXMLDescription::setStripAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setStripAttributes(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     try {
       //There are two possible type of node value, integer and string.
@@ -1958,7 +1958,7 @@ namespace Fed9U {
 
  //*************************************************************
   //Method which will set the attributes for the strips node.
-  void Fed9UXMLDescription::setStripsAttribute(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) throw (Fed9UXMLDescriptionException)
+  void Fed9UXMLDescription::setStripsAttribute(DOMNamedNodeMap *theAttributesDOMNamedNodeMap) noexcept(false)
   {
     // each strip is stored as 32 bits of info in a string blob, we have to loop over each strip and extract the data from
     // each of the 32 bit words. The data is stored in the following bits
@@ -2037,7 +2037,7 @@ namespace Fed9U {
 
   //**************************************************************
   //Method to get the integer node value from a DOMNamedNodeMap
-  unsigned long Fed9UXMLDescription::getIntNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException)
+  unsigned long Fed9UXMLDescription::getIntNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, std::string theAttributeName, bool &notFound) noexcept(false)
   {
     try {
       unsigned long theIntNodeValue = 0;
@@ -2069,7 +2069,7 @@ namespace Fed9U {
 
   //**************************************************************
   //Method to get the signed integer node value from a DOMNamedNodeMap
-  int Fed9UXMLDescription::getSignedIntNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException)
+  int Fed9UXMLDescription::getSignedIntNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) noexcept(false)
   {
     try {
       int theSignedIntNodeValue = 0;
@@ -2100,7 +2100,7 @@ namespace Fed9U {
 
   //**************************************************************
   //Method to get the float node value from a DOMNamedNodeMap
-  float Fed9UXMLDescription::getFloatNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException)
+  float Fed9UXMLDescription::getFloatNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) noexcept(false)
   {
     try {
       float theFloatNodeValue = 0.0;
@@ -2131,7 +2131,7 @@ namespace Fed9U {
 
   //**************************************************************
   //Method to get the string node value from a DOMNamedNodeMap
-  string Fed9UXMLDescription::getStringNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) throw (Fed9UXMLDescriptionException)
+  string Fed9UXMLDescription::getStringNodeValue(DOMNamedNodeMap *theAttributesDOMNamedNodeMap, string theAttributeName, bool &notFound) noexcept(false)
   {
     try {
       string theStringNodeValue;

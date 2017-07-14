@@ -105,7 +105,7 @@ class DeviceFactoryInterface {
    * \exception oracle::occi:SQLException in case of problem regarding the connection
    */
   DeviceFactoryInterface ( std::string login, std::string password, std::string path, bool threaded = false )
-    throw ( oracle::occi::SQLException ):
+    noexcept(false):
     login_(login), password_(password), path_(path), threaded_(threaded), dbAccess_(NULL), useDatabase_(false), deleteDbAccess_(true), outputFileName_(UNKNOWNFILE) {
   }
 
@@ -114,7 +114,7 @@ class DeviceFactoryInterface {
    * \param dbAccess - database access
    */
   DeviceFactoryInterface ( DbCommonAccess *dbAccess ) 
-    throw ( oracle::occi::SQLException ):
+    noexcept(false):
     threaded_(false), dbAccess_(dbAccess), useDatabase_(false), deleteDbAccess_(false), outputFileName_(UNKNOWNFILE) {
   }
 
@@ -189,7 +189,7 @@ class DeviceFactoryInterface {
 
   /** \brief Use or not the database access
    */
-  void setUsingDb ( bool useIt = true ) throw ( std::string ) {
+  void setUsingDb ( bool useIt = true ) noexcept(false) {
 
     if (dbAccess_ != NULL) {
       useDatabase_ = useIt ;
@@ -249,7 +249,7 @@ class DeviceFactoryInterface {
   /** \return the partition name
    * \bug this method must be only called by the FecDeviceFactory or PiaResetFactory or Fed9UDeviceFactory that inherits from this interface. In any other case so TkDcuConversionFactory or DetIdDcuFactory, this method will crash !
    */
-  std::string getPartitionName ( unsigned int partitionId )  throw (oracle::occi::SQLException) {
+  std::string getPartitionName ( unsigned int partitionId )  noexcept(false) {
 
     return (((DbAccess *)dbAccess_)->getPartitionName ( partitionId )) ;
   }

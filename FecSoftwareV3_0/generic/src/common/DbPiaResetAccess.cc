@@ -25,7 +25,7 @@
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess()
  */
-DbPiaResetAccess::DbPiaResetAccess ( bool threaded ) throw (oracle::occi::SQLException) : DbAccess (threaded) {
+DbPiaResetAccess::DbPiaResetAccess ( bool threaded ) noexcept(false) : DbAccess (threaded) {
 }
 
 /**Create an access to the database
@@ -36,14 +36,14 @@ DbPiaResetAccess::DbPiaResetAccess ( bool threaded ) throw (oracle::occi::SQLExc
  * @exception oracle::occi::SQLException
  * @see DbAccess::DbAccess(std::string user, std::string passwd, std::string dbPath)
  */
-DbPiaResetAccess::DbPiaResetAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) throw (oracle::occi::SQLException) : DbAccess (user, passwd, dbPath, threaded) {
+DbPiaResetAccess::DbPiaResetAccess (std::string user, std::string passwd, std::string dbPath, bool threaded) noexcept(false) : DbAccess (user, passwd, dbPath, threaded) {
 }
 
 /**Close the access to the database
  * @exception oracle::occi::SQLException
  * @see DbAccess::~DbAccess()
  */
-DbPiaResetAccess::~DbPiaResetAccess ()  throw (oracle::occi::SQLException) {
+DbPiaResetAccess::~DbPiaResetAccess ()  noexcept(false) {
 }
 
 /**Sends a request to the database to execute a PL/SQL stored procedure in order to get a Clob containing the data from the database.<BR>
@@ -55,7 +55,7 @@ DbPiaResetAccess::~DbPiaResetAccess ()  throw (oracle::occi::SQLException) {
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName)
  * @see PkgPiaResetXML.getAllFecFromPartition ( partitionName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgPiaResetXML.getAllPiaFromPartition(:partitionName);END;";
   return DbAccess::getXMLClobFromQuery(readString, partitionName);  
 
@@ -71,7 +71,7 @@ oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName) thr
  * @see DbAccess::getXMLClob(std::string readString, std::string partitionName)
  * @see PkgPiaResetXML.getAllFecFromPartition ( partitionName IN VARCHAR2 ) RETURN CLOB;
  */
-oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName, std::string fecHardId) throw (oracle::occi::SQLException) {
+oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName, std::string fecHardId) noexcept(false) {
   static std::string readString = "BEGIN :xmlClob := PkgPiaResetXML.getAllPiaFromPartitionAndId(:partitionName, :fecHardId);END;";
   return DbAccess::getXMLClobFromQuery(readString, partitionName, fecHardId);  
 
@@ -86,7 +86,7 @@ oracle::occi::Clob *DbPiaResetAccess::getXMLClob (std::string partitionName, std
  * @see DbAccess::setXMLClob(std::string writeString, std::string buffer, std::string partitionName) 
  * @see PkgPiaResetXML.addXMLClob ( xmlClob IN CLOB, partitionName IN VARCHAR2) RETURN NUMBER;
  */
-void DbPiaResetAccess::setXMLClob(std::string buffer, std::string partitionName) throw (oracle::occi::SQLException, FecExceptionHandler) {
+void DbPiaResetAccess::setXMLClob(std::string buffer, std::string partitionName) noexcept(false) {
   static std::string writeString("BEGIN PkgPiaResetXML.uploadXMLClob(:bufferPiaReset, :partitionName);END;");
   oracle::occi::Statement *stmt = NULL ;
 

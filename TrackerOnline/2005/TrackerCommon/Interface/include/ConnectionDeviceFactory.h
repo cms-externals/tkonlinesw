@@ -69,7 +69,7 @@ class FedFecConnectionDeviceFactory {
 #ifdef DATABASE
   /** Upload a DOMInputSource to the database
    */
-  void getDatabaseDOMInputSource ( DOMInputSource &domInputSource ) throw (exception) {
+  void getDatabaseDOMInputSource ( DOMInputSource &domInputSource ) noexcept(false) {
 
     if (dbFedFecAccess_ != NULL) {
 
@@ -79,7 +79,7 @@ class FedFecConnectionDeviceFactory {
 
   /** Retreive a DOMInputSource from the database
    */
-  DOMInputSource* getDatabaseDOMInputSource( std::string partitionName ) throw (exception) {    
+  DOMInputSource* getDatabaseDOMInputSource( std::string partitionName ) noexcept(false) {    
 
     if (dbFedFecAccess_ != NULL) {
 
@@ -176,7 +176,7 @@ class FedFecConnectionDeviceFactory {
   /** \brief Buid a CONNECTION factory for database
    */
   FedFecConnectionDeviceFactory ( string login, string password, string path)
-    throw ( oracle::occi::SQLException ) {
+    noexcept(false) {
 
     dbFecFedAccess_ = NULL ;
     
@@ -186,7 +186,7 @@ class FedFecConnectionDeviceFactory {
   /** \brief Build a FEC factory for CONNECTION database
    */
   FedFecConnectionDeviceFactory ( DbFedFecAccess *dbFedFecAccess)
-    throw ( oracle::occi::SQLException ) {
+    noexcept(false) {
     
     dbFecAccess_ = NULL ;
     
@@ -199,7 +199,7 @@ class FedFecConnectionDeviceFactory {
    * \param path to the database
    */
   void setFecFedConnectionDatabaseAccess ( string login, string password, string path )
-    throw ( oracle::occi::SQLException ) {
+    noexcept(false) {
 
     // For FEC/FED database
     if (dbFedFecAccess_ != NULL)
@@ -221,7 +221,7 @@ class FedFecConnectionDeviceFactory {
    * \param database access
    */
   void setFecFedConnectionDatabaseAccess ( DbFedFecAccess *dbFedFecAccess)
-    throw ( FecExceptionHandler ) {
+    noexcept(false) {
    
     dbFedFecAccess_ = dbFecAccess ;
     deleteDbFedFecAccess_ = false ;

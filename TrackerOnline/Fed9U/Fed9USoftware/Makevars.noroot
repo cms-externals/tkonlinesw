@@ -85,7 +85,7 @@ CPPFLAGS += -I$(INC) $(CUSTOM_INCLUDES)   \
 	$(ENV_CMS_TK_FED9U_ICUTILS_INCDIR)				\
 	-I../Fed9UVmeBase/include/ -I../Fed9UVmeDevice/include/ \
 	-I../Fed9UDevice/include/ -I../Fed9UBuildDefines/include/       \
-	-Dlinux -DLINUX     -DLITTLE_ENDIAN__    -DCPU=x86  -Dx86  -std=c++0x  \
+	-Dlinux -DLINUX     -DLITTLE_ENDIAN__    -DCPU=x86  -Dx86   \
 	-DSOAP__  -DCMS_TK_64BITS  $(ENV_CMS_TK_FED9U_DATABASE_C++FLAGS) -DEVENT_STREAMLINE #-DINLINE  $(ENV_CMS_TK_FED9U_HAL_C++FLAGS) 
 # -Dtoolbox don't know what this did... so removed it... was breaking the compile for the diag
 
@@ -96,7 +96,7 @@ else
 NONSTDFLAGS += -g -DDEBUGMSGERROR
 endif
 
-CCFLAGS += -ansi -pedantic -fPIC -Wall -Wno-long-long -std=c++0x $(NONSTDFLAGS)
+CCFLAGS += -fPIC -Wall -Wno-long-long $(NONSTDFLAGS)
 CXXFLAGS += $(CCFLAGS) $(CPPFLAGS)
 ARFLAGS += cr
 SOFLAGS += -shared
