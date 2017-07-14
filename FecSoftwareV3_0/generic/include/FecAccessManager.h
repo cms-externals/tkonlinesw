@@ -394,7 +394,7 @@ class FecAccessManager {
 
   /** \brief upload all the values from the hardware through block of frames
    */
-  virtual deviceVector *uploadValuesMultipleFrames ( std::list<FecExceptionHandler *> &errorList, bool comparison = false, bool dcuUpload = true, bool dohSet = true ) ;
+  virtual deviceVector *uploadValuesMultipleFrames ( std::list<FecExceptionHandler *> &errorList, bool comparison = false, bool dcuUpload = true, bool dohSet = true, std::ostream & ss = std::cout) ;
 
   /** \brief upload all the DCU values from the hardware
    */

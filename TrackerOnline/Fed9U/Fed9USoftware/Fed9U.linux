@@ -275,7 +275,7 @@ ifdef ENV_CMS_TK_FED9U_DATABASE_ROOT
     export ENV_CMS_TK_FED9U_ORACLE_LIBDIR = -L$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/lib
     export ENV_CMS_TK_FED9U_ORACLE_INCDIR = -I$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/rdbms/public -I$(ENV_CMS_TK_FED9U_ORACLE_ROOT)/include
     export ENV_CMS_TK_FED9U_DATABASE_LIBRARY = -lDeviceDescriptions 
-    export ENV_CMS_TK_FED9U_ORACLE_LIBRARY = -locci -lclntsh -lnnz11
+    export ENV_CMS_TK_FED9U_ORACLE_LIBRARY = -locci -lclntsh -lnnz12
   endif
 endif
 

@@ -165,6 +165,9 @@ class kchipAccess : public deviceAccess {
 
   tscType8 getPFifoOverflow ( );
 
+  void getBlockWriteValues ( class kchipDescription& kchipValues, 
+		   		std::list<accessDeviceType> &vAccess ); 
+
 } ;
 
 #endif

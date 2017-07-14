@@ -11,7 +11,7 @@ CUSTOMOBJECTS= $(patsubst ../Fed9UVmeDevice/$(SRC)/%.cc, ../Fed9UVmeDevice/$(OBJ
 		$(patsubst ../Fed9UVmeBase/$(SRC)/%.cc, ../Fed9UVmeBase/$(OBJ)/%.o, $(NONSTDSRCVMEBASE))
 
 include ../Makefile.in
-include ../Makevars
+include ../Makevars.noroot
 include ../Makerules
 
 header: $(INC)/Fed9ULib.hh

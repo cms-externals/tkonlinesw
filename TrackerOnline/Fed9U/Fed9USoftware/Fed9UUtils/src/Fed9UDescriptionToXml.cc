@@ -33,7 +33,7 @@ namespace Fed9U {
   using xercesc::DOMImplementation;
   using xercesc::DOMImplementationRegistry;
   using xercesc::DOMImplementationLS;
-  using xercesc::DOMWriter;
+  using xercesc::DOMLSSerializer;
   using xercesc::XMLPlatformUtils;
   using xercesc::XMLException;
   using xercesc::XMLString;
@@ -54,6 +54,7 @@ namespace Fed9U {
   Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName,  std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException): 
     doc(NULL),
     theDOMWriter(NULL),
+    theDOMOutput(NULL),
     theTargetXMLFileName(targetXMLFileName),
     theFed9UDescription(*(new Fed9UDescription(*(Fed9UDescriptionsToWrite[0])))),
     theFed9UDescriptionList(Fed9UDescriptionsToWrite),
@@ -74,6 +75,7 @@ namespace Fed9U {
   Fed9UDescriptionToXml::Fed9UDescriptionToXml( std::vector<Fed9UDescription*>  Fed9UDescriptionsToWrite , bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException): 
     doc(NULL),
     theDOMWriter(NULL),
+    theDOMOutput(NULL),
     theTargetXMLFileName(""),
     theFed9UDescription(*(new Fed9UDescription(*(Fed9UDescriptionsToWrite[0])))),
     theFed9UDescriptionList(Fed9UDescriptionsToWrite),
@@ -94,6 +96,7 @@ namespace Fed9U {
   Fed9UDescriptionToXml::Fed9UDescriptionToXml(const std::string &targetXMLFileName, Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException) : 
     doc(NULL),
     theDOMWriter(NULL),
+    theDOMOutput(NULL),
     theTargetXMLFileName(targetXMLFileName),
     theFed9UDescription(*(new Fed9UDescription(Fed9UDescriptionToWrite))),
     usingStrips_(usingStrips),
@@ -113,6 +116,7 @@ namespace Fed9U {
   Fed9UDescriptionToXml::Fed9UDescriptionToXml( Fed9UDescription &Fed9UDescriptionToWrite, bool usingStrips, bool usingBinaryStrips) throw (Fed9UXMLDescriptionException) :    
     doc(NULL),
     theDOMWriter(NULL),
+    theDOMOutput(NULL),
     theFed9UDescription(*(new Fed9UDescription(Fed9UDescriptionToWrite))),
     usingStrips_(usingStrips), 
     debugOutput_(false),
@@ -135,7 +139,7 @@ namespace Fed9U {
 	theDOMWriter->release();
       if (doc)
 	doc->release();
-      XMLPlatformUtils::Terminate();
+      //XMLPlatformUtils::Terminate();
     }
   
     catch (...) {
@@ -153,7 +157,8 @@ namespace Fed9U {
       MemBufFormatTarget *theXMLFormatTarget = new MemBufFormatTarget();
       
       //Get the DOM from the XML parser and stream to object pointed of type XMLFormatTarget.
-      theDOMWriter->writeNode(theXMLFormatTarget, *doc);
+      theDOMOutput->setByteStream(theXMLFormatTarget);
+      theDOMWriter->write(doc,theDOMOutput);
       if (debugOutput_)
 	std::cout << "debug output = " << (debugOutput_ ? "true \n" : "false \n" ) << theXMLFormatTarget->getRawBuffer() << std::endl;
       (*os) << theXMLFormatTarget->getRawBuffer();
@@ -195,7 +200,8 @@ namespace Fed9U {
       LocalFileFormatTarget *theXMLFormatTarget = new LocalFileFormatTarget(const_cast<const char* const>(theTargetXMLFileName.c_str()));
       
       //Get the DOM from the XML parser and stream to object pointed of type XMLFormatTarget.
-      theDOMWriter->writeNode(theXMLFormatTarget, *doc);
+      theDOMOutput->setByteStream(theXMLFormatTarget);
+      theDOMWriter->write(doc,theDOMOutput);
 
       //Clean up
       if (theXMLFormatTarget) {
@@ -249,16 +255,18 @@ namespace Fed9U {
       XMLCh tempStr[100];
       XMLString::transcode("LS", tempStr, 99);
       impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
-      theDOMWriter = ((DOMImplementationLS*)impl)->createDOMWriter();
+      theDOMWriter = ((DOMImplementationLS*)impl)->createLSSerializer();
+      theDOMOutput = ((DOMImplementationLS*)impl)->createLSOutput();
       
       //Plug in error handler  
-      theDOMWriter->setErrorHandler(&errorHandler);
+      //      theDOMWriter->setErrorHandler(&errorHandler);
+      theDOMWriter->getDomConfig()->setParameter(XMLUni::fgDOMErrorHandler,&errorHandler);
       //reset error count
       errorHandler.resetErrors();
-      
+
       //Include whitespaces in the output
-      if (theDOMWriter->canSetFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true)) {
-	theDOMWriter->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true);
+      if (theDOMWriter->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true)) {
+	theDOMWriter->getDomConfig()->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
       }
     }
     catch (const DOMException& e) {
@@ -281,7 +289,7 @@ namespace Fed9U {
   void Fed9UDescriptionToXml::initializeXerces(void) throw (Fed9UXMLDescriptionException)
   {
     try {
-      if (XMLPlatformUtils::fgTransService != NULL)   
+      if (XMLPlatformUtils::fgTransService == NULL)   
             XMLPlatformUtils::Initialize();
     }
     catch (const XMLException& e) {
@@ -508,7 +516,36 @@ namespace Fed9U {
     else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_NORMAL) {
       childElement->setAttribute(X("superMode"), X("NORMAL"));
     }
-
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_FAKE_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("FAKE_HI_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_ZERO_LITE_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("ZERO_LITE_HI_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_FAKE_ZERO_LITE_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("FAKE_ZERO_LITE_HI_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_NORMAL_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("NORMAL_HI_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_FAKE_LO) {
+		childElement->setAttribute(X("superMode"), X("FAKE_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_ZERO_LITE_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("ZERO_LITE_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_FAKE_ZERO_LITE_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("FAKE_ZERO_LITE_LO"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_NORMAL_HI_LO) {
+		childElement->setAttribute(X("superMode"), X("NORMAL_LO"));
+	}	
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_FAKE_10) {
+		childElement->setAttribute(X("superMode"), X("FAKE_10"));
+	}
+	else if (theFed9UDaqSuperMode==FED9U_SUPER_MODE_NORMAL_10) {
+		childElement->setAttribute(X("superMode"), X("NORMAL_10"));
+	}
     //Set the scope mode length
     numberString << theFed9UDescription.getScopeLength();
     childElement->setAttribute(X("scopeLength"), X((numberString.str()).c_str())); 
@@ -1279,8 +1316,8 @@ namespace Fed9U {
 //       //      stripsBuf[0] = 'H';
 
 
-      unsigned int outputlength;
-      unsigned int length = 512;
+      XMLSize_t outputlength;
+      XMLSize_t length = 512;
       XMLByte* encodedXML;
 
       //std::cout << "Base 64 encoded strips string = " <<  reinterpret_cast<char*>(Base64::encode(reinterpret_cast<const XMLByte*>(stripsBuf),length,&outputlength))  

@@ -52,7 +52,7 @@ const char* kchipDescription::names[] = {
    "Bnchcnt_L","Bnchcnt_H","GintBUSY","GintIDLE",
    "Status0",
    "Status1","SEUcnt","CalPulseDly","CalPulseW",
-   "AdcLatency","PFifoOvfl","ChipID0","ChipID1" } ; 
+   "AdcLatency","PfifoOvfl","ChipID0","ChipID1" } ; 
 
 const char* kchipDescription::parnames[] = { 
   "Config" , // 0 
@@ -71,7 +71,7 @@ const char* kchipDescription::parnames[] = {
   "CalPulseDelay",// 15
   "CalPulseWidth", // 16
   "AdcLatency", // 17 
-  "PFifoOvfl", // 18
+  "PfifoOvfl", // 18
   "ChipID" // 19 
 } ; 
 
@@ -100,7 +100,7 @@ const ParameterDescription::enumTscType   kchipDescription::parTscType[] = {
 
 
 const tscType8 kchipDescription::comp_mask_[] = { 
-  0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,
-  0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,
-  0xff,0xff,0xff,0xff,0xff } ; // i.e. all bits are checked 
+  0xff,0xff,0xfc,0xff,0xff,0x00,0xff,0x00,
+  0x00,0x00,0xff,0xff,0x00,0x00,0x00,0xff,
+  0xff,0xff,0xff,0x00,0x00 } ; // i.e. all bits are checked 
 

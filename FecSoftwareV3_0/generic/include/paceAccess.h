@@ -24,7 +24,7 @@ Frederic DROUHIN - Universite de Haute-Alsace, Mulhouse-France
  * \date March 2004
  * \warning All the I2C accesses are done in extended/ral mode
  * \warning An offset of 1 is added to the address when a read is performed
- * \brief This class define all the hardware accesses for the DELTA3B througth the FecAccess class
+ * \brief This class define all the hardware accesses for the PACEAM3B througth the FecAccess class
  */
 class paceAccess : public deviceAccess {
 
@@ -61,11 +61,11 @@ class paceAccess : public deviceAccess {
    */
   void setDescription ( class paceDescription& deltaValues );
 
-  /** \brief Set all values from an DELTA3B description
+  /** \brief Set all values from an PACEAM3B description
    */
   void setValues ( class paceDescription& deltaValues );
 
-  /** \brief Get all values from an DELTA3B
+  /** \brief Get all values from an PACEAM3B
 
    */
   paceDescription *getValues ( ) ;
@@ -181,7 +181,9 @@ class paceAccess : public deviceAccess {
    */
   tscType8 getUpsetReg     ( ) ;
 
- 
+  /** \brief used to create set of frames in multiframe write transfer
+   */
+  void getBlockWriteValues ( class paceDescription& paceValues, accessDeviceTypeList &vAccess );  
 
   
 } ;

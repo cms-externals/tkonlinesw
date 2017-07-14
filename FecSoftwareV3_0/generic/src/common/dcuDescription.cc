@@ -438,26 +438,26 @@ bool dcuDescription::isLevelDifferent ( dcuDescription dcu, long level ) {
 /** \brief Display the DCU values where the comparison is different
  * \param dcu - uploaded values
  */
-void dcuDescription::displayDifferences ( dcuDescription &dcu ) {
+void dcuDescription::displayDifferences ( dcuDescription &dcu,std::ostream & ss) {
 
   if (getDcuHardId( ) != dcu.getDcuHardId( ))
-    std::cout << "\tHard ID is different " << std::dec << (unsigned int)getDcuHardId( ) << " / " << (unsigned int)dcu.getDcuHardId( ) << std::endl ;
+    ss << "\tHard ID is different " << std::dec << (unsigned int)getDcuHardId( ) << " / " << (unsigned int)dcu.getDcuHardId( ) << std::endl ;
   if (getDcuChannel0( ) != dcu.getDcuChannel0( ))
-    std::cout << "\tChannel 0 is different " << std::dec << getDcuChannel0( ) << " / " <<  dcu.getDcuChannel0( ) << std::endl ;
+    ss << "\tChannel 0 is different " << std::dec << getDcuChannel0( ) << " / " <<  dcu.getDcuChannel0( ) << std::endl ;
   if (getDcuChannel1( ) != dcu.getDcuChannel1( ))
-    std::cout << "\tChannel 1 is different " << std::dec << getDcuChannel1( ) << " / " <<  dcu.getDcuChannel1( ) << std::endl ;
+    ss << "\tChannel 1 is different " << std::dec << getDcuChannel1( ) << " / " <<  dcu.getDcuChannel1( ) << std::endl ;
   if (getDcuChannel2( ) != dcu.getDcuChannel2( ))
-    std::cout << "\tChannel 2 is different " << std::dec << getDcuChannel2( ) << " / " <<  dcu.getDcuChannel2( ) << std::endl ;
+    ss << "\tChannel 2 is different " << std::dec << getDcuChannel2( ) << " / " <<  dcu.getDcuChannel2( ) << std::endl ;
   if (getDcuChannel3( ) != dcu.getDcuChannel3( ))
-    std::cout << "\tChannel 3 is different " << std::dec << getDcuChannel3( ) << " / " <<  dcu.getDcuChannel3( ) << std::endl ;
+    ss << "\tChannel 3 is different " << std::dec << getDcuChannel3( ) << " / " <<  dcu.getDcuChannel3( ) << std::endl ;
   if (getDcuChannel4( ) != dcu.getDcuChannel4( ))
-    std::cout << "\tChannel 4 is different " << std::dec << getDcuChannel4( ) << " / " <<  dcu.getDcuChannel4( ) << std::endl ;
+    ss << "\tChannel 4 is different " << std::dec << getDcuChannel4( ) << " / " <<  dcu.getDcuChannel4( ) << std::endl ;
   if (getDcuChannel5( ) != dcu.getDcuChannel5( ))
-    std::cout << "\tChannel 5 is different " << std::dec << getDcuChannel5( ) << " / " <<  dcu.getDcuChannel5( ) << std::endl ;
+    ss << "\tChannel 5 is different " << std::dec << getDcuChannel5( ) << " / " <<  dcu.getDcuChannel5( ) << std::endl ;
   if (getDcuChannel6( ) != dcu.getDcuChannel6( ))
-    std::cout << "\tChannel 6 is different " << std::dec << getDcuChannel6( ) << " / " <<  dcu.getDcuChannel6( ) << std::endl ;
+    ss << "\tChannel 6 is different " << std::dec << getDcuChannel6( ) << " / " <<  dcu.getDcuChannel6( ) << std::endl ;
   if (getDcuChannel7( ) != dcu.getDcuChannel7( ))
-    std::cout << "\tChannel 7 is different " << std::dec << getDcuChannel7( ) << " / " <<  dcu.getDcuChannel7( ) << std::endl ;
+    ss << "\tChannel 7 is different " << std::dec << getDcuChannel7( ) << " / " <<  dcu.getDcuChannel7( ) << std::endl ;
 }
 
 /** \brief Display DCU values

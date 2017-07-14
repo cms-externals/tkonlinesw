@@ -346,6 +346,8 @@ class FecDeviceFactory: public DeviceFactoryInterface {
    */
   void setFileRingDescription ( std::string fileName, TkRingDescription ringD ) 
     throw ( FecExceptionHandler ) ;
+  unsigned int getMinorVersion() { return versionMinor_;}
+  unsigned int getMajorVersion() { return versionMajor_;}
 } ;
 
 #endif

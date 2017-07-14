@@ -612,45 +612,45 @@ apvDescription *apvDescription::clone ( ) {
 /** \Brief Display the APV values where the comparison is different
  * \param apv - uploaded values
  */
-void apvDescription::displayDifferences ( apvDescription &apv ) {
+void apvDescription::displayDifferences ( apvDescription &apv,std::ostream & ss) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "APV " << msg << std::endl ;
+  ss << "APV " << msg << std::endl ;
   if (getApvMode ( ) != apv.getApvMode ( ))
-    std::cout << "\tApvMode is different (" << std::dec <<(unsigned int) getApvMode ( ) << " / " << (unsigned int) apv.getApvMode ( ) << ")" << std::endl ;
+    ss << "\tApvMode is different (" << std::dec <<(unsigned int) getApvMode ( ) << " / " << (unsigned int) apv.getApvMode ( ) << ")" << std::endl ;
   if ( getLatency( ) != apv.getLatency ( ))
-    std::cout << "\tLatency is different (" <<(unsigned int) getLatency( ) << " / " << (unsigned int) apv.getLatency ( ) << ")" << std::endl ;
+    ss << "\tLatency is different (" <<(unsigned int) getLatency( ) << " / " << (unsigned int) apv.getLatency ( ) << ")" << std::endl ;
   if ( getMuxGain( ) != apv.getMuxGain ( ))
-    std::cout << "\tMuxGain is different " <<(unsigned int) getMuxGain( ) << " / " << (unsigned int) apv.getMuxGain ( ) << ")" << std::endl ;
+    ss << "\tMuxGain is different " <<(unsigned int) getMuxGain( ) << " / " << (unsigned int) apv.getMuxGain ( ) << ")" << std::endl ;
   if ( getIpre( ) != apv.getIpre ( ))
-    std::cout << "\tIpre is different " <<(unsigned int) getIpre( ) << " / " << (unsigned int) apv.getIpre ( ) << ")" << std::endl ;
+    ss << "\tIpre is different " <<(unsigned int) getIpre( ) << " / " << (unsigned int) apv.getIpre ( ) << ")" << std::endl ;
   if ( getIpcasc( ) != apv.getIpcasc ( ))
-    std::cout << "\tIpcasc is different " <<(unsigned int) getIpcasc( ) << " / " << (unsigned int) apv.getIpcasc ( ) << ")" << std::endl ;
+    ss << "\tIpcasc is different " <<(unsigned int) getIpcasc( ) << " / " << (unsigned int) apv.getIpcasc ( ) << ")" << std::endl ;
   if ( getIpsf( ) != apv.getIpsf ( ))
-    std::cout << "\tIpsf is different " <<(unsigned int) getIpsf( ) << " / " << (unsigned int) apv.getIpsf ( ) << ")" << std::endl ;
+    ss << "\tIpsf is different " <<(unsigned int) getIpsf( ) << " / " << (unsigned int) apv.getIpsf ( ) << ")" << std::endl ;
   if ( getIsha( ) != apv.getIsha ( ))
-    std::cout << "\tIsha is different " <<(unsigned int) getIsha( ) << " / " << (unsigned int) apv.getIsha ( ) << ")" << std::endl ;
+    ss << "\tIsha is different " <<(unsigned int) getIsha( ) << " / " << (unsigned int) apv.getIsha ( ) << ")" << std::endl ;
   if ( getIssf( ) != apv.getIssf ( ))
-    std::cout << "\tIssf is different " <<(unsigned int) getIssf( ) << " / " << (unsigned int) apv.getIssf ( ) << ")" << std::endl ;
+    ss << "\tIssf is different " <<(unsigned int) getIssf( ) << " / " << (unsigned int) apv.getIssf ( ) << ")" << std::endl ;
   if ( getIpsp( ) != apv.getIpsp ( ))
-    std::cout << "\tIpsp is different " <<(unsigned int) getIpsp( ) << " / " << (unsigned int) apv. getIpsp( ) << ")" << std::endl ;
+    ss << "\tIpsp is different " <<(unsigned int) getIpsp( ) << " / " << (unsigned int) apv. getIpsp( ) << ")" << std::endl ;
   if ( getImuxin( ) != apv.getImuxin( ))
-    std::cout << "\tImuxin is different " << (unsigned int) getImuxin( ) << " / " << (unsigned int) apv. getImuxin( ) << ")" << std::endl ;
+    ss << "\tImuxin is different " << (unsigned int) getImuxin( ) << " / " << (unsigned int) apv. getImuxin( ) << ")" << std::endl ;
   if ( getIcal( ) != apv.getIcal ( ))
-    std::cout << "\tIcal is different " << (unsigned int) getIcal( ) << " / " << (unsigned int) apv.getIcal ( ) << ")" << std::endl ;
+    ss << "\tIcal is different " << (unsigned int) getIcal( ) << " / " << (unsigned int) apv.getIcal ( ) << ")" << std::endl ;
   if ( getIspare( ) != apv.getIspare ( ))
-    std::cout << "\tIspare is different " << (unsigned int) getIspare( ) << " / " << (unsigned int) apv.getIspare ( ) << ")" << std::endl ;
+    ss << "\tIspare is different " << (unsigned int) getIspare( ) << " / " << (unsigned int) apv.getIspare ( ) << ")" << std::endl ;
   if ( getVfp( ) != apv.getVfp ( ))
-    std::cout << "\tVfp is different " << (unsigned int) getVfp( ) << " / " << (unsigned int) apv.getVfp ( ) << ")" << std::endl ;
+    ss << "\tVfp is different " << (unsigned int) getVfp( ) << " / " << (unsigned int) apv.getVfp ( ) << ")" << std::endl ;
   if ( getVfs( ) != apv.getVfs ( ))
-    std::cout << "\tVfs is different " << (unsigned int) getVfs( ) << " / " << (unsigned int) apv. getVfs( ) << ")" << std::endl ;
+    ss << "\tVfs is different " << (unsigned int) getVfs( ) << " / " << (unsigned int) apv. getVfs( ) << ")" << std::endl ;
   if ( getVpsp( ) != apv.getVpsp ( ))
-    std::cout << "\tVpsp is different " << (unsigned int) getVpsp( ) << " / " << (unsigned int) apv.getVpsp ( ) << ")" << std::endl ;
+    ss << "\tVpsp is different " << (unsigned int) getVpsp( ) << " / " << (unsigned int) apv.getVpsp ( ) << ")" << std::endl ;
   if ( getCdrv( ) != apv.getCdrv ( ))
-    std::cout << "\tCdrv is different " << (unsigned int) getCdrv( ) << " / " << (unsigned int) apv.getCdrv ( ) << ")" << std::endl ;
+    ss << "\tCdrv is different " << (unsigned int) getCdrv( ) << " / " << (unsigned int) apv.getCdrv ( ) << ")" << std::endl ;
   if ( getCsel( ) != apv.getCsel ( ))
-    std::cout << "\tCsel is different " << (unsigned int) getCsel( ) << " / " << (unsigned int) apv.getCsel ( ) << ")" << std::endl ;
+    ss << "\tCsel is different " << (unsigned int) getCsel( ) << " / " << (unsigned int) apv.getCsel ( ) << ")" << std::endl ;
   //if ( getApvError( ) != apv.getApvError ( ))
   //std::cout << "\tApvError is different " << getApvError( ) << " / " << apv.getApvError ( ) << ")" << std::endl ;
 }

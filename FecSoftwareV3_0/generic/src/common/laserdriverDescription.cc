@@ -515,13 +515,13 @@ laserdriverDescription *laserdriverDescription::clone ( ) {
 /** \brief Display the APV values where the comparison is different
  * \param laserdriver - uploaded values
  */
-void laserdriverDescription::displayDifferences ( laserdriverDescription &laserdriver ) {
+void laserdriverDescription::displayDifferences ( laserdriverDescription &laserdriver,std::ostream & ss) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "Laserdriver " << msg << std::endl ;
+  ss << "Laserdriver " << msg << std::endl ;
   if ((getGain ( ) != laserdriver.getGain ( )))
-    std::cout << "\tGain is different (" << std::dec << (unsigned int) getGain() << " / " << (unsigned int) laserdriver.getGain ( ) << std::endl ;
+    ss << "\tGain is different (" << std::dec << (unsigned int) getGain() << " / " << (unsigned int) laserdriver.getGain ( ) << std::endl ;
 
   tscType8 ebias[MAXLASERDRIVERCHANNELS] ;
   laserdriver.getBias(ebias) ;
@@ -532,7 +532,7 @@ void laserdriverDescription::displayDifferences ( laserdriverDescription &laserd
   for (tscType8 i = 0 ; i < MAXLASERDRIVERCHANNELS ; i ++) {
 
     if (dBias[i] != ebias[i])
-      std::cout << "\tBias " << std::dec << " is different " << (unsigned int) dBias[i] << " / " << (unsigned int) ebias[i] << std::endl ;
+      ss << "\tBias " << std::dec << " is different " << (unsigned int) dBias[i] << " / " << (unsigned int) ebias[i] << std::endl ;
   }
 }
 

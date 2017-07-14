@@ -256,21 +256,21 @@ delay25Description *delay25Description::clone ( ) {
 /** \brief Display the APV values where the comparison is different
  * \param delay25 - uploaded values
  */
-void delay25Description::displayDifferences ( delay25Description &delay25 ) {
+void delay25Description::displayDifferences ( delay25Description &delay25, std::ostream & ss) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "DELAY25 " << msg << std::endl ;
+  ss << "DELAY25 " << msg << std::endl ;
   if (getDelay0 ( ) != delay25.getDelay0 ( ))
-    std::cout << "\tDelay0 is different (" << std::dec << (int)getDelay0() << ", " << (int)delay25.getDelay0 ( ) << ")" << std::endl ;
+    ss << "\tDelay0 is different (" << std::dec << (int)getDelay0() << ", " << (int)delay25.getDelay0 ( ) << ")" << std::endl ;
   if (getDelay1 ( ) != delay25.getDelay1 ( ))
-    std::cout << "\tDelay1 is different (" << std::dec << (int)getDelay1() << ", " << (int)delay25.getDelay1 ( ) << ")" << std::endl ; 
+    ss << "\tDelay1 is different (" << std::dec << (int)getDelay1() << ", " << (int)delay25.getDelay1 ( ) << ")" << std::endl ; 
   if (getDelay2 ( ) != delay25.getDelay2 ( ))
-    std::cout << "\tDelay2 is different (" << std::dec << (int)getDelay2() << ", " << (int)delay25.getDelay2 ( ) << ")" << std::endl ;
+    ss << "\tDelay2 is different (" << std::dec << (int)getDelay2() << ", " << (int)delay25.getDelay2 ( ) << ")" << std::endl ;
   if (getDelay3 ( ) != delay25.getDelay3 ( ))
-    std::cout << "\tDelay3 is different (" << std::dec << (int)getDelay3() << ", " << (int)delay25.getDelay3 ( ) << ")" << std::endl ; 
+    ss << "\tDelay3 is different (" << std::dec << (int)getDelay3() << ", " << (int)delay25.getDelay3 ( ) << ")" << std::endl ; 
   if (getDelay4 ( ) != delay25.getDelay4 ( ))
-    std::cout << "\tDelay4 is different (" << std::dec << (int)getDelay4() << ", " << (int)delay25.getDelay4 ( ) << ")" << std::endl ;
+    ss << "\tDelay4 is different (" << std::dec << (int)getDelay4() << ", " << (int)delay25.getDelay4 ( ) << ")" << std::endl ;
 
 
 }

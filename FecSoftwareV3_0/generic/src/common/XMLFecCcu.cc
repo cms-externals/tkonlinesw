@@ -696,8 +696,8 @@ void XMLFecCcu::parseDatabaseResponse ( std::string partitionName, std::string f
 
 	try {
 	  XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	  XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	  domDocument_ = parser_->parse(*domInputSource) ;
+	  XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	  domDocument_ = parser_->parse(domInputSource) ;
 	  delete domInputSource ;
 	}
 	catch (const XERCES_CPP_NAMESPACE::SAXException &ex) {
@@ -756,8 +756,8 @@ void XMLFecCcu::parseDatabaseResponse ( std::string fecHardId, unsigned int ring
 
 	try {
 	  XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	  XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	  domDocument_ = parser_->parse(*domInputSource) ;
+	  XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	  domDocument_ = parser_->parse(domInputSource) ;
 	  delete domInputSource ;
 	}
 	catch (const XERCES_CPP_NAMESPACE::SAXException &ex) {

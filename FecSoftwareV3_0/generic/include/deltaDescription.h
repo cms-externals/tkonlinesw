@@ -361,18 +361,18 @@ class deltaDescription: public deviceDescription {
    
   }
 
-  /** \brief Return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief Return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline tscType8 getCR0    ( ) { return (values_[DELTA_DESC_CR0]); }
-  /** \brief return the value of the APV register corresponding to an APV registe
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA registe
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline tscType8 getCR1 ( ) { return (values_[DELTA_DESC_CR1]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline tscType16 getChipID ( ) {
@@ -380,14 +380,14 @@ inline tscType16 getChipID ( ) {
 	(~values_[DELTA_DESC_CHIPID1]); 	
      return  val ; 
   }
-//   /** \brief return the value of the APV register corresponding to an APV register
-//    * Return the value of the APV register corresponding to an APV register
+//   /** \brief return the value of the DELTA register corresponding to an DELTA register
+//    * Return the value of the DELTA register corresponding to an DELTA register
 //    * \return the value
 //    */
 //   tscType8 getChipID1 ( ) { return (values_[DELTA_DESC_CHIPID1]) ; }
  
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline tscType32 getCalChan  ( ) {
@@ -399,58 +399,58 @@ inline tscType32 getCalChan  ( ) {
      
      return (val) ; 
   } 
-//   /** \brief return the value of the APV register corresponding to an APV register
-//    * Return the value of the APV register corresponding to an APV register
+//   /** \brief return the value of the DELTA register corresponding to an DELTA register
+//    * Return the value of the DELTA register corresponding to an DELTA register
 //    * \return the value
 //    */
 //   tscType8 getCalChan1    ( ) { return (values_[DELTA_DESC_CALCHAN1]) ; }
-//   /** \brief return the value of the APV register corresponding to an APV register
-//    * Return the value of the APV register corresponding to an APV register
+//   /** \brief return the value of the DELTA register corresponding to an DELTA register
+//    * Return the value of the DELTA register corresponding to an DELTA register
 //    * \return the value
 //    */
 //   tscType8 getCalChan2    ( ) { return (values_[DELTA_DESC_CALCHAN2]) ; }
-//   /** \brief return the value of the APV register corresponding to an APV register
-//    * Return the value of the APV register corresponding to an APV register
+//   /** \brief return the value of the DELTA register corresponding to an DELTA register
+//    * Return the value of the DELTA register corresponding to an DELTA register
 //    * \return the value
 //    */
 //   tscType8 getCalChan3    ( ) { return (values_[DELTA_DESC_CALCHAN3]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getVcal    ( ) { return (values_[DELTA_DESC_VCAL]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getVoPreamp  ( ) { return (values_[DELTA_DESC_VOPREAMP]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getVoShaper    ( ) { return (values_[DELTA_DESC_VOSHAPER]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getVspare  ( ) { return (values_[DELTA_DESC_VSPARE]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getIpreamp     ( ) { return (values_[DELTA_DESC_IPREAMP]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getIshaper     ( ) { return (values_[DELTA_DESC_ISHAPER]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getISF    ( ) { return (values_[DELTA_DESC_ISF]) ; }
-  /** \brief return the value of the APV register corresponding to an APV register
-   * Return the value of the APV register corresponding to an APV register
+  /** \brief return the value of the DELTA register corresponding to an DELTA register
+   * Return the value of the DELTA register corresponding to an DELTA register
    * \return the value
    */
 inline  tscType8 getIspare    ( ) { return (values_[DELTA_DESC_ISPARE]) ; }  
@@ -466,19 +466,19 @@ inline void setValue(int reg, tscType8 val) {
 };
 
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setCR0    ( tscType8 cr0    ) { values_[DELTA_DESC_CR0] = cr0 ; }
 
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setCR1 ( tscType8 cr1 ) { values_[DELTA_DESC_CR1] = cr1 ; }
 
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setChipID    ( tscType16 chipid   ) { 
@@ -486,7 +486,7 @@ inline  void setChipID    ( tscType16 chipid   ) {
      values_[DELTA_DESC_CHIPID1] = (0x00ff & (~chipid)) ;
   }
 //   /** \brief set the value for register
-//    * Set the value for an APV description
+//    * Set the value for an DELTA description
 //    * \param Status - value to be set
 //    */
 //   void setChipID1    ( tscType8 chipid1    ) { values_[DELTA_DESC_CHIPID1] = chipid1 ; }
@@ -497,7 +497,7 @@ inline  void setChipID    ( tscType16 chipid   ) {
 
 
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setCalChan ( tscType32 calchan ) { 
@@ -509,59 +509,59 @@ inline  void setCalChan ( tscType32 calchan ) {
     
   }
 //   /** \brief set the value for register
-//    * Set the value for an APV description
+//    * Set the value for an DELTA description
 //    * \param Status - value to be set
 //    */
 //   void setCalChan1 ( tscType8 calchan1 ) { values_[DELTA_DESC_CALCHAN1] = calchan1 ; }
 //   /** \brief set the value for register
-//    * Set the value for an APV description
+//    * Set the value for an DELTA description
 //    * \param Status - value to be set
 //    */
 //   void setCalChan2 ( tscType8 calchan2 ) { values_[DELTA_DESC_CALCHAN2] = calchan2 ; }
 //   /** \brief set the value for register
-//    * Set the value for an APV description
+//    * Set the value for an DELTA description
 //    * \param Status - value to be set
 //    */
 //   void setCalChan3 ( tscType8 calchan3 ) { values_[DELTA_DESC_CALCHAN3] = calchan3 ; }
   
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setVcal    ( tscType8 vcal    ) {values_[DELTA_DESC_VCAL] = vcal ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setVoPreamp    ( tscType8 vopreamp    ) {values_[DELTA_DESC_VOPREAMP]  = vopreamp ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setVoShaper    ( tscType8 voshaper    ) { values_[DELTA_DESC_VOSHAPER] = voshaper ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setVspare  ( tscType8 vspare  ) { values_[DELTA_DESC_VSPARE] = vspare ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setIpreamp    ( tscType8 ipreamp    ) { values_[DELTA_DESC_IPREAMP] = ipreamp ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setIshaper    ( tscType8 ishaper    ) {values_[DELTA_DESC_ISHAPER]  = ishaper ; }
   /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 inline  void setISF    ( tscType8 isf ) { values_[DELTA_DESC_ISF] = isf ; }  
 
 /** \brief set the value for register
-   * Set the value for an APV description
+   * Set the value for an DELTA description
    * \param Status - value to be set
    */
 
@@ -594,7 +594,7 @@ inline  tscType8 getMaskedValue(int reg) {
       return (!((*this)==delta) )  ; ;
   }
   
-  /** \brief In order to compare two APV descriptions
+  /** \brief In order to compare two DELTA descriptions
    * \param apv - description to be compared
    * \return bool - true if all values are equals, false if not
    */
@@ -628,25 +628,25 @@ inline  tscType8 getMaskedValue(int reg) {
   /** \brief Display the DELTA values where the comparison is different
    * \param delta - uploaded values
    */
-  void displayDifferences ( deltaDescription &delta ) {
+  void displayDifferences ( deltaDescription &delta, std::ostream & ss=std::cout) {
 
     char msg[80] ;
     decodeKey (msg, accessKey_) ;
-    std::cout << "DELTA " <<  msg << std::endl ;
+    ss << "DELTA " <<  msg << std::endl ;
     int i ; 
 
    for(i=0;i<DELTA_DESC_NUM;i++) {
      if (getMaskedValue(i)!=delta.getMaskedValue(i) ) { 
-       std::cout << "Reg."  << names[i] << " differ : " ; 
-       std::cout << (int) getValue(i)  << "/" ; 
-       std::cout << (int) delta.getValue(i) << " " ; 
-       std::cout << "(0x" << std::hex << std::setw(2) << std::setfill('0') << (int) getValue(i) << "/" ;
-       std::cout << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int) delta.getValue(i) << ")" ;
-       std::cout << std::setfill(' ') << std::dec  ; 
+       ss << "Reg."  << names[i] << " differ : " ; 
+       ss << (int) getValue(i)  << "/" ; 
+       ss << (int) delta.getValue(i) << " " ; 
+       ss << "(0x" << std::hex << std::setw(2) << std::setfill('0') << (int) getValue(i) << "/" ;
+       ss << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int) delta.getValue(i) << ")" ;
+       ss << std::setfill(' ') << std::dec  ; 
      }      
    }
 
-   std::cout << std::endl  << std::endl ; 
+   ss << std::endl  << std::endl ; 
 
 
   }

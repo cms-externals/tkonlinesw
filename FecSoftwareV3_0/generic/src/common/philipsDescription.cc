@@ -152,13 +152,13 @@ philipsDescription *philipsDescription::clone ( ) {
 /** \brief Display the PHILIPS values where the comparison is different
  * \param philips - Philips values uploaded
  */
-void philipsDescription::displayDifferences ( philipsDescription &philips ) {
+void philipsDescription::displayDifferences ( philipsDescription &philips, std::ostream & ss) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "Philips " << msg << std::endl ;
+  ss << "Philips " << msg << std::endl ;
   if (getRegister ( ) != philips.getRegister ( )) 
-    std::cout << "\t" << "Register is different " << std::dec << (int)getRegister ( ) << "/" << (int)philips.getRegister ( ) << std::endl ;
+    ss << "\t" << "Register is different " << std::dec << (int)getRegister ( ) << "/" << (int)philips.getRegister ( ) << std::endl ;
 }
 
 /** \brief Display PHILIPS values

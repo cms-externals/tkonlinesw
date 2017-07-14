@@ -338,7 +338,7 @@ class dcuDescription: public deviceDescription {
   /** \brief Display the DCU values where the comparison is different
    * \param dcu - uploaded values
    */
-  void displayDifferences ( dcuDescription &dcu ) ;
+  void displayDifferences ( dcuDescription &dcu,std::ostream & ss = std::cout);
 
   /** \brief Display DCU values
    */

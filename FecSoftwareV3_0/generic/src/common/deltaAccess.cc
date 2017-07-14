@@ -427,7 +427,7 @@ void deltaAccess::getBlockWriteValues ( class deltaDescription& deltaValues, acc
 
 /** This static method read out several delta at the same time
  * \param fecAccess - hardware access
- * \param deltaSet - all the APV to be readout
+ * \param deltaSet - all the DELTA chips to be readout
  * \param deltaVector - list of the readout DELTA (suppose to be empty at the beginning). The deltaDescription created must be delete by the remote method.
  * \param errorList - list of errors, should be deleted by the remote method
  * \return number of errors
@@ -445,13 +445,13 @@ unsigned int deltaAccess::getDeltaValuesMultipleFrames ( FecAccess &fecAccess, S
 
   // -------------------------------------------------------------------
   // read all the registers
-  accessDeviceTypeListMap vAccessesApv ;
+  accessDeviceTypeListMap vAccessesDelta ;
   for ( Sgi::hash_map<keyType, deltaAccess *>::iterator itDelta = deltaSet.begin() ; itDelta != deltaSet.end() ; itDelta ++ ) {
 
     for(int i = 0 ; i < DELTA_REG_NUM ; i++) { 
       // accessToFec_->read (accessKey_, (reg<<1) | DELTA_READ)
       accessDeviceType readIt = { itDelta->second->getKey(), RALMODE, MODE_READ, (tscType16)((i<<1) + DELTA_READ), 0, false, 0, 0, 0, NULL} ;
-      vAccessesApv[getFecRingKey(itDelta->second->getKey())].push_back(readIt) ;
+      vAccessesDelta[getFecRingKey(itDelta->second->getKey())].push_back(readIt) ;
     }
 
     // Put it in a map and in the vector
@@ -462,10 +462,10 @@ unsigned int deltaAccess::getDeltaValuesMultipleFrames ( FecAccess &fecAccess, S
   }
 
   // Send it over the ring and retreive the errors in a list
-  error += fecAccess.setBlockDevices( vAccessesApv, errorList ) ;
+  error += fecAccess.setBlockDevices( vAccessesDelta, errorList ) ;
 
-  // Collect the answer and fill the corresponding apvDescription
-  for (accessDeviceTypeListMap::iterator itList = vAccessesApv.begin() ; itList != vAccessesApv.end() ; itList ++) {
+  // Collect the answer and fill the corresponding deltaDescription
+  for (accessDeviceTypeListMap::iterator itList = vAccessesDelta.begin() ; itList != vAccessesDelta.end() ; itList ++) {
     
     // for each list
     for (accessDeviceTypeList::iterator itDevice = itList->second.begin() ; itDevice != itList->second.end() ; itDevice ++) {

@@ -566,7 +566,7 @@ inline  tscType8 getMaskedValue(int reg) {
   private : 
 
    /** \brief set the value for register(s) 
-   * Set the value for an Delta3B description. 
+   * Set the value for an PACEAM3B description. 
    + This is helper private function 
    * \param val - value to be set
    */

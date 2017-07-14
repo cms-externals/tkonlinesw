@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connections>
+	<connection id="localhost" uri="ipbusudp-2.0://127.000.000.001:50001" address_table="file:///opt/testing/trackerDAQ-3.2/CBCDAQ/FecSoftwareV3_0/generic/config/address_mfec.xml" />
+	<connection id="board" uri="ipbusudp-2.0://192.168.000.175:50001" address_table="file:///opt/testing/trackerDAQ-3.2/CBCDAQ/FecSoftwareV3_0/generic/config/address_mfec.xml" />
+</connections>
+

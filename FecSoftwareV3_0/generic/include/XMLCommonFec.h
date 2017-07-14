@@ -20,6 +20,7 @@ Copyright 2002 - 2003, Damien VINTACHE - IReS/IN2P3
 
 #include "FecExceptionHandler.h"
 
+#include <vector>
 // use in XMLCommonFec to declare ofstream
 #include <fstream>
 #include <sstream>
@@ -27,7 +28,8 @@ Copyright 2002 - 2003, Damien VINTACHE - IReS/IN2P3
 #include <xercesc/framework/URLInputSource.hpp>
 #include <xercesc/dom/DOMErrorHandler.hpp>
 #include <xercesc/dom/DOMImplementation.hpp>
-#include <xercesc/dom/DOMBuilder.hpp>
+//#include <xercesc/dom/DOMBuilder.hpp>
+#include <xercesc/parsers/DOMLSParserImpl.hpp>
 #include <xercesc/dom/DOMDocument.hpp>
 #include <xercesc/dom/DOMNodeList.hpp>
 #include <xercesc/dom/DOMError.hpp>
@@ -72,7 +74,7 @@ class XMLCommonFec {
   /**
    * DOM Parser
    */
-   XERCES_CPP_NAMESPACE::DOMBuilder *parser_ ;
+   XERCES_CPP_NAMESPACE::DOMLSParser *parser_ ;
 
   /**
    * DOM Parser error handler

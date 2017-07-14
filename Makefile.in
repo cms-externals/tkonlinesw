@@ -11,6 +11,7 @@ all:
 	#make -C ./TrackerOnline/2005/hardware/tracker           # Only needed for GenericTSCSupervisor 
 	#make -C ./TrackerOnline/2005/TrackerCommon/Analysis all
 	make -C ./TrackerOnline/Fed9U/Fed9USoftware Fed9UUtils
+	make -C ./TrackerOnline/Fed9U/Fed9USoftware Fed9UDeviceFactory
 	make -C ./FecSoftwareV3_0 Generic
 	make -C ./FecSoftwareV3_0 LIB_DEST=lib install
 	make -C ./TrackerOnline/Fed9U/Fed9USoftware 
@@ -32,12 +33,12 @@ install:
 	make -C ./TrackerOnline/Fed9U/Fed9USoftware install
 	make -C ./TrackerOnline/2005/TrackerCommon/ICUtils install
 	make -C ./TrackerOnline/2005/TrackerXdaq install
-	make -C ./TrackerOnline/LAS install
+#	make -C ./TrackerOnline/LAS install
 	make -C ./TrackerOnline/APVe install 
 
 	# libraries and executables
 	#cp ./TrackerOnline/2005/hardware/tracker/lib/libdaq.so $(LIB_DEST)
-	cp ./TrackerOnline/2005/TrackerCommon/Analysis/libTBEvent.so $(LIB_DEST)
+	#cp ./TrackerOnline/2005/TrackerCommon/Analysis/libTBEvent.so $(LIB_DEST)
 	cp ./FecSoftwareV3_0/$(XDAQ_PLATFORM)/bin/*.exe $(BIN_DEST)
 	cp ./TTCConfig/*txt $(CONFIG_DEST)
 
@@ -67,21 +68,21 @@ cmsswinstall:
 
 
 clean:
-#	make -C ./DiagSystem clean
+	make -C ./DiagSystem clean
 	#make -C ./TrackerOnline/2005/TrackerCommon/ICUtils clean   # does not work
 	#make -C ./TrackerOnline/2005/TrackerCommon/Analysis clean  # does not work
 	make -C ./TrackerOnline/Fed9U/Fed9USoftware clean
 	make -C ./FecSoftwareV3_0 clean
 #	make -C ./TrackerOnline/LAS clean
-#	cd ./TrackerOnline/2005/TrackerXdaq && ./cleanall && cd -
-#	find ./DiagSystem/tools/lib -name "*.so" -exec rm -f {} \;
+	cd ./TrackerOnline/2005/TrackerXdaq && ./cleanall && cd -
+	find ./DiagSystem/tools/lib -name "*.so" -exec rm -f {} \;
 	find ./FecSoftwareV3_0/lib -name "*.so" -exec rm -f {} \;
 #	find ./FecSoftwareV3_0/ -name "*.o" -exec rm -f {} \;
 	find ./TrackerOnline/Fed9U/Fed9USoftware -name "*.so" -exec rm -f {} \;	
-#	find ./TrackerOnline/2005/TrackerXdaq -name "*.so" -exec rm -f {} \;	
-#	find ./TrackerOnline/2005/TrackerXdaq -name "*.o" -exec rm -f {} \;	
-#	find ./TrackerOnline/2005/TrackerCommon -name "*.so" -exec rm -f {} \;
-#	find ./TrackerOnline/2005/TrackerCommon -name "*.o" -exec rm -f {} \;
+	find ./TrackerOnline/2005/TrackerXdaq -name "*.so" -exec rm -f {} \;	
+	find ./TrackerOnline/2005/TrackerXdaq -name "*.o" -exec rm -f {} \;	
+	find ./TrackerOnline/2005/TrackerCommon -name "*.so" -exec rm -f {} \;
+	find ./TrackerOnline/2005/TrackerCommon -name "*.o" -exec rm -f {} \;
 #	find ./TrackerOnline/2005/hardware -name "*.so" -exec rm -f {} \;
 #	find ./TrackerOnline/2005/hardware -name "*.o" -exec rm -f {} \;
 #	find ./LAS -name "*.so" -exec rm -f {} \;

@@ -18,7 +18,7 @@
 #include "xoap/MessageReference.h"
 #include "xoap/MessageFactory.h"
 #include "xoap/URLEndpoint.h"
-#include "xoap/SOAPConnection.h"
+//#include "xoap/SOAPConnection.h"
 #include "xoap/SOAPEnvelope.h"
 #include "xoap/SOAPElement.h"
 #include "xoap/SOAPMessage.h"

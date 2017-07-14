@@ -869,7 +869,7 @@ namespace Fed9U {
      * the TTC clock is selected. If internal is true then an internal reset will be
      * sent. If it is false then an external reset will be sent.
      */
-    Fed9UVmeDevice& sendTtcrxReset(bool internal) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& sendTtcrxReset(bool internal, bool doWait=true) throw (Fed9UVmeDeviceException);
 
     /**
      * This command can be used to alter the settings in the test register.
@@ -2043,9 +2043,9 @@ namespace Fed9U {
     /**
      * This method will initialise the Fake Event RAMs on a FED so that they are ready to output fake events.
      *
-     * 
+     * Added all parameters after first 2 for use in FedPatternCheck.cc.  Can be left out to run the function as it did previously (AAB 8/15/2015)
      */
-    Fed9UVmeDevice& initFakeEvent( bool useEventFile, bool blockUpload = false ) throw (Fed9UVmeDeviceException);
+    Fed9UVmeDevice& initFakeEvent( bool useEventFile, bool blockUpload = false, std::string * inFEDString = NULL, std::string * inFEDString2 = NULL ,std::string * inFEDString4 = NULL, int uniqueChannels = 1, bool isZS = false ) throw (Fed9UVmeDeviceException);
 
     /**
      * This will initialise the temperature monitors, TTCrx device and the voltage monitor.

@@ -49,6 +49,19 @@ AS_IF([test "x$usbfec_compile" != xno],
       ])
 echo "enable USBFec        : $usbfec_enabled (from $fromwhere) "
 
+utcafec_enabled=;fecutca_targets=;fecutca_clean=;
+AC_ARG_ENABLE(utcafec,   
+	      [AC_HELP_STRING([--enable-utcafec],[optional: enable utca FEC functionality (default no)])], 
+	      [utcafec_enabled=$enableval; fromwhere="cmd-line";], 
+              []) 
+AS_IF([test "x$utcafec_enabled" == x], 
+      [AS_IF([test "x$UTCAFEC_COMPILE" != x], 
+          [utcafec_enabled=$UTCAFEC_COMPILE; fromwhere="environment";], 
+   	  [utcafec_enabled=no; fromwhere="default"; ]
+      )],
+      [utcafec_enabled=$utcafec_enabled;])
+echo "enable uTCA FEC      : $utcafec_enabled (from $fromwhere) "
+
 
 pcifec_enabled=;
 fecpci_targets=;fecpci_tktargets=;
@@ -387,6 +400,9 @@ AC_SUBST(pcifec_enabled, $pcifec_enabled)
 AC_SUBST(fecusb_targets, $fecusb_targets)
 AC_SUBST(fecusb_clean, $fecusb_clean)
 #AC_SUBST(hal_version, `cat $hal_root/thisVersion.txt`)
+AC_SUBST(utcafec_enabled, $utcafec_enabled)
+AC_SUBST(fecutca_targets, $fecutca_targets)
+AC_SUBST(fecutca_clean, $fecutca_clean)
 
 AC_SUBST(fed9u_envvar, $fed9u_envvar)
 AC_SUBST(diag_envvar, $diag_envvar)

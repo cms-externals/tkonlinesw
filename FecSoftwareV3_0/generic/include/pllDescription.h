@@ -207,7 +207,7 @@ class pllDescription: public deviceDescription {
   /** \brief Display the APV values where the comparison is different
    * \param pll - uploaded values
    */
-  void displayDifferences ( pllDescription &pll ) ;
+  void displayDifferences ( pllDescription &pll, std::ostream & ss = std::cout);
 
   /** \brief Display the PLL values
    */

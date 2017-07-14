@@ -249,7 +249,8 @@ namespace Fed9U {
     void getStripDataBuffer(char * stripsBuf) throw (Fed9UXMLDescriptionException);
 
     xercesc::DOMDocument *doc;                                    //!< DOM document where the XML data is to be stored.
-    xercesc::DOMWriter *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.
+    xercesc::DOMLSSerializer *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.
+    xercesc::DOMLSOutput *theDOMOutput;
     Fed9UDOMCountErrorHandler errorHandler;              //!< Fed9U DOM error handler used to detect errors and print the error strings.
     std::string theTargetXMLFileName;                         //!< Name of the XML file to be written to.
     Fed9UDescription &theFed9UDescription;               //!< Fed9UDescription object that is currently being dealt with.

@@ -37,7 +37,8 @@ class gohAccess : public deviceAccess {
 
   static const char *names[] ;
   static const bool ro_[] ;
-  static const tscType8 rmask_[] ;  
+  static const tscType8 rmask_[] ; 
+  static const tscType8 offset_[] ; 
 
  public:
 
@@ -132,7 +133,9 @@ class gohAccess : public deviceAccess {
    */
   tscType8 getStatus1    ( ) ;
 
-
+  /** \brief Get prepare data for multi-frame write into hardware
+   */  
+  void getBlockWriteValues(gohDescription&, accessDeviceTypeList&); 
   
 } ;
 

@@ -43,9 +43,10 @@
 /** Bus adapter that must be created once
  */
 pthread_mutex_t mutexBusAdapter_=PTHREAD_MUTEX_INITIALIZER ;
+pthread_mutex_t mutexCrateReset_=PTHREAD_MUTEX_INITIALIZER ;
 pthread_mutex_t mutexGetRingSr0Counter_=PTHREAD_MUTEX_INITIALIZER ;
 pthread_mutex_t mutexSetFifoTransmitCounter_=PTHREAD_MUTEX_INITIALIZER ;
-
+static bool crateResetDone= false;
 static unsigned long getRingSr0Counter_=0;
 static unsigned long setFifoTransmitCounter_=0;
 static unsigned long setFifoTransmitSent_=0;
@@ -2299,13 +2300,23 @@ void FecVmeRingDevice::closeFecVmeAccess ( ) throw (HAL::BusAdapterException) {
 /** Hard reset of the VME crate
  */
 void FecVmeRingDevice::crateReset ( uint32_t adapterSlot ) throw ( FecExceptionHandler ) {
+  pthread_mutex_lock(&mutexCrateReset_);
+  if (crateResetDone) {
+    std::cerr << "Crate reset for adapterSlot "<<adapterSlot<< " already done !" << std::endl;
+    pthread_mutex_unlock(&mutexCrateReset_);
+    return;
+  }
+  crateResetDone = true;
 
+  std::cerr << "Doing crate reset for adapterSlot "<<adapterSlot << std::endl;
   try {
     if (busAdapter_.find(adapterSlot) != busAdapter_.end()) busAdapter_[adapterSlot]->resetBus();
-    else RAISEFECEXCEPTIONHANDLER ( TSCFEC_VMEACCESSPROBLEM,
+    else {
+      pthread_mutex_unlock(&mutexCrateReset_);
+      RAISEFECEXCEPTIONHANDLER ( TSCFEC_VMEACCESSPROBLEM,
 				    "bus adapter is not created on adapter slot " + toString(adapterSlot),
 				    FATALERRORCODE ) ;
-    
+    }
 
 #ifdef LOGRELOADFIRMARE
     std::ofstream fichier (LOGRELOADFIRMARE, std::ios_base::app ) ;
@@ -2320,15 +2331,17 @@ void FecVmeRingDevice::crateReset ( uint32_t adapterSlot ) throw ( FecExceptionH
 #endif
   }
   catch ( HAL::BusAdapterException &e ) {
+    pthread_mutex_unlock(&mutexCrateReset_);
     RAISEFECEXCEPTIONHANDLER ( TSCFEC_VMEACCESSPROBLEM,
 			       "Hardware problem access (HAL::BusAdapterException): " + (std::string)e.what() + " on bus adapter slot " + toString(adapterSlot),
 			       FATALERRORCODE ) ;
     // e.what()) ;
   }
   catch (FecExceptionHandler &e) {
-
+    pthread_mutex_unlock(&mutexCrateReset_);
     throw e ;
   }
+  pthread_mutex_unlock(&mutexCrateReset_);
 }
 
 /******************************************************

@@ -2476,7 +2476,7 @@ deviceVector *FecAccessManager::uploadValues ( std::list<FecExceptionHandler *> 
  * \warning if the comparison is set, only the differences will be stored in the database 
  * or file
  */
-deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExceptionHandler *> &errorList, bool comparison, bool dcuUpload, bool dohSet ) {
+deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExceptionHandler *> &errorList, bool comparison, bool dcuUpload, bool dohSet, std::ostream & ss) {
   
   // Retreive all the devices from the parsing class
   deviceVector *vDevice = new deviceVector ( ) ;
@@ -2507,7 +2507,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
 	    // Insert it in the vector vDevice
 	    vDevice->push_back ( apvDevice ) ;
 	    
- 	    apvOrig->displayDifferences (*apvDevice) ;
+ 	    apvOrig->displayDifferences (*apvDevice, ss) ;
 	    	  
 	    // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,
@@ -2564,7 +2564,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
 	    
 	    // Insert it in the vector vDevice
 	    vDevice->push_back ( muxDevice ) ;
- 	    muxOrig->displayDifferences (*muxDevice) ;	 
+ 	    muxOrig->displayDifferences (*muxDevice, ss) ;	 
 	    	  
 	    // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,
@@ -2622,7 +2622,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
 	    // Insert it in the vector vDevice
 	    vDevice->push_back ( pllDevice ) ;
 
- 	    pllOrig->displayDifferences (*pllDevice) ;	 
+ 	    pllOrig->displayDifferences (*pllDevice, ss) ;	 
 
 	    // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,
@@ -2680,7 +2680,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
 	    // Insert it in the vector vDevice
 	    vDevice->push_back ( laserdriverDevice ) ;
 
- 	    laserdriverOrig->displayDifferences (*laserdriverDevice) ;	    	  
+ 	    laserdriverOrig->displayDifferences (*laserdriverDevice, ss) ;	    	  
 	    // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,
 				       XDAQFEC_ERRORINCOMPARISON_MSG + " for the AOH",
@@ -2744,7 +2744,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
           // Insert it in the vector vDevice
           vDevice->push_back ( dohDevice ) ;
 
-	  dohOrig->displayDifferences (*dohDevice) ;	    	  
+	  dohOrig->displayDifferences (*dohDevice, ss) ;	    	  
 
           // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,
@@ -2895,7 +2895,7 @@ deviceVector *FecAccessManager::uploadValuesMultipleFrames ( std::list<FecExcept
 	    // Insert it in the vector vDevice
 	    vDevice->push_back ( deltaDevice ) ;
 	    
- 	    deltaOrig->displayDifferences (*deltaDevice) ;
+ 	    deltaOrig->displayDifferences (*deltaDevice, ss) ;
 	    	  
 	    // Error in comparison
 	    RAISEFECEXCEPTIONHANDLER_HARDPOSITION (XDAQFEC_ERRORINCOMPARISON,

@@ -190,8 +190,8 @@ void XMLTkDcuConversion::parseDatabaseResponse(std::string partitionName)
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -248,8 +248,8 @@ void XMLTkDcuConversion::parseDatabaseResponse(tscType32 dcuHardId)
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;

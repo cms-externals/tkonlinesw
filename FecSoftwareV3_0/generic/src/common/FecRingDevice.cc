@@ -3747,8 +3747,8 @@ tscType16 FecRingDevice::fecRingReconfigure ( TkRingDescription &tkRing )
 
         // ????????????????????????????????????????
         //#ifdef DEBUGMSGERROR
-        std::cout << "Reconfiguring CCU " << std::dec << (*ccuIt)->getOrder() << ", address " << getCcuKey((*ccuIt)->getKey()) 
-		<< " (0x" << std::hex << (*ccuIt)->getKey() << std::dec << ") in the ring " << getRingKey((*ccuIt)->getKey()) 
+        std::cout << "Reconfiguring CCU " << std::dec << (*ccuIt)->getOrder() << ", address " << (int) getCcuKey((*ccuIt)->getKey()) 
+		  << " (0x" << std::hex << (int) (*ccuIt)->getKey() << std::dec << ") in the ring " << (int) getRingKey((*ccuIt)->getKey()) 
 		<< ": command " << (int)redundancyCommand << std::endl ;
       //#endif
 

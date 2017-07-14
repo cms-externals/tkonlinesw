@@ -28,8 +28,8 @@ typedef unsigned int haltype ;
 
 /** hardware bus for the FEC
  */
-//typedef enum{FECPCI, FECVME, FECUSB} enumFecBusType;
-enum enumFecBusType {FECPCI, FECVME, FECUSB} ;
+//typedef enum{FECPCI, FECVME, FECUSB, FECUTCA} enumFecBusType;
+enum enumFecBusType {FECPCI, FECVME, FECUSB, FECUTCA} ;
 
 /** define which bus adapter for the VME FEC
  */

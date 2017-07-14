@@ -205,7 +205,11 @@ namespace Fed9U {
     int location = getLocations(channel,2);
     u8 pCode = _payload.getu8(location);
     //</JEC>
-    if ((pCode == 0xE5) || (pCode == 0xE6) || (pCode == 0xF2) || (pCode == 0xEA)) {return (pCode & 0x1F);}
+
+    //AAB Added more packet codes to next line and changed output format to not strip some bits (returns more information)
+    //Changed Fed9UEventStreamline to use the new return value and strip bits there if needed
+    //if ((pCode == 0xE5) || (pCode == 0xE6) || (pCode == 0xF2) || (pCode == 0xEA)) {return (pCode & 0x1F);}
+    if ((pCode == 0xE5) || (pCode == 0xE6) || (pCode == 0xF2) || (pCode == 0xEA) || (pCode == 0xE1) || (pCode == 0x8A) || (pCode == 0x86) || (pCode == 0xaa) || (pCode == 0xca) || (pCode == 0xA6) || (pCode == 0xC6) || (pCode == 0x92) || (pCode == 0xD2) || (pCode == 0xB2)) {return pCode;}
     else {return 0;}
   }
 
@@ -246,10 +250,19 @@ namespace Fed9U {
       .code(Fed9UEventStreamLineException::ERROR_CHANNEL_OUT_OF_BOUNDS);
     
     u8 pCode = getPacketCode(channel);
-    if ((pCode ==  FED9U_PACKET_SCOPE) || (pCode == FED9U_PACKET_VIRGRAW) || (pCode == FED9U_PACKET_PROCRAW)) {
+    //(AAB 8/26/2015) changed the names to name_hex to be compatible with the slightly changed return of getPacketCode (returns more information now than previously)
+    if ((pCode ==  FED9U_PACKET_SCOPE_hex) || (pCode == FED9U_PACKET_VIRGRAW_hex) || (pCode == FED9U_PACKET_PROCRAW_hex)) {
       // This approach only works for the above packet codes, as for these data formats, the length will be
       // the same for every channel
       return (_channelDataLength[12 - channel] - 3)/2;
+    }
+    //AAB 8/26/2015 added 10 bit modes
+    else if((pCode == FED9U_PACKET_VIRGRAW_10BIT) || (pCode == FED9U_PACKET_PROCRAW_10BIT)) {
+      return (_channelDataLength[12 - channel] - 3)*4/5;
+    }
+    //AAB 8/26/2015 added 8 bit modes
+    else if((pCode == FED9U_PACKET_VIRGRAW_8BIT_LO) || (pCode == FED9U_PACKET_PROCRAW_8BIT_LO) || (pCode == FED9U_PACKET_VIRGRAW_8BIT_HI_LO) || (pCode == FED9U_PACKET_PROCRAW_8BIT_HI_LO)) {
+      return (_channelDataLength[12 - channel] - 3);
     }
     // In zero suppressed mode, the number of clusters will vary from fibre to fibre, so simply return the maximum
     // number of entries a channel can possibly have
@@ -257,7 +270,9 @@ namespace Fed9U {
   }
 
   Fed9USu8 & Fed9UEventUnitStreamLine::getSampleSpecialPointer(u32 channel, u32 dataLoc) {
-    u8 pCode = getPacketCode(channel);
+    
+    //(AAB 8/26/2015) added & 0x1F to be compatible with the slightly changed return of getPacketCode (returns more information now than previously)
+    u8 pCode = (getPacketCode(channel) & 0x1F);
     u32 offset = 0;
     if ((pCode ==  FED9U_PACKET_SCOPE) || (pCode == FED9U_PACKET_VIRGRAW) || (pCode == FED9U_PACKET_PROCRAW)) {
       offset = 3 + dataLoc*2;
@@ -276,7 +291,8 @@ namespace Fed9U {
 
   void Fed9UEventUnitStreamLine::getSample(u32 channel, u16 * destBuffer) {
     try {
-      u8 pCode = getPacketCode(channel);
+      //(AAB 8/26/2015) added & 0x1F to be compatible with the slightly changed return of getPacketCode (returns more information now than previously)
+      u8 pCode = (getPacketCode(channel) & 0x1F);
       // reset sample special pointer to the start of the payload
       _sample = _payload;
 
@@ -330,7 +346,9 @@ namespace Fed9U {
 
     vector<u16> sample;
     try {
-      u8 pCode = getPacketCode(channel);
+    //(AAB 8/26/2015) added & 0x1F and _hex mode to be compatible with the slightly changed return of getPacketCode (returns more information now than previously)
+      u8 pCode_hex = (getPacketCode(channel));
+      u8 pCode = (getPacketCode(channel) & 0x1F);
       u32 offset = 0;
       if ((pCode ==  FED9U_PACKET_SCOPE) || (pCode == FED9U_PACKET_VIRGRAW) || (pCode == FED9U_PACKET_PROCRAW)) {offset = 3;}
       else if (pCode == FED9U_PACKET_ZEROSUPP) {offset = 7;}
@@ -350,7 +368,8 @@ namespace Fed9U {
       */
       //</JEC>
 
-      if ((pCode ==  FED9U_PACKET_SCOPE) || (pCode == FED9U_PACKET_VIRGRAW) || (pCode == FED9U_PACKET_PROCRAW)) {
+      //AAB using hex versions now (more info) 8/26/2015
+      if ((pCode_hex ==  FED9U_PACKET_SCOPE_hex) || (pCode_hex == FED9U_PACKET_VIRGRAW_hex) || (pCode_hex == FED9U_PACKET_PROCRAW_hex)) {
 	sample.resize(((static_cast<u32>(_channelDataLength[12 - channel]) - offset)/2),0);
 	for (u32 len = 0; len < (static_cast<u32>(_channelDataLength[12 - channel]) - offset)/2; ++len) {
 	  //<JEC date=23/02/07> changed payload pointer to special u8 pointer
@@ -366,7 +385,41 @@ namespace Fed9U {
 	  */
 	  sample[len] = (_payload.getu8(numberOfUsedBytes) | (_payload.getu8(numberOfUsedBytes+1) << 8));
 	  numberOfUsedBytes += 2;
-	  //</JEC>
+	}
+        }
+      //AAB 8/26/2015 added 8 bit LO unpacker
+      else if ((pCode_hex == FED9U_PACKET_VIRGRAW_8BIT_LO) || (pCode_hex == FED9U_PACKET_PROCRAW_8BIT_LO)) {
+	sample.resize(((static_cast<u32>(_channelDataLength[12 - channel]) - offset)),0);
+	for (u32 len = 0; len < (static_cast<u32>(_channelDataLength[12 - channel]) - offset); ++len) {
+	  
+          sample[len] = (_payload.getu8(numberOfUsedBytes) << 2);
+	  numberOfUsedBytes += 1;
+	}
+        }
+      //AAB 8/26/2015 added 8 bit HI_LO unpacker
+      else if ((pCode_hex == FED9U_PACKET_VIRGRAW_8BIT_HI_LO) || (pCode_hex == FED9U_PACKET_PROCRAW_8BIT_HI_LO)) {
+	sample.resize(((static_cast<u32>(_channelDataLength[12 - channel]) - offset)),0);
+	for (u32 len = 0; len < (static_cast<u32>(_channelDataLength[12 - channel]) - offset); ++len) {
+	  
+          sample[len] = (_payload.getu8(numberOfUsedBytes) << 1);
+	  numberOfUsedBytes += 1;
+	}
+        }
+      //AAD 8/26/2015 added 10 bit unpacker
+      else if ((pCode_hex == FED9U_PACKET_VIRGRAW_10BIT) || (pCode_hex == FED9U_PACKET_PROCRAW_10BIT)) {
+	sample.resize(((static_cast<u32>(_channelDataLength[12 - channel]) - offset)*4/5),0);
+        
+        //bitOverlap keeps track of the number of bits 'bleeding' into the next byte because we are storing  10 bit word in 8bit bytes, has a periodic structure of 2,4,6,8,2.... as we read out the data 
+        int bitOverlap = 2;
+	for (u32 len = 0; len < (static_cast<u32>(_channelDataLength[12 - channel]) - offset)*4/5; ++len) {
+	  
+          sample[len] = (_payload.getu8(numberOfUsedBytes));
+          sample[len] = sample[len] << bitOverlap;
+	  numberOfUsedBytes++;
+          sample[len] = sample[len] | (_payload.getu8(numberOfUsedBytes) >> (8-bitOverlap));
+          sample[len] = sample[len] & 1023;
+          if(bitOverlap == 8) numberOfUsedBytes++;
+          bitOverlap = bitOverlap%8+2; 
 	}
       } else {
 	sample.resize(STRIPS_PER_APV * APVS_PER_CHANNEL,0);     
@@ -418,8 +471,8 @@ namespace Fed9U {
     u32 channel = 12;
     u8 pCode = getPacketCode(channel);
     bool matchLength = true;
-
-    if (pCode == FED9U_PACKET_SCOPE) {
+    //AAB 8/26/2015 added & 0x1F to be compatible w/ new getPacketCode output
+    if ((pCode & 0x1F) == FED9U_PACKET_SCOPE) {
       for (u32 c1 = 0; c1 < _channelDataLength.size(); ++c1) {
 	for (u32 c2 = 0; c2 < _channelDataLength.size(); ++c2) {
 	  if (c1 != c2) {
@@ -430,9 +483,25 @@ namespace Fed9U {
 	  }
 	}
       }
-    } else if ((pCode == FED9U_PACKET_VIRGRAW)  || (pCode == FED9U_PACKET_PROCRAW)) {
+    //AAB 8/26/2015 added _hex to be compatible w/ the getPacketOutput() return information change
+    } else if ((pCode == FED9U_PACKET_VIRGRAW_hex)  || (pCode == FED9U_PACKET_PROCRAW_hex)) {
       for (u32 c = 0; c < _channelDataLength.size(); ++c) {
 	if (_channelDataLength[c] != 515) {
+	  matchLength = false;
+	  cout << "Mismatch in length for channel " << c << endl;
+	}
+      }
+    //AAB 8/26/2015 added below 10 bit and 8 bit length checking versions
+    } else if ((pCode == FED9U_PACKET_VIRGRAW_10BIT)  || (pCode == FED9U_PACKET_PROCRAW_10BIT)) {
+      for (u32 c = 0; c < _channelDataLength.size(); ++c) {
+	if (_channelDataLength[c] != 323) {
+	  matchLength = false;
+	  cout << "Mismatch in length for channel " << c << endl;
+	}
+      }
+    } else if ((pCode == FED9U_PACKET_VIRGRAW_8BIT_HI_LO)  || (pCode == FED9U_PACKET_PROCRAW_8BIT_HI_LO) || (pCode == FED9U_PACKET_VIRGRAW_8BIT_LO)  || (pCode == FED9U_PACKET_PROCRAW_8BIT_LO)) {
+      for (u32 c = 0; c < _channelDataLength.size(); ++c) {
+	if (_channelDataLength[c] != 255) {
 	  matchLength = false;
 	  cout << "Mismatch in length for channel " << c << endl;
 	}

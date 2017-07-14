@@ -513,7 +513,7 @@ class apvDescription: public deviceDescription {
   /** \brief Display the APV values where the comparison is different
    * \param apv - uploaded values
    */
-  void displayDifferences ( apvDescription &apv ) ;
+  void displayDifferences ( apvDescription &apv,std::ostream & ss = std::cout) ;
 
   /** \brief Display the APV values
    */

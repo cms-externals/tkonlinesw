@@ -20,7 +20,7 @@
 
 
 #include <xercesc/dom/DOMDocument.hpp>
-#include <xercesc/dom/DOMInputSource.hpp>
+#include <xercesc/dom/DOMLSInput.hpp>
 using namespace std;
 using namespace XERCES_CPP_NAMESPACE;
 #include <string>

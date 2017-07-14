@@ -7,15 +7,15 @@ based on apvDefinition class by
 Frederic DROUHIN - Universite de Haute-Alsace,
 Mulhouse-France
 */
-#ifndef DELTADEFINITION_H
-#define DELTADEFINITION_H
+#ifndef KCHIPDEFINITION_H
+#define KCHIPDEFINITION_H
 
-// This file defined all the offset for DELTA registers
+// This file defined all the offset for KCHIP registers
 
-// Note that the DELTAs are accessible in extended (RAL) mode (I2C)
-// Offset of 1 for reading value
+// Note that the KCHIPs are accessible in normal mode i2c access
+// 
 
-#define DELTA_REG_NUM 24 
+#define KCHIP_REG_NUM 24 
 
 
 

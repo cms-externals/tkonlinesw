@@ -270,6 +270,12 @@ class FecAccess {
 	       bool scanFECs = false, bool scanCCUs = false,
 	       tscType16 i2cSpeed = 100, bool invertClockPolarity = false ) throw (FecExceptionHandler ); 
 
+/** \brief constructor for the uTCA FEC Access
+    */
+   FecAccess ( const std::string& strFilename, const std::string& strBoardId, bool forceAck, bool initFec, 
+                       bool scanFECs, bool scanCCUs,
+		       tscType16 i2cSpeed, bool invertClockPolarity ) throw (FecExceptionHandler );
+
    /** \brief Remove all the accesses and close all the device driver and
     * disable all the channels
     */

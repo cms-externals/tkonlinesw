@@ -136,7 +136,7 @@ class philipsDescription: public deviceDescription {
   /** \brief Display the PHILIPS values where the comparison is different
    * \param philips - Philips values uploaded
    */
-  void displayDifferences ( philipsDescription &philips ) ;
+  void displayDifferences ( philipsDescription &philips, std::ostream & ss = std::cout) ;
 
   /** \brief Display PHILIPS values
    */

@@ -55,8 +55,8 @@ namespace Fed9U {
   using xercesc::DOMNode;
   using xercesc::DOMNamedNodeMap;
   using xercesc::DOMDocument;
-  using xercesc::DOMInputSource;
-  using xercesc::DOMBuilder;
+  using xercesc::DOMLSInput;
+  using xercesc::DOMLSParser;
   using xercesc::XMLPlatformUtils;
   using xercesc::XMLUni;
   using xercesc::XMLString;
@@ -65,7 +65,7 @@ namespace Fed9U {
   using xercesc::DOMImplementation;
   using xercesc::DOMImplementationRegistry;
   using xercesc::DOMImplementationLS;
-  using xercesc::DOMInputSource;
+  using xercesc::DOMLSInput;
   using xercesc::InputSource;
   using xercesc::Wrapper4InputSource;
   using xercesc::BinInputStream;
@@ -139,8 +139,8 @@ namespace Fed9U {
   Fed9UXMLDescription::~Fed9UXMLDescription()
   {
     try {
-      theDOMBuilder->release();
-      XMLPlatformUtils::Terminate();
+      //theDOMBuilder->release();
+      //XMLPlatformUtils::Terminate(); //JRF removing this to prevent xerces crashes when other threads are still using it. 
     }
     catch (...) {
       cerr << "Unknown exception caught in Fed9UXMLDescription::~Fed9UXMLDescription(). " << endl;
@@ -222,7 +222,7 @@ namespace Fed9U {
       theDOMBuilder->resetDocumentPool();
 
       //Parse the XML input stream
-      DOMInputSource* domInputSource = NULL;
+      DOMLSInput* domInputSource = NULL;
       // XMLBuffer contains the XML data and convert it to an input source 
       //Find length of istream
       is.seekg(0, ios::end);
@@ -238,7 +238,7 @@ namespace Fed9U {
       domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource);
       //Now parse to make the DOM
       try {
-	doc = theDOMBuilder->parse(*domInputSource);
+	doc = theDOMBuilder->parse(domInputSource);
       }
       catch (const XMLException& e) {
         //NOTE: Cannot use RETHROW here since XMLException does not inherit from std::exception                       
@@ -304,7 +304,7 @@ namespace Fed9U {
   void Fed9UXMLDescription::initializeXerces(void) throw (Fed9UXMLDescriptionException)
   {
     try {
-      if (XMLPlatformUtils::fgTransService != NULL)
+	//if (XMLPlatformUtils::fgTransService == NULL)
         XMLPlatformUtils::Initialize();
     }
     catch (const XMLException& e) {
@@ -330,23 +330,24 @@ namespace Fed9U {
       XMLString::transcode("LS", tempStr, 99);
       DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
       //DOMBuilder* theDOMBuilder = ((DOMImplementationLS*)impl)->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
-      theDOMBuilder = ((DOMImplementationLS*)impl)->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+      theDOMBuilder = ((DOMImplementationLS*)impl)->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
       
       //Set the next 3 options to false if one does not want to use automatic XML Schema verifying.
-      theDOMBuilder->setFeature(XMLUni::fgDOMNamespaces, true);
-      theDOMBuilder->setFeature(XMLUni::fgXercesSchema, true);
-      theDOMBuilder->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
+      theDOMBuilder->getDomConfig()->setParameter(XMLUni::fgDOMNamespaces, true);
+      theDOMBuilder->getDomConfig()->setParameter(XMLUni::fgXercesSchema, true);
+      theDOMBuilder->getDomConfig()->setParameter(XMLUni::fgXercesSchemaFullChecking, true);
       
       /*Do we want to enable validation error reporting?
 	fgDOMValidateIfSchema will enable it if a schema is specified.
 	fgDOMValidation will disable/disable it.
 	Note: The schema file must have the same name as the XML file, but with a .xsd extension. */
-      theDOMBuilder->setFeature(XMLUni::fgDOMValidateIfSchema, true);   
+      theDOMBuilder->getDomConfig()->setParameter(XMLUni::fgDOMValidateIfSchema, true);   
       //theDOMBuilder->setFeature(XMLUni::fgDOMValidation, false);
       //theDOMBuilder->setFeature(XMLUni::fgDOMValidation, true);
       
       //And create our error handler and install it
-      theDOMBuilder->setErrorHandler(&errorHandler);
+
+      theDOMBuilder->getDomConfig()->setParameter(XMLUni::fgDOMErrorHandler,&errorHandler);
       
       //reset error count first
       errorHandler.resetErrors();
@@ -638,17 +639,48 @@ namespace Fed9U {
     cout << "******************** super mode string node value = " << theStringNodeValue << endl;
     if (!notFound) {
       if (theStringNodeValue=="FAKE") {
-	theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE);
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE);
       }
       else if (theStringNodeValue=="ZERO_LITE") {
-	theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_ZERO_LITE);
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_ZERO_LITE);
       }
       else if (theStringNodeValue=="FAKE_ZERO_LITE") {
-	theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_ZERO_LITE);
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_ZERO_LITE);
       }
       else if (theStringNodeValue=="NORMAL") {
-	theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_NORMAL);
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_NORMAL);
       }
+	  else if (theStringNodeValue=="FAKE_HI_LO") {
+		 theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_HI_LO);
+	  }
+	  else if (theStringNodeValue=="ZERO_LITE_HI_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_ZERO_LITE_HI_LO);
+	  }
+	  else if (theStringNodeValue=="FAKE_ZERO_LITE_HI_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_ZERO_LITE_HI_LO);
+	  }
+	  else if (theStringNodeValue=="NORMAL_HI_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_NORMAL_HI_LO);
+	  }
+	  else if (theStringNodeValue=="FAKE_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_LO);
+	  }
+	  else if (theStringNodeValue=="ZERO_LITE_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_ZERO_LITE_LO);
+	  }
+	  else if (theStringNodeValue=="FAKE_ZERO_LITE_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_ZERO_LITE_LO);
+	  }
+	  else if (theStringNodeValue=="NORMAL_LO") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_NORMAL_LO);
+	  }
+	  else if (theStringNodeValue=="FAKE_10") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_FAKE_10);
+	  }
+	  else if (theStringNodeValue=="NORMAL_10") {
+		  theFed9UDescription.setDaqSuperMode(FED9U_SUPER_MODE_NORMAL_10);
+	  }
+		
       else {
 	THROW(Fed9UXMLDescriptionException(Fed9UXMLDescriptionException::ERROR_UNKNOWN_ATTRIBUTE_VALUE,"The attribute is: fed superMode")); 
       }
@@ -1961,7 +1993,7 @@ namespace Fed9U {
       Fed9UStripDescription theFed9UStripDescription;
       u32 * stripsBuf;
       XMLByte* decodedBinary;
-      unsigned int decodedLength;
+      XMLSize_t decodedLength;
       stripsBuf = reinterpret_cast<u32*> ( decodedBinary = Base64::decode(reinterpret_cast<XMLByte*>(const_cast<char*>(stringNodeValue.c_str())), &decodedLength  ) ) ;
       
       for (int i=0;i<STRIPS_PER_APV;i++) {

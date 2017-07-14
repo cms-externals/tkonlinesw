@@ -26,6 +26,8 @@ CAEN_DIR=@caen_root@
 PCIFEC_COMPILE=@pcifec_enabled@
 # USB FEC support
 USBFEC_COMPILE=@usbfec_enabled@
+# uTCA FEC support
+UTCAFEC_COMPILE=@utcafec_enabled@
 # I2C bus speed (possible values are 100, 200, 400, 1000). Take care about this speed and use 100 KHz for your program. Higher speed need resistor for the termination of the I2C bus (for CCU 25)
 BUSI2CSPEED=100
 # DCU base address (usefull only for stable version greater than stable0703, stable0204, and last/CVS)

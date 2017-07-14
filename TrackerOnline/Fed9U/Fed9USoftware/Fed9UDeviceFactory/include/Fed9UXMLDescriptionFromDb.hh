@@ -35,7 +35,7 @@ namespace Fed9U {
     Fed9UXMLDescriptionFromDb( DbFedAccess *, Fed9UDescription &defaultFed9UDescription , std::vector<Fed9UDescription*>* desclist, bool usingStrips = true);
     ~Fed9UXMLDescriptionFromDb();
 
-    xercesc::DOMInputSource* getDatabaseDOMInputSource( i16 fedId, bool hardwareId,  int versionMajor , int versionMinor, std::string partition, int maskMajor, int maskMinor);
+    xercesc::DOMLSInput* getDatabaseDOMInputSource( i16 fedId, bool hardwareId,  int versionMajor , int versionMinor, std::string partition, int maskMajor, int maskMinor);
 
     /*    
     void setFed9UDescriptionDatabase( Fed9UDescription, u32 major, u32 minor );

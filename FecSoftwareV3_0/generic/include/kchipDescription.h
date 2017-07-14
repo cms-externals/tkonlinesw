@@ -530,7 +530,7 @@ inline tscType16 getChipID () {
 #endif
 
    
-      return false ;
+      return (!((*this)==kchip) )  ; ;
   }
   
   /** \brief In order to compare two APV descriptions

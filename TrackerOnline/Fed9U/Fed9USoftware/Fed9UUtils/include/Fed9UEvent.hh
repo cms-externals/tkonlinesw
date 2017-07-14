@@ -21,15 +21,26 @@ namespace Fed9U {
    *
    * The packet code represents the data acquision (DAQ) mode that the event was taken in. Possible values are:
    * \li FED9U_PACKET_SCOPE Taken in scope mode.
-   * \li FED9U_PACKET_FRAME Taken in frame finding mode.
    * \li FED9U_PACKET_VIRGRAW Taken in virgin raw mode.
    * \li FED9U_PACKET_ZEROSUPP Taken in zero suppressed mode.
    * \li FED9U_PACKET_PROCRAW Taken in processed raw data mode.
-   *
+   * \li FED9U_PACKET_VIRGRAW_10BIT packed in 10 bit, valid for both ZS and VR only
+   * \li FED9U_PACKET_ZEROSUPP_10BIT packed in 10 bit, valid for both ZS and VR only
+   * \li FED9U_PACKET_ZEROSUPP_LO Valid for ZS only, here we striped the lowest 2 bits of the 10 bit data to pack into 8 bits
+   * \li FED9U_PACKET_ZERO_SUPP_HI_LO Valid for ZS only, here we stripped 1 upper and 1 lower bit to pack 10 into 8 bits. 
+   * A. Baty: Added VR bit stripped versions (7/7/2015)
+   
    * More details of the different types of DAQ mode can be found in the CMS FED FE FPGA documentation.
    */
-  enum { FED9U_PACKET_SCOPE = 1, FED9U_PACKET_FRAME = 2, FED9U_PACKET_VIRGRAW = 4,
-         FED9U_PACKET_ZEROSUPP = 8, FED9U_PACKET_PROCRAW = 16
+  enum { FED9U_PACKET_SCOPE = 0xE1, FED9U_PACKET_VIRGRAW = 0xE6, FED9U_PACKET_VIRGRAW_10BIT = 0x86,
+         FED9U_PACKET_ZEROSUPP = 0xEA, FED9U_PACKET_PROCRAW = 0xF2, FED9U_PACKET_ZEROSUPP_10BIT = 0x8A,
+	     FED9U_PACKET_ZEROSUPP_LO = 0xCA, FED9U_PACKET_ZEROSUPP_HI_LO = 0xAA,
+//Added for bit stripped moded (AAB 8/24/2015) 
+             FED9U_PACKET_PROCRAW_10BIT = 0x92,
+             FED9U_PACKET_PROCRAW_8BIT_HI_LO = 0xB2,
+             FED9U_PACKET_PROCRAW_8BIT_LO = 0xD2,
+             FED9U_PACKET_VIRGRAW_8BIT_HI_LO = 0xA6,
+             FED9U_PACKET_VIRGRAW_8BIT_LO = 0xC6
   };
   
   /** 
@@ -288,7 +299,12 @@ namespace Fed9U {
      */
     u16 getMedian(unsigned apv) const {
       ICUTILS_VERIFY(apv <= 1)(apv).error();
-      ICUTILS_VERIFY(getPacketCode() & FED9U_PACKET_ZEROSUPP)(getPacketCode()).error();
+      ICUTILS_VERIFY(
+						getPacketCode() == FED9U_PACKET_ZEROSUPP ||
+					    getPacketCode() == FED9U_PACKET_ZEROSUPP_10BIT ||
+						getPacketCode() == FED9U_PACKET_ZEROSUPP_LO ||
+						getPacketCode() == FED9U_PACKET_ZEROSUPP_HI_LO
+						)(getPacketCode()).error();
       return _data.getu16(3 + apv*2);
     }
 

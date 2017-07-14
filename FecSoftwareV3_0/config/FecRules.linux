@@ -200,17 +200,17 @@ ifdef ENV_CMS_TK_ORACLE_HOME
 
         ORACLE_INCLUDE    = ${ENV_CMS_TK_ORACLE_HOME}/rdbms/demo ${ENV_CMS_TK_ORACLE_HOME}/rdbms/public ${ENV_CMS_TK_ORACLE_HOME}/plsql/public ${ENV_CMS_TK_ORACLE_HOME}/include
 	ORACLE_LDDFLAGS   = ${ENV_CMS_TK_ORACLE_HOME}/lib/ ${ENV_CMS_TK_ORACLE_HOME}/rdbms/lib/
-        ORACLE_LIB        = occi clntsh nnz11
-#       ORACLE_LIBL        =  -L${ENV_CMS_TK_ORACLE_HOME}/lib/ -L${ENV_CMS_TK_ORACLE_HOME}/rdbms/lib/ -locci -lclntsh -lnnz11
-        ORACLE_LIBL        =  -locci -lclntsh -lnnz11
+        ORACLE_LIB        = occi clntsh nnz12
+#       ORACLE_LIBL        =  -L${ENV_CMS_TK_ORACLE_HOME}/lib/ -L${ENV_CMS_TK_ORACLE_HOME}/rdbms/lib/ -locci -lclntsh -lnnz12
+        ORACLE_LIBL        =  -locci -lclntsh -lnnz12
 
 	#ifneq (${ENV_ORACLE_EXTERNAL},)
 	ifdef ENV_ORACLE_EXTERNAL
         	ORACLE_INCLUDE    = ${ENV_ORACLE_EXTERNAL}/include 
 		ORACLE_LDDFLAGS   = ${ENV_ORACLE_EXTERNAL}/lib/ 
-	        ORACLE_LIB        = occi clntsh nnz11
-	#       ORACLE_LIBL        =  -L${ENV_CMS_TK_ORACLE_HOME}/lib/ -L${ENV_CMS_TK_ORACLE_HOME}/rdbms/lib/ -locci -lclntsh -lnnz11
-	        ORACLE_LIBL        =  -locci -lclntsh -lnnz11
+	        ORACLE_LIB        = occi clntsh nnz12
+	#       ORACLE_LIBL        =  -L${ENV_CMS_TK_ORACLE_HOME}/lib/ -L${ENV_CMS_TK_ORACLE_HOME}/rdbms/lib/ -locci -lclntsh -lnnz12
+	        ORACLE_LIBL        =  -locci -lclntsh -lnnz12
         endif
 
 	ORACLEC++FECSOURCES = DbCommonAccess.cc DbAccess.cc DbFecAccess.cc DbPiaResetAccess.cc DbTkDcuConversionAccess.cc DbTkDcuInfoAccess.cc DbConnectionsAccess.cc DbFedAccess.cc \
@@ -255,6 +255,15 @@ else
   FECSOFT_LIB        = 
   FECSOFT_LIBL       = 
   FECSOFT_SRC        = 
+  ifeq (${UTCAFEC_COMPILE},yes)
+    BUSADAPTERC++FLAG += -DBUSUTCAFEC
+    BUSADAPTERSOURCES += FecUtcaRingDevice.cc
+    BUSADAPTERINCLUDEDIR += /opt/cactus/include 
+    BUSADAPTERLIBDIR  += /opt/cactus/lib 
+    BUSADAPTERLIBDIRL += -L/opt/cactus/lib
+    BUSADAPTERLIB     += cactus_extern_pugixml cactus_uhal_log cactus_uhal_grammars cactus_uhal_uhal boost_thread boost_system boost_filesystem boost_regex
+    BUSADAPTERLIBL    += -lcactus_extern_pugixml -lcactus_uhal_log -lcactus_uhal_grammars -lcactus_uhal_uhal -lboost_thread -lboost_system -lboost_filesystem -lboost_regex
+  endif
 endif
 
 # DEBUG or no

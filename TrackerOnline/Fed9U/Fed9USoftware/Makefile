@@ -52,8 +52,8 @@ cleanall: clearlog
 	@$(MAKE) -C Fed9UVmeBase       clean
 	@$(MAKE) -C Fed9UVmeDevice     clean
 	@$(MAKE) -C Fed9UDevice        clean
-#	@$(MAKE) -C Fed9UStandAlone    clean
-#	@$(MAKE) -C Fed9UDocumentation clean
+	@$(MAKE) -C Fed9UStandAlone    clean
+	@$(MAKE) -C Fed9UDocumentation clean
 #	@$(MAKE) -C Fed9USupervisor    clean
 # >> $(STDOUT_FILE)
 
@@ -64,7 +64,7 @@ clean: clearlog
 	@$(MAKE) -C Fed9UVmeBase       clean
 	@$(MAKE) -C Fed9UVmeDevice     clean
 	@$(MAKE) -C Fed9UDevice        clean
-#	@$(MAKE) -C Fed9UStandAlone    clean
+	@$(MAKE) -C Fed9UStandAlone    clean
 
 # Removes the dependency files in case a file is renamed and the dependencies become f****d
 cleandeps:

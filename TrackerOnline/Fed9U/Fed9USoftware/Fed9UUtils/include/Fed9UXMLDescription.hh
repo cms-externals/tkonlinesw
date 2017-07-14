@@ -119,7 +119,7 @@ protected:
   
   
   xercesc::DOMDocument *doc;
-  xercesc::DOMBuilder *theDOMBuilder;
+  xercesc::DOMLSParser *theDOMBuilder;
   Fed9UDOMCountErrorHandler errorHandler;
 
   std::string theXMLOverideFile;

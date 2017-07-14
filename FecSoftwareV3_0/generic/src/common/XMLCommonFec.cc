@@ -113,7 +113,8 @@ XMLCommonFec::~XMLCommonFec (){
   if ( (toBeDeleted_) && (xmlBuffer_ != NULL) ) free((void*)xmlBuffer_) ;
 
   if (parser_ != NULL) {
-    parser_->release() ;
+    //    parser_->release() ;
+    parser_->resetDocumentPool();
   }
 
   if (domCountErrorHandler_ != NULL) delete domCountErrorHandler_ ;
@@ -226,8 +227,8 @@ void XMLCommonFec::readXMLBuffer(const XMLByte* buffer) throw (FecExceptionHandl
 
     try {
       InputSource *xmlInputSource =  new MemBufInputSource ( (const XMLByte*)(buffer), strlen((const char*)buffer), xmlBufferId.c_str());
-      DOMInputSource *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
-      domDocument_ = parser_->parse(*domInputSource) ;
+      DOMLSInput *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
+      domDocument_ = parser_->parse(domInputSource) ;
       delete domInputSource ;
     }
     catch (const SAXException &ex) {
@@ -296,22 +297,27 @@ void XMLCommonFec::createParser() throw (FecExceptionHandler){
     // Instantiate the DOM parser.
     static const XMLCh gLS[] = { chLatin_L, chLatin_S, chNull };
     domImplementation_ = DOMImplementationRegistry::getDOMImplementation(gLS);
-    parser_ = ((DOMImplementationLS*)domImplementation_)->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
-    
+    parser_ = ((DOMImplementationLS*)domImplementation_)->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+    DOMConfiguration *domConfiguration = parser_->getDomConfig();
     bool doNamespaces       = false;
     bool doSchema           = false;
     bool schemaFullChecking = false;
-    parser_->setFeature(XMLUni::fgDOMNamespaces, doNamespaces);
-    parser_->setFeature(XMLUni::fgXercesSchema, doSchema);
-    parser_->setFeature(XMLUni::fgXercesSchemaFullChecking, schemaFullChecking);
-    parser_->setFeature(XMLUni::fgDOMValidateIfSchema, true); 
-    
+    //parser_->setFeature(XMLUni::fgDOMNamespaces, doNamespaces);
+    domConfiguration->setParameter (XMLUni::fgDOMNamespaces, doNamespaces);
+    //parser_->setFeature(XMLUni::fgXercesSchema, doSchema);
+    domConfiguration->setParameter (XMLUni::fgXercesSchema, doSchema);
+    //parser_->setFeature(XMLUni::fgXercesSchemaFullChecking, schemaFullChecking);
+    domConfiguration->setParameter (XMLUni::fgXercesSchemaFullChecking, schemaFullChecking);
+    //parser_->setFeature(XMLUni::fgDOMValidateIfSchema, true); 
+    domConfiguration->setParameter (XMLUni::fgDOMValidateIfSchema, true); 
     // enable datatype normalization - default is off
-    parser_->setFeature(XMLUni::fgDOMDatatypeNormalization, true);
+    //parser_->setFeature(XMLUni::fgDOMDatatypeNormalization, true);
+    domConfiguration->setParameter (XMLUni::fgDOMDatatypeNormalization, true);
+
     // And create our error handler and install it
     domCountErrorHandler_ = new DOMCountErrorHandler() ;
-    parser_->setErrorHandler(domCountErrorHandler_);
-    
+    //parser_->setErrorHandler(domCountErrorHandler_);
+    domConfiguration->setParameter (XMLUni::fgDOMErrorHandler,domCountErrorHandler_);
     // reset document pool
     domCountErrorHandler_->resetErrors() ;
     parser_->resetDocumentPool();
@@ -397,8 +403,8 @@ void XMLCommonFec::parseDatabaseResponse ()  throw (FecExceptionHandler) {
 
 	try {
 	  InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	  DOMInputSource *domInputSource = new Wrapper4InputSource(xmlInputSource) ;
-	  domDocument_ = parser_->parse(*domInputSource) ;
+	  DOMLSInput *domInputSource = new Wrapper4InputSource(xmlInputSource) ;
+	  domDocument_ = parser_->parse(domInputSource) ;
 	  delete domInputSource ;
 	}
 	catch (const SAXException &ex) {

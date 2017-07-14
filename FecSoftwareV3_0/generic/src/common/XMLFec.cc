@@ -134,8 +134,8 @@ void XMLFec::parseDatabaseResponse ( std::string partitionName )
 #endif
 
 	InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	DOMInputSource *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	DOMLSInput *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -202,8 +202,8 @@ void XMLFec::parseDatabaseResponse ( std::string partitionName, std::string fecH
 #endif
 
 	InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	DOMInputSource *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	DOMLSInput *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -266,8 +266,8 @@ void XMLFec::parseDatabaseResponse (std::string partitionName, unsigned int vers
 #endif
 
 	InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	DOMInputSource *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	DOMLSInput *domInputSource = new Wrapper4InputSource((InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -337,8 +337,8 @@ void XMLFec::parseDatabaseResponse ( std::string partitionName, std::string fecH
 #endif
 
 	InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	DOMInputSource *domInputSource = new Wrapper4InputSource(xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	DOMLSInput *domInputSource = new Wrapper4InputSource(xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;

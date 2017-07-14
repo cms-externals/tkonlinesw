@@ -10,7 +10,7 @@ Mulhouse-France
 #ifndef PACEDEFINITION_H
 #define PACEDEFINITION_H
 
-// This file defined all the offset for DELTA registers
+// This file defined all the offset for PACEAM registers
 
 // Note that the PACEAMs are accessible in extended (RAL) mode (I2C)
 // Offset of 1 for reading value

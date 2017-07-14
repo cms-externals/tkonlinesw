@@ -170,8 +170,8 @@ namespace Fed9U {
    *    The amount of data recorded is deteermined by the scope length setting (Fed9UABC::setScopeLength).
    * There is an additional mode (FED9U_MODE_SPY) used in Fed9UEvent to signal that the event contins spy channel data.
    */
-  enum Fed9UDaqMode     { FED9U_MODE_PROCESSED_RAW, FED9U_MODE_ZERO_SUPPRESSED,
-		          FED9U_MODE_VIRGIN_RAW,    FED9U_MODE_SCOPE, FED9U_MODE_SPY, FED9U_MODE_NONE };
+  enum Fed9UDaqMode     { FED9U_MODE_PROCESSED_RAW, FED9U_MODE_ZERO_SUPPRESSED, 
+		          FED9U_MODE_VIRGIN_RAW, FED9U_MODE_SCOPE, FED9U_MODE_SPY, FED9U_MODE_NONE };
 
   /**
    * \brief Specifies an addition data acquision (DAQ) mode to the DAQ modes defined in Fed9UDaqMode.
@@ -183,7 +183,10 @@ namespace Fed9U {
    * \li FED9U_SUPER_MODE_FAKE_ZERO_LITE Fake events are sent in lite zero suppression mode.
    * \li FED9U_SUPER_MODE_NORMAL No changes are made to the DAQ mode and the FED expects events from the optical inputs.
    */
-  enum Fed9UDaqSuperMode     { FED9U_SUPER_MODE_FAKE, FED9U_SUPER_MODE_ZERO_LITE, FED9U_SUPER_MODE_FAKE_ZERO_LITE, FED9U_SUPER_MODE_NORMAL };
+  enum Fed9UDaqSuperMode     { FED9U_SUPER_MODE_FAKE, FED9U_SUPER_MODE_ZERO_LITE, FED9U_SUPER_MODE_FAKE_ZERO_LITE, FED9U_SUPER_MODE_NORMAL, // default modes strip top two highest bits in ZS
+							   FED9U_SUPER_MODE_FAKE_HI_LO, FED9U_SUPER_MODE_ZERO_LITE_HI_LO, FED9U_SUPER_MODE_FAKE_ZERO_LITE_HI_LO, FED9U_SUPER_MODE_NORMAL_HI_LO,	//HI_LO indicates stripping 1 hi and 1 low BIT for ZS
+							   FED9U_SUPER_MODE_FAKE_LO, FED9U_SUPER_MODE_ZERO_LITE_LO, FED9U_SUPER_MODE_FAKE_ZERO_LITE_LO, FED9U_SUPER_MODE_NORMAL_LO, // LO only indicates stripping lowest two bits in ZS
+							   FED9U_SUPER_MODE_FAKE_10, FED9U_SUPER_MODE_NORMAL_10, FED9U_SUPER_MODE_ZERO_LITE_10, FED9U_SUPER_MODE_FAKE_ZERO_LITE_10 }; // 10 bit readout we no longer strip any bits in ZS and in VR we pack 10 bits instead of 16 to reduce event size
 
   /**
    * \brief Defines the types of trigger that the FED can use.

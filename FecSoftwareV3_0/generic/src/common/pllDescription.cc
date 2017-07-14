@@ -232,17 +232,17 @@ pllDescription *pllDescription::clone ( ) {
 /** \brief Display the APV values where the comparison is different
  * \param pll - uploaded values
  */
-void pllDescription::displayDifferences ( pllDescription &pll ) {
+void pllDescription::displayDifferences ( pllDescription &pll, std::ostream & ss ) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "PLL " << msg << std::endl ;
+  ss << "PLL " << msg << std::endl ;
   if (getClockPhase ( ) != pll.getClockPhase ( ))
-    std::cout << "\tClock phase (Delay fine) is different (" << std::dec << (int)getClockPhase() << ", " << (int)pll.getClockPhase ( ) << ")" << std::endl ;
+    ss << "\tClock phase (Delay fine) is different (" << std::dec << (int)getClockPhase() << ", " << (int)pll.getClockPhase ( ) << ")" << std::endl ;
   if (getTriggerDelay( ) != pll.getTriggerDelay( ))
-    std::cout << "\tTrigger delay (Delay coarse) is different (" << std::dec << (int)getTriggerDelay() << ", " << (int)pll.getTriggerDelay () << ")" << std::endl ;
+    ss << "\tTrigger delay (Delay coarse) is different (" << std::dec << (int)getTriggerDelay() << ", " << (int)pll.getTriggerDelay () << ")" << std::endl ;
   if (getPllDac( ) != pll.getPllDac( ))
-    std::cout << "\tTrigger delay (Delay coarse) is different (" << std::dec << (int)getPllDac() << ", " << (int)pll.getPllDac () << ")" << std::endl ;
+    ss << "\tTrigger delay (Delay coarse) is different (" << std::dec << (int)getPllDac() << ", " << (int)pll.getPllDac () << ")" << std::endl ;
 }
 
 /** \brief Display the PLL values

@@ -377,7 +377,6 @@ namespace Fed9U {
       }
       ICUTILS_VERIFY(statusErrorString.str().size() == 0).msg(statusErrorString.str().c_str()).error();
     }
- 
   }
 
   
@@ -625,12 +624,13 @@ namespace Fed9U {
     printValue(os, "DAQ Total Length", getTotalLength(), 24);
     printValue(os, "DAQ CRC", getCrc());
     printValue(os, "Calculated CRC", calcCrc());
-
+ 
     for (u16 i = 0; i < feUnits(); i++) {
       const Fed9UEventUnit & u = feUnit(i);
       os << "\nFeUnit " << static_cast<int>(Fed9UAddress().setFedFeUnit(i).getExternalFedFeUnit()) << flush;
       os << ", Pipeline " << static_cast<int>(u.getMajorityPipeline()) << flush;
       os << ", Length " << u.dataLength() << endl;
+
       if (u.channels() > 0) os << "Ch  PC St Len  Num    S1   S2  ..." << endl;
       for (u16 j = 0; j < u.channels(); j++) {
         const Fed9UEventChannel & c = u.channel(j);
@@ -640,7 +640,7 @@ namespace Fed9U {
            << ' ' << setw(4) << dec << c.dataLength() << ' '
            << setw(4) << c.samples();
         for (u16 k = 0; k < c.samples(); k++) {
-          os << ' ' << setw(4) << c.sample(k);
+          os << ' ' << setw(4)  << c.sample(k);
           if (k > 32) break;
         }
         os << endl;
@@ -688,7 +688,35 @@ namespace Fed9U {
 
     u16 len = 0;
     len = _header.getu16(8, true);
-    if (len > 0) ICUTILS_VERIFYX((data.getu8(2) & 0xe0 ) == 0xe0, Fed9UEventException  )(static_cast<u16>(data.getu8(2))).msg("Front End Unit Packet Code is corrupt!").code(Fed9UEventException::ERROR_FRONT_END_PACKET_CODE_CORRUPT).error();
+	  
+	// Packet Codes:
+	// Are stored in the firmware as follows: "1" & not mode_a & not mode_b & ProcessedRaw & ZeroSuppressed & VirginRaw & FrameFinding & Scope
+	// note that mode_a and mode_b, which are bits 3 and 2 of the super mode, are inverted for backward compatibility:d mode_a = mode_b = 0 implies old style data 
+	// 0xF2 Processed Raw
+	// 0xEA Zero Suppressed 8 bit Top 2 bits stripped
+	// 0xE6 Virgin Raw 16 Bit
+	// 0xE5 SCOPE Mode
+	// 0x8A Zero Suppressed 10 bit readout
+	// 0x86 Virgin Raw 10 Bit
+	// 0xCA Zero Suppressed 8 bit bottom two bits stripped
+	// 0xAA Zero Suppressed 8 bit one top one bottom bits stripped
+	  
+    if (len > 0) ICUTILS_VERIFYX( // verify that the packet code is one of the known ones. 
+									(data.getu8(2) == 0xf2 ) ||
+									(data.getu8(2) == 0xea ) ||
+									(data.getu8(2) == 0xe6 ) ||
+									(data.getu8(2) == 0xe5 ) ||
+									(data.getu8(2) == 0x8A ) ||
+									(data.getu8(2) == 0x86 ) ||
+									(data.getu8(2) == 0xaa ) ||
+									(data.getu8(2) == 0xca ) ||
+                                                                        (data.getu8(2) == 0xA6 ) ||
+           //added VR bit stripped codes (A Baty, 7/7/2015)
+                                                                        (data.getu8(2) == 0xC6 ) ||
+                                                                        (data.getu8(2) == 0x92 ) ||
+                                                                        (data.getu8(2) == 0xD2 ) ||
+                                                                        (data.getu8(2) == 0xB2 ) 
+									, Fed9UEventException  )(static_cast<u16>(data.getu8(2))).msg("Front End Unit Packet Code is corrupt!").code(Fed9UEventException::ERROR_FRONT_END_PACKET_CODE_CORRUPT).error();
     DBG("length = " << len);
     ICUTILS_VERIFY(len <= _data.size())(len)(_data.size()).error()
       .msg("Length in tracker header is longer than length available in buffer");
@@ -745,18 +773,52 @@ namespace Fed9U {
 
   u16 Fed9UEventChannel::samples() const {
     // JF 11/11/2005 swapped this with line below    if (getPacketCode() & FED9U_PACKET_SCOPE) {
-    if (! ( getPacketCode() & FED9U_PACKET_ZEROSUPP ) ) {
+	// JF 2/5/2015 ten years on we add a bunch of new data packing modes
+	// AAB 8/24/2015 Added support for Bit Stripped modes (HI,LO,10BIT,etc)
+    if (  getPacketCode() == FED9U_PACKET_VIRGRAW ||
+		  getPacketCode() == FED9U_PACKET_SCOPE ||
+		  getPacketCode() == FED9U_PACKET_PROCRAW ) {
       return (dataLength() - 3) / 2;
-    }
-    return STRIPS_PER_APV * APVS_PER_CHANNEL;
+    } else if (getPacketCode() == FED9U_PACKET_ZEROSUPP ||
+			   getPacketCode() == FED9U_PACKET_ZEROSUPP_HI_LO ||
+			   getPacketCode() == FED9U_PACKET_ZEROSUPP_LO) {
+		return 0;// no way to calculate
+	} else if ( getPacketCode() == FED9U_PACKET_ZEROSUPP_10BIT ) { // 10 bit 
+		return 0;// no way to calculate
+	} else if ( getPacketCode() == FED9U_PACKET_VIRGRAW_10BIT ||
+                    getPacketCode() == FED9U_PACKET_PROCRAW_10BIT ) { // 10 bit
+                return (dataLength()-3)*4/5;
+        } else if ( getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_LO || 
+                    getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_LO ) { // 8 bit
+                return (dataLength()-3);
+        } else if ( getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_HI_LO ||
+                    getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_HI_LO) { // 8 bit
+                return (dataLength()-3);
+	} else // must be Zero supp lite
+		return STRIPS_PER_APV * APVS_PER_CHANNEL;
   }
 
 
+
   u16 Fed9UEventChannel::sample(size_t i) const {
+    /*Commented block out for the addition below (6/30/2015 A. Baty)
     if (getPacketCode() & FED9U_PACKET_ZEROSUPP) {
       // could be more efficient, but should work for now...
-      std::vector<u16> temp = getSamples();
-      //DBG("Debug: Got sample " << i << " val = " << temp[i] << endl);
+      DBG("Debug: Got sample " << i << " val = " << temp[i] << endl);
+      //std::vector<u16> temp = getSamples();
+      //return temp[i];
+    }*/
+
+    //Added for 10 bit unpacker (6/30/2015 A. Baty)
+    if(getPacketCode() == FED9U_PACKET_VIRGRAW_10BIT ||
+                getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_LO ||
+                getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_HI_LO ||
+                getPacketCode() == FED9U_PACKET_VIRGRAW_10BIT ||
+                getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_LO ||
+                getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_HI_LO ||
+                getPacketCode() == FED9U_PACKET_PROCRAW_10BIT ||
+       		getPacketCode() == FED9U_PACKET_ZEROSUPP) {
+      std::vector<u16> temp = getSamples(); 
       return temp[i];
     }
     return _data.getu16(i*2+3);
@@ -766,7 +828,7 @@ namespace Fed9U {
   void Fed9UEventChannel::getSamples(u16 * destBuf) const {
     //    std::vector<u16> ret;
     try {
-      if (getPacketCode() & FED9U_PACKET_ZEROSUPP) {
+      if (getPacketCode() == FED9U_PACKET_ZEROSUPP) {
 	//DBG("DEBUG: Zero suppressed mode");
 	memset(static_cast<void*>(destBuf), 0, STRIPS_PER_APV * APVS_PER_CHANNEL * sizeof (*destBuf));
 	for (Fed9UEventIterator i = _data + 7; i.size() > 0; /**/) {
@@ -778,9 +840,51 @@ namespace Fed9U {
           }
 	  //DBG("DEBUG: Cluster at " << dec << (int)add << " size " << (int)len << " data " << destBuf[add] << endl);
         }
-      } else {
+      } else if (getPacketCode() == FED9U_PACKET_ZEROSUPP_LO) {
+		  ;
+	  } else if (getPacketCode() == FED9U_PACKET_ZEROSUPP_HI_LO) {
+		  ;
+	  } else if(getPacketCode() == FED9U_PACKET_ZEROSUPP_10BIT) {
+		  ;
+	  } else if(getPacketCode() == FED9U_PACKET_VIRGRAW_10BIT ||
+                    getPacketCode() == FED9U_PACKET_PROCRAW_10BIT) {
+                  //Added 6/30/2015 by A Baty. for 10 bit unpacking
+                  //currently not sure if stable when channels are turned off...
+                  memset(static_cast<void*>(destBuf), 0, STRIPS_PER_APV * APVS_PER_CHANNEL * sizeof (*destBuf));
+                  Fed9UEventIterator i = _data+3; 
+
+	          //bitOverlap keeps track of the number of bits 'bleeding' into the next byte because we are storing  10 bit word in 8bit bytes, has a periodic structure of 2,4,6,8,2.... as we read out the data
+                  int bitOverlap = 2; 
+                  for (int j = 0; i.size() > 0; j++) {
+                    //some clever manipulation of bits in order to extra the 10 bit words out of an 8 bit buffer into a 16 bit buffer...
+                    destBuf[j] = *i;//get the first byte
+                    //std::cout << j << " " << destBuf[j] << " : " << flush;
+                    destBuf[j] = destBuf[j] << bitOverlap;//make enough room for the overlapping bits in the 2nd byte
+                    //std::cout << destBuf[j] << " : " << flush;
+                    i++;// point to next byte
+                    destBuf[j] = destBuf[j] | (*i >> (8-bitOverlap));//get remaining bits needed
+                    //std::cout << destBuf[j] << " : " << flush;
+                    destBuf[j] = destBuf[j] & 1023; //zeroes for safety the top 6 bits of our 16 bit structure (leaving the 10 bit word)
+                    //std::cout << destBuf[j] << " : " << bitOverlap<<std::endl;
+                    if(bitOverlap == 8) i++;//increment again if the 2nd byte was fully used
+                    bitOverlap = bitOverlap%8+2;//update overlap*/
+                  }
+	  } else if(getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_LO ||
+                    getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_LO ) {
+                   for (u16 i = 0; i < samples(); i++) {
+                     destBuf[i] = _data.getu8(i+3);
+                     destBuf[i] = destBuf[i] << 2;
+                   }
+          } else if(getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_HI_LO ||
+                    getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_HI_LO ) {
+                   for (u16 i = 0; i < samples(); i++) {
+                     destBuf[i] = _data.getu8(i+3);
+                     destBuf[i] = destBuf[i] << 1;
+                   }
+          } else { // Proc raw, VR, SCOPE, etc. use samples to return number of samples
         //ret.resize(samples());
         for (u16 i = 0; i < samples(); i++) {
+          std::cout << i << " " << destBuf[i] << std::endl;
           destBuf[i] = _data.getu16(i*2+3);
         }
       }    
@@ -797,7 +901,15 @@ namespace Fed9U {
 
   std::vector<u16> Fed9UEventChannel::getSamples() const {
     std::vector<u16> ret;
-    if (getPacketCode() & FED9U_PACKET_ZEROSUPP) {
+    //if (getPacketCode() & FED9U_PACKET_ZEROSUPP) {
+    //Commented out for if statement below 6/30/2015 A. Baty)
+    if ( getPacketCode()== FED9U_PACKET_ZEROSUPP ||
+        	getPacketCode() == FED9U_PACKET_VIRGRAW_10BIT ||
+                getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_LO ||
+                getPacketCode() == FED9U_PACKET_VIRGRAW_8BIT_HI_LO ||
+        	getPacketCode() == FED9U_PACKET_PROCRAW_10BIT ||
+                getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_LO ||
+                getPacketCode() == FED9U_PACKET_PROCRAW_8BIT_HI_LO) {
       ret.resize(STRIPS_PER_APV * APVS_PER_CHANNEL);
     } else {
       ret.resize(samples());

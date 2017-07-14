@@ -152,13 +152,13 @@ muxDescription *muxDescription::clone ( ) {
 /** \brief Display the APV values where the comparison is different
  * \param mux - uploaded values
  */
-void muxDescription::displayDifferences ( muxDescription &mux ) {
+void muxDescription::displayDifferences ( muxDescription &mux, std::ostream & ss) {
 
   char msg[80] ;
   decodeKey (msg, accessKey_) ;
-  std::cout << "APVMUX " << msg << std::endl ;
+  ss << "APVMUX " << msg << std::endl ;
   if ((getResistor ( ) != mux.getResistor ( )))
-    std::cout << "\tResistor is different (" << (unsigned int) getResistor() << " / " << (unsigned int) mux.getResistor ( ) << ")" << std::endl ;
+    ss<< "\tResistor is different (" << (unsigned int) getResistor() << " / " << (unsigned int) mux.getResistor ( ) << ")" << std::endl ;
 }
 
 /** \brief Display MUX values

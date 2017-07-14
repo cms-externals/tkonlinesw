@@ -47,7 +47,16 @@
 #define FED_TTS_CONNECTION_TEST                0x22 
 #define FED_DO_VME_POLLING                    0x24
 #define FED_VME_POLLING_DONE                  0x25
-
+#define FED_BACKPRESSURE_ENABLE               0x29
+#define FED_BACKPRESSURE_DISABLE              0x34
+#define DS_PAUSE                             0x26
+#define DS_RESUME                            0x27
+#define XTALDAQ_SCAN_CMD                     0x28
+#define XTALDAQ_SCAN_POINT_DONE              0x35
+#define FED_INCREMENT_DELAY_STEP             0x41
+#define FED_SET_DELAY_PARAMETERS             0x42
+#define FED_START_DELAY_MAP                  0x43
+#define FED_SETOUTOFSYNC                     0x44
 // FEDPMC Commands
 #define FED_ENABLE_TRIGGER_CMD  0x10
 #define FED_DISABLE_TRIGGER_CMD  0x11

@@ -46,7 +46,8 @@ namespace Fed9U {
       _payload = NULL;      
     };
     /** Constructor for handling fake events.  Uses Fed9UFakeBufferCreator class to construct the buffer.*/
-    Fed9UEventStreamLine(istream & is);
+    //(AAB 8/24/2015) Added support for multiple unique channels loaded in fake events, let uniqueChannels = 1 for other behavior
+    Fed9UEventStreamLine(istream & is, int uniqueChannels);
     /** Constructor for handling real data events */
     Fed9UEventStreamLine(u32 * buffer, const Fed9UDescription * currentDescription);
     /** Default destructor. */
@@ -315,7 +316,8 @@ namespace Fed9U {
 	Used by FedDebugSuite and can also be used for fake event input to this class.*/
     void dumpRawBuffer(ostream& os) const;
     /** Provides a prettified text dump of the buffer for debugging purposes.*/
-    void dumpBuffer(ostream& os) const;
+    //Added second and third parameter for FedPatternCheck (AAB 8/24/2015)
+    void dumpBuffer(ostream& os, int modFactor = 1, bool lessOutput = false) const;
     /** This method checks the status of every channel on every enabled FE-FPGA on the FED and reports any error found.*/
     void checkChannelStatuses() const;
 

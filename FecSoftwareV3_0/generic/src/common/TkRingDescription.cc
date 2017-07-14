@@ -427,7 +427,7 @@ void TkRingDescription::display ( std::ostream &flux, bool all /* = false */ , b
     flux << "FEC->" << (inputAUsed_ ? "A " : "B ");
     for (std::vector<CCUDescription *>::iterator it = ccuVector_.begin() ; it != ccuVector_.end() ; it ++) {
       if ((*it)->getEnabled()||(all)) {
-	flux << "CCU_" << std::dec << getCcuKey((*it)->getKey());
+	flux << "CCU_" << std::dec << (int) getCcuKey((*it)->getKey());
  	if (redundancyDetails) {
  	  flux << "-" << ((*it)->getInputA() ? "A" : "B")
 	       << "-" << ((*it)->getOutputA() ? "A" : "B");

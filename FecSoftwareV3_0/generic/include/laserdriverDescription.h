@@ -311,7 +311,7 @@ class laserdriverDescription: public deviceDescription {
   /** \brief Display the APV values where the comparison is different
    * \param laserdriver - uploaded values
    */
-  void displayDifferences ( laserdriverDescription &laserdriver ) ;
+  void displayDifferences ( laserdriverDescription &laserdriver,std::ostream & ss = std::cout);
 
   /** \brief Display laserdriver values
    */

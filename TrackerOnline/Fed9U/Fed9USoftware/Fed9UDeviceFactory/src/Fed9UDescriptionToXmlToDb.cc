@@ -464,8 +464,8 @@ namespace Fed9U {
 
 		  char * stripsBuf = new char[STRIPS_PER_APV*4];
 		  getStripDataBuffer(stripsBuf);
-		  unsigned int outputlength;
-		  unsigned int length = 512;
+		  XMLSize_t outputlength;
+		  XMLSize_t length = 512;
 		  XMLByte* encodedXML;
 		  
 		  //std::cout << "Base 64 encoded strips string = " <<  reinterpret_cast<char*>(xercesc::Base64::encode(reinterpret_cast<const XMLByte*>(stripsBuf),length,&outputlength))  
@@ -545,16 +545,16 @@ namespace Fed9U {
     XMLCh tempStr[100];
     xercesc::XMLString::transcode("LS", tempStr, 99);
     impl = xercesc::DOMImplementationRegistry::getDOMImplementation(tempStr);
-    theDOMWriter = ((xercesc::DOMImplementationLS*)impl)->createDOMWriter();
+    theDOMWriter = ((xercesc::DOMImplementationLS*)impl)->createLSSerializer();
 
     //Plug in error handler  
-    theDOMWriter->setErrorHandler(&errorHandler);
+    theDOMWriter->getDomConfig()->setParameter(xercesc::XMLUni::fgDOMErrorHandler,&errorHandler);
     //reset error count
     errorHandler.resetErrors();
 
     //Include whitespaces in the output
-    if (theDOMWriter->canSetFeature(xercesc::XMLUni::fgDOMWRTFormatPrettyPrint, true)) {
-      theDOMWriter->setFeature(xercesc::XMLUni::fgDOMWRTFormatPrettyPrint, true);
+    if (theDOMWriter->getDomConfig()->canSetParameter(xercesc::XMLUni::fgDOMWRTFormatPrettyPrint, true)) {
+      theDOMWriter->getDomConfig()->setParameter(xercesc::XMLUni::fgDOMWRTFormatPrettyPrint, true);
     }
   }
 

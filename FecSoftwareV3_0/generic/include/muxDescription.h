@@ -137,7 +137,7 @@ class muxDescription: public deviceDescription {
   /** \brief Display the APV values where the comparison is different
    * \param mux - uploaded values
    */
-  void displayDifferences ( muxDescription &mux ) ;
+  void displayDifferences ( muxDescription &mux, std::ostream & ss = std::cout);
 
   /** \brief Display MUX values
    */

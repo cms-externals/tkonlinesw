@@ -45,6 +45,9 @@
 #if defined(BUSUSBFEC)
 #include "FecUsbRingDevice.h"
 #endif
+#if defined(BUSUTCAFEC)
+#include "FecUtcaRingDevice.h"
+#endif
 
 #include "FecAccess.h"
 
@@ -334,6 +337,28 @@ FecAccess::FecAccess ( hashMapFecUsbSerial fecUsbSerials, bool forceAck, bool in
 #endif
 }
 
+FecAccess::FecAccess ( const std::string& strFilename, const std::string& strBoardId, bool forceAck, bool initFec, 
+                       bool scanFECs, bool scanCCUs,
+		       tscType16 i2cSpeed, bool invertClockPolarity )
+  throw (FecExceptionHandler ) {
+  std::cerr << "FecAccess::FecAccess 6" << std::endl;
+#if !defined(BUSUTCAFEC)
+  RAISEFECEXCEPTIONHANDLER(CODECONSISTENCYERROR,
+		    "Support for uTCA is not compiled and cannot be used",
+		    FATALERRORCODE ) ;
+#else
+  configurationFile_=strFilename;
+  strBusAdapter_=strBoardId;
+  FecUtcaRingDevice::configureUhal(strFilename, strBoardId);
+  fecBusType_ = FECUTCA ;
+  // Initialise the object
+  setInitFecAccess ( forceAck, initFec, scanFECs, scanCCUs,
+		     i2cSpeed, 
+                     FecUtcaRingDevice::minUtcaFecSlot, FecUtcaRingDevice::maxUtcaFecSlot, 
+                     FecUtcaRingDevice::minUtcaFecRing, FecUtcaRingDevice::maxUtcaFecRing, invertClockPolarity ) ;
+#endif
+}
+
 /** The desctructor is used for:
  * <ul>
  * <li> Disable all the channels
@@ -366,6 +391,15 @@ FecAccess::~FecAccess ( ) {
     break ;
   case FECUSB: 
 #if defined(BUSUSBFEC)
+   // Remove all the accesses on the FEC device
+    for (fecMapAccessedType::iterator p=fecRingEnable_.begin();p!=fecRingEnable_.end();p++) {
+      // all FECUSB destructing/release code is inside FecUsbRingDevice destructor code:  
+      delete p->second ;
+    }
+#endif
+    break ;
+  case FECUTCA: 
+#if defined(BUSUTCAFEC)
    // Remove all the accesses on the FEC device
     for (fecMapAccessedType::iterator p=fecRingEnable_.begin();p!=fecRingEnable_.end();p++) {
       // all FECUSB destructing/release code is inside FecUsbRingDevice destructor code:  
@@ -759,6 +793,11 @@ tscType16 FecAccess::getMinRingNumber ( ) {
     return FecUsbRingDevice::minUsbFecRing ; 
 #endif
     break ;
+  case FECUTCA: 
+#if defined(BUSUTCAFEC)
+    return FecUtcaRingDevice::minUtcaFecRing ; 
+#endif
+    break ;
   }
 
   return 0xFFFF ;
@@ -789,6 +828,11 @@ tscType16 FecAccess::getMaxRingNumber ( ) {
   case FECUSB: 
 #if defined(BUSUSBFEC)
     return FecUsbRingDevice::maxUsbFecRing ; 
+#endif
+    break ;
+  case FECUTCA: 
+#if defined(BUSUTCAFEC)
+    return FecUtcaRingDevice::maxUtcaFecRing ; 
 #endif
     break ;
   }
@@ -999,6 +1043,11 @@ FecRingDevice *FecAccess::setFecRingDevice ( keyType index ) {
       }
 #endif
       break ;
+    case FECUTCA:
+#if defined(BUSUTCAFEC)
+      fec = new FecUtcaRingDevice ( getFecKey(index), getRingKey(index), initFecRingDevice_, invertClockPolarity_ ) ;
+#endif
+      break ;
     }
 
     // A fec ring device must be opened and add to the map  
@@ -1124,6 +1173,14 @@ std::list<keyType> *FecAccess::getFecList ( ) {
     ringMin = FecUsbRingDevice::minUsbFecRing ;    
     fecMax = FecUsbRingDevice::maxUsbFecSlot ;
     ringMax = FecUsbRingDevice::maxUsbFecRing ;
+#endif
+    break ;
+  case FECUTCA: 
+#if defined(BUSUTCAFEC)
+    fecMin = FecUtcaRingDevice::minUtcaFecSlot ;
+    ringMin = FecUtcaRingDevice::minUtcaFecRing ;    
+    fecMax = FecUtcaRingDevice::maxUtcaFecSlot ;
+    ringMax = FecUtcaRingDevice::maxUtcaFecRing ;
 #endif
     break ;
   }
@@ -1628,7 +1685,7 @@ tscType16 FecAccess::getFecFirmwareVersion( keyType index ) throw ( FecException
 			    "Support for CAEN and SBS VME is not compiled and cannot be used",
 			    FATALERRORCODE ) ;
 #else
-  if (fecBusType_ == FECVME) {
+  if (fecBusType_ == FECVME || fecBusType_ == FECUTCA) {
 
     // To avoid problem in the numbering schema (mask and the ring and replace it by 0 or 8
     if (FecVmeRingDevice::getMinVmeFecRingValue()==1) index = buildFecRingKey(getFecKey(index),8);
@@ -2410,6 +2467,9 @@ void FecAccess::setIRQ ( keyType index, bool enable, tscType8 vmeLevel ) throw (
   case FECUSB:
     // Not IRQ in USB FEC === fec->setIRQ ( enable ) ;
     break ;
+  case FECUTCA:
+    // No IRQ in Utca FEC === fec->setIRQ ( enable ) ;
+    break ;
   }
 }
 
@@ -2446,6 +2506,9 @@ void FecAccess::setIRQ ( bool enable, tscType8 vmeLevel ) throw (FecExceptionHan
 	break ;
       case FECUSB:
 	// Not IRQ in USB FEC === fec->setIRQ ( enable ) ;
+	break ;
+      case FECUTCA:
+	// No IRQ in UTCA FEC === fec->setIRQ ( enable ) ;
 	break ;
       }
     }
@@ -4919,9 +4982,14 @@ FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool in
       fecBusType = FECUSB ;
       cpt ++ ;
     } 
+    else if (strcasecmp (argv[cpt],"-utca") == 0) { // If a new fecAddress has been set
+      
+      fecBusType = FECUTCA ;
+      cpt ++ ;
+    } 
   }
     
-  if (fecBusType == FECVME) {
+  if (fecBusType == FECVME || fecBusType == FECUTCA) {
 
     // Check if a filename is given
     if ( (cpt < argc) && (argv[cpt][0] != '-') ) {
@@ -4953,7 +5021,12 @@ FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool in
 	return NULL ;
       }
     }
-  } 
+  } else if (fecBusType == FECUTCA){ 
+    if ( (cpt < argc) && (argv[cpt][0] != '-') ) {
+      vmeFileName = argv[cpt] ;
+      cpt++ ;
+    }
+  }
     
   // Create the FEC Access
   switch ( fecBusType ) {
@@ -4983,7 +5056,7 @@ FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool in
     }
     break ;
   }
-  case FECUSB:
+  case FECUSB: {
     // FEC usb
     hashMapFecUsbSerial theMap; 
 
@@ -4994,7 +5067,11 @@ FecAccess *FecAccess::createFecAccess ( int argc, char **argv, int *cnt, bool in
     fecAccess = new FecAccess (theMap, forceAck, initFec, true, false, (tscType16)i2cSpeed, invertClockPolarity) ;
     break ;
   }
-    
+  case FECUTCA:// FEC uTCA
+    fecAccess = new FecAccess(vmeFileName, fecHardwareId, forceAck, initFec, true, false, (tscType16)i2cSpeed, invertClockPolarity);
+    break;
+  }//switch
+
   if (!fecAccess) {
     std::cerr << "Creation of FecAccess failed. fecAccess pointer null." << std::endl ; 
     return NULL ;

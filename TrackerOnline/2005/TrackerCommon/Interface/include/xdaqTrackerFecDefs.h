@@ -58,6 +58,9 @@
 #define FEC_RECONFIGURING     0x29 // Reconfigure hardware
 
 #define DBCLIENT_DATABASECHANGED 0x2a // FEC DB changed
+#define FEC_INCREMENT_DELAY_STEP             0x41
+#define FEC_SET_DELAY_PARAMETERS             0x42
+#define FEC_START_DELAY_MAP                  0x43
 
 // Multiple frames commands
 #define APV_SETALLVALUES         0x100  // Set all the APV with the description set in the message

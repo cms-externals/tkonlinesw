@@ -5,7 +5,7 @@ NONSTDSRC=$(wildcard ../Fed9UNonStd/$(SRC)/*.cc)
 CUSTOMOBJECTS= $(patsubst ../Fed9UNonStd/$(SRC)/%.cc, ../Fed9UNonStd/$(OBJ)/%.o, $(NONSTDSRC))
 
 include ../Makefile.in
-include ../Makevars
+include ../Makevars.noroot
 include ../Makerules
 
 header: $(INC)/Fed9UDeviceFactoryLib.hh

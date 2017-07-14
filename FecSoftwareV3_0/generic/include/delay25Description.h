@@ -233,7 +233,7 @@ class delay25Description: public deviceDescription {
   /** \brief Display the APV values where the comparison is different
    * \param delay25 - uploaded values
    */
-  void displayDifferences ( delay25Description &delay25 ) ;
+  void displayDifferences ( delay25Description &delay25,std::ostream & ss = std::cout);
 
   /** \brief Display the DELAY25 values
    */

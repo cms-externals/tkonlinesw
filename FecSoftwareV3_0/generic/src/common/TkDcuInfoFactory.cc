@@ -18,7 +18,7 @@
   Copyright 2002 - 2003, Frederic DROUHIN - Universite de Haute-Alsace, Mulhouse-France
 */
   
-#define DEBUGMSGERROR
+  //#define DEBUGMSGERROR
 
 #include <iostream>
 

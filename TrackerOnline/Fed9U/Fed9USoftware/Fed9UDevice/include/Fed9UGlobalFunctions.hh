@@ -128,7 +128,7 @@ namespace Fed9U {
     try {
       //Construct a Fed9UDevice object from the description that we have been given.                                                                                                                                                                                                
       //This gives us access to the FED.                                                                                                                                                                                                                                            
-      Fed9UDevice Fed(*desc);
+      Fed9UDevice Fed(*desc,desc->getCrateNumber());
       mess << "constructed fed in thread " << *runningFirmwareUpdate << '\n';
       Fed9UMessage<Fed9UDebugLevel>(FED9U_DEBUG_LEVEL_DETAILED) << mess.str();
       mess.str("");

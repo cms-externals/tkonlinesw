@@ -10,9 +10,10 @@ Mulhouse-France
 #ifndef GOHDEFINITION_H
 #define GOHDEFINITION_H
 
-// This file defined all the offset for GOH registers
+// This file defines all the offset for GOH registers
 
-// Note that the PACEAMs are accessible in normal mode (I2C)
+// Note that the GOHs are accessible in normal mode (I2C)
+// through indirect addressing
 
 #define GOH_REG_NUM 6 
 

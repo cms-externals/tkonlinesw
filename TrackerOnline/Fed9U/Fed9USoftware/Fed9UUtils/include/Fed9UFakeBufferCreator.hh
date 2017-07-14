@@ -23,7 +23,8 @@ namespace Fed9U {
     /** Default constructor. */
     Fed9UFakeBufferCreator() : _mode(FED9U_EVENT_MODE_FAKE_FULL), _size(0) {};
     /** Standard constructor. */
-    Fed9UFakeBufferCreator(istream & is);
+    //added new parameter, see .C file for details (8/18/2015 AAB)
+    Fed9UFakeBufferCreator(istream & is, int uniqueChannels = 1);
 
     /** Default destructor. */
     ~Fed9UFakeBufferCreator();

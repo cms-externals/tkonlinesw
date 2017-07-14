@@ -100,7 +100,17 @@
   <xs:enumeration value="ZERO_LITE"/>
   <xs:enumeration value="FAKE_ZERO_LITE"/>
   <xs:enumeration value="NORMAL"/>
- </xs:restriction>
+  <xs:enumeration value="FAKE_HI_LO"/>
+  <xs:enumeration value="ZERO_LITE_HI_LO"/>
+  <xs:enumeration value="FAKE_ZERO_LITE_HI_LO"/>
+  <xs:enumeration value="NORMAL_HI_LO"/>
+  <xs:enumeration value="FAKE_LO"/>
+  <xs:enumeration value="ZERO_LITE_LO"/>
+  <xs:enumeration value="FAKE_ZERO_LITE_LO"/>
+  <xs:enumeration value="NORMAL_LO"/>
+  <xs:enumeration value="FAKE_10"/>
+  <xs:enumeration value="NORMAL_10"/>
+   </xs:restriction>
 </xs:simpleType>
 
 <xs:simpleType name="scopeLengthType">

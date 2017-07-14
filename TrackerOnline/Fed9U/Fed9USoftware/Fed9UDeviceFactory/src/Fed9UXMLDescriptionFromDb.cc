@@ -79,7 +79,7 @@ namespace Fed9U {
 
   // method to get the input source from the database 
   // FD change to include the masking version
-  xercesc::DOMInputSource* Fed9UXMLDescriptionFromDb::getDatabaseDOMInputSource( i16 fedId, bool hardwareId,  int versionMajor , int versionMinor, std::string partition, int maskMajor, int maskMinor) {    
+  xercesc::DOMLSInput* Fed9UXMLDescriptionFromDb::getDatabaseDOMInputSource( i16 fedId, bool hardwareId,  int versionMajor , int versionMinor, std::string partition, int maskMajor, int maskMinor) {    
     ICUTILS_VERIFYX(fedId>=0 || partition !="null",Fed9UXMLDescriptionException)(countApvs).code(Fed9UXMLDescriptionException::ERROR_INCORRECT_USAGE).error().msg("if you are using no fedid you must have a partition!");
     //download the FED parameters from the database  
     oracle::occi::Clob *xmlClob = NULL;  
@@ -88,7 +88,7 @@ namespace Fed9U {
       free((void*)xmlBuffer_);
     }
     xmlBuffer_ = NULL;
-    xercesc::DOMInputSource* domInputSource;
+    xercesc::DOMLSInput* domInputSource;
     std::string xmlBufferId = "xmlBuffer" ;
 
     // if versionMajor is -1 or 0 then we get the latest version.
@@ -179,7 +179,7 @@ namespace Fed9U {
       //reset document pool
       theDOMBuilder->resetDocumentPool();
       //     debugOutput_=true;
-      xercesc::DOMInputSource* domInputSource = NULL;
+      xercesc::DOMLSInput* domInputSource = NULL;
       if (debugOutput_) {
 	std::cout << "About to download buffer!!!" << std::dec << std::endl;
 	std::cout << "Parameters are: fedid = " << fedId 
@@ -196,13 +196,13 @@ namespace Fed9U {
 	//Some debug code to look at the xml buffer
 	XMLByte *xmlBuffer1 = NULL;
 	xmlBuffer1 = (XMLByte *) calloc(xmlBufferLength+1, sizeof(char));
-	xercesc::BinInputStream* bob = domInputSource->makeStream();
+	xercesc::BinInputStream* bob = ((xercesc::InputSource *)domInputSource)->makeStream();
 	bob->readBytes(xmlBuffer1,1000);//xmlBufferLength);
 	xmlBuffer1[242] = ' ';
 	std::cout << xmlBuffer1 << std::endl;
       }
 
-      doc = theDOMBuilder->parse(*domInputSource);
+      doc = theDOMBuilder->parse(domInputSource);
       if (debugOutput_) {
 	std::cout << "Just finished parsking dom" << std::endl;
       }

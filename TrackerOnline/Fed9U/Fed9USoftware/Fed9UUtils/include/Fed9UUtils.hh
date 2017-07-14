@@ -189,8 +189,8 @@ namespace Fed9U {
    *    The amount of data recorded is deteermined by the scope length setting (Fed9UABC::setScopeLength).
    * There is an additional mode (FED9U_MODE_SPY) used in Fed9UEvent to signal that the event contins spy channel data.
    */
-  enum Fed9UDaqMode     { FED9U_MODE_PROCESSED_RAW, FED9U_MODE_ZERO_SUPPRESSED,
-		          FED9U_MODE_VIRGIN_RAW,    FED9U_MODE_SCOPE, FED9U_MODE_SPY, FED9U_MODE_NONE };
+  enum Fed9UDaqMode     { FED9U_MODE_PROCESSED_RAW, FED9U_MODE_ZERO_SUPPRESSED, 
+		          FED9U_MODE_VIRGIN_RAW, FED9U_MODE_SCOPE, FED9U_MODE_SPY, FED9U_MODE_NONE };
 
   /**
    * \brief Specifies an addition data acquision (DAQ) mode to the DAQ modes defined in Fed9UDaqMode.
@@ -202,7 +202,10 @@ namespace Fed9U {
    * \li FED9U_SUPER_MODE_FAKE_ZERO_LITE Fake events are sent in lite zero suppression mode.
    * \li FED9U_SUPER_MODE_NORMAL No changes are made to the DAQ mode and the FED expects events from the optical inputs.
    */
-  enum Fed9UDaqSuperMode     { FED9U_SUPER_MODE_FAKE, FED9U_SUPER_MODE_ZERO_LITE, FED9U_SUPER_MODE_FAKE_ZERO_LITE, FED9U_SUPER_MODE_NORMAL };
+  enum Fed9UDaqSuperMode     { FED9U_SUPER_MODE_FAKE, FED9U_SUPER_MODE_ZERO_LITE, FED9U_SUPER_MODE_FAKE_ZERO_LITE, FED9U_SUPER_MODE_NORMAL, // default modes strip top two highest bits in ZS
+							   FED9U_SUPER_MODE_FAKE_HI_LO, FED9U_SUPER_MODE_ZERO_LITE_HI_LO, FED9U_SUPER_MODE_FAKE_ZERO_LITE_HI_LO, FED9U_SUPER_MODE_NORMAL_HI_LO,	//HI_LO indicates stripping 1 hi and 1 low BIT for ZS
+							   FED9U_SUPER_MODE_FAKE_LO, FED9U_SUPER_MODE_ZERO_LITE_LO, FED9U_SUPER_MODE_FAKE_ZERO_LITE_LO, FED9U_SUPER_MODE_NORMAL_LO, // LO only indicates stripping lowest two bits in ZS
+							   FED9U_SUPER_MODE_FAKE_10, FED9U_SUPER_MODE_NORMAL_10, FED9U_SUPER_MODE_ZERO_LITE_10, FED9U_SUPER_MODE_FAKE_ZERO_LITE_10 }; // 10 bit readout we no longer strip any bits in ZS and in VR we pack 10 bits instead of 16 to reduce event size
 
   /**
    * \brief Defines the types of trigger that the FED can use.
@@ -6705,7 +6708,7 @@ protected:
   
   
   xercesc::DOMDocument *doc;
-  xercesc::DOMBuilder *theDOMBuilder;
+  xercesc::DOMLSParser *theDOMBuilder;
   Fed9UDOMCountErrorHandler errorHandler;
 
   std::string theXMLOverideFile;
@@ -7019,7 +7022,8 @@ namespace Fed9U {
     void getStripDataBuffer(char * stripsBuf) throw (Fed9UXMLDescriptionException);
 
     xercesc::DOMDocument *doc;                                    //!< DOM document where the XML data is to be stored.
-    xercesc::DOMWriter *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.
+    xercesc::DOMLSSerializer *theDOMWriter;                             //!< DOM writer object to write the data in the XML format.
+    xercesc::DOMLSOutput *theDOMOutput;
     Fed9UDOMCountErrorHandler errorHandler;              //!< Fed9U DOM error handler used to detect errors and print the error strings.
     std::string theTargetXMLFileName;                         //!< Name of the XML file to be written to.
     Fed9UDescription &theFed9UDescription;               //!< Fed9UDescription object that is currently being dealt with.
@@ -7092,15 +7096,26 @@ namespace Fed9U {
    *
    * The packet code represents the data acquision (DAQ) mode that the event was taken in. Possible values are:
    * \li FED9U_PACKET_SCOPE Taken in scope mode.
-   * \li FED9U_PACKET_FRAME Taken in frame finding mode.
    * \li FED9U_PACKET_VIRGRAW Taken in virgin raw mode.
    * \li FED9U_PACKET_ZEROSUPP Taken in zero suppressed mode.
    * \li FED9U_PACKET_PROCRAW Taken in processed raw data mode.
-   *
+   * \li FED9U_PACKET_VIRGRAW_10BIT packed in 10 bit, valid for both ZS and VR only
+   * \li FED9U_PACKET_ZEROSUPP_10BIT packed in 10 bit, valid for both ZS and VR only
+   * \li FED9U_PACKET_ZEROSUPP_LO Valid for ZS only, here we striped the lowest 2 bits of the 10 bit data to pack into 8 bits
+   * \li FED9U_PACKET_ZERO_SUPP_HI_LO Valid for ZS only, here we stripped 1 upper and 1 lower bit to pack 10 into 8 bits. 
+   * A. Baty: Added VR bit stripped versions (7/7/2015)
+   
    * More details of the different types of DAQ mode can be found in the CMS FED FE FPGA documentation.
    */
-  enum { FED9U_PACKET_SCOPE = 1, FED9U_PACKET_FRAME = 2, FED9U_PACKET_VIRGRAW = 4,
-         FED9U_PACKET_ZEROSUPP = 8, FED9U_PACKET_PROCRAW = 16
+  enum { FED9U_PACKET_SCOPE = 0xE1, FED9U_PACKET_VIRGRAW = 0xE6, FED9U_PACKET_VIRGRAW_10BIT = 0x86,
+         FED9U_PACKET_ZEROSUPP = 0xEA, FED9U_PACKET_PROCRAW = 0xF2, FED9U_PACKET_ZEROSUPP_10BIT = 0x8A,
+	     FED9U_PACKET_ZEROSUPP_LO = 0xCA, FED9U_PACKET_ZEROSUPP_HI_LO = 0xAA,
+//Added for bit stripped moded (AAB 8/24/2015) 
+             FED9U_PACKET_PROCRAW_10BIT = 0x92,
+             FED9U_PACKET_PROCRAW_8BIT_HI_LO = 0xB2,
+             FED9U_PACKET_PROCRAW_8BIT_LO = 0xD2,
+             FED9U_PACKET_VIRGRAW_8BIT_HI_LO = 0xA6,
+             FED9U_PACKET_VIRGRAW_8BIT_LO = 0xC6
   };
   
   /** 
@@ -7359,7 +7374,12 @@ namespace Fed9U {
      */
     u16 getMedian(unsigned apv) const {
       ICUTILS_VERIFY(apv <= 1)(apv).error();
-      ICUTILS_VERIFY(getPacketCode() & FED9U_PACKET_ZEROSUPP)(getPacketCode()).error();
+      ICUTILS_VERIFY(
+						getPacketCode() == FED9U_PACKET_ZEROSUPP ||
+					    getPacketCode() == FED9U_PACKET_ZEROSUPP_10BIT ||
+						getPacketCode() == FED9U_PACKET_ZEROSUPP_LO ||
+						getPacketCode() == FED9U_PACKET_ZEROSUPP_HI_LO
+						)(getPacketCode()).error();
       return _data.getu16(3 + apv*2);
     }
 
@@ -7968,7 +7988,8 @@ namespace Fed9U {
     /** Default constructor. */
     Fed9UFakeBufferCreator() : _mode(FED9U_EVENT_MODE_FAKE_FULL), _size(0) {};
     /** Standard constructor. */
-    Fed9UFakeBufferCreator(istream & is);
+    //added new parameter, see .C file for details (8/18/2015 AAB)
+    Fed9UFakeBufferCreator(istream & is, int uniqueChannels = 1);
 
     /** Default destructor. */
     ~Fed9UFakeBufferCreator();
@@ -8246,7 +8267,17 @@ namespace Fed9U {
     /** The different possible packet codes for the different data formats.  ZS LITE is not included as the packet code
 	is not stored in this data format.*/
     enum { FED9U_PACKET_SCOPE = 5, FED9U_PACKET_VIRGRAW = 6, FED9U_PACKET_ZEROSUPP = 10, FED9U_PACKET_PROCRAW = 18 };
-    
+    //AAB updated with more modes AAB (12/8/205)
+    enum { FED9U_PACKET_SCOPE_hex = 0xE1, FED9U_PACKET_VIRGRAW_hex = 0xE6, FED9U_PACKET_VIRGRAW_10BIT = 0x86,
+         FED9U_PACKET_ZEROSUPP_hex = 0xEA, FED9U_PACKET_PROCRAW_hex = 0xF2, FED9U_PACKET_ZEROSUPP_10BIT = 0x8A,
+         FED9U_PACKET_ZEROSUPP_LO = 0xCA, FED9U_PACKET_ZEROSUPP_HI_LO = 0xAA,
+         FED9U_PACKET_PROCRAW_10BIT = 0x92,
+         FED9U_PACKET_PROCRAW_8BIT_HI_LO = 0xB2,
+         FED9U_PACKET_PROCRAW_8BIT_LO = 0xD2,
+         FED9U_PACKET_VIRGRAW_8BIT_HI_LO = 0xA6,
+         FED9U_PACKET_VIRGRAW_8BIT_LO = 0xC6
+     };
+        
     /** Private method which returns the location of two consecutive bits of data.  The data is packed into each 64-bit word 
 	starting from the MSB and running to the LSB, but the access to the data starts from the middle of the 64-bit word, as
 	illustrated:
@@ -8319,7 +8350,8 @@ namespace Fed9U {
       _payload = NULL;      
     };
     /** Constructor for handling fake events.  Uses Fed9UFakeBufferCreator class to construct the buffer.*/
-    Fed9UEventStreamLine(istream & is);
+    //(AAB 8/24/2015) Added support for multiple unique channels loaded in fake events, let uniqueChannels = 1 for other behavior
+    Fed9UEventStreamLine(istream & is, int uniqueChannels);
     /** Constructor for handling real data events */
     Fed9UEventStreamLine(u32 * buffer, const Fed9UDescription * currentDescription);
     /** Default destructor. */
@@ -8588,7 +8620,8 @@ namespace Fed9U {
 	Used by FedDebugSuite and can also be used for fake event input to this class.*/
     void dumpRawBuffer(ostream& os) const;
     /** Provides a prettified text dump of the buffer for debugging purposes.*/
-    void dumpBuffer(ostream& os) const;
+    //Added second and third parameter for FedPatternCheck (AAB 8/24/2015)
+    void dumpBuffer(ostream& os, int modFactor = 1, bool lessOutput = false) const;
     /** This method checks the status of every channel on every enabled FE-FPGA on the FED and reports any error found.*/
     void checkChannelStatuses() const;
 
@@ -10514,7 +10547,8 @@ namespace Fed9U {
     /** Default constructor. */
     Fed9UFakeBufferCreator() : _mode(FED9U_EVENT_MODE_FAKE_FULL), _size(0) {};
     /** Standard constructor. */
-    Fed9UFakeBufferCreator(istream & is);
+    //added new parameter, see .C file for details (8/18/2015 AAB)
+    Fed9UFakeBufferCreator(istream & is, int uniqueChannels = 1);
 
     /** Default destructor. */
     ~Fed9UFakeBufferCreator();
@@ -10792,7 +10826,17 @@ namespace Fed9U {
     /** The different possible packet codes for the different data formats.  ZS LITE is not included as the packet code
 	is not stored in this data format.*/
     enum { FED9U_PACKET_SCOPE = 5, FED9U_PACKET_VIRGRAW = 6, FED9U_PACKET_ZEROSUPP = 10, FED9U_PACKET_PROCRAW = 18 };
-    
+    //AAB updated with more modes AAB (12/8/205)
+    enum { FED9U_PACKET_SCOPE_hex = 0xE1, FED9U_PACKET_VIRGRAW_hex = 0xE6, FED9U_PACKET_VIRGRAW_10BIT = 0x86,
+         FED9U_PACKET_ZEROSUPP_hex = 0xEA, FED9U_PACKET_PROCRAW_hex = 0xF2, FED9U_PACKET_ZEROSUPP_10BIT = 0x8A,
+         FED9U_PACKET_ZEROSUPP_LO = 0xCA, FED9U_PACKET_ZEROSUPP_HI_LO = 0xAA,
+         FED9U_PACKET_PROCRAW_10BIT = 0x92,
+         FED9U_PACKET_PROCRAW_8BIT_HI_LO = 0xB2,
+         FED9U_PACKET_PROCRAW_8BIT_LO = 0xD2,
+         FED9U_PACKET_VIRGRAW_8BIT_HI_LO = 0xA6,
+         FED9U_PACKET_VIRGRAW_8BIT_LO = 0xC6
+     };
+        
     /** Private method which returns the location of two consecutive bits of data.  The data is packed into each 64-bit word 
 	starting from the MSB and running to the LSB, but the access to the data starts from the middle of the 64-bit word, as
 	illustrated:
@@ -10865,7 +10909,8 @@ namespace Fed9U {
       _payload = NULL;      
     };
     /** Constructor for handling fake events.  Uses Fed9UFakeBufferCreator class to construct the buffer.*/
-    Fed9UEventStreamLine(istream & is);
+    //(AAB 8/24/2015) Added support for multiple unique channels loaded in fake events, let uniqueChannels = 1 for other behavior
+    Fed9UEventStreamLine(istream & is, int uniqueChannels);
     /** Constructor for handling real data events */
     Fed9UEventStreamLine(u32 * buffer, const Fed9UDescription * currentDescription);
     /** Default destructor. */
@@ -11134,7 +11179,8 @@ namespace Fed9U {
 	Used by FedDebugSuite and can also be used for fake event input to this class.*/
     void dumpRawBuffer(ostream& os) const;
     /** Provides a prettified text dump of the buffer for debugging purposes.*/
-    void dumpBuffer(ostream& os) const;
+    //Added second and third parameter for FedPatternCheck (AAB 8/24/2015)
+    void dumpBuffer(ostream& os, int modFactor = 1, bool lessOutput = false) const;
     /** This method checks the status of every channel on every enabled FE-FPGA on the FED and reports any error found.*/
     void checkChannelStatuses() const;
 

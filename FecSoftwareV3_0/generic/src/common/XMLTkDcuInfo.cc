@@ -262,8 +262,8 @@ void XMLTkDcuInfo::parseDatabaseResponse(std::string partitionName, unsigned int
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -322,8 +322,8 @@ void XMLTkDcuInfo::parseDatabaseResponse()
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -383,8 +383,8 @@ void XMLTkDcuInfo::parseDatabaseResponse(unsigned int majorVersionId, unsigned i
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -440,8 +440,8 @@ void XMLTkDcuInfo::parseStateDatabaseResponse() throw (FecExceptionHandler){
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -497,8 +497,8 @@ void XMLTkDcuInfo::parseFecVersionsDatabaseResponse(std::string partitionName) t
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -554,8 +554,8 @@ void XMLTkDcuInfo::parseFedVersionsDatabaseResponse(std::string partitionName) t
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -611,8 +611,8 @@ void XMLTkDcuInfo::parseDcuInfoVersionsDatabaseResponse(std::string partitionNam
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -668,8 +668,8 @@ void XMLTkDcuInfo::parseConnectionVersionsDatabaseResponse(std::string partition
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -725,8 +725,8 @@ void XMLTkDcuInfo::parseDcuPsuMapVersionsDatabaseResponse(std::string partitionN
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -782,8 +782,8 @@ void XMLTkDcuInfo::parseMaskVersionsDatabaseResponse(std::string partitionName) 
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -840,8 +840,8 @@ void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName) throw (Fe
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -897,8 +897,8 @@ void XMLTkDcuInfo::parseRunDatabaseResponse() throw (FecExceptionHandler){
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -955,8 +955,8 @@ void XMLTkDcuInfo::parseRunDatabaseResponse(std::string partitionName, int runNu
 #endif
 
 	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;
@@ -1012,8 +1012,8 @@ void XMLTkDcuInfo::parseLastRunO2ODatabaseResponse(std::string partitionName) th
 #endif
 
        	XERCES_CPP_NAMESPACE::InputSource *xmlInputSource = createInputSource(xmlClob, xmlBufferId);
-	XERCES_CPP_NAMESPACE::DOMInputSource *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
-	domDocument_ = parser_->parse(*domInputSource) ;
+	XERCES_CPP_NAMESPACE::DOMLSInput *domInputSource = new XERCES_CPP_NAMESPACE::Wrapper4InputSource((XERCES_CPP_NAMESPACE::InputSource*)xmlInputSource) ;
+	domDocument_ = parser_->parse(domInputSource) ;
 	delete domInputSource ;
       } else {
 	domDocument_ = NULL ;

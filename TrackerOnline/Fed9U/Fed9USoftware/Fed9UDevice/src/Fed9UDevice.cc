@@ -881,7 +881,11 @@ namespace Fed9U {
         }
           stopAtEnd = true;
       }
+      // have to set the readroute to SLINK and then return it aftewards. 
+      Fed9UReadRoute currentReadRoute = getBeFpgaReadRoute();
+      setBeFpgaReadRoute(FED9U_ROUTE_SLINK64);
       setTestRegister(theLocalFedSettings.getTestRegister() | 0x02); // this forces the fed to ignore backpressure and therefore purge all events
+      setBeFpgaReadRoute(currentReadRoute);
       oldCounters = getCounters();
       do {
         counters = getCounters();

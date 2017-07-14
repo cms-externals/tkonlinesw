@@ -109,7 +109,17 @@ namespace Fed9U {
     /** The different possible packet codes for the different data formats.  ZS LITE is not included as the packet code
 	is not stored in this data format.*/
     enum { FED9U_PACKET_SCOPE = 5, FED9U_PACKET_VIRGRAW = 6, FED9U_PACKET_ZEROSUPP = 10, FED9U_PACKET_PROCRAW = 18 };
-    
+    //AAB updated with more modes AAB (12/8/205)
+    enum { FED9U_PACKET_SCOPE_hex = 0xE1, FED9U_PACKET_VIRGRAW_hex = 0xE6, FED9U_PACKET_VIRGRAW_10BIT = 0x86,
+         FED9U_PACKET_ZEROSUPP_hex = 0xEA, FED9U_PACKET_PROCRAW_hex = 0xF2, FED9U_PACKET_ZEROSUPP_10BIT = 0x8A,
+         FED9U_PACKET_ZEROSUPP_LO = 0xCA, FED9U_PACKET_ZEROSUPP_HI_LO = 0xAA,
+         FED9U_PACKET_PROCRAW_10BIT = 0x92,
+         FED9U_PACKET_PROCRAW_8BIT_HI_LO = 0xB2,
+         FED9U_PACKET_PROCRAW_8BIT_LO = 0xD2,
+         FED9U_PACKET_VIRGRAW_8BIT_HI_LO = 0xA6,
+         FED9U_PACKET_VIRGRAW_8BIT_LO = 0xC6
+     };
+        
     /** Private method which returns the location of two consecutive bits of data.  The data is packed into each 64-bit word 
 	starting from the MSB and running to the LSB, but the access to the data starts from the middle of the 64-bit word, as
 	illustrated:

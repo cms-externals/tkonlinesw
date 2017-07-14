@@ -352,6 +352,21 @@ tscType8 paceAccess::getUpsetReg ( ) {
    return (accessToFec_->read (accessKey_,(PACE_UPSET_REG<<1)|PACE_READ)) ;
 }
 
+/** Take a description value of a delta a build a block of frames to be set in the hardware
+ * \param paceValues - all the values for a paceam chip
+ * \param vAccess - block of frames
+ */
+void paceAccess::getBlockWriteValues ( class paceDescription& paceValues, accessDeviceTypeList &vAccess ) {
+
+  for(int i = 0 ; i < PACE_REG_NUM ; i++) {
+    if (!ro_[i]) { // if not read-only
+      // accessToFec_->write (accessKey_, (reg << 1), val) ;
+      accessDeviceType setIt = { getKey(), RALMODE, MODE_WRITE, (tscType16)(i << 1), paceValues.getValue(i), false, 0, 0, 0, NULL} ;
+      vAccess.push_back (setIt) ;
+    }
+  }
+}
+
 
 
 const char* paceAccess::names[] = { "CR" , "Latency" , "ChipID0","ChipID1","Vmemref",

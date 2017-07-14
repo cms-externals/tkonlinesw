@@ -15,7 +15,9 @@ using namespace std;
 
 namespace Fed9U {
 
-  Fed9UFakeBufferCreator::Fed9UFakeBufferCreator(istream & is) : _mode(FED9U_EVENT_MODE_FAKE_FULL), _size(0) {
+//added support for multiple channels (unique channels must divide 96 evenly) (AAB 8/18/2015)
+//passing in a '1' for "unique channels" gives the old performance
+  Fed9UFakeBufferCreator::Fed9UFakeBufferCreator(istream & is, int uniqueChannels) : _mode(FED9U_EVENT_MODE_FAKE_FULL), _size(0) {
     // fileType can be 0, 49 or 50.  0 means binary full raw event buffer, 49 means single APV frame file in text, 
     // 50 means full FED data in text read back from Fake Event registers.
     u8 fileType;
@@ -44,13 +46,15 @@ namespace Fed9U {
       
       vector<u16> samples;
       u16 sample;
-      for (u32 i = 0 ; i < 256 ; i ++ ) {
+
+      //changed to support loading in more than 1 unique channel if wanted (AAB 8/18/2015)
+      for (u32 i = 0 ; i < 256*uniqueChannels ; i ++ ) {
 	is >> sample;
 	samples.push_back(sample);
       }
       
-      for ( u32 j = 0 ; j < 96 ; j ++ ) {
-	for (u32 i = 0 ; i < 256 ; i ++ ) {
+      for ( u32 j = 0 ; j < 96/uniqueChannels ; j ++ ) {
+	for (u32 i = 0 ; i < 256*uniqueChannels ; i ++ ) {
 	  data_buffer.push_back(samples[i]);
 	}
       }

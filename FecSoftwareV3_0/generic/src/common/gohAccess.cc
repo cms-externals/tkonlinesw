@@ -210,6 +210,25 @@ tscType8 gohAccess::getStatus1 ( )  {
    return (accessToFec_->readOffset (accessKey_, GOH_DATA_OFFSET)) ;
 }
 
+/** Take a description value of a goh and build a block of frames to be set in the hardware
+ * \param gohValues - all the values for a goh chip
+ * \param vAccess - block of frames
+ */
+void gohAccess::getBlockWriteValues ( class gohDescription& gohValues, accessDeviceTypeList &vAccess ) {
+
+  for(int i = 0 ; i < GOH_REG_NUM ; i++) { 
+    if (!ro_[i]) { // if not read-only
+      // accessToFec_->write (accessKey_, (reg << 1), val) ;
+      accessDeviceType setIt = { getKey(), NORMALMODE, MODE_WRITE, GOH_ADDRESS_OFFSET, 
+				 offset_[i], false, 0, 0, 0, NULL} ;
+      vAccess.push_back (setIt) ;
+      accessDeviceType setItData = { getKey(), NORMALMODE, MODE_WRITE, GOH_DATA_OFFSET, 
+				 gohValues.getValue(i), false, 0, 0, 0, NULL} ;
+      vAccess.push_back (setItData) ;
+    } 
+  }
+}
+
 const char* gohAccess::names[] = { "Control0" , "Control1" , "Control2","Control3",
 				   "Status0","Status1"} ; 
 const tscType8 gohAccess::rmask_[] = { 
@@ -217,6 +236,11 @@ const tscType8 gohAccess::rmask_[] = {
 
 const bool gohAccess::ro_[] = { 
   false,false, false, false, true, true };
+
+const tscType8 gohAccess::offset_[] = { 
+  GOH_CONTROL_0,GOH_CONTROL_1,
+  GOH_CONTROL_2,GOH_CONTROL_3,
+  GOH_STATUS_0,GOH_STATUS_1 }; 
 
  
 

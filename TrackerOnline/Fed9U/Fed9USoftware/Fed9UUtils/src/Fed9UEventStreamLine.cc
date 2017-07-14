@@ -35,7 +35,8 @@ namespace Fed9U {
   }
 
   // Constructor for fake data
-  Fed9UEventStreamLine::Fed9UEventStreamLine(istream & is) : _fedDescription(0), _rubbish(0), _bufferLength(0), _deleteBuffer(true) {
+  // Added support for multiple channels if wanted(8/26/2015 AAB)
+  Fed9UEventStreamLine::Fed9UEventStreamLine(istream & is, int uniqueChannels = 1) : _fedDescription(0), _rubbish(0), _bufferLength(0), _deleteBuffer(true) {
     fakeBuffer = NULL;
     _daqHeader = NULL;
     _trackerHeader = NULL;
@@ -45,7 +46,7 @@ namespace Fed9U {
     
     _eventFormat = FED9U_EVENT_FORMAT_STANDARD;
     _headerFormat = FED9U_HEADER_FULLDEBUG;
-    fakeBuffer = new Fed9UFakeBufferCreator(is);
+    fakeBuffer = new Fed9UFakeBufferCreator(is, uniqueChannels);
     setEventDataMode(fakeBuffer->getDataMode());
     Init(fakeBuffer->getPointerToBuffer(),NULL);
   }
@@ -340,7 +341,7 @@ namespace Fed9U {
       break;
     default:
       ICUTILS_VERIFYX(false, Fed9UEventStreamLineException)(getTrackerEventType()).error().code(Fed9UEventStreamLineException::ERROR_DAQ_MODE_UNKNOWN)
-	.msg("Unrecognised event type");
+	.msg("Unrecognised event type"); 
     }
   }
 
@@ -425,34 +426,64 @@ namespace Fed9U {
   
   // JEC 15/8/06 - dump the raw buffer in a 64-bit hex format
   // <JEC date=02/04/07> modified to make it more like the old version in Fed9UEvent
-  void Fed9UEventStreamLine::dumpBuffer(ostream& os) const {
-    printValue(os, "DAQ Event Number", getEventNumber(), 24);
-    printValue(os, "DAQ Bunch Crossing", getBunchCrossingNumber(), 12);
-    printValue(os, "DAQ Event Type", getDaqEventType(), 4);
-    printValue(os, "DAQ Source Id", getSourceId(), 12);
-    printValue(os, "DAQ Format Version", getDaqFormatVersion(), 4);
-    printValue(os, "DAQ Total Length", getTotalDataLength(), 24);
-    printValue(os, "DAQ CRC", getCrc());
-    printValue(os, "Calculated CRC", calcCrc());
+  // AAB 8/26/2015  Changed output to decimal and also added 'lessOutput' option for FedPatternCheck.cc
+  void Fed9UEventStreamLine::dumpBuffer(ostream& os, int modFactor, bool lessOutput) const {
+    if(!lessOutput) 
+    {
+      printValue(os, "DAQ Event Number", getEventNumber(), 24);
+      printValue(os, "DAQ Bunch Crossing", getBunchCrossingNumber(), 12);
+      printValue(os, "DAQ Event Type", getDaqEventType(), 4);
+      printValue(os, "DAQ Source Id", getSourceId(), 12);
+      printValue(os, "DAQ Format Version", getDaqFormatVersion(), 4);
+      printValue(os, "DAQ Total Length", getTotalDataLength(), 24);
+      printValue(os, "DAQ CRC", getCrc());
+      printValue(os, "Calculated CRC", calcCrc());
+    }
     
     for (u32 f = 0; f < 8; f++) {
       if (getFeUnitEnable(8 - f)) {
 	os << "\nFeUnit " << static_cast<int>(Fed9UAddress().setFedFeUnit(f).getExternalFedFeUnit()) << flush;
-	os << ", Pipeline " << static_cast<int>(_feUnits[f].getMajorityPipelineAddress()) << flush;
-	os << ", Length " << _feUnits[f].getUnitDataLengthFromPayload() << endl;
+        if(!lessOutput)	os << ", Pipeline " << static_cast<int>(_feUnits[f].getMajorityPipelineAddress()) << flush;
+        if(!lessOutput)	os << ", Length " << _feUnits[f].getUnitDataLengthFromPayload() << endl;
 	os << "Ch  PC St  Len  Num  ..." << endl;
 	for (u32 c = 0; c < 12; c++) {
 	  u32 channel = 12 - c;
-	  os << setw(2) << setfill(' ') << static_cast<int>(Fed9UAddress().setFedFeUnit(f).setFeUnitChannel(c).getExternalFeUnitChannel()) << ": "
-	     << setw(2) << hex << static_cast<int>(_feUnits[f].getPacketCode(channel))
-	     << ' ' << setw(2) << static_cast<int>(_feUnits[f].getChannelStatus(channel))
-	     << ' ' << setw(4) << dec << _feUnits[f].getChannelDataLength(channel) << ' '
-	     << setw(4) << _feUnits[f].getSamples(channel) << endl;
+	  os << setw(2) << setfill(' ') << static_cast<int>(Fed9UAddress().setFedFeUnit(f).setFeUnitChannel(c).getExternalFeUnitChannel()) << ": ";
+	if(!lessOutput)     os << setw(2) << hex << static_cast<int>(_feUnits[f].getPacketCode(channel));
+	     os << ' ' << setw(2) << static_cast<int>(_feUnits[f].getChannelStatus(channel));
+	if(!lessOutput)     os << ' ' << setw(4) << dec << _feUnits[f].getChannelDataLength(channel) << ' ';
+	     os << setw(4) << _feUnits[f].getSamples(channel) << endl;
 	  os << "data ..." << endl;
 	  vector<u16> samples = _feUnits[f].getSample(channel);
 	  for (u32 d = 0; d < samples.size(); d++) {
-	    os << hex << "0x" << std::setfill('0') << std::setw(3) << static_cast<u32>(samples[d]) << dec << " ";
-	    if (((d+1) % 8) == 0) {os << endl;}
+            //AAB 8/26/2015 old default commented below
+	    //os << hex << "0x" << std::setfill('0') << std::setw(3) << static_cast<u32>(samples[d]) << dec << " ";
+          
+          //Added some if statements here for FedPatternCheck.  'Normal' running w/ FedDebugSuite will skip to the last else statement ('normal' output)
+          if(modFactor==2 &&  (static_cast<u32>(samples[d]))>=508 && (static_cast<u32>(samples[d]))<1023)
+          {
+            //for modes dropping 1 high bit
+            os << dec << std::setw(4) << 508 << dec << " "; 
+          }
+          else if(modFactor==2 && (static_cast<u32>(samples[d]))==1023)
+          {
+             //for modes dropping 1 high bit w/ saturated signal
+             os << dec << std::setw(4) << 510 << dec << " ";
+          }
+          else if(modFactor==-1)
+          {
+             //for ZS modes, which reorganize the data, have 8 bits total, and display saturated signals as 255-median
+             int samp = samples[2*(4*((static_cast<int>((static_cast<float>(d%128)/8.0)))%4) + static_cast<int>(static_cast<float>(d%128)/32.0) + 16*((d%128)%8))+(d>127?1:0)]-1;
+             if(samp<0) os << dec << std::setw(4) << 0 << dec << " ";
+             else if(samp>254) os << dec << std::setw(4) << 254 << dec << " ";
+             else os << dec << std::setw(4) << samp << dec << " ";
+          }
+          else  //modes going from 0 to 1023 fully
+          {
+            os << dec << std::setw(4) << (static_cast<u32>(samples[d]))-(static_cast<u32>(samples[d]))%modFactor << dec << " ";
+          }
+	    //Added more numbers per line (AAB 8/26/2015)
+	    if (((d+1) % 32) == 0) {os << endl;}
 	  }
 	  os << endl;
 	}
